@@ -159,3 +159,8 @@ The [current improvement cycle](docs/IMPROVEMENTS.md) tracks follow-up work from
 the live review. Saves now synchronize between tabs and reject stale writes;
 advanced lessons require their full objective and replacement timers begin only
 when confirmed.
+
+Practice highlights the current destination, corrects wrong selections, and
+requires the demonstrated result. Completing a lesson offers a real Easy game
+with optional coaching. Hint previews include a “Why this works” breakdown.
+The [beginner study](docs/BEGINNER_STUDY.md) is prepared but has not been run.

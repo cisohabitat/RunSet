@@ -8,6 +8,7 @@ export interface Player {
   melded: boolean;
 }
 export interface GameOptions {
+  coach?: boolean;
   target?: 0 | 100 | 200 | 500;
   turnSeconds?: 0 | 60 | 120;
   now?: number;
@@ -19,6 +20,7 @@ export interface Match {
   rounds: { scores: number[]; winner: number }[];
 }
 export interface GameState {
+  coach?: boolean;
   version: 1;
   seed: number;
   players: Player[];
@@ -39,7 +41,15 @@ export interface GameState {
 }
 export type Action = (
   | { type: "move"; ids: number[]; target: string }
-  | { type: "draw" | "endTurn" | "resetTurn" | "undo" | "nextRound" }
+  | {
+      type:
+        | "draw"
+        | "endTurn"
+        | "resetTurn"
+        | "undo"
+        | "nextRound"
+        | "dismissCoach";
+    }
   | { type: "sortRack"; by: "color" | "number" }
   | { type: "botTurn" | "applyPlan"; table: Meld[] }
   | { type: "tick"; now: number }
@@ -89,6 +99,7 @@ export function newGame(
     log: ["The tiles are dealt. Let’s make a little magic."],
     turn: 1,
     notice: "",
+    ...(options.coach ? { coach: true } : {}),
     ...(options.target
       ? {
           match: {
@@ -190,6 +201,7 @@ function advance(
 }
 export function reducer(state: GameState, action: Action): GameState {
   if (action.type === "nextRound") return nextRound(state, action.at ?? 0);
+  if (action.type === "dismissCoach") return { ...state, coach: false };
   if (state.phase === "over") return state;
   if (action.type === "tick") {
     if (!state.turnSeconds || !state.deadline || action.now < state.deadline)

@@ -515,7 +515,7 @@ export default function App() {
         >
           <Tutorial
             onExit={() => setScreen("home")}
-            onPlay={() => start("You", 1, "easy")}
+            onPlay={() => start("You", 1, "easy", { coach: true })}
           />
         </Suspense>
       )}

@@ -48,3 +48,15 @@ export function lessonComplete(lesson: Lesson, s: GameState): boolean {
   if (lesson === "rearrange") return has([0, 1, 2]) && has([3, 4, 5, 6]);
   return false;
 }
+
+/** Exact first-lesson objectives; tile presence in an invalid pile is insufficient. */
+export function basicProgress(s: GameState): 0 | 1 | 2 {
+  const has = (ids: number[]) =>
+    s.table.some(
+      (m) =>
+        m.tiles.length === ids.length &&
+        ids.every((id) => m.tiles.includes(id)) &&
+        inspectMeld(m.tiles).valid,
+    );
+  return !has([9, 35, 61]) ? 0 : has([0, 1, 2]) ? 2 : 1;
+}

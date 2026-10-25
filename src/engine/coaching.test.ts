@@ -52,3 +52,16 @@ it("rejects an invalid hint without drawing or changing anything", () => {
     reducer(s, { type: "applyPlan", table: [{ id: "bad", tiles: [9, 9, 9] }] }),
   ).toEqual(s);
 });
+
+it("explains patterns and points without relying on opponent racks", () => {
+  const hint = planHint(practiceGame());
+  expect(hint.explanations?.length).toBeGreaterThan(1);
+  expect(hint.explanations?.some((text) => text.includes("30-point"))).toBe(
+    true,
+  );
+  expect(
+    hint.explanations?.some(
+      (text) => text.startsWith("Group:") || text.startsWith("Run:"),
+    ),
+  ).toBe(true);
+});

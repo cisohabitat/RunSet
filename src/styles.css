@@ -2584,3 +2584,178 @@ button:not(.tile) {
     max-height: none;
   }
 }
+/* Practice gives the current exercise and its controls one shared workspace. */
+.practice-layout.playing {
+  height: calc(100dvh - 116px);
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.practice-layout.playing > .practice-panel {
+  flex: none;
+  max-height: 30dvh;
+  overflow: auto;
+  margin: 8px auto;
+  padding: 12px 22px;
+  width: min(1180px, calc(100% - 32px));
+}
+.practice-panel progress {
+  width: 100%;
+  height: 6px;
+  accent-color: var(--green);
+  display: block;
+  margin-top: 8px;
+}
+.practice-layout .practice-panel h1 {
+  font-size: 25px;
+  margin: 5px 0;
+}
+.practice-layout .practice-panel p {
+  line-height: 1.6;
+  font-size: 13px;
+}
+.practice-layout .practice-actions {
+  margin-top: 5px;
+  gap: 8px;
+}
+.practice-layout.playing > .game {
+  flex: 1;
+  min-height: 0;
+}
+.practice-layout.playing .game-heading,
+.practice-layout.playing .opponents,
+.practice-layout.playing .table-tools {
+  display: none;
+}
+.practice-layout.playing .table {
+  min-height: 90px;
+}
+.practice-layout.playing .player-dock {
+  padding: 0;
+}
+.practice-feedback {
+  color: var(--red);
+  font-weight: 600;
+  background: var(--paper);
+  border-radius: 5px;
+  padding: 8px !important;
+}
+.game [data-coach-target="true"] {
+  outline: 3px solid #a47c2f;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #cda84824;
+}
+.hint-reasons {
+  margin-top: 8px;
+  font-size: 12px;
+}
+.hint-reasons summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding-top: 10px;
+  font-weight: 600;
+}
+.hint-reasons ul {
+  padding-left: 20px;
+  margin: 0 0 8px;
+  line-height: 1.8;
+}
+.first-game-guide {
+  border-left: 3px solid #8b9c6c;
+  background: var(--soft);
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  line-height: 1.6;
+  flex: none;
+  max-height: 20dvh;
+  overflow: auto;
+}
+.first-game-guide strong {
+  font-size: 13px;
+}
+.first-game-guide p {
+  margin-top: 4px;
+}
+.first-game-guide button {
+  font-size: 11px;
+  padding: 6px 0;
+  min-height: 44px;
+}
+.playing .first-game-guide {
+  max-height: 140px;
+}
+.practice-layout.playing .game-notice {
+  max-height: 24px;
+}
+@media (max-width: 720px) {
+  .practice-layout.playing {
+    height: calc(100dvh - 83px);
+    min-height: 440px;
+  }
+  .practice-layout.playing > .practice-panel {
+    width: calc(100% - 24px);
+    max-height: 29dvh;
+    padding: 10px 14px;
+    margin: 5px 12px;
+  }
+  .practice-layout .practice-top {
+    gap: 5px;
+  }
+  .practice-layout .practice-top .text-button {
+    padding: 5px;
+    min-height: 36px;
+    font-size: 11px;
+  }
+  .practice-layout .practice-panel h1 {
+    font-size: 21px;
+  }
+  .practice-layout .practice-panel p {
+    font-size: 12px;
+  }
+  .practice-layout .practice-actions > .text-button {
+    font-size: 10px;
+    min-height: 38px;
+    padding: 6px;
+  }
+  .practice-layout .practice-actions > .primary {
+    font-size: 11px;
+    padding: 10px;
+  }
+  .practice-layout.playing > .game {
+    padding-top: 4px;
+  }
+  .playing .first-game-guide {
+    max-height: 110px;
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+  .playing .first-game-guide strong {
+    font-size: 12px;
+  }
+  .playing .first-game-guide button {
+    min-height: 36px;
+  }
+  .playing .coach-card:has(.hint-reasons) {
+    max-height: 25dvh;
+  }
+}
+@media (max-height: 520px) {
+  .practice-layout.playing {
+    height: auto;
+    min-height: 700px;
+    overflow: visible;
+  }
+  .practice-layout.playing > .practice-panel {
+    max-height: none;
+  }
+  .practice-layout.playing > .game {
+    min-height: 440px;
+  }
+}
+.practice-layout .practice-top .text-button,
+.practice-layout .practice-actions > .text-button,
+.playing .first-game-guide button {
+  min-height: 44px;
+}

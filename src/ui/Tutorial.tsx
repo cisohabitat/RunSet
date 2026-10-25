@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { lessonComplete, practiceGame, type Lesson } from "../engine/practice";
+import {
+  basicProgress,
+  lessonComplete,
+  practiceGame,
+  type Lesson,
+} from "../engine/practice";
 import {
   reducer,
   turnCheck,
   type GameState,
   type Action,
 } from "../engine/game";
+import { tiles } from "../engine/tiles";
+import { inspectMeld } from "../engine/meld";
 import { validSave } from "../lib/storage";
 import { Game } from "./Game";
 interface Progress {
@@ -41,6 +48,47 @@ export default function Tutorial({
   const [progress, setProgress] = useState(initial),
     [storageNotice, setStorageNotice] = useState("");
   const { lesson, step, game } = progress;
+  const [feedback, setFeedback] = useState(""),
+    [selectionTip, setSelectionTip] = useState("");
+  const invalid = game.table.some((m) => !inspectMeld(m.tiles).valid);
+  const objective =
+    lesson === "basics"
+      ? {
+          ids:
+            step === 0
+              ? [9, 35, 61]
+              : step === 1
+                ? [0, 1, 2]
+                : step === 6
+                  ? [12]
+                  : [],
+          target:
+            step === 3
+              ? "end"
+              : step === 5
+                ? "draw"
+                : step === 6 && invalid
+                  ? "reset"
+                  : "new",
+        }
+      : lesson === "jokers"
+        ? game.table.some((m) => m.tiles.includes(4))
+          ? { ids: [104, 30, 56], target: "new" }
+          : { ids: [4], target: "practice-wild" }
+        : { ids: [3, 4, 5, 6], target: "new" };
+  const labels = objective.ids
+    .map((id) =>
+      tiles[id].joker ? "the joker" : `${tiles[id].color} ${tiles[id].num}`,
+    )
+    .join(", ");
+  const selectionChanged = (ids: number[]) => {
+    setSelectionTip(
+      ids.some((id) => !objective.ids.includes(id))
+        ? `For this step, select ${labels}. Other tiles can wait.`
+        : "",
+    );
+    if (ids.length) setFeedback("");
+  };
   const update = (next: Progress) => {
     setProgress(next);
     try {
@@ -51,8 +99,11 @@ export default function Tutorial({
       );
     }
   };
-  const choose = (lesson: Lesson) =>
+  const choose = (lesson: Lesson) => {
+    setFeedback("");
+    setSelectionTip("");
     update({ lesson, step: 0, game: practiceGame(lesson) });
+  };
   const basics = [
     [
       "Make a group",
@@ -101,6 +152,24 @@ export default function Tutorial({
   const finished =
     lesson === "basics" ? step === 7 : lessonComplete(lesson, game);
   const dispatch = (action: Action) => {
+    setFeedback("");
+    if (lesson !== "basics" && ["endTurn", "draw"].includes(action.type)) {
+      setFeedback(
+        "Finish the highlighted exercise first, or restart the lesson. No turn or penalty was applied.",
+      );
+      return;
+    }
+    if (
+      action.type === "move" &&
+      action.target !== "rack" &&
+      action.ids.some((id) => !objective.ids.includes(id))
+    ) {
+      setFeedback(
+        `This exercise uses ${labels}. Select those tiles and choose the outlined destination.`,
+      );
+      return;
+    }
+
     if (
       lesson === "basics" &&
       action.type === "endTurn" &&
@@ -130,18 +199,16 @@ export default function Tutorial({
         game.table.some((m) => m.tiles.length < 3)
       )
         nextStep = 7;
-      if (step <= 2 && ["move", "undo", "resetTurn"].includes(action.type)) {
-        const group = [9, 35, 61].every((id) => table.includes(id)),
-          run = [0, 1, 2].every((id) => table.includes(id));
-        nextStep = group ? (run ? 2 : 1) : 0;
-      }
+      if (step <= 2 && ["move", "undo", "resetTurn"].includes(action.type))
+        nextStep = basicProgress(next);
+
       if (action.type === "endTurn" && step !== 3) return;
       if (action.type === "draw" && step !== 5) return;
     }
     update({ lesson, step: nextStep, game: next });
   };
   return (
-    <>
+    <div className={`practice-layout ${finished ? "" : "playing"}`}>
       <section className="practice-panel" aria-label="Guided practice">
         <div className="practice-top">
           <span className="eyebrow">
@@ -155,7 +222,19 @@ export default function Tutorial({
           </button>
         </div>
         <h1>{instructions[0]}</h1>
-        <p aria-live="polite">{instructions[1]}</p>
+        <p id="practice-instructions" aria-live="polite">
+          {instructions[1]}
+        </p>
+        <progress
+          aria-label="Practice progress"
+          max={7}
+          value={lesson === "basics" ? Math.min(step + 1, 7) : finished ? 7 : 0}
+        />
+        {(feedback || selectionTip) && (
+          <p className="practice-feedback" role="status">
+            {feedback || selectionTip}
+          </p>
+        )}
         {storageNotice && <p role="status">{storageNotice}</p>}
         <div className="practice-actions">
           {step === 2 && lesson === "basics" && (
@@ -203,24 +282,14 @@ export default function Tutorial({
         <Game
           key={`${lesson}-${game.turn}`}
           coaching={false}
+          coachTarget={objective.target}
+          onSelectionChange={selectionChanged}
           game={game}
           dispatch={dispatch}
           onHelp={onExit}
-          suggested={
-            lesson === "basics"
-              ? step === 0
-                ? [9, 35, 61]
-                : step === 1
-                  ? [0, 1, 2]
-                  : step === 6
-                    ? [12]
-                    : []
-              : lesson === "jokers"
-                ? [4, 104, 30, 56]
-                : [3, 4, 5, 6]
-          }
+          suggested={objective.ids}
         />
       )}
-    </>
+    </div>
   );
 }

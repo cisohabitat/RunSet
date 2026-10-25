@@ -44,3 +44,15 @@ it("requires two runs, not simply an extension", () => {
   expect(lessonComplete("rearrange", s)).toBe(true);
   conserved(s);
 });
+
+it("does not count an invalid pile as a completed opening exercise", async () => {
+  const { basicProgress } = await import("./practice");
+  let s = practiceGame();
+  s = reducer(s, { type: "move", ids: [9, 35, 61, 0, 1, 2], target: "new" });
+  expect(basicProgress(s)).toBe(0);
+  s = reducer(s, { type: "resetTurn" });
+  s = reducer(s, { type: "move", ids: [9, 35, 61], target: "new" });
+  expect(basicProgress(s)).toBe(1);
+  s = reducer(s, { type: "move", ids: [0, 1, 2], target: "new" });
+  expect(basicProgress(s)).toBe(2);
+});

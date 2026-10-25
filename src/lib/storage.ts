@@ -32,6 +32,7 @@ function lockedWrite(change: () => void): Promise<WriteResult> {
 export function validSave(value: unknown): value is GameState {
   if (!value || typeof value !== "object") return false;
   const s = value as GameState;
+  if (s.coach !== undefined && typeof s.coach !== "boolean") return false;
   if (
     s.version !== 1 ||
     !["playing", "over"].includes(s.phase) ||

@@ -25,3 +25,6 @@ build, and updated documentation. Physical iPhone/iPad Safari, assistive technol
 and the five-person beginner study remain manual checks, never claimed from
 viewport emulation alone. Record observed benchmark results rather than asserting
 that Hard is stronger or a particular device is fast without measurement.
+
+The manual [beginner study protocol](BEGINNER_STUDY.md) records the remaining
+five-person study and physical-device checks.

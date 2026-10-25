@@ -10,6 +10,8 @@ export function Game({
   onHelp,
   suggested = [],
   coaching = true,
+  coachTarget,
+  onSelectionChange,
   narrate = false,
   touch = false,
 }: {
@@ -18,6 +20,8 @@ export function Game({
   onHelp: () => void;
   suggested?: number[];
   coaching?: boolean;
+  coachTarget?: string;
+  onSelectionChange?: (ids: number[]) => void;
   narrate?: boolean;
   touch?: boolean;
 }) {
@@ -77,15 +81,19 @@ export function Game({
     if (myTurn) focusRack();
   }, [s.turn, myTurn]);
   const select = (id: number) => {
-    if (myTurn)
-      setSelected((x) =>
-        x.includes(id) ? x.filter((v) => v !== id) : [...x, id],
-      );
+    if (myTurn) {
+      const next = selected.includes(id)
+        ? selected.filter((v) => v !== id)
+        : [...selected, id];
+      setSelected(next);
+      onSelectionChange?.(next);
+    }
   };
   const move = (target: string, ids = activeSelected) => {
     if (!myTurn) return;
     dispatch({ type: "move", ids, target });
     setSelected([]);
+    onSelectionChange?.([]);
   };
   const drop = (e: React.DragEvent, target: string) => {
     e.preventDefault();
@@ -101,6 +109,7 @@ export function Game({
   };
   return (
     <main
+      aria-describedby={coachTarget ? "practice-instructions" : undefined}
       className={`game ${touch ? "touch-friendly" : ""} ${tableView === "wide" ? "table-expanded" : ""}`}
       onKeyDown={(e) => {
         if (
@@ -195,9 +204,42 @@ export function Game({
           <span>in the pool</span>
         </div>
       </div>
+      {s.coach && !hint && (
+        <aside
+          className="first-game-guide"
+          aria-label="First real game guidance"
+        >
+          <strong>Your first real game</strong>
+          <p>
+            {!myTurn
+              ? "Watch the opponent. Your turn comes next."
+              : !human.melded
+                ? check.valid && check.played.length
+                  ? `Your opening is worth ${check.points} points. Choose End turn to complete your first play.`
+                  : "Look for a matching-number group or a same-colour run. Your first play needs 30 points. Hint can explain a possibility; drawing is always allowed."
+                : "You have opened! Add tiles to existing groups or runs, make new ones, or draw. You can turn these tips off whenever you’re ready."}
+          </p>
+          <button
+            className="text-button"
+            onClick={() => dispatch({ type: "dismissCoach" })}
+          >
+            Got it — hide coaching
+          </button>
+        </aside>
+      )}
       {hint && (
         <aside className="coach-card" aria-label="Move hint">
           <p role="status">{hint.message}</p>
+          {hint.explanations && (
+            <details className="hint-reasons" open>
+              <summary>Why this works</summary>
+              <ul>
+                {hint.explanations.map((reason, i) => (
+                  <li key={i}>{reason}</li>
+                ))}
+              </ul>
+            </details>
+          )}
           {hint.table && (
             <button
               className="secondary"
@@ -304,6 +346,7 @@ export function Game({
                   <p className="meld-explanation">{explainMeld(m.tiles)}</p>
                 )}
                 <button
+                  data-coach-target={coachTarget === m.id || undefined}
                   className="meld-target"
                   disabled={!myTurn || !activeSelected.length}
                   onClick={() => move(m.id)}
@@ -318,6 +361,7 @@ export function Game({
             );
           })}
           <button
+            data-coach-target={coachTarget === "new" || undefined}
             className="new-meld"
             disabled={!myTurn}
             onClick={() => move("new")}
@@ -480,6 +524,7 @@ export function Game({
             <button
               className="text-button"
               aria-label="Reset turn"
+              data-coach-target={coachTarget === "reset" || undefined}
               disabled={!myTurn}
               onClick={() => act({ type: "resetTurn" })}
             >
@@ -513,6 +558,7 @@ export function Game({
             <button
               className="secondary"
               disabled={!myTurn}
+              data-coach-target={coachTarget === "draw" || undefined}
               onClick={() => act({ type: "draw" })}
             >
               {s.pool.length ? "Draw a tile" : "Pass"} ↓
@@ -520,6 +566,7 @@ export function Game({
             <button
               className={`primary ${!check.valid && dirty ? "danger" : ""}`}
               disabled={!myTurn || (!check.played.length && !dirty)}
+              data-coach-target={coachTarget === "end" || undefined}
               onClick={() => act({ type: "endTurn" })}
             >
               {check.valid || !dirty ? "End turn →" : "+3 tiles · End turn"}

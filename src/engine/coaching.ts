@@ -43,6 +43,7 @@ export interface Hint {
   table: Meld[] | null;
   used: number[];
   message: string;
+  explanations?: string[];
 }
 export function planHint(s: GameState): Hint {
   const p = s.players[s.current],
@@ -105,9 +106,25 @@ export function planHint(s: GameState): Hint {
         ? "No legal addition was found in this search. You can draw; unfinished edits will be reset."
         : `No opening reaching 30 points was found. You can draw and try on your next turn. Your current opening is worth ${check.points} points.`,
     };
+  const explanations = table
+    .filter((m) => m.tiles.some((id) => used.includes(id)))
+    .map((m) => {
+      const info = inspectMeld(m.tiles),
+        numbers = info.ordered.map((id) => info.values[id]);
+      const natural = m.tiles.find((id) => !tiles[id].joker);
+      return info.kind === "group"
+        ? `Group: ${numbers.length} tiles showing ${numbers[0]}, each with a different colour.`
+        : `Run: ${natural === undefined ? "one colour" : tiles[natural].color} ${numbers.join("–")}, consecutive without gaps.`;
+    });
+  explanations.push(
+    p.melded
+      ? "You have already opened, so there is no minimum point total this turn."
+      : `Opening total: ${validation.points} points, meeting the 30-point requirement.`,
+  );
   return {
     table,
     used,
+    explanations,
     message: `Possible move: play ${used.length} highlighted tile${used.length === 1 ? "" : "s"}${p.melded ? "" : ` for an opening worth ${validation.points} points`}. Review it, then choose Place hint if you want to use it. Your turn will not end automatically.`,
   };
 }

@@ -1437,3 +1437,415 @@ legend {
 .hero-art {
   overflow: clip;
 }
+/* Shared controls and device-specific play surfaces. */
+button:not(.tile) {
+  min-height: 44px;
+}
+input {
+  font-size: 16px;
+}
+.text-button {
+  padding: 10px 5px;
+}
+.save-summary {
+  margin-top: 24px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  max-width: 460px;
+  font-size: 13px;
+}
+.save-summary p {
+  margin-top: 7px;
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 12px;
+}
+.danger-text {
+  color: var(--red);
+}
+.confirm-dialog {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px;
+  width: min(460px, calc(100% - 32px));
+  box-shadow: 0 20px 70px #0004;
+}
+.confirm-dialog::backdrop {
+  background: #10271f99;
+  backdrop-filter: blur(3px);
+}
+.confirm-dialog h2 {
+  font-size: 25px;
+  letter-spacing: -1px;
+}
+.dialog-copy {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin: 18px 0 25px;
+}
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.dialog-actions button {
+  flex: 1;
+  justify-content: center;
+  padding: 14px;
+  gap: 5px;
+}
+.game-menu {
+  max-width: 1180px;
+  margin: 12px auto 0;
+  padding: 0 4%;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.practice-panel {
+  max-width: 1180px;
+  margin: 20px auto;
+  padding: 24px 30px;
+  border: 1px solid #91a77d;
+  background: var(--soft);
+  border-radius: 12px;
+}
+.practice-panel h1 {
+  font-size: 30px;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+.practice-panel p {
+  font-size: 14px;
+  line-height: 1.9;
+  max-width: 850px;
+}
+.practice-top,
+.practice-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.practice-top .eyebrow {
+  margin: 0;
+}
+.practice-actions {
+  margin-top: 14px;
+  justify-content: flex-start;
+}
+.tile {
+  min-width: 44px;
+  min-height: 60px;
+}
+.meld.invalid::before {
+  content: "! Needs fixing";
+  display: block;
+  color: var(--red);
+  font-size: 10px;
+  margin-bottom: 8px;
+}
+.meld-target {
+  min-height: 44px !important;
+}
+.action-bar {
+  flex-wrap: wrap;
+}
+.player-dock {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  background: var(--paper);
+}
+.game {
+  min-width: 0;
+}
+.table {
+  max-height: 58dvh;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+.rack-tiles {
+  max-height: 190px;
+  overflow: auto;
+  padding: 12px 3px;
+  scroll-padding: 15px;
+  overscroll-behavior: contain;
+}
+.rack {
+  padding-bottom: 15px;
+}
+.table-topline {
+  position: sticky;
+  top: 0;
+  background: var(--soft);
+  padding: 8px 3px;
+  z-index: 2;
+}
+.site-header,
+.site-footer {
+  padding-left: max(5%, env(safe-area-inset-left));
+  padding-right: max(5%, env(safe-area-inset-right));
+}
+.player-dock .rack {
+  margin-top: 6px;
+}
+.new-meld {
+  min-width: 140px;
+}
+.game-menu + .game {
+  padding-top: 16px;
+}
+.tile.glow {
+  outline: 2px dashed #759253;
+  outline-offset: 2px;
+}
+@media (min-width: 721px) and (max-width: 1180px) {
+  .game {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .tile {
+    width: 52px;
+    height: 72px;
+  }
+  .table {
+    min-height: 38dvh;
+    max-height: 52dvh;
+  }
+  .opponent {
+    max-width: none;
+  }
+  .rack-tiles {
+    gap: 10px;
+  }
+  .action-bar button {
+    min-height: 48px;
+  }
+  .practice-panel {
+    margin: 20px 24px;
+  }
+  .hero-copy h1 {
+    font-size: clamp(42px, 5.5vw, 65px);
+  }
+  .hero-art .hand-note {
+    display: none;
+  }
+}
+@media (max-width: 720px) {
+  .site-header {
+    height: 76px;
+  }
+  .header-right {
+    gap: 8px;
+  }
+  .game {
+    padding: 12px 12px 25px;
+  }
+  .game h1 {
+    font-size: 27px;
+  }
+  .game-heading {
+    margin-bottom: 12px;
+  }
+  .opponents {
+    margin-bottom: 10px;
+  }
+  .opponent {
+    flex-basis: calc(33% - 6px);
+    padding: 8px;
+    min-width: 0;
+  }
+  .opponent .avatar {
+    display: none;
+  }
+  .opponent div {
+    min-width: 0;
+  }
+  .opponent strong {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 90px;
+  }
+  .pool-count {
+    padding-top: 0;
+  }
+  .table {
+    min-height: 220px;
+    max-height: 38dvh;
+    padding: 10px;
+  }
+  .table-topline {
+    letter-spacing: 0.4px;
+    font-size: 7px;
+  }
+  .melds {
+    gap: 12px;
+  }
+  .tile {
+    width: 44px;
+    height: 60px;
+    min-width: 44px;
+    font-size: 25px;
+  }
+  .rack-tiles {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    max-height: 100px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 14px 5px 8px;
+  }
+  .rack-tiles::after {
+    content: "";
+    min-width: 12px;
+  }
+  .rack-heading {
+    margin-bottom: 0;
+  }
+  .rack-heading div > span {
+    font-size: 10px;
+  }
+  .rack {
+    padding: 10px 10px 7px;
+  }
+  .sort button {
+    padding: 8px;
+    font-size: 10px;
+  }
+  .action-bar {
+    gap: 6px;
+    padding-top: 6px;
+  }
+  .action-bar > .text-button {
+    margin: 0;
+  }
+  .action-bar .selection-count {
+    flex: 1;
+    text-align: right;
+  }
+  .action-bar .primary,
+  .action-bar .secondary {
+    flex: 1;
+    min-width: 120px;
+    width: auto;
+    padding: 10px 8px;
+  }
+  .action-bar .text-button {
+    min-height: 44px;
+  }
+  .return-tiles {
+    margin-top: 0;
+    min-height: 44px;
+  }
+  .player-dock {
+    padding-top: 2px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    box-shadow: 0 -8px 16px var(--paper);
+  }
+  .practice-panel {
+    margin: 12px;
+    padding: 18px;
+  }
+  .practice-panel h1 {
+    font-size: 25px;
+  }
+  .practice-panel p {
+    font-size: 13px;
+  }
+  .practice-top .eyebrow {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+  .practice-actions .primary {
+    padding: 12px;
+    gap: 6px;
+    font-size: 12px;
+  }
+  .hero-copy {
+    padding-bottom: 8px;
+  }
+  .hero-actions {
+    gap: 10px;
+  }
+  .hero-actions .primary,
+  .hero-actions .secondary {
+    padding: 14px 16px;
+    gap: 14px;
+  }
+  .save-summary {
+    margin-top: 16px;
+  }
+  .game-menu {
+    gap: 10px;
+    padding: 0 12px;
+    margin-top: 4px;
+  }
+  .game-menu button {
+    font-size: 10px;
+  }
+  .game .empty-table {
+    inset: 120px 5px 5px;
+  }
+  .game .empty-table h2 {
+    font-size: 18px;
+    line-height: 1.3;
+  }
+  .game .empty-table p {
+    font-size: 9px;
+  }
+  .meld-target {
+    font-size: 8px;
+  }
+  .new-meld small {
+    font-size: 9px;
+  }
+  .new-meld {
+    min-height: 104px;
+  }
+  .status-line {
+    padding: 8px 0;
+  }
+  .game-log summary {
+    min-height: 44px;
+    padding-top: 12px;
+  }
+  .guide .tile-demo {
+    gap: 4px;
+  }
+  .guide .tile-demo .tile {
+    width: 44px;
+    min-width: 44px;
+  }
+  .site-footer {
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+}
+@media (max-height: 500px) and (max-width: 1000px) {
+  .player-dock {
+    position: static;
+  }
+  .table {
+    min-height: 180px;
+    max-height: 65dvh;
+  }
+  .game-heading {
+    margin-bottom: 6px;
+  }
+  .site-header {
+    height: 64px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile.glow {
+    animation: none;
+  }
+}

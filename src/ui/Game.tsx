@@ -6,10 +6,12 @@ export function Game({
   game: s,
   dispatch,
   onHelp,
+  suggested = [],
 }: {
   game: GameState;
   dispatch: (a: Action) => void;
   onHelp: () => void;
+  suggested?: number[];
 }) {
   const [selected, setSelected] = useState<number[]>([]);
   const p = s.players[s.current],
@@ -103,7 +105,7 @@ export function Game({
                       key={id}
                       id={id}
                       selected={activeSelected.includes(id)}
-                      glow={s.lastPlaced.includes(id)}
+                      glow={s.lastPlaced.includes(id) || suggested.includes(id)}
                       onSelect={myTurn ? select : undefined}
                       draggable={myTurn}
                       onDrag={(id) => {
@@ -120,7 +122,7 @@ export function Game({
                 >
                   {info.valid
                     ? `${info.kind} · ${info.points} pts`
-                    : "Incomplete meld"}{" "}
+                    : "Incomplete group or run"}{" "}
                   <span>＋</span>
                 </button>
               </div>
@@ -133,7 +135,7 @@ export function Game({
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => drop(e, "new")}
           >
-            <span>＋</span>New meld
+            <span>＋</span>New group or run
             <small>
               {activeSelected.length
                 ? `Place ${activeSelected.length} selected`
@@ -164,87 +166,104 @@ export function Game({
           <span className="warning">{check.reason}</span>
         )}
       </div>
-      <section
-        className="rack"
-        aria-label="Your rack"
-        onDragOver={(e) => e.preventDefault()}
-        onDrop={(e) => drop(e, "rack")}
-      >
-        <div className="rack-heading">
-          <div>
-            <strong>{human.name}’s rack</strong>
-            <span>
-              {human.rack.length} tiles{" "}
-              {human.melded ? "· opened" : "· not opened yet"}
-            </span>
+      <div className="player-dock">
+        <section
+          className="rack"
+          aria-label="Your rack"
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => drop(e, "rack")}
+        >
+          <div className="rack-heading">
+            <div>
+              <strong>{human.name}’s rack</strong>
+              <span>
+                {human.rack.length} tiles{" "}
+                {human.melded ? "· opened" : "· not opened yet"}
+              </span>
+            </div>
+            <div className="sort">
+              <span>Sort</span>
+              <button
+                disabled={!myTurn}
+                onClick={() => act({ type: "sortRack", by: "color" })}
+              >
+                Colour
+              </button>
+              <button
+                disabled={!myTurn}
+                onClick={() => act({ type: "sortRack", by: "number" })}
+              >
+                Number
+              </button>
+            </div>
           </div>
-          <div className="sort">
-            <span>Sort</span>
-            <button
-              disabled={!myTurn}
-              onClick={() => act({ type: "sortRack", by: "color" })}
-            >
-              Colour
-            </button>
-            <button
-              disabled={!myTurn}
-              onClick={() => act({ type: "sortRack", by: "number" })}
-            >
-              Number
-            </button>
+          <div className="rack-tiles">
+            {human.rack.map((id) => (
+              <Tile
+                key={id}
+                id={id}
+                selected={activeSelected.includes(id)}
+                glow={suggested.includes(id)}
+                onSelect={myTurn ? select : undefined}
+                draggable={myTurn}
+                onDrag={(id) => {
+                  if (!activeSelected.includes(id)) setSelected([id]);
+                }}
+              />
+            ))}
           </div>
-        </div>
-        <div className="rack-tiles">
-          {human.rack.map((id) => (
-            <Tile
-              key={id}
-              id={id}
-              selected={activeSelected.includes(id)}
-              onSelect={myTurn ? select : undefined}
-              draggable={myTurn}
-              onDrag={(id) => {
-                if (!activeSelected.includes(id)) setSelected([id]);
-              }}
-            />
-          ))}
-        </div>
-        {activeSelected.length > 0 && (
+          {activeSelected.length > 0 && (
+            <button
+              className="text-button return-tiles"
+              disabled={!myTurn}
+              onClick={() => move("rack")}
+            >
+              Return selected tiles to rack ↩
+            </button>
+          )}
+        </section>
+        <div className="action-bar">
           <button
-            className="text-button return-tiles"
+            className="text-button"
             disabled={!myTurn}
-            onClick={() => move("rack")}
+            onClick={() => act({ type: "resetTurn" })}
           >
-            Return selected tiles to rack ↩
+            ↺ Reset turn
           </button>
-        )}
-      </section>
-      <div className="action-bar">
-        <button
-          className="text-button"
-          disabled={!myTurn}
-          onClick={() => act({ type: "resetTurn" })}
-        >
-          ↺ Reset turn
-        </button>
-        <span className="selection-count">
-          {activeSelected.length
-            ? `${activeSelected.length} selected`
-            : "Select a tile to begin"}
-        </span>
-        <button
-          className="secondary"
-          disabled={!myTurn}
-          onClick={() => act({ type: "draw" })}
-        >
-          {s.pool.length ? "Draw a tile" : "Pass"} <span>↓</span>
-        </button>
-        <button
-          className={`primary ${!check.valid && dirty ? "danger" : ""}`}
-          disabled={!myTurn || (!check.played.length && !dirty)}
-          onClick={() => act({ type: "endTurn" })}
-        >
-          {check.valid || !dirty ? "End turn →" : "+3 tiles · End turn"}
-        </button>
+          <span className="selection-count">
+            {activeSelected.length
+              ? `${activeSelected.length} selected`
+              : "Select a tile to begin"}
+          </span>
+          {activeSelected.length > 0 && (
+            <>
+              <button
+                className="secondary"
+                onClick={() => move("new")}
+                disabled={!myTurn}
+              >
+                Place selected
+              </button>
+              <button className="text-button" onClick={() => setSelected([])}>
+                Deselect all
+              </button>
+            </>
+          )}
+          <button
+            className="secondary"
+            disabled={!myTurn}
+            onClick={() => act({ type: "draw" })}
+          >
+            {s.pool.length ? "Draw a tile" : "Pass"} <span>↓</span>
+          </button>
+          <button
+            className={`primary ${!check.valid && dirty ? "danger" : ""}`}
+            disabled={!myTurn || (!check.played.length && !dirty)}
+            onClick={() => act({ type: "endTurn" })}
+          >
+            {check.valid || !dirty ? "End turn →" : "+3 tiles · End turn"}
+          </button>
+        </div>
       </div>
       {s.notice && (
         <p className="game-notice" role="status">

@@ -36,6 +36,11 @@ from the public repository.
   Add regression coverage for changed rules and preserve tile-conservation and
   bot-simulation checks. Tests may use smaller search budgets; retain a production
   Hard-budget regression check.
+- Guided practice uses `runset.practice.v1`, separate from the regular game save.
+  Delete only the regular game key; preserve practice and preference keys. Cancel
+  bot callbacks when a confirmation is open or a game is removed.
+- Run `npm run test:e2e` for changed player flows; Playwright config uses installed
+  Chromium or `CHROMIUM_PATH`. Browser tests belong in `e2e/`; Vitest covers `src/`.
 - For UI changes, verify the affected player flow, responsive layout, and runtime
   console when browser tooling is available. Report any verification limits.
 - For documentation-only changes, check accuracy, local links, and

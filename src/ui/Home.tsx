@@ -1,14 +1,21 @@
+import type { GameState } from "../engine/game";
 import { TileDemo } from "./Tile";
 export function Home({
   onNew,
   onContinue,
   onHelp,
   hasSave,
+  onLearn,
+  onDelete,
+  game,
 }: {
   onNew: () => void;
   onContinue: () => void;
   onHelp: () => void;
   hasSave: boolean;
+  onLearn: () => void;
+  onDelete: () => void;
+  game: GameState | null;
 }) {
   return (
     <main className="home">
@@ -21,12 +28,16 @@ export function Home({
           <br />A perfect <em>run.</em>
         </h1>
         <p className="intro">
-          Find your rhythm. Build a run. Make a set.
-          <br />A timeless tile game, ready whenever you are.
+          Be the first to play all the tiles from your rack. Match numbers in
+          different colours, or build a sequence in one colour. New to
+          tile-rummy? We’ll teach you, one move at a time.
         </p>
         <div className="hero-actions">
-          <button className="primary" onClick={onNew}>
-            Let’s play <span>↗</span>
+          <button className="primary" onClick={onLearn}>
+            Learn to play <span>↗</span>
+          </button>
+          <button className="secondary" onClick={onNew}>
+            New game →
           </button>
           {hasSave && (
             <button className="secondary" onClick={onContinue}>
@@ -37,6 +48,24 @@ export function Home({
             How to play <span>↗</span>
           </button>
         </div>
+        {game && (
+          <section className="save-summary" aria-label="Saved game">
+            <strong>
+              {game.players.find((p) => !p.bot)?.name}’s{" "}
+              {game.phase === "over" ? "completed" : "saved"} game
+            </strong>
+            <p>
+              {game.players.length - 1} opponent(s) ·{" "}
+              {game.players.find((p) => p.bot)?.bot} ·{" "}
+              {game.phase === "over"
+                ? "Round finished"
+                : `${game.players[game.current].name}’s turn`}
+            </p>
+            <button className="text-button danger-text" onClick={onDelete}>
+              Delete saved game
+            </button>
+          </section>
+        )}
         <div className="hero-meta">
           <span>✓ Free to play</span>
           <span>✓ No sign-up</span>

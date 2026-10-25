@@ -107,3 +107,13 @@ export function saveGame(game: GameState): boolean {
     return false;
   }
 }
+
+/** Remove only game progress. Preferences and practice data belong to separate keys. */
+export function deleteGame(): boolean {
+  try {
+    localStorage.removeItem(SAVE_KEY);
+    return localStorage.getItem(SAVE_KEY) === null;
+  } catch {
+    return false;
+  }
+}

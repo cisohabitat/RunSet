@@ -60,3 +60,23 @@ it("rejects a damaged turn snapshot", () => {
   expect(loadGame().game).toBeNull();
   expect(loadGame().game).toBeNull();
 });
+
+it("deletes only the game and preserves preferences", async () => {
+  const { deleteGame } = await import("./storage");
+  saveGame(newGame("You", 1, "easy"));
+  data.set("runset.muted", "true");
+  data.set("runset.practice.v1", "practice");
+  expect(deleteGame()).toBe(true);
+  expect(loadGame().game).toBeNull();
+  expect(data.get("runset.muted")).toBe("true");
+  expect(data.get("runset.practice.v1")).toBe("practice");
+});
+it("reports deletion failure without claiming success", async () => {
+  const { deleteGame } = await import("./storage");
+  vi.stubGlobal("localStorage", {
+    removeItem: () => {
+      throw Error("denied");
+    },
+  });
+  expect(deleteGame()).toBe(false);
+});

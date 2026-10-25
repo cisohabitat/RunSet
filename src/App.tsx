@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { lazy, Suspense, useEffect, useReducer, useState } from "react";
 import {
   type GameState,
   type Difficulty,
@@ -9,23 +9,38 @@ import {
   turnCheck,
 } from "./engine/game";
 import { planBot } from "./engine/bot";
-import { loadGame, saveGame } from "./lib/storage";
+import { deleteGame, loadGame, saveGame } from "./lib/storage";
 import { sound } from "./lib/sound";
 import { Home } from "./ui/Home";
 import { Setup } from "./ui/Setup";
 import { HowToPlay } from "./ui/HowToPlay";
 import { Game } from "./ui/Game";
 import { GameOver } from "./ui/GameOver";
-type Screen = "home" | "setup" | "help" | "game";
+import { ConfirmDialog } from "./ui/ConfirmDialog";
+const Tutorial = lazy(() => import("./ui/Tutorial"));
+type Screen = "home" | "setup" | "help" | "game" | "learn";
 const initial = loadGame();
 export default function App() {
   const [screen, setScreen] = useState<Screen>("home"),
     [helpBack, setHelpBack] = useState<Screen>("home");
   const [game, dispatchBase] = useReducer(
-    (s: GameState | null, a: Action | { type: "start"; game: GameState }) =>
-      a.type === "start" ? a.game : s ? reducer(s, a) : null,
+    (
+      s: GameState | null,
+      a: Action | { type: "start"; game: GameState } | { type: "clear" },
+    ) =>
+      a.type === "clear"
+        ? null
+        : a.type === "start"
+          ? a.game
+          : s
+            ? reducer(s, a)
+            : null,
     initial.game,
   );
+  const [confirmation, setConfirmation] = useState<{
+    kind: "delete" | "replace";
+    next?: GameState;
+  } | null>(null);
   const [notice, setNotice] = useState(initial.notice);
   const [muted, setMuted] = useState(() => {
     try {
@@ -48,6 +63,7 @@ export default function App() {
   useEffect(() => {
     if (
       screen !== "game" ||
+      confirmation ||
       !game ||
       game.phase !== "playing" ||
       !game.players[game.current].bot
@@ -58,7 +74,7 @@ export default function App() {
       700,
     );
     return () => clearTimeout(timer);
-  }, [game, screen]);
+  }, [game, screen, confirmation]);
   useEffect(() => {
     if (screen !== "game" || !game) return;
     if (game.phase === "over")
@@ -77,7 +93,12 @@ export default function App() {
     dispatchBase(a);
   };
   const start = (name: string, bots: number, d: Difficulty) => {
-    dispatchBase({ type: "start", game: newGame(name, bots, d) });
+    const next = newGame(name, bots, d);
+    if (game) {
+      setConfirmation({ kind: "replace", next });
+      return;
+    }
+    dispatchBase({ type: "start", game: next });
     setScreen("game");
   };
   const help = () => {
@@ -114,6 +135,49 @@ export default function App() {
           )}
         </div>
       </header>
+      {confirmation && (
+        <ConfirmDialog
+          title={
+            confirmation.kind === "delete"
+              ? "Delete this saved game?"
+              : "Replace your saved game?"
+          }
+          cancelLabel="Keep game"
+          confirmLabel={
+            confirmation.kind === "delete" ? "Delete game" : "Start new game"
+          }
+          onCancel={() => {
+            setConfirmation(null);
+            setNotice("");
+          }}
+          onConfirm={() => {
+            if (confirmation.kind === "delete") {
+              if (!deleteGame()) {
+                setNotice(
+                  "The saved game could not be deleted. Your progress is still available.",
+                );
+                return;
+              }
+              dispatchBase({ type: "clear" });
+              setScreen("home");
+            } else if (confirmation.next) {
+              dispatchBase({ type: "start", game: confirmation.next });
+              setScreen("game");
+            }
+            setConfirmation(null);
+            setNotice("");
+          }}
+        >
+          <p>
+            Your progress{" "}
+            {confirmation.kind === "delete"
+              ? "will be removed"
+              : "will be replaced"}{" "}
+            on this browser. Sound and learning preferences are kept.
+          </p>
+          {notice && <p role="alert">{notice}</p>}
+        </ConfirmDialog>
+      )}
       {notice && (
         <div className="notice" role="status">
           {notice}
@@ -128,6 +192,9 @@ export default function App() {
           onContinue={() => setScreen("game")}
           onHelp={help}
           hasSave={!!game && game.phase === "playing"}
+          game={game}
+          onDelete={() => setConfirmation({ kind: "delete" })}
+          onLearn={() => setScreen("learn")}
         />
       )}
       {screen === "setup" && (
@@ -136,6 +203,29 @@ export default function App() {
           onBack={() => setScreen("home")}
           hasSave={!!game && game.phase === "playing"}
         />
+      )}
+      {screen === "learn" && (
+        <Suspense
+          fallback={<p className="page">Preparing your practice table…</p>}
+        >
+          <Tutorial
+            onExit={() => setScreen("home")}
+            onPlay={() => start("You", 1, "easy")}
+          />
+        </Suspense>
+      )}
+      {screen === "game" && game && (
+        <nav className="game-menu" aria-label="Game menu">
+          <button
+            className="text-button"
+            onClick={() => setConfirmation({ kind: "delete" })}
+          >
+            Delete saved game
+          </button>
+          <button className="text-button" onClick={() => setScreen("learn")}>
+            Practice without losing this game
+          </button>
+        </nav>
       )}
       {screen === "help" && <HowToPlay onBack={() => setScreen(helpBack)} />}
       {screen === "game" &&

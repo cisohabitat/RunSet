@@ -26,6 +26,10 @@ Open the local URL printed by Vite (normally http://localhost:5173).
   table re-partitions within a bounded 400 ms planning budget and retains a legal
   Normal fallback. Every bot submission passes through the human turn validator.
 - Setup, illustrated rules, game table, results, and single-round scores.
+- Guided first-game practice and optional joker/rearranging lessons, stored separately
+  from regular games. Safe delete and new-game replacement confirmations.
+- Desktop, tablet, and phone layouts with 44 px targets, a persistent player dock,
+  contained table/rack scrolling, and iPhone safe-area padding.
 - Tap/click selection, desktop dragging, keyboard-operable destinations, sorting,
   reset, draw/pass, live validation, and move history.
 - Versioned localStorage autosave, including unfinished turns, and Continue.
@@ -65,6 +69,7 @@ failures. Opening an old or corrupt save discards it with a notice.
 npm run typecheck
 npm test
 npm run build
+npm run test:e2e
 npm run preview
 ```
 
@@ -73,6 +78,11 @@ and seeded bot-versus-bot simulations. Simulations use shorter planning budgets 
 exercise thousands of legal turns quickly; a separate populated-table check tests
 Hard’s production time budget. Search is bounded, so a bot’s chosen move may vary
 with device speed. Runtime dependencies are React and React DOM only.
+
+`npm run test:e2e` uses Chromium (install with `npx playwright install chromium`
+if needed, or set `CHROMIUM_PATH`). Tests cover practice, saved-game isolation,
+delete/cancel/reload, and desktop/tablet/phone viewports. Real-device Safari and
+first-time-player usability sessions remain manual checks.
 
 `npm run build` type-checks and emits a static site in `dist/`. GitHub Actions runs
 installation, type-checking, tests, and the production build on pushes and PRs.
@@ -108,5 +118,8 @@ not create or link a Vercel project.
 
 ## Roadmap
 
-Hints, multi-round matches, optional timers, single-move undo, installable offline
-support, and online multiplayer are outside this version’s scope.
+See the [improvement roadmap](docs/ROADMAP.md) for planned work and acceptance
+criteria. The next release prioritizes guided learning for first-time players,
+safe saved-game deletion, and dedicated desktop, iPad, and iPhone layouts.
+Contextual hints, single-move undo, offline support, and additional game modes
+follow those improvements.

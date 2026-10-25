@@ -1849,3 +1849,73 @@ input {
     animation: none;
   }
 }
+.coach-card {
+  background: var(--soft);
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  border: 1px solid #8c9f76;
+  border-radius: 10px;
+}
+.coach-card p {
+  font-size: 13px;
+  line-height: 1.8;
+}
+.coach-card button {
+  margin: 8px 12px 0 0;
+}
+.opening-breakdown {
+  font-size: 12px;
+  line-height: 1.7;
+  padding: 12px;
+  color: var(--muted);
+}
+.meld-explanation {
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--red);
+  max-width: 280px;
+  margin-top: 8px;
+}
+.preferences {
+  font-size: 12px;
+  max-width: 100%;
+}
+.preferences summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding: 12px 0;
+}
+.preferences label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  line-height: 1.5;
+}
+.preferences input {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin: 0;
+}
+.preferences select {
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 10px;
+  border-radius: 6px;
+  min-height: 44px;
+  font: inherit;
+}
+.touch-friendly .tile {
+  width: 54px;
+  height: 74px;
+  font-size: 29px;
+}
+.touch-friendly .action-bar button {
+  min-height: 48px;
+}
+.tile.joker .tile-foot {
+  font-size: 7px;
+  letter-spacing: 0;
+}

@@ -76,3 +76,46 @@ test("learn, preserve, delete and resize a round", async ({ page: p }) => {
   }
   expect(errors).toEqual([]);
 });
+
+test("hints preview before placement and penalty warnings keep edits", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.evaluate(async () => {
+    const { practiceGame } = await import("/src/engine/practice.ts");
+    localStorage.setItem("runset.save.v1", JSON.stringify(practiceGame()));
+  });
+  await page.reload();
+  await page.getByRole("button", { name: "Continue game" }).click();
+  const original = await page.evaluate(() =>
+    localStorage.getItem("runset.save.v1"),
+  );
+  await page.getByRole("button", { name: "Show a possible move" }).click();
+  await page.getByRole("button", { name: "Place hint", exact: true }).waitFor();
+  expect(
+    await page.evaluate(() => localStorage.getItem("runset.save.v1")),
+  ).toBe(original);
+  await page.getByRole("button", { name: "Place hint", exact: true }).click();
+  expect(await page.locator(".table .tile").count()).toBeGreaterThan(0);
+  expect(await page.getByRole("heading", { name: "Your move." }).count()).toBe(
+    1,
+  );
+  await page.getByRole("button", { name: /Reset turn/ }).click();
+  await page
+    .getByRole("button", { name: "red 13", exact: true })
+    .first()
+    .click();
+  await page.getByRole("button", { name: /New group or run/ }).click();
+  await page
+    .getByRole("button", { name: "+3 tiles · End turn", exact: true })
+    .click();
+  await page.getByRole("dialog").waitFor();
+  await page.getByRole("button", { name: "Keep editing" }).click();
+  expect(await page.locator(".table .tile").count()).toBe(1);
+  await page
+    .getByRole("button", { name: "+3 tiles · End turn", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Reset turn instead" }).click();
+  expect(await page.locator(".table .tile").count()).toBe(0);
+  expect(await page.locator(".rack .tile").count()).toBe(14);
+});

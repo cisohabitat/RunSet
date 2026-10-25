@@ -7,6 +7,7 @@ export function Tile({
   onSelect,
   draggable = false,
   onDrag,
+  represents,
 }: {
   id: number;
   selected?: boolean;
@@ -14,13 +15,23 @@ export function Tile({
   onSelect?: (id: number) => void;
   draggable?: boolean;
   onDrag?: (id: number) => void;
+  represents?: string;
 }) {
   const t = tiles[id];
   return (
     <button
       type="button"
       className={`tile ${t.color ?? "joker"} ${selected ? "selected" : ""} ${glow ? "glow" : ""}`}
-      aria-label={t.joker ? "Joker" : `${t.color} ${t.num}`}
+      title={
+        t.joker && represents ? `Joker represents ${represents}` : undefined
+      }
+      aria-label={
+        t.joker
+          ? represents
+            ? `Joker representing ${represents}`
+            : "Joker"
+          : `${t.color} ${t.num}`
+      }
       aria-pressed={onSelect ? selected : undefined}
       onClick={(e) => {
         e.stopPropagation();
@@ -38,7 +49,7 @@ export function Tile({
       </span>
       <span>{t.joker ? "★" : t.num}</span>
       <span className="tile-foot" aria-hidden="true">
-        {t.joker ? "WILD" : marks[t.color!]}
+        {t.joker ? (represents ?? "WILD") : marks[t.color!]}
       </span>
     </button>
   );

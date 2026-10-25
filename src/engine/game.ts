@@ -26,7 +26,7 @@ export type Action =
   | { type: "move"; ids: number[]; target: string }
   | { type: "draw" | "endTurn" | "resetTurn" }
   | { type: "sortRack"; by: "color" | "number" }
-  | { type: "botTurn"; table: Meld[] };
+  | { type: "botTurn" | "applyPlan"; table: Meld[] };
 const copy = <T>(x: T): T => structuredClone(x);
 export function newGame(
   name: string,
@@ -208,7 +208,7 @@ export function reducer(state: GameState, action: Action): GameState {
       tile === undefined,
     );
   }
-  if (action.type === "botTurn") {
+  if (action.type === "botTurn" || action.type === "applyPlan") {
     // Accept only conserved submissions, then use the exact human validator.
     const ids = action.table.flatMap((m) => m.tiles),
       available = [...s.table.flatMap((m) => m.tiles), ...p.rack];
@@ -216,12 +216,22 @@ export function reducer(state: GameState, action: Action): GameState {
       new Set(ids).size !== ids.length ||
       ids.some((id) => !available.includes(id))
     )
-      return reducer(state, { type: "draw" });
+      return action.type === "applyPlan"
+        ? state
+        : reducer(state, { type: "draw" });
+    if (
+      action.type === "applyPlan" &&
+      s.table.flatMap((m) => m.tiles).some((id) => !ids.includes(id))
+    )
+      return state;
     s.table = copy(action.table);
     p.rack = p.rack.filter((id) => !ids.includes(id));
     if (!turnCheck(s).valid || !turnCheck(s).played.length)
-      return reducer(state, { type: "draw" });
+      return action.type === "applyPlan"
+        ? state
+        : reducer(state, { type: "draw" });
   }
+  if (action.type === "applyPlan") return s;
   const check = turnCheck(s);
   if (
     !check.played.length &&

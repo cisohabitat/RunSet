@@ -1,18 +1,49 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { type GameState, type Action, turnCheck } from "../engine/game";
 import { inspectMeld } from "../engine/meld";
+import { explainMeld, narrateMove, type Hint } from "../engine/coaching";
+import { runPlanner } from "../lib/planner";
 import { Tile } from "./Tile";
 export function Game({
   game: s,
   dispatch,
   onHelp,
   suggested = [],
+  narrate = false,
+  touch = false,
 }: {
   game: GameState;
   dispatch: (a: Action) => void;
   onHelp: () => void;
   suggested?: number[];
+  narrate?: boolean;
+  touch?: boolean;
 }) {
+  const [hint, setHint] = useState<Hint | null>(null),
+    [planning, setPlanning] = useState(false);
+  const request = useRef<AbortController | null>(null);
+  useEffect(() => {
+    setHint(null);
+    setPlanning(false);
+    return () => request.current?.abort();
+  }, [s]);
+  const askHint = () => {
+    const controller = new AbortController();
+    request.current?.abort();
+    request.current = controller;
+    setPlanning(true);
+    runPlanner(s, "hint", controller.signal)
+      .then((value) => {
+        if (!controller.signal.aborted) setHint(value);
+      })
+      .catch((error) => {
+        if (!controller.signal.aborted)
+          setHint({ table: null, used: [], message: error.message });
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setPlanning(false);
+      });
+  };
   const [selected, setSelected] = useState<number[]>([]);
   const p = s.players[s.current],
     human = s.players.find((x) => !x.bot)!,
@@ -47,7 +78,7 @@ export function Game({
     dispatch(a);
   };
   return (
-    <main className="game">
+    <main className={`game ${touch ? "touch-friendly" : ""}`}>
       <div className="game-heading">
         <div>
           <span className="eyebrow">THE TABLE</span>
@@ -84,6 +115,25 @@ export function Game({
           <span>in the pool</span>
         </div>
       </div>
+      {hint && (
+        <aside className="coach-card" aria-label="Move hint">
+          <p role="status">{hint.message}</p>
+          {hint.table && (
+            <button
+              className="secondary"
+              onClick={() => {
+                dispatch({ type: "applyPlan", table: hint.table! });
+                setSelected([]);
+              }}
+            >
+              Place hint
+            </button>
+          )}
+          <button className="text-button" onClick={() => setHint(null)}>
+            Dismiss hint
+          </button>
+        </aside>
+      )}
       <section className="table" aria-label="Table melds">
         <div className="table-topline">
           <span>MAKE ROOM FOR A GOOD IDEA</span>
@@ -105,7 +155,16 @@ export function Game({
                       key={id}
                       id={id}
                       selected={activeSelected.includes(id)}
-                      glow={s.lastPlaced.includes(id) || suggested.includes(id)}
+                      glow={
+                        s.lastPlaced.includes(id) ||
+                        suggested.includes(id) ||
+                        !!hint?.used.includes(id)
+                      }
+                      represents={
+                        info.values[id]
+                          ? `${info.jokerColors[id]} ${info.values[id]}`
+                          : undefined
+                      }
                       onSelect={myTurn ? select : undefined}
                       draggable={myTurn}
                       onDrag={(id) => {
@@ -114,6 +173,9 @@ export function Game({
                     />
                   ))}
                 </div>
+                {!info.valid && (
+                  <p className="meld-explanation">{explainMeld(m.tiles)}</p>
+                )}
                 <button
                   className="meld-target"
                   disabled={!myTurn || !activeSelected.length}
@@ -155,6 +217,27 @@ export function Game({
           </div>
         )}
       </section>
+      {myTurn && !p.melded && check.played.length > 0 && (
+        <p className="opening-breakdown">
+          Opening points:{" "}
+          {s.table
+            .filter(
+              (m) =>
+                !m.tiles.some((id) =>
+                  s.turnStart.table.some((old) => old.tiles.includes(id)),
+                ),
+            )
+            .map((m) =>
+              inspectMeld(m.tiles).valid
+                ? `${inspectMeld(m.tiles)
+                    .ordered.map((id) => inspectMeld(m.tiles).values[id])
+                    .join(" + ")} = ${inspectMeld(m.tiles).points}`
+                : "incomplete group or run",
+            )
+            .join("; ")}
+          . Need at least 30.
+        </p>
+      )}
       <div className="status-line" role="status" aria-live="polite">
         <span className={`status-dot ${myTurn ? "" : "waiting"}`} />
         {myTurn
@@ -203,7 +286,7 @@ export function Game({
                 key={id}
                 id={id}
                 selected={activeSelected.includes(id)}
-                glow={suggested.includes(id)}
+                glow={suggested.includes(id) || !!hint?.used.includes(id)}
                 onSelect={myTurn ? select : undefined}
                 draggable={myTurn}
                 onDrag={(id) => {
@@ -223,6 +306,13 @@ export function Game({
           )}
         </section>
         <div className="action-bar">
+          <button
+            className="text-button"
+            disabled={!myTurn || planning}
+            onClick={askHint}
+          >
+            {planning ? "Finding a move…" : "Show a possible move"}
+          </button>
           <button
             className="text-button"
             disabled={!myTurn}
@@ -267,7 +357,7 @@ export function Game({
       </div>
       {s.notice && (
         <p className="game-notice" role="status">
-          {s.notice}
+          {narrate ? narrateMove(s) : s.notice}
         </p>
       )}
       <details className="game-log">

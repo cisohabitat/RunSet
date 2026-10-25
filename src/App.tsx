@@ -8,7 +8,7 @@ import {
   results,
   turnCheck,
 } from "./engine/game";
-import { planBot } from "./engine/bot";
+import { runPlanner } from "./lib/planner";
 import { deleteGame, loadGame, saveGame } from "./lib/storage";
 import { sound } from "./lib/sound";
 import { Home } from "./ui/Home";
@@ -38,9 +38,41 @@ export default function App() {
     initial.game,
   );
   const [confirmation, setConfirmation] = useState<{
-    kind: "delete" | "replace";
+    kind: "delete" | "replace" | "penalty";
     next?: GameState;
   } | null>(null);
+  const [learning, setLearning] = useState(() => {
+    try {
+      return localStorage.getItem("runset.learning") !== "false";
+    } catch {
+      return true;
+    }
+  });
+  const [narrate, setNarrate] = useState(() => {
+    try {
+      return localStorage.getItem("runset.narrate") !== "false";
+    } catch {
+      return true;
+    }
+  });
+  const [pace, setPace] = useState(() => {
+    try {
+      const n = Number(localStorage.getItem("runset.pace"));
+      return [700, 1400, 2400].includes(n) ? n : 1400;
+    } catch {
+      return 1400;
+    }
+  });
+  const [touch, setTouch] = useState(false);
+  useEffect(() => {
+    try {
+      localStorage.setItem("runset.learning", String(learning));
+      localStorage.setItem("runset.narrate", String(narrate));
+      localStorage.setItem("runset.pace", String(pace));
+    } catch {
+      /* Optional preferences. */
+    }
+  }, [learning, narrate, pace]);
   const [notice, setNotice] = useState(initial.notice);
   const [muted, setMuted] = useState(() => {
     try {
@@ -69,12 +101,22 @@ export default function App() {
       !game.players[game.current].bot
     )
       return;
-    const timer = setTimeout(
-      () => dispatchBase({ type: "botTurn", table: planBot(game) }),
-      700,
-    );
-    return () => clearTimeout(timer);
-  }, [game, screen, confirmation]);
+    const controller = new AbortController();
+    const timer = setTimeout(() => {
+      runPlanner(game, "bot", controller.signal)
+        .then((table) => {
+          if (!controller.signal.aborted)
+            dispatchBase({ type: "botTurn", table });
+        })
+        .catch(() => {
+          if (!controller.signal.aborted) dispatchBase({ type: "draw" });
+        });
+    }, pace);
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [game, screen, confirmation, pace]);
   useEffect(() => {
     if (screen !== "game" || !game) return;
     if (game.phase === "over")
@@ -85,6 +127,10 @@ export default function App() {
     window.scrollTo(0, 0);
   }, [screen]);
   const dispatch = (a: Action) => {
+    if (a.type === "endTurn" && learning && game && !turnCheck(game).valid) {
+      setConfirmation({ kind: "penalty" });
+      return;
+    }
     if (a.type === "move") sound("place", muted);
     else if (a.type === "draw") sound("draw", muted);
     else if (a.type === "endTurn" && game && !turnCheck(game).valid)
@@ -138,20 +184,30 @@ export default function App() {
       {confirmation && (
         <ConfirmDialog
           title={
-            confirmation.kind === "delete"
-              ? "Delete this saved game?"
-              : "Replace your saved game?"
+            confirmation.kind === "penalty"
+              ? "This turn would draw penalty tiles"
+              : confirmation.kind === "delete"
+                ? "Delete this saved game?"
+                : "Replace your saved game?"
           }
-          cancelLabel="Keep game"
+          cancelLabel={
+            confirmation.kind === "penalty" ? "Keep editing" : "Keep game"
+          }
           confirmLabel={
-            confirmation.kind === "delete" ? "Delete game" : "Start new game"
+            confirmation.kind === "penalty"
+              ? "End turn +3 tiles"
+              : confirmation.kind === "delete"
+                ? "Delete game"
+                : "Start new game"
           }
           onCancel={() => {
             setConfirmation(null);
             setNotice("");
           }}
           onConfirm={() => {
-            if (confirmation.kind === "delete") {
+            if (confirmation.kind === "penalty") {
+              dispatchBase({ type: "endTurn" });
+            } else if (confirmation.kind === "delete") {
               if (!deleteGame()) {
                 setNotice(
                   "The saved game could not be deleted. Your progress is still available.",
@@ -168,13 +224,31 @@ export default function App() {
             setNotice("");
           }}
         >
-          <p>
-            Your progress{" "}
-            {confirmation.kind === "delete"
-              ? "will be removed"
-              : "will be replaced"}{" "}
-            on this browser. Sound and learning preferences are kept.
-          </p>
+          {confirmation.kind === "penalty" && game ? (
+            <>
+              <p>
+                {turnCheck(game).reason} Ending now restores your moves and
+                draws up to three penalty tiles.
+              </p>
+              <button
+                className="secondary"
+                onClick={() => {
+                  dispatchBase({ type: "resetTurn" });
+                  setConfirmation(null);
+                }}
+              >
+                Reset turn instead
+              </button>
+            </>
+          ) : (
+            <p>
+              Your progress{" "}
+              {confirmation.kind === "delete"
+                ? "will be removed"
+                : "will be replaced"}{" "}
+              on this browser. Sound and learning preferences are kept.
+            </p>
+          )}
           {notice && <p role="alert">{notice}</p>}
         </ConfirmDialog>
       )}
@@ -215,7 +289,48 @@ export default function App() {
         </Suspense>
       )}
       {screen === "game" && game && (
-        <nav className="game-menu" aria-label="Game menu">
+        <nav
+          className={`game-menu ${touch ? "touch-friendly" : ""}`}
+          aria-label="Game menu"
+        >
+          <details className="preferences">
+            <summary>Playing options</summary>
+            <label>
+              <input
+                type="checkbox"
+                checked={learning}
+                onChange={(e) => setLearning(e.target.checked)}
+              />{" "}
+              Explain penalties before ending a turn
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={narrate}
+                onChange={(e) => setNarrate(e.target.checked)}
+              />{" "}
+              Explain opponent moves
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={touch}
+                onChange={(e) => setTouch(e.target.checked)}
+              />{" "}
+              Larger touch controls
+            </label>
+            <label>
+              Opponent pace{" "}
+              <select
+                value={pace}
+                onChange={(e) => setPace(Number(e.target.value))}
+              >
+                <option value={700}>Quick</option>
+                <option value={1400}>Comfortable</option>
+                <option value={2400}>Take my time</option>
+              </select>
+            </label>
+          </details>
           <button
             className="text-button"
             onClick={() => setConfirmation({ kind: "delete" })}
@@ -238,6 +353,8 @@ export default function App() {
           />
         ) : (
           <Game
+            narrate={narrate}
+            touch={touch}
             key={`${game.seed}-${game.turn}`}
             game={game}
             dispatch={dispatch}

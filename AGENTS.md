@@ -36,6 +36,9 @@ from the public repository.
   Add regression coverage for changed rules and preserve tile-conservation and
   bot-simulation checks. Tests may use smaller search budgets; retain a production
   Hard-budget regression check.
+- Bot and hint searches run in `src/workers/planner.ts`. Abort outstanding requests
+  when their state, screen, or confirmation context changes. Hints must not mutate
+  drafts or end turns; explicit placement is validated by the engine.
 - Guided practice uses `runset.practice.v1`, separate from the regular game save.
   Delete only the regular game key; preserve practice and preference keys. Cancel
   bot callbacks when a confirmation is open or a game is removed.

@@ -26,6 +26,8 @@ Open the local URL printed by Vite (normally http://localhost:5173).
   table re-partitions within a bounded 400 ms planning budget and retains a legal
   Normal fallback. Every bot submission passes through the human turn validator.
 - Setup, illustrated rules, game table, results, and single-round scores.
+- Optional worker-planned move hints with explicit preview/placement, point breakdowns,
+  specific table corrections, bot narration, remembered pacing, and beginner penalty warnings.
 - Guided first-game practice and optional joker/rearranging lessons, stored separately
   from regular games. Safe delete and new-game replacement confirmations.
 - Desktop, tablet, and phone layouts with 44 px targets, a persistent player dock,

@@ -21,6 +21,14 @@ export function Game({
   narrate?: boolean;
   touch?: boolean;
 }) {
+  const [focused, setFocused] = useState<number | null>(null);
+  const rackRef = useRef<HTMLDivElement>(null);
+  const focusRack = () =>
+    requestAnimationFrame(() =>
+      rackRef.current
+        ?.querySelector<HTMLButtonElement>('button[tabindex="0"]')
+        ?.focus({ preventScroll: true }),
+    );
   const [clock, setClock] = useState(Date.now);
   useEffect(() => {
     if (!s.turnSeconds) return;
@@ -65,6 +73,9 @@ export function Game({
     (id) =>
       human.rack.includes(id) || s.table.some((m) => m.tiles.includes(id)),
   );
+  useEffect(() => {
+    if (myTurn) focusRack();
+  }, [s.turn, myTurn]);
   const select = (id: number) => {
     if (myTurn)
       setSelected((x) =>
@@ -89,7 +100,44 @@ export function Game({
     dispatch(a);
   };
   return (
-    <main className={`game ${touch ? "touch-friendly" : ""}`}>
+    <main
+      className={`game ${touch ? "touch-friendly" : ""} ${tableView === "wide" ? "table-expanded" : ""}`}
+      onKeyDown={(e) => {
+        if (
+          (e.target as HTMLElement).closest("input,textarea,select,dialog") ||
+          !myTurn
+        )
+          return;
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") {
+          e.preventDefault();
+          act({ type: "undo" });
+          focusRack();
+        } else if (e.key === "Escape") {
+          setSelected([]);
+          setHint(null);
+        } else if (
+          !e.ctrlKey &&
+          !e.metaKey &&
+          !e.altKey &&
+          e.key.toLowerCase() === "n" &&
+          activeSelected.length
+        ) {
+          e.preventDefault();
+          move("new");
+          focusRack();
+        } else if (
+          !e.ctrlKey &&
+          !e.metaKey &&
+          !e.altKey &&
+          e.key.toLowerCase() === "h" &&
+          coaching &&
+          !planning
+        ) {
+          e.preventDefault();
+          askHint();
+        }
+      }}
+    >
       <div className="game-heading">
         <div>
           <span className="eyebrow">THE TABLE</span>
@@ -223,6 +271,16 @@ export function Game({
                     <Tile
                       key={id}
                       id={id}
+                      tabIndex={
+                        m.tiles.includes(focused ?? -1)
+                          ? focused === id
+                            ? 0
+                            : -1
+                          : info.ordered[0] === id
+                            ? 0
+                            : -1
+                      }
+                      onFocus={() => setFocused(id)}
                       selected={activeSelected.includes(id)}
                       glow={
                         s.lastPlaced.includes(id) ||
@@ -352,11 +410,26 @@ export function Game({
               </button>
             </div>
           </div>
-          <div className="rack-tiles">
+          <div
+            className="rack-tiles"
+            ref={rackRef}
+            role="group"
+            aria-label="Your tiles. Use left and right arrows to navigate."
+          >
             {human.rack.map((id) => (
               <Tile
                 key={id}
                 id={id}
+                tabIndex={
+                  human.rack.includes(focused ?? -1)
+                    ? focused === id
+                      ? 0
+                      : -1
+                    : human.rack[0] === id
+                      ? 0
+                      : -1
+                }
+                onFocus={() => setFocused(id)}
                 selected={activeSelected.includes(id)}
                 glow={suggested.includes(id) || !!hint?.used.includes(id)}
                 onSelect={myTurn ? select : undefined}
@@ -367,73 +440,91 @@ export function Game({
               />
             ))}
           </div>
-          {activeSelected.length > 0 && (
-            <button
-              className="text-button return-tiles"
-              disabled={!myTurn}
-              onClick={() => move("rack")}
-            >
-              Return selected tiles to rack ↩
-            </button>
-          )}
         </section>
+        {activeSelected.length > 0 && (
+          <div className="selection-actions">
+            <button
+              className="secondary"
+              onClick={() => move("new")}
+              disabled={!myTurn}
+            >
+              Place selected
+            </button>
+            <button className="text-button" onClick={() => setSelected([])}>
+              Deselect all
+            </button>
+          </div>
+        )}
         <div className="action-bar">
-          <button
-            className="text-button"
-            disabled={!myTurn || !s.history?.length}
-            onClick={() => act({ type: "undo" })}
-          >
-            Undo move
-          </button>
-          {coaching && (
+          <div className="turn-tools">
             <button
               className="text-button"
-              disabled={!myTurn || planning}
-              onClick={askHint}
+              aria-label="Undo move"
+              disabled={!myTurn || !s.history?.length}
+              onClick={() => act({ type: "undo" })}
             >
-              {planning ? "Finding a move…" : "Show a possible move"}
+              Undo
             </button>
-          )}
-          <button
-            className="text-button"
-            disabled={!myTurn}
-            onClick={() => act({ type: "resetTurn" })}
-          >
-            ↺ Reset turn
-          </button>
-          <span className="selection-count">
-            {activeSelected.length
-              ? `${activeSelected.length} selected`
-              : "Select a tile to begin"}
-          </span>
-          {activeSelected.length > 0 && (
-            <>
+            {coaching && (
               <button
-                className="secondary"
-                onClick={() => move("new")}
-                disabled={!myTurn}
+                className="text-button"
+                aria-label={
+                  planning ? "Finding a move…" : "Show a possible move"
+                }
+                disabled={!myTurn || planning}
+                onClick={askHint}
               >
-                Place selected
+                {planning ? "Thinking…" : "Hint"}
               </button>
-              <button className="text-button" onClick={() => setSelected([])}>
-                Deselect all
-              </button>
-            </>
-          )}
-          <button
-            className="secondary"
-            disabled={!myTurn}
-            onClick={() => act({ type: "draw" })}
-          >
-            {s.pool.length ? "Draw a tile" : "Pass"} <span>↓</span>
-          </button>
-          <button
-            className={`primary ${!check.valid && dirty ? "danger" : ""}`}
-            disabled={!myTurn || (!check.played.length && !dirty)}
-            onClick={() => act({ type: "endTurn" })}
-          >
-            {check.valid || !dirty ? "End turn →" : "+3 tiles · End turn"}
-          </button>
+            )}
+            <button
+              className="text-button"
+              aria-label="Reset turn"
+              disabled={!myTurn}
+              onClick={() => act({ type: "resetTurn" })}
+            >
+              Reset
+            </button>
+            <details className="more-actions">
+              <summary>More</summary>
+              <div>
+                <button
+                  className="text-button"
+                  disabled={!myTurn || !activeSelected.length}
+                  onClick={() => move("rack")}
+                >
+                  Return selected tiles to rack
+                </button>
+                <details className="move-history">
+                  <summary>Move history</summary>
+                  {s.log.map((line, i) => (
+                    <p key={i}>{line}</p>
+                  ))}
+                </details>
+              </div>
+            </details>
+            <span className="selection-count" role="status">
+              {activeSelected.length
+                ? `${activeSelected.length} selected`
+                : "Select tiles"}
+            </span>
+          </div>
+          <div className="primary-actions">
+            <button
+              className="secondary"
+              disabled={!myTurn}
+              onClick={() => act({ type: "draw" })}
+            >
+              {s.pool.length ? "Draw a tile" : "Pass"} ↓
+            </button>
+            <button
+              className={`primary ${!check.valid && dirty ? "danger" : ""}`}
+              disabled={!myTurn || (!check.played.length && !dirty)}
+              onClick={() => act({ type: "endTurn" })}
+            >
+              {check.valid || !dirty ? "End turn →" : "+3 tiles · End turn"}
+            </button>
+          </div>
         </div>
       </div>
       {s.notice && (
@@ -441,12 +532,6 @@ export function Game({
           {narrate ? narrateMove(s) : s.notice}
         </p>
       )}
-      <details className="game-log">
-        <summary>At the table · move history</summary>
-        {s.log.map((line, i) => (
-          <p key={i}>{line}</p>
-        ))}
-      </details>
     </main>
   );
 }

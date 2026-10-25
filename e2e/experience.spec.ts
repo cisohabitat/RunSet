@@ -8,6 +8,12 @@ test("learn, preserve, delete and resize a round", async ({ page: p }) => {
   await p.getByRole("button", { name: "Deal the tiles" }).click();
   await p.getByRole("button", { name: "Home", exact: true }).click();
   const saved = await p.evaluate(() => localStorage.getItem("runset.save.v1"));
+  if (
+    !(await p
+      .getByRole("button", { name: "Delete saved game", exact: true })
+      .isVisible())
+  )
+    await p.getByLabel("Game menu", { exact: true }).click();
   await p
     .getByRole("button", { name: "Delete saved game", exact: true })
     .click();
@@ -38,6 +44,12 @@ test("learn, preserve, delete and resize a round", async ({ page: p }) => {
     saved,
   );
   await p.getByRole("button", { name: "Exit practice" }).click();
+  if (
+    !(await p
+      .getByRole("button", { name: "Delete saved game", exact: true })
+      .isVisible())
+  )
+    await p.getByLabel("Game menu", { exact: true }).click();
   await p
     .getByRole("button", { name: "Delete saved game", exact: true })
     .click();
@@ -135,9 +147,11 @@ test("undo and restart retain safe replacement choices", async ({ page }) => {
   await page.getByRole("button", { name: "Undo move" }).click();
   expect(await page.locator(".rack .tile").count()).toBe(14);
   expect(await page.locator(".table .tile").count()).toBe(0);
+  await page.getByLabel("Game menu", { exact: true }).click();
   await page.getByRole("button", { name: "Restart with same players" }).click();
   await page.getByRole("button", { name: "Keep game" }).click();
   expect(await page.locator(".rack .tile").count()).toBe(14);
+  await page.getByLabel("Game menu", { exact: true }).click();
   await page.getByRole("button", { name: "Restart with same players" }).click();
   await page
     .getByRole("button", { name: "Start new game", exact: true })
@@ -304,6 +318,12 @@ test("delete during a bot turn cancels work and storage errors preserve the game
   await page.reload();
   await page.clock.install();
   await page.getByRole("button", { name: "Continue game" }).click();
+  if (
+    !(await page
+      .getByRole("button", { name: "Delete saved game", exact: true })
+      .isVisible())
+  )
+    await page.getByLabel("Game menu", { exact: true }).click();
   await page
     .getByRole("button", { name: "Delete saved game", exact: true })
     .click();
@@ -328,6 +348,12 @@ test("delete during a bot turn cancels work and storage errors preserve the game
   ).toBe(saved);
   await page.getByRole("button", { name: "Keep game" }).click();
   await page.reload();
+  if (
+    !(await page
+      .getByRole("button", { name: "Delete saved game", exact: true })
+      .isVisible())
+  )
+    await page.getByLabel("Game menu", { exact: true }).click();
   await page
     .getByRole("button", { name: "Delete saved game", exact: true })
     .click();

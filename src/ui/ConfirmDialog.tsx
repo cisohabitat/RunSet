@@ -24,8 +24,16 @@ export function ConfirmDialog({
     safe.current?.focus();
     return () => {
       ref.current?.close();
-      if (previous?.isConnected) previous.focus();
-      else document.querySelector<HTMLButtonElement>(".brand")?.focus();
+      if (previous?.isConnected && previous.getClientRects().length)
+        previous.focus();
+      else {
+        const summary = previous
+          ?.closest("details")
+          ?.querySelector<HTMLElement>("summary");
+        (
+          summary ?? document.querySelector<HTMLButtonElement>(".brand")
+        )?.focus();
+      }
     };
   }, []);
   return (

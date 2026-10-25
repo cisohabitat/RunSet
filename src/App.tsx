@@ -251,8 +251,114 @@ export default function App() {
     setHelpBack(screen);
     setScreen("help");
   };
+  const gameMenu =
+    screen === "game" && game ? (
+      <details
+        className="game-dropdown"
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            e.currentTarget.open = false;
+            e.currentTarget.querySelector<HTMLElement>("summary")?.focus();
+          }
+        }}
+        onClick={(e) => {
+          if ((e.target as HTMLElement).closest("[data-menu-action]"))
+            e.currentTarget.open = false;
+        }}
+      >
+        <summary aria-label="Game menu">
+          <span className="desktop-word">Game </span>Menu
+        </summary>
+        <nav className="game-menu-content" aria-label="Game options">
+          {" "}
+          <button
+            className="text-button"
+            data-menu-action
+            onClick={() => {
+              const human = game.players.find((p) => !p.bot)!;
+              start(
+                human.name,
+                game.players.length - 1,
+                game.players.find((p) => p.bot)?.bot ?? "normal",
+                {
+                  target: (game.match?.target ?? 0) as GameOptions["target"],
+                  turnSeconds: game.turnSeconds,
+                },
+              );
+            }}
+          >
+            {game.phase === "over"
+              ? "Rematch with same players"
+              : "Restart with same players"}
+          </button>
+          <details className="preferences">
+            <summary>Playing options</summary>
+            <label>
+              <input
+                type="checkbox"
+                checked={learning}
+                onChange={(e) => setLearning(e.target.checked)}
+              />{" "}
+              Explain penalties before ending a turn
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={narrate}
+                onChange={(e) => setNarrate(e.target.checked)}
+              />{" "}
+              Explain opponent moves
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={touch}
+                onChange={(e) => setTouch(e.target.checked)}
+              />{" "}
+              Larger touch controls
+            </label>
+            <label>
+              Opponent pace{" "}
+              <select
+                value={pace}
+                onChange={(e) => setPace(Number(e.target.value))}
+              >
+                <option value={700}>Quick</option>
+                <option value={1400}>Comfortable</option>
+                <option value={2400}>Take my time</option>
+              </select>
+            </label>
+          </details>
+          <button
+            className="text-button"
+            data-menu-action
+            onClick={() => setConfirmation({ kind: "delete" })}
+          >
+            Delete saved game
+          </button>
+          <button
+            className="text-button"
+            data-menu-action
+            onClick={() => setScreen("learn")}
+          >
+            Practice without losing this game
+          </button>
+          <details className="keyboard-guide">
+            <summary>Keyboard controls</summary>
+            <p>
+              Use left/right arrows or Home/End within tiles. Space selects. N
+              places selected tiles in a new group or run. Ctrl/⌘ Z undoes.
+              Escape clears selection. H asks for a hint.
+            </p>
+          </details>
+          <Offline beforeUpdate={() => !game || saveGame(game)} />
+        </nav>
+      </details>
+    ) : null;
   return (
-    <>
+    <div
+      className={`app ${screen === "game" && game?.phase === "playing" ? "playing" : ""}`}
+    >
       <header className="site-header">
         <button
           className="brand"
@@ -265,6 +371,7 @@ export default function App() {
           runset<span className="brand-period">.</span>
         </button>
         <div className="header-right">
+          {gameMenu}
           <span className="header-tag">A GOOD TIME, WELL PLAYED.</span>
           <button
             className="sound-button"
@@ -412,79 +519,7 @@ export default function App() {
           />
         </Suspense>
       )}
-      {screen === "game" && game && (
-        <nav
-          className={`game-menu ${touch ? "touch-friendly" : ""}`}
-          aria-label="Game menu"
-        >
-          <button
-            className="text-button"
-            onClick={() => {
-              const human = game.players.find((p) => !p.bot)!;
-              start(
-                human.name,
-                game.players.length - 1,
-                game.players.find((p) => p.bot)?.bot ?? "normal",
-                {
-                  target: (game.match?.target ?? 0) as GameOptions["target"],
-                  turnSeconds: game.turnSeconds,
-                },
-              );
-            }}
-          >
-            {game.phase === "over"
-              ? "Rematch with same players"
-              : "Restart with same players"}
-          </button>
-          <details className="preferences">
-            <summary>Playing options</summary>
-            <label>
-              <input
-                type="checkbox"
-                checked={learning}
-                onChange={(e) => setLearning(e.target.checked)}
-              />{" "}
-              Explain penalties before ending a turn
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                checked={narrate}
-                onChange={(e) => setNarrate(e.target.checked)}
-              />{" "}
-              Explain opponent moves
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                checked={touch}
-                onChange={(e) => setTouch(e.target.checked)}
-              />{" "}
-              Larger touch controls
-            </label>
-            <label>
-              Opponent pace{" "}
-              <select
-                value={pace}
-                onChange={(e) => setPace(Number(e.target.value))}
-              >
-                <option value={700}>Quick</option>
-                <option value={1400}>Comfortable</option>
-                <option value={2400}>Take my time</option>
-              </select>
-            </label>
-          </details>
-          <button
-            className="text-button"
-            onClick={() => setConfirmation({ kind: "delete" })}
-          >
-            Delete saved game
-          </button>
-          <button className="text-button" onClick={() => setScreen("learn")}>
-            Practice without losing this game
-          </button>
-        </nav>
-      )}
+
       {screen === "help" && <HowToPlay onBack={() => setScreen(helpBack)} />}
       {screen === "game" &&
         game &&
@@ -507,7 +542,9 @@ export default function App() {
             onHelp={help}
           />
         ))}
-      <Offline beforeUpdate={() => !game || saveGame(game)} />
+      {screen !== "game" && (
+        <Offline beforeUpdate={() => !game || saveGame(game)} />
+      )}
       <footer className="site-footer">
         <span>
           runset.{" "}
@@ -520,6 +557,6 @@ export default function App() {
         </button>
         <span>MADE FOR THE LOVE OF THE GAME</span>
       </footer>
-    </>
+    </div>
   );
 }

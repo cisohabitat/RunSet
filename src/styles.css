@@ -2051,3 +2051,536 @@ button:not(.tile) {
   min-height: 44px;
   cursor: pointer;
 }
+/* Improvement cycle: focused game workspace and compact, discoverable menus. */
+.game-dropdown {
+  position: relative;
+  z-index: 30;
+  font-size: 12px;
+}
+.game-dropdown > summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 58px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  list-style: none;
+}
+.game-dropdown > summary::after {
+  content: "⌄";
+  margin-left: 7px;
+}
+.game-menu-content {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(350px, calc(100vw - 24px));
+  max-height: calc(100dvh - 90px);
+  overflow: auto;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px #0003;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.game-menu-content > .text-button {
+  justify-content: flex-start;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  width: 100%;
+}
+.game-menu-content .preferences label {
+  padding: 5px 0;
+}
+.game-menu-content .offline-tools {
+  padding: 6px 0;
+  margin: 0;
+  max-width: 100%;
+}
+.keyboard-guide {
+  font-size: 12px;
+}
+.keyboard-guide summary {
+  min-height: 44px;
+  cursor: pointer;
+  padding: 12px 0;
+}
+.keyboard-guide p {
+  line-height: 1.8;
+}
+.turn-tools {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+}
+.turn-tools > .text-button {
+  min-width: 52px;
+  margin: 0;
+  padding: 8px;
+}
+.turn-tools .selection-count {
+  margin-left: auto;
+  font-size: 11px;
+}
+.primary-actions {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.primary-actions > button {
+  flex: 1;
+  justify-content: center;
+  min-height: 46px;
+}
+.action-bar {
+  display: block;
+}
+.more-actions {
+  position: relative;
+  font-size: 12px;
+}
+.more-actions > summary {
+  padding: 12px 8px;
+  min-height: 44px;
+  cursor: pointer;
+  list-style: none;
+}
+.more-actions > div {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  width: 260px;
+  max-width: calc(100vw - 24px);
+  max-height: 50dvh;
+  overflow: auto;
+  z-index: 20;
+  padding: 14px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 -6px 25px #0002;
+}
+.move-history summary {
+  padding: 12px 0;
+  min-height: 44px;
+  cursor: pointer;
+}
+.move-history p {
+  font-size: 11px;
+  line-height: 1.8;
+  margin-top: 10px;
+}
+.selection-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+.selection-actions button {
+  flex: 1;
+  padding: 8px;
+  justify-content: center;
+  font-size: 12px;
+}
+.game-notice {
+  font-size: 11px;
+  line-height: 1.5;
+  margin-top: 6px;
+}
+.game .table-tools {
+  gap: 8px;
+}
+.game .table-tools button {
+  font-size: 10px;
+}
+.game .rack-tiles {
+  scrollbar-width: thin;
+}
+.app.playing {
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.playing > .site-header {
+  height: 68px;
+  min-height: 68px;
+  flex: 0 0 68px;
+  width: 100%;
+  padding: 0 5%;
+}
+.playing > .site-footer {
+  display: none;
+}
+.playing > .notice {
+  flex: none;
+  margin: 0 12px;
+  max-height: 60px;
+  overflow: auto;
+  padding: 8px 12px;
+}
+.playing > .game {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  max-width: 1320px;
+  width: 100%;
+  padding: 10px 4% 12px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.playing .game-heading {
+  flex: none;
+  margin-bottom: 8px;
+}
+.playing .game-heading h1 {
+  font-size: 30px;
+}
+.playing .game-heading .eyebrow {
+  display: none;
+}
+.playing .opponents {
+  flex: none;
+  margin-bottom: 8px;
+}
+.playing .opponent {
+  padding: 8px 12px;
+}
+.playing .table-tools {
+  flex: none;
+  min-height: 44px;
+}
+.playing .table {
+  flex: 1 1 100%;
+  min-height: 60px;
+  max-height: none;
+  overscroll-behavior: contain;
+}
+.playing .player-dock {
+  position: static;
+  flex: none;
+  box-shadow: none;
+  padding: 0;
+  background: var(--paper);
+  z-index: auto;
+}
+.playing .rack {
+  margin-top: 0;
+  padding: 9px 14px 7px;
+}
+.playing .rack-heading {
+  margin-bottom: 0;
+}
+.playing .rack-tiles {
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  overflow: auto;
+  max-height: 105px;
+  padding: 10px 4px 7px;
+}
+.playing .expanded-rack .rack-tiles {
+  flex-wrap: wrap;
+  max-height: 160px;
+  overflow: auto;
+}
+.playing .status-line {
+  flex: none;
+  min-height: 28px;
+  padding: 5px 0;
+  font-size: 11px;
+}
+.playing .opening-breakdown {
+  padding: 5px 0;
+  font-size: 10px;
+  line-height: 1.4;
+  max-height: 36px;
+  overflow: auto;
+  flex: none;
+}
+.playing .action-bar {
+  padding-top: 2px;
+  flex: none;
+}
+.playing .action-bar .primary,
+.playing .action-bar .secondary {
+  width: auto;
+  margin: 0;
+  min-width: 0;
+}
+.playing .match-bar {
+  margin-bottom: 6px;
+  padding: 6px 10px;
+  font-size: 11px;
+  gap: 12px;
+  flex: none;
+}
+.playing .turn-clock {
+  margin-bottom: 4px;
+  font-size: 10px;
+  flex: none;
+}
+.playing .coach-card {
+  padding: 10px 14px;
+  margin: 0 0 8px;
+  max-height: 22dvh;
+  overflow: auto;
+  flex: none;
+}
+.playing .coach-card p {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.playing .game-notice {
+  flex: none;
+  max-height: 32px;
+  overflow: auto;
+  margin-top: 6px;
+}
+.playing .table-topline {
+  margin-bottom: 12px;
+}
+.playing .table-expanded .opponents,
+.playing .table-expanded .game-heading {
+  display: none;
+}
+.tile:focus-visible {
+  outline: 3px solid #b68b39;
+  outline-offset: 3px;
+}
+.rack-tiles:focus-within {
+  scroll-padding: 10px;
+}
+@media (max-width: 720px) {
+  .playing > .site-header {
+    padding: 0 12px;
+    height: 64px;
+    min-height: 64px;
+    flex-basis: 64px;
+  }
+  .playing .brand {
+    font-size: 27px;
+    gap: 7px;
+  }
+  .playing .header-right {
+    gap: 6px;
+  }
+  .playing .sound-button {
+    min-width: 60px;
+    padding: 8px;
+    font-size: 11px;
+  }
+  .playing .header-right > .text-button {
+    width: 44px;
+    min-width: 44px;
+    font-size: 11px;
+    justify-content: center;
+  }
+  .game-dropdown .desktop-word {
+    display: none;
+  }
+  .game-dropdown > summary {
+    padding: 8px;
+    min-width: 57px;
+  }
+  .game-menu-content {
+    position: fixed;
+    top: 66px;
+    right: 12px;
+    max-height: calc(100dvh - 80px);
+  }
+  .playing > .game {
+    padding: 6px 12px max(8px, env(safe-area-inset-bottom));
+  }
+  .playing .game-heading {
+    margin-bottom: 4px;
+    min-height: 38px;
+  }
+  .playing .game-heading h1 {
+    font-size: 24px;
+  }
+  .playing .opponent {
+    padding: 7px 9px;
+  }
+  .playing .pool-count {
+    width: auto;
+    flex: 0 0 auto;
+    padding: 0 3px;
+    align-self: center;
+    min-width: 35px;
+  }
+  .playing .pool-count span {
+    display: none;
+  }
+  .playing .opponents {
+    flex-wrap: nowrap;
+    gap: 5px;
+  }
+  .playing .opponent strong {
+    max-width: 90px;
+  }
+  .playing .table-tools {
+    min-height: 38px;
+    gap: 5px;
+  }
+  .playing .table-tools button {
+    min-height: 38px;
+    padding: 6px 2px;
+    font-size: 9px;
+  }
+  .playing .table-topline {
+    margin-bottom: 8px;
+  }
+  .playing .table {
+    padding: 8px;
+    min-height: 60px;
+  }
+  .playing .empty-table {
+    inset: 112px 3px 0;
+    display: none;
+  }
+  .playing .rack {
+    padding: 5px 9px 4px;
+  }
+  .playing .rack-heading > div:first-child {
+    min-width: 80px;
+  }
+  .playing .rack-heading strong {
+    font-size: 11px;
+  }
+  .playing .rack-heading div > span {
+    font-size: 9px;
+    margin-top: 2px;
+  }
+  .playing .sort button {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 4px;
+    font-size: 9px;
+  }
+  .playing .rack-tiles {
+    padding: 10px 4px 7px;
+  }
+  .turn-tools {
+    gap: 6px;
+  }
+  .turn-tools > .text-button {
+    font-size: 11px;
+    min-width: 48px;
+  }
+  .turn-tools .selection-count {
+    font-size: 10px;
+  }
+  .primary-actions {
+    gap: 8px;
+  }
+  .primary-actions > button {
+    font-size: 12px;
+    min-height: 46px;
+  }
+  .playing .expanded-rack .rack-tiles {
+    max-height: 140px;
+  }
+  .selection-actions {
+    min-height: 40px;
+  }
+  .selection-actions button {
+    min-height: 44px;
+  }
+  .playing .game-notice {
+    font-size: 10px;
+    max-height: 27px;
+  }
+  .playing .more-actions > div {
+    right: auto;
+    left: -110px;
+  }
+  .playing .warning {
+    font-size: 9px;
+  }
+  .playing .table-tools > span {
+    display: none;
+  }
+}
+@media (min-width: 721px) and (max-width: 1180px) {
+  .playing > .game {
+    padding: 10px 24px 14px;
+  }
+  .playing .tile {
+    width: 52px;
+    height: 70px;
+  }
+  .playing .rack-tiles {
+    max-height: 115px;
+  }
+  .playing .expanded-rack .rack-tiles {
+    max-height: 185px;
+  }
+  .playing .primary-actions > button {
+    max-width: 260px;
+  }
+  .playing .primary-actions {
+    justify-content: flex-end;
+  }
+  .playing .opponent {
+    max-width: none;
+  }
+}
+@media (min-width: 1181px) {
+  .playing .player-dock .rack-tiles {
+    justify-content: center;
+  }
+  .playing .action-bar {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .playing .turn-tools {
+    flex: 1;
+    width: auto;
+  }
+  .playing .primary-actions {
+    width: 360px;
+  }
+  .playing .rack-tiles {
+    max-height: 120px;
+  }
+  .playing .table {
+    padding: 18px;
+  }
+  .playing .table-tools span {
+    font-size: 10px;
+  }
+}
+@media (max-height: 520px) {
+  .app.playing {
+    height: auto;
+    min-height: 100dvh;
+    overflow: auto;
+  }
+  .playing > .game {
+    overflow: visible;
+    min-height: 500px;
+    flex: none;
+  }
+  .playing .table {
+    flex: none;
+    min-height: 180px;
+    max-height: 55dvh;
+  }
+  .playing .player-dock {
+    position: static;
+  }
+  .playing .game-notice {
+    max-height: none;
+  }
+}

@@ -52,7 +52,10 @@ No brand names or third-party tile artwork are used by the game.
 Select one or more tiles, then choose **New meld** or the add button under an
 existing meld. Dragging supports one tile or a selection. Return newly played
 rack tiles with **Return selected tiles to rack** or by dropping onto your rack.
-Use Tab and Space/Enter for keyboard selection and destination activation.
+Use Tab to enter a rack or group, arrow keys or Home/End to move between tiles,
+and Space/Enter to select. N places a selection in a new group or run, Ctrl/⌘ Z
+undoes, H requests a hint, and Escape clears the selection. Restart, deletion,
+preferences, offline tools, and keyboard help are available in the Game menu.
 
 Open with at least 30 points from your own rack before touching table tiles.
 After opening, rearrange freely, keeping every meld valid. **Reset turn** restores

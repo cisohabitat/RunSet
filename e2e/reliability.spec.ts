@@ -12,6 +12,12 @@ test("a deletion reaches other tabs and cannot be resurrected", async ({
   const other = await context.newPage();
   await other.goto("/");
   await other.getByRole("button", { name: "Continue game" }).click();
+  if (
+    !(await page
+      .getByRole("button", { name: "Delete saved game", exact: true })
+      .isVisible())
+  )
+    await page.getByLabel("Game menu", { exact: true }).click();
   await page
     .getByRole("button", { name: "Delete saved game", exact: true })
     .click();

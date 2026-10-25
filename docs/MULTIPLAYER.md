@@ -1,20 +1,11 @@
-# Online multiplayer: backend work pending workspace access
+# Online multiplayer: archived proposal
 
-Status: not implemented or enabled. Local play, matches, timers, and offline
-practice work independently. No placeholder Online Play control is shown.
+Status: deferred at the user’s request. This document preserves a possible future
+approach; it is not an active implementation plan or a release requirement.
 
-## Current blocker
-
-The connected Vercel account cannot access the `cfusion2k-7277s-projects`
-workspace: integration inspection returns HTTP 403, “Not authorized”. The
-public game URL is reachable, but that does not grant project or database access.
-The CLI also has no authenticated session. Its catalog command entered a login
-flow rather than returning discovery results; that flow was stopped.
-
-Workspace authorization is required before inspecting the actual project,
-selecting/provisioning a shared store, or integrating against its real credentials.
-Do not add an in-memory server store or pretend that localStorage synchronizes
-players across devices.
+Local play, matches, timers, and offline practice are the supported scope. No
+workspace authorization, server provisioning, or online-play UI is needed.
+Resume this proposal only if the user explicitly requests multiplayer again.
 
 ## Proposed first online release
 
@@ -56,7 +47,7 @@ features remain usable when the online backend is unavailable. Cache no `/api/`
 responses in the service worker. Credentials stay server-side in Vercel-managed
 environment variables, never in `VITE_*` variables or Git.
 
-## Required implementation and verification
+## Implementation and verification if scope is reopened
 
 1. Authorize the Vercel workspace, inspect the RunSet project and existing stores,
    discover/provision the selected integration, and verify its real connection.

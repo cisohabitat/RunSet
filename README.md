@@ -147,6 +147,7 @@ criteria. Guided learning, safe deletion, device layouts, contextual hints, undo
 offline installation, matches, and timers are implemented. Real-device Safari and
 first-time-player usability sessions remain manual verification items.
 
-Online multiplayer is blocked on Vercel workspace access and provisioning a real
-shared backend. See the [multiplayer implementation plan](docs/MULTIPLAYER.md).
-No online-play functionality or resource setup is implied by the local features.
+Online multiplayer is deferred at the user’s request and is outside the active
+roadmap. No workspace authorization or shared backend is needed for the current
+game. The [archived multiplayer proposal](docs/MULTIPLAYER.md) is retained for
+possible future discussion.

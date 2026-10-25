@@ -5,8 +5,9 @@ turn timers) are implemented. Each implementation phase is published separately
 to `main`. Automated coverage includes guided learning, isolated saves,
 delete/replace, hints, penalty warnings, undo, crowded layouts, matches, timeout
 handling, offline reload, and explicit updates. Real-device Safari and the
-five-person usability study remain unverified. Online multiplayer is blocked on
-workspace access and a real backend; see [MULTIPLAYER.md](MULTIPLAYER.md).
+five-person usability study remain unverified. Online multiplayer is deferred at
+the user’s request and excluded from active completion criteria. The historical
+proposal is archived in [MULTIPLAYER.md](MULTIPLAYER.md).
 
 ## Product goal
 
@@ -170,12 +171,12 @@ and bot planning keep the UI responsive on iPhone and iPad.
 Acceptance: undo cannot reverse a completed turn, reveal future pool tiles, or
 break tile conservation; offline/update tests preserve valid saved games.
 
-## Local expansion shipped; online multiplayer remains blocked
+## Local expansion shipped; online multiplayer deferred
 
 Multi-round matches to 100/200/500 points and optional 60/120-second turn timers
 are implemented. Timers remain off by default for learners. Online multiplayer
-requires workspace access and a provisioned backend; the concrete next steps are
-in [MULTIPLAYER.md](MULTIPLAYER.md).
+is outside the current scope; no backend setup or workspace access is required.
+Focus remaining validation on Apple devices and first-time-player usability.
 
 ## Implementation order and release gates
 

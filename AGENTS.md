@@ -42,8 +42,9 @@ from the public repository.
 - Match totals and per-round history must agree in saves; keep seat identity stable
   across rounds. Timed actions carry explicit event timestamps so the reducer
   stays deterministic. Expiry restores edits and draws once, never a penalty.
-- Online multiplayer is not implemented. Follow `docs/MULTIPLAYER.md` and provision
-  the real store before adding online UI. Never expose shuffle seeds or hidden racks.
+- Online multiplayer is explicitly deferred. `docs/MULTIPLAYER.md` is an archived
+  proposal, not an active task. Do not request workspace access, provision backend
+  resources, or add online-play functionality unless the user reopens that scope.
 - Undo history is bounded to 100 snapshots of the current turn only. Clear it
   on reset, draw, or turn completion. Saves must validate every snapshot.
 - Production builds generate `dist/sw.js` with static asset hashes. Never cache

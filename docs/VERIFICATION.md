@@ -1,7 +1,8 @@
 # Roadmap verification
 
 Verification date: 2026-10-25. This records automated checks in the development
-environment; it does not certify physical Apple devices or live multiplayer.
+environment; it does not certify physical Apple devices. Online multiplayer is
+explicitly deferred and excluded from active release requirements.
 
 ## Automated results
 
@@ -35,7 +36,5 @@ not physical iPhone/iPad Safari coverage.
 - Current macOS Safari and Firefox, VoiceOver, and assistive-technology usability.
 - The planned five-person first-time-player study and its four-of-five completion
   target. No participants or results have been fabricated.
-- A real server-backed multiplayer integration and two-device games: workspace
-  access and store provisioning are blocked as described in MULTIPLAYER.md.
 - Vercel deployment status for each pushed commit: publishing to `main` is
   confirmed separately from Vercel completing its automatic build.

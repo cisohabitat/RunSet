@@ -1,34 +1,51 @@
 # Contributor and agent guidance
 
-## Scope and current state
+## Scope and project
 
-This file applies to the entire repository. RunSet currently contains project
-documentation only; no application framework, package manager, or test suite has
-been selected.
+These instructions apply to the entire repository. RunSet is a static,
+browser-only tile-rummy game built with React 19, strict TypeScript 5, Vite 7,
+plain CSS, and Vitest. The original user-provided specification PDF is kept
+locally at `docs/RunSet-Game-Specification.pdf` when available and is excluded
+from the public repository.
 
-## Working in this repository
+## Architecture and rules
 
-- Inspect the current files and Git status before editing. Preserve unrelated
-  changes.
-- Follow the user's requested scope. Do not choose a technology stack or add
-  dependencies solely to satisfy these instructions.
-- Once code and tooling exist, follow their established conventions and check
-  for more specific `AGENTS.md` instructions in the directories being changed.
-- Never commit secrets, credentials, local environment files, or generated
-  dependency directories.
+- `src/engine/` owns the rules and state transitions. Keep it independent of React,
+  DOM, localStorage, audio, and network services. Use seeded randomness for deals.
+- All gameplay changes go through the pure engine reducer. Bots submit plans to
+  the same validator as humans. Never mutate React state or hide illegal moves
+  behind UI-only checks.
+- Keep all 106 physical tile IDs unique across the pool, racks, and table after
+  every action. Turn snapshots are copies, not additional physical tiles.
+- Preserve opening restrictions, joker replacement and reuse, rollback plus
+  penalty draws, reset, passing, and single-round scoring when changing rules.
+- Bot search must remain bounded: Hard’s total production planning budget is
+  under 400 ms, with a legal Normal fallback.
+- `src/lib/` handles browser storage and optional synthesised audio. Schema changes
+  require explicit save migration or rejection with a visible notice.
+- `src/ui/` renders screens and controls. Support keyboard and touch input, colour
+  shape marks, 360 px layouts, dark theme, and reduced motion. Keep dependencies
+  limited to React/React DOM at runtime. No backend or credentials are required.
 
-## Documentation upkeep
+## Working and verification
 
-- Keep `README.md` aligned with the actual project status, repository structure,
-  prerequisites, and available setup, development, build, and test commands.
-- Update this file when repository conventions or verification workflows change.
-- Document commands only after their supporting code or configuration exists.
+- Inspect files and Git status before editing. Preserve unrelated changes and
+  check for more specific directory instructions.
+- Install locked dependencies with `npm ci` using Node 20.19+ or Node 22.12+.
+- Run `npm run typecheck`, `npm test`, and `npm run build` for gameplay changes.
+  Add regression coverage for changed rules and preserve tile-conservation and
+  bot-simulation checks. Tests may use smaller search budgets; retain a production
+  Hard-budget regression check.
+- For UI changes, verify the affected player flow, responsive layout, and runtime
+  console when browser tooling is available. Report any verification limits.
+- For documentation-only changes, check accuracy, local links, and
+  `git diff --check`; no need to rerun gameplay tests.
+- Do not commit secrets, `.env` files, dependency folders, generated output, or
+  local deployment metadata.
 
-## Verification and handoff
+## Documentation and handoff
 
-- For documentation changes, review the diff for accuracy and formatting and
-  check that local links resolve. No automated test command currently exists.
-- When executable code is added, run the relevant checks supported by the
-  repository and record their results. Explain any checks that could not run.
-- Summarize the changes and verification performed. Commit or push only when
-  requested by the user.
+Keep `README.md` aligned with implemented behavior, tooling, commands, storage
+limitations, and deployment setup. Update this file when conventions change.
+Summarize changes and verification results. Commit, push, or deploy only when
+requested; configuring Vercel is distinct from a successful live deployment.

@@ -1,0 +1,171 @@
+import { useEffect, useReducer, useState } from "react";
+import {
+  type GameState,
+  type Difficulty,
+  type Action,
+  reducer,
+  newGame,
+  results,
+  turnCheck,
+} from "./engine/game";
+import { planBot } from "./engine/bot";
+import { loadGame, saveGame } from "./lib/storage";
+import { sound } from "./lib/sound";
+import { Home } from "./ui/Home";
+import { Setup } from "./ui/Setup";
+import { HowToPlay } from "./ui/HowToPlay";
+import { Game } from "./ui/Game";
+import { GameOver } from "./ui/GameOver";
+type Screen = "home" | "setup" | "help" | "game";
+const initial = loadGame();
+export default function App() {
+  const [screen, setScreen] = useState<Screen>("home"),
+    [helpBack, setHelpBack] = useState<Screen>("home");
+  const [game, dispatchBase] = useReducer(
+    (s: GameState | null, a: Action | { type: "start"; game: GameState }) =>
+      a.type === "start" ? a.game : s ? reducer(s, a) : null,
+    initial.game,
+  );
+  const [notice, setNotice] = useState(initial.notice);
+  const [muted, setMuted] = useState(() => {
+    try {
+      return localStorage.getItem("runset.muted") === "true";
+    } catch {
+      return true;
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem("runset.muted", String(muted));
+    } catch {
+      /* Optional preference. */
+    }
+  }, [muted]);
+  useEffect(() => {
+    if (game && !saveGame(game))
+      setNotice("Browser storage is unavailable. This round cannot be saved.");
+  }, [game]);
+  useEffect(() => {
+    if (
+      screen !== "game" ||
+      !game ||
+      game.phase !== "playing" ||
+      !game.players[game.current].bot
+    )
+      return;
+    const timer = setTimeout(
+      () => dispatchBase({ type: "botTurn", table: planBot(game) }),
+      700,
+    );
+    return () => clearTimeout(timer);
+  }, [game, screen]);
+  useEffect(() => {
+    if (screen !== "game" || !game) return;
+    if (game.phase === "over")
+      sound(results(game).find((p) => p.winner)?.bot ? "lose" : "win", muted);
+    else if (!game.players[game.current].bot) sound("turn", muted);
+  }, [game?.turn, game?.phase, screen, muted]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [screen]);
+  const dispatch = (a: Action) => {
+    if (a.type === "move") sound("place", muted);
+    else if (a.type === "draw") sound("draw", muted);
+    else if (a.type === "endTurn" && game && !turnCheck(game).valid)
+      sound("invalid", muted);
+    else sound("select", muted);
+    dispatchBase(a);
+  };
+  const start = (name: string, bots: number, d: Difficulty) => {
+    dispatchBase({ type: "start", game: newGame(name, bots, d) });
+    setScreen("game");
+  };
+  const help = () => {
+    setHelpBack(screen);
+    setScreen("help");
+  };
+  return (
+    <>
+      <header className="site-header">
+        <button
+          className="brand"
+          onClick={() => setScreen("home")}
+          aria-label="RunSet home"
+        >
+          <span className="brand-icon">
+            r<span>◆</span>
+          </span>
+          runset<span className="brand-period">.</span>
+        </button>
+        <div className="header-right">
+          <span className="header-tag">A GOOD TIME, WELL PLAYED.</span>
+          <button
+            className="sound-button"
+            onClick={() => setMuted((x) => !x)}
+            aria-label={muted ? "Unmute sound" : "Mute sound"}
+            aria-pressed={muted}
+          >
+            {muted ? "♪ Off" : "♫ On"}
+          </button>
+          {screen !== "home" && (
+            <button className="text-button" onClick={() => setScreen("home")}>
+              Home
+            </button>
+          )}
+        </div>
+      </header>
+      {notice && (
+        <div className="notice" role="status">
+          {notice}
+          <button aria-label="Dismiss notice" onClick={() => setNotice("")}>
+            ×
+          </button>
+        </div>
+      )}
+      {screen === "home" && (
+        <Home
+          onNew={() => setScreen("setup")}
+          onContinue={() => setScreen("game")}
+          onHelp={help}
+          hasSave={!!game && game.phase === "playing"}
+        />
+      )}
+      {screen === "setup" && (
+        <Setup
+          onStart={start}
+          onBack={() => setScreen("home")}
+          hasSave={!!game && game.phase === "playing"}
+        />
+      )}
+      {screen === "help" && <HowToPlay onBack={() => setScreen(helpBack)} />}
+      {screen === "game" &&
+        game &&
+        (game.phase === "over" ? (
+          <GameOver
+            game={game}
+            onNew={() => setScreen("setup")}
+            onHome={() => setScreen("home")}
+          />
+        ) : (
+          <Game
+            key={`${game.seed}-${game.turn}`}
+            game={game}
+            dispatch={dispatch}
+            onHelp={help}
+          />
+        ))}
+      <footer className="site-footer">
+        <span>
+          runset.{" "}
+          <span className="footer-note">
+            A classic game. A fresh perspective.
+          </span>
+        </span>
+        <button className="text-button" onClick={help}>
+          How to play ↗
+        </button>
+        <span>MADE FOR THE LOVE OF THE GAME</span>
+      </footer>
+    </>
+  );
+}

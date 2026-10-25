@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useReducer, useState } from "react";
 import {
   type GameState,
   type Difficulty,
+  type GameOptions,
   type Action,
   reducer,
   newGame,
@@ -41,6 +42,8 @@ export default function App() {
   const [confirmation, setConfirmation] = useState<{
     kind: "delete" | "replace" | "penalty";
     next?: GameState;
+    expectedTurn?: number;
+    expectedSeed?: number;
   } | null>(null);
   const [learning, setLearning] = useState(() => {
     try {
@@ -120,10 +123,11 @@ export default function App() {
       runPlanner(game, "bot", controller.signal)
         .then((table) => {
           if (!controller.signal.aborted)
-            dispatchBase({ type: "botTurn", table });
+            dispatchBase({ type: "botTurn", table, at: Date.now() });
         })
         .catch(() => {
-          if (!controller.signal.aborted) dispatchBase({ type: "draw" });
+          if (!controller.signal.aborted)
+            dispatchBase({ type: "draw", at: Date.now() });
         });
     }, pace);
     return () => {
@@ -140,9 +144,29 @@ export default function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [screen]);
-  const dispatch = (a: Action) => {
+  useEffect(() => {
+    if (screen !== "game" || !game?.turnSeconds || game.phase !== "playing")
+      return;
+    const tick = () => dispatchBase({ type: "tick", now: Date.now() });
+    tick();
+    const timer = setInterval(tick, 500);
+    return () => clearInterval(timer);
+  }, [screen, game?.seed, game?.phase, game?.turnSeconds]);
+  useEffect(() => {
+    if (
+      confirmation?.kind === "penalty" &&
+      (game?.turn !== confirmation.expectedTurn || game?.phase !== "playing")
+    )
+      setConfirmation(null);
+  }, [game?.turn, game?.phase, confirmation]);
+  const dispatch = (action: Action) => {
+    const a = { ...action, at: Date.now() };
     if (a.type === "endTurn" && learning && game && !turnCheck(game).valid) {
-      setConfirmation({ kind: "penalty" });
+      setConfirmation({
+        kind: "penalty",
+        expectedTurn: game.turn,
+        expectedSeed: game.seed,
+      });
       return;
     }
     if (a.type === "move") sound("place", muted);
@@ -152,8 +176,16 @@ export default function App() {
     else sound("select", muted);
     dispatchBase(a);
   };
-  const start = (name: string, bots: number, d: Difficulty) => {
-    const next = newGame(name, bots, d);
+  const start = (
+    name: string,
+    bots: number,
+    d: Difficulty,
+    options: GameOptions = {},
+  ) => {
+    const next = newGame(name, bots, d, Date.now(), {
+      ...options,
+      now: Date.now(),
+    });
     if (game) {
       setConfirmation({ kind: "replace", next });
       return;
@@ -220,7 +252,17 @@ export default function App() {
           }}
           onConfirm={() => {
             if (confirmation.kind === "penalty") {
-              dispatchBase({ type: "endTurn" });
+              if (
+                !game ||
+                game.turn !== confirmation.expectedTurn ||
+                game.seed !== confirmation.expectedSeed ||
+                game.phase !== "playing"
+              ) {
+                setConfirmation(null);
+                setNotice("That turn has already ended.");
+                return;
+              }
+              dispatchBase({ type: "endTurn", at: Date.now() });
             } else if (confirmation.kind === "delete") {
               if (!deleteGame()) {
                 setNotice(
@@ -279,7 +321,7 @@ export default function App() {
           onNew={() => setScreen("setup")}
           onContinue={() => setScreen("game")}
           onHelp={help}
-          hasSave={!!game && game.phase === "playing"}
+          hasSave={!!game}
           game={game}
           onDelete={() => setConfirmation({ kind: "delete" })}
           onLearn={() => setScreen("learn")}
@@ -315,10 +357,16 @@ export default function App() {
                 human.name,
                 game.players.length - 1,
                 game.players.find((p) => p.bot)?.bot ?? "normal",
+                {
+                  target: (game.match?.target ?? 0) as GameOptions["target"],
+                  turnSeconds: game.turnSeconds,
+                },
               );
             }}
           >
-            Restart with same players
+            {game.phase === "over"
+              ? "Rematch with same players"
+              : "Restart with same players"}
           </button>
           <details className="preferences">
             <summary>Playing options</summary>
@@ -374,6 +422,9 @@ export default function App() {
         game &&
         (game.phase === "over" ? (
           <GameOver
+            onNextRound={() =>
+              dispatchBase({ type: "nextRound", at: Date.now() })
+            }
             game={game}
             onNew={() => setScreen("setup")}
             onHome={() => setScreen("home")}

@@ -103,6 +103,17 @@ export default function Tutorial({
       ? step === 7
       : turnCheck(game).valid && turnCheck(game).played.length > 0;
   const dispatch = (action: Action) => {
+    if (
+      lesson === "basics" &&
+      action.type === "endTurn" &&
+      !turnCheck(game).valid
+    ) {
+      setStorageNotice(
+        `Practice tip: ${turnCheck(game).reason} Keep editing or reset; no penalty has been applied.`,
+      );
+      return;
+    }
+
     let next = reducer(game, action),
       nextStep = step;
     if (lesson === "basics") {
@@ -121,6 +132,11 @@ export default function Tutorial({
         game.table.some((m) => m.tiles.length < 3)
       )
         nextStep = 7;
+      if (step <= 2 && ["move", "undo", "resetTurn"].includes(action.type)) {
+        const group = [9, 35, 61].every((id) => table.includes(id)),
+          run = [0, 1, 2].every((id) => table.includes(id));
+        nextStep = group ? (run ? 2 : 1) : 0;
+      }
       if (action.type === "endTurn" && step !== 3) return;
       if (action.type === "draw" && step !== 5) return;
     }
@@ -188,6 +204,7 @@ export default function Tutorial({
       {!finished && (
         <Game
           key={`${lesson}-${game.turn}`}
+          coaching={false}
           game={game}
           dispatch={dispatch}
           onHelp={onExit}

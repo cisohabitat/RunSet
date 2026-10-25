@@ -9,6 +9,7 @@ export function Game({
   dispatch,
   onHelp,
   suggested = [],
+  coaching = true,
   narrate = false,
   touch = false,
 }: {
@@ -16,9 +17,16 @@ export function Game({
   dispatch: (a: Action) => void;
   onHelp: () => void;
   suggested?: number[];
+  coaching?: boolean;
   narrate?: boolean;
   touch?: boolean;
 }) {
+  const [clock, setClock] = useState(Date.now);
+  useEffect(() => {
+    if (!s.turnSeconds) return;
+    const timer = setInterval(() => setClock(Date.now()), 500);
+    return () => clearInterval(timer);
+  }, [s.turnSeconds]);
   const [expanded, setExpanded] = useState(false),
     [tableView, setTableView] = useState<"normal" | "wide">("normal");
   const tableRef = useRef<HTMLElement>(null);
@@ -91,6 +99,27 @@ export function Game({
           Rules ↗
         </button>
       </div>
+      {s.match && (
+        <div className="match-bar" aria-label="Match scores">
+          <span>First to {s.match.target}</span>
+          {s.players.map((player, i) => (
+            <span key={i}>
+              {player.name}: <strong>{s.match!.totals[i]}</strong>
+            </span>
+          ))}
+        </div>
+      )}
+      {s.turnSeconds && (
+        <p
+          className={`turn-clock ${Math.max(0, (s.deadline ?? clock) - clock) < 15000 ? "urgent" : ""}`}
+          role="timer"
+          aria-label="Time left this turn"
+        >
+          Time left:{" "}
+          {Math.max(0, Math.ceil(((s.deadline ?? clock) - clock) / 1000))}s ·
+          unfinished moves reset and draw one on expiry
+        </p>
+      )}
       <div className="opponents">
         {s.players
           .filter((x) => x.bot)
@@ -175,7 +204,9 @@ export function Game({
       >
         <div className="table-topline">
           <span>MAKE ROOM FOR A GOOD IDEA</span>
-          <span>Round 01 · Turn {s.turn}</span>
+          <span>
+            Round {s.match?.round ?? 1} · Turn {s.turn}
+          </span>
         </div>
         <div className="melds">
           {s.table.map((m) => {
@@ -354,13 +385,15 @@ export function Game({
           >
             Undo move
           </button>
-          <button
-            className="text-button"
-            disabled={!myTurn || planning}
-            onClick={askHint}
-          >
-            {planning ? "Finding a move…" : "Show a possible move"}
-          </button>
+          {coaching && (
+            <button
+              className="text-button"
+              disabled={!myTurn || planning}
+              onClick={askHint}
+            >
+              {planning ? "Finding a move…" : "Show a possible move"}
+            </button>
+          )}
           <button
             className="text-button"
             disabled={!myTurn}

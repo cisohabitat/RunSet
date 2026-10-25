@@ -47,7 +47,13 @@ test("an explicit worker update keeps the saved game", async ({ page }) => {
       const registration = await navigator.serviceWorker.getRegistration();
       await registration?.update();
     });
-    await page.getByRole("button", { name: "Save and update" }).click();
+    await Promise.all([
+      page.waitForEvent(
+        "framenavigated",
+        (frame) => frame === page.mainFrame(),
+      ),
+      page.getByRole("button", { name: "Save and update" }).click(),
+    ]);
     await page.waitForLoadState("domcontentloaded");
     await expect(
       page.getByRole("button", { name: "Continue game" }),

@@ -197,3 +197,145 @@ test("crowded tables and fifty-tile racks stay usable on phone and tablet", asyn
   await page.getByRole("button", { name: "Table end ↓" }).click();
   await page.getByRole("button", { name: "Table start ↑" }).click();
 });
+
+test("matches deal subsequent rounds and timed turns draw on expiry", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "New game", exact: false }).click();
+  await page.getByLabel("Game length").selectOption("500");
+  await page.getByLabel("Time per turn").selectOption("60");
+  await page.getByRole("button", { name: "Deal the tiles" }).click();
+  expect(await page.getByRole("timer").count()).toBe(1);
+  await expect(page.getByLabel("Match scores")).toBeVisible();
+  await page.getByRole("button", { name: "Home", exact: true }).click();
+  await page.evaluate(async () => {
+    const { practiceGame } = await import("/src/engine/practice.ts");
+    const s = practiceGame();
+    s.pool.push(...s.players[0].rack.filter((id) => ![9, 35, 61].includes(id)));
+    s.players[0].rack = [9, 35, 61];
+    s.turnStart = { table: [], rack: [9, 35, 61] };
+    s.match = { target: 500, round: 1, totals: [0, 0], rounds: [] };
+    localStorage.setItem("runset.save.v1", JSON.stringify(s));
+  });
+  await page.reload();
+  await page.getByRole("button", { name: "Continue game" }).click();
+  for (const name of ["red 10", "blue 10", "orange 10"])
+    await page.getByRole("button", { name, exact: true }).click();
+  await page.getByRole("button", { name: /New group or run/ }).click();
+  await page.getByRole("button", { name: "End turn →", exact: true }).click();
+  await expect(page.getByLabel("Match scoreboard")).toBeVisible();
+  await page.reload();
+  await page.getByRole("button", { name: "View results" }).click();
+  await page.getByRole("button", { name: "Deal round 2" }).click();
+  expect(
+    await page.evaluate(
+      () => JSON.parse(localStorage.getItem("runset.save.v1")!).match.round,
+    ),
+  ).toBe(2);
+  await page.getByRole("button", { name: "Home", exact: true }).click();
+  await page.evaluate(async () => {
+    const { practiceGame } = await import("/src/engine/practice.ts");
+    const s = practiceGame();
+    s.turnSeconds = 60;
+    s.deadline = Date.now() + 500;
+    localStorage.setItem("runset.save.v1", JSON.stringify(s));
+  });
+  await page.reload();
+  await page.getByRole("button", { name: "Continue game" }).click();
+  await page.waitForFunction(() =>
+    JSON.parse(localStorage.getItem("runset.save.v1")!).notice.startsWith(
+      "Time’s up.",
+    ),
+  );
+  expect(
+    await page.evaluate(
+      () =>
+        JSON.parse(localStorage.getItem("runset.save.v1")!).players[0].rack
+          .length,
+    ),
+  ).toBe(15);
+});
+
+test("a timed-out penalty dialog cannot penalize the next player", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.evaluate(async () => {
+    const { practiceGame } = await import("/src/engine/practice.ts");
+    const s = practiceGame();
+    s.turnSeconds = 60;
+    s.deadline = Date.now() + 2000;
+    localStorage.setItem("runset.save.v1", JSON.stringify(s));
+  });
+  await page.reload();
+  await page.getByRole("button", { name: "Continue game" }).click();
+  await page
+    .getByRole("button", { name: "red 13", exact: true })
+    .first()
+    .click();
+  await page.getByRole("button", { name: /New group or run/ }).click();
+  await page
+    .getByRole("button", { name: "+3 tiles · End turn", exact: true })
+    .click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await expect(page.getByRole("dialog")).not.toBeVisible();
+  expect(
+    await page.evaluate(
+      () =>
+        JSON.parse(localStorage.getItem("runset.save.v1")!).players[0].rack
+          .length,
+    ),
+  ).toBe(15);
+});
+
+test("delete during a bot turn cancels work and storage errors preserve the game", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.evaluate(async () => {
+    const { practiceGame } = await import("/src/engine/practice.ts");
+    const s = practiceGame();
+    s.current = 1;
+    s.turnStart = { table: [], rack: [...s.players[1].rack] };
+    localStorage.setItem("runset.save.v1", JSON.stringify(s));
+  });
+  await page.reload();
+  await page.clock.install();
+  await page.getByRole("button", { name: "Continue game" }).click();
+  await page
+    .getByRole("button", { name: "Delete saved game", exact: true })
+    .click();
+  const saved = await page.evaluate(() =>
+    localStorage.getItem("runset.save.v1"),
+  );
+  await page.clock.fastForward(3000);
+  expect(
+    await page.evaluate(() => localStorage.getItem("runset.save.v1")),
+  ).toBe(saved);
+  await page.evaluate(() => {
+    const remove = Storage.prototype.removeItem;
+    Storage.prototype.removeItem = function (key) {
+      if (key === "runset.save.v1") throw Error("Storage denied");
+      return remove.call(this, key);
+    };
+  });
+  await page.getByRole("button", { name: "Delete game", exact: true }).click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  expect(
+    await page.evaluate(() => localStorage.getItem("runset.save.v1")),
+  ).toBe(saved);
+  await page.getByRole("button", { name: "Keep game" }).click();
+  await page.reload();
+  await page
+    .getByRole("button", { name: "Delete saved game", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Delete game", exact: true }).click();
+  await page.reload();
+  expect(
+    await page.evaluate(() => localStorage.getItem("runset.save.v1")),
+  ).toBeNull();
+  await expect(page.getByRole("button", { name: "Continue game" })).toHaveCount(
+    0,
+  );
+});

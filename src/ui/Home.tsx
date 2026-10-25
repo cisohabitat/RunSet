@@ -41,7 +41,7 @@ export function Home({
           </button>
           {hasSave && (
             <button className="secondary" onClick={onContinue}>
-              Continue game →
+              {game?.phase === "over" ? "View results →" : "Continue game →"}
             </button>
           )}
           <button className="text-button" onClick={onHelp}>
@@ -55,6 +55,8 @@ export function Home({
               {game.phase === "over" ? "completed" : "saved"} game
             </strong>
             <p>
+              {game.match &&
+                `Match to ${game.match.target} · round ${game.match.round} · `}
               {game.players.length - 1} opponent(s) ·{" "}
               {game.players.find((p) => p.bot)?.bot} ·{" "}
               {game.phase === "over"

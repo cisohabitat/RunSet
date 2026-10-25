@@ -39,6 +39,11 @@ from the public repository.
 - Bot and hint searches run in `src/workers/planner.ts`. Abort outstanding requests
   when their state, screen, or confirmation context changes. Hints must not mutate
   drafts or end turns; explicit placement is validated by the engine.
+- Match totals and per-round history must agree in saves; keep seat identity stable
+  across rounds. Timed actions carry explicit event timestamps so the reducer
+  stays deterministic. Expiry restores edits and draws once, never a penalty.
+- Online multiplayer is not implemented. Follow `docs/MULTIPLAYER.md` and provision
+  the real store before adding online UI. Never expose shuffle seeds or hidden racks.
 - Undo history is bounded to 100 snapshots of the current turn only. Clear it
   on reset, draw, or turn completion. Saves must validate every snapshot.
 - Production builds generate `dist/sw.js` with static asset hashes. Never cache

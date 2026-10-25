@@ -63,6 +63,40 @@ export function validSave(value: unknown): value is GameState {
   )
     return false;
   if (new Set(s.table.map((m) => m.id)).size !== s.table.length) return false;
+  if (s.turnSeconds !== undefined && ![0, 60, 120].includes(s.turnSeconds))
+    return false;
+  if (s.turnSeconds && (!Number.isFinite(s.deadline) || s.deadline! < 0))
+    return false;
+  if (s.match) {
+    const m = s.match;
+    if (
+      ![100, 200, 500].includes(m.target) ||
+      !Number.isInteger(m.round) ||
+      m.round < 1 ||
+      !Array.isArray(m.totals) ||
+      m.totals.length !== s.players.length ||
+      m.totals.some((n) => !Number.isFinite(n)) ||
+      !Array.isArray(m.rounds) ||
+      m.rounds.length !== m.round - (s.phase === "playing" ? 1 : 0) ||
+      m.rounds.some(
+        (r) =>
+          !r ||
+          !Array.isArray(r.scores) ||
+          r.scores.length !== s.players.length ||
+          r.scores.some((n) => !Number.isFinite(n)) ||
+          !Number.isInteger(r.winner) ||
+          r.winner < 0 ||
+          r.winner >= s.players.length,
+      )
+    )
+      return false;
+    if (
+      m.totals.some(
+        (n, i) => n !== m.rounds.reduce((sum, r) => sum + r.scores[i], 0),
+      )
+    )
+      return false;
+  }
   if (
     s.history !== undefined &&
     (!Array.isArray(s.history) ||

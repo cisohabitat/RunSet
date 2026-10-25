@@ -26,6 +26,8 @@ Open the local URL printed by Vite (normally http://localhost:5173).
   table re-partitions within a bounded 400 ms planning budget and retains a legal
   Normal fallback. Every bot submission passes through the human turn validator.
 - Setup, illustrated rules, game table, results, and single-round scores.
+- Optional multi-round matches to 100/200/500 points with a persistent scoreboard
+  and round history. Optional 60/120-second turn timers default to off.
 - Turn-local undo, expandable racks/tables, restart confirmations, and a remembered
   large-tile option. Installable offline play preloads practice and planner assets;
   updates wait for an explicit Save and update action.
@@ -126,10 +128,25 @@ Import `cisohabitat/RunSet` in Vercel, select the **Vite** preset, and use:
 `main` and create previews for pull requests. Repository configuration alone does
 not create or link a Vercel project.
 
+## Matches and timers
+
+Choose a single round or a match target in setup. Scores accumulate across rounds;
+**Deal round N** keeps players and totals and rotates the starting seat. A unique
+leader reaching the target wins; ties continue into another round.
+
+Timers are off by default. In a timed game, an expired turn restores unfinished
+moves and draws one tile (or passes with an empty pool), not a three-tile penalty.
+The deadline persists across tab closure and leaving the game. On resume, an
+expired current turn is resolved. Practice is untimed. An expired turn closes an
+outdated penalty warning so it cannot apply a penalty to the next player.
+
 ## Roadmap
 
-See the [improvement roadmap](docs/ROADMAP.md) for planned work and acceptance
-criteria. The next release prioritizes guided learning for first-time players,
-safe saved-game deletion, and dedicated desktop, iPad, and iPhone layouts.
-Contextual hints, single-move undo, offline support, and additional game modes
-follow those improvements.
+See the [improvement roadmap](docs/ROADMAP.md) for phase status and acceptance
+criteria. Guided learning, safe deletion, device layouts, contextual hints, undo,
+offline installation, matches, and timers are implemented. Real-device Safari and
+first-time-player usability sessions remain manual verification items.
+
+Online multiplayer is blocked on Vercel workspace access and provisioning a real
+shared backend. See the [multiplayer implementation plan](docs/MULTIPLAYER.md).
+No online-play functionality or resource setup is implied by the local features.

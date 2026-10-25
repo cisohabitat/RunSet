@@ -7,6 +7,17 @@ export interface Player {
   rack: number[];
   melded: boolean;
 }
+export interface GameOptions {
+  target?: 0 | 100 | 200 | 500;
+  turnSeconds?: 0 | 60 | 120;
+  now?: number;
+}
+export interface Match {
+  target: number;
+  round: number;
+  totals: number[];
+  rounds: { scores: number[]; winner: number }[];
+}
 export interface GameState {
   version: 1;
   seed: number;
@@ -21,19 +32,25 @@ export interface GameState {
   log: string[];
   turn: number;
   notice: string;
+  match?: Match;
+  turnSeconds?: 0 | 60 | 120;
+  deadline?: number;
   history?: { table: Meld[]; rack: number[] }[];
 }
-export type Action =
+export type Action = (
   | { type: "move"; ids: number[]; target: string }
-  | { type: "draw" | "endTurn" | "resetTurn" | "undo" }
+  | { type: "draw" | "endTurn" | "resetTurn" | "undo" | "nextRound" }
   | { type: "sortRack"; by: "color" | "number" }
-  | { type: "botTurn" | "applyPlan"; table: Meld[] };
+  | { type: "botTurn" | "applyPlan"; table: Meld[] }
+  | { type: "tick"; now: number }
+) & { at?: number };
 const copy = <T>(x: T): T => structuredClone(x);
 export function newGame(
   name: string,
   bots: number,
   difficulty: Difficulty,
   seed = Date.now(),
+  options: GameOptions = {},
 ): GameState {
   const rng = random(seed),
     deck = shuffle(
@@ -72,6 +89,22 @@ export function newGame(
     log: ["The tiles are dealt. Let’s make a little magic."],
     turn: 1,
     notice: "",
+    ...(options.target
+      ? {
+          match: {
+            target: options.target,
+            round: 1,
+            totals: players.map(() => 0),
+            rounds: [],
+          },
+        }
+      : {}),
+    ...(options.turnSeconds
+      ? {
+          turnSeconds: options.turnSeconds,
+          deadline: (options.now ?? 0) + options.turnSeconds * 1000,
+        }
+      : {}),
   };
 }
 export function turnCheck(s: GameState): {
@@ -129,22 +162,42 @@ export function turnCheck(s: GameState): {
   }
   return { valid: !reason, points, played, reason };
 }
-function advance(s: GameState, message: string, passed = false): GameState {
+function advance(
+  s: GameState,
+  message: string,
+  passed = false,
+  at = 0,
+): GameState {
   s.history = [];
   s.log = [...s.log.slice(-29), message];
   s.notice = message;
   s.passes = passed ? s.passes + 1 : 0;
   if (!s.players[s.current].rack.length || s.passes >= s.players.length) {
     s.phase = "over";
+    if (s.match && s.match.rounds.length < s.match.round) {
+      const round = results(s);
+      const scores = round.map((p) => p.score);
+      s.match.totals = s.match.totals.map((n, i) => n + scores[i]);
+      s.match.rounds.push({ scores, winner: round.findIndex((p) => p.winner) });
+    }
     return s;
   }
   s.current = (s.current + 1) % s.players.length;
   s.turn++;
+  if (s.turnSeconds) s.deadline = at + s.turnSeconds * 1000;
   s.turnStart = { table: copy(s.table), rack: [...s.players[s.current].rack] };
   return s;
 }
 export function reducer(state: GameState, action: Action): GameState {
+  if (action.type === "nextRound") return nextRound(state, action.at ?? 0);
   if (state.phase === "over") return state;
+  if (action.type === "tick") {
+    if (!state.turnSeconds || !state.deadline || action.now < state.deadline)
+      return state;
+    const next = reducer(state, { type: "draw", at: action.now });
+    next.notice = `Time’s up. ${next.notice}`;
+    return next;
+  }
   const s = copy(state),
     p = s.players[s.current];
   s.notice = "";
@@ -221,6 +274,7 @@ export function reducer(state: GameState, action: Action): GameState {
       s,
       `${p.name} ${tile === undefined ? "passed" : "drew a tile"}.`,
       tile === undefined,
+      action.at ?? 0,
     );
   }
   if (action.type === "botTurn" || action.type === "applyPlan") {
@@ -233,7 +287,7 @@ export function reducer(state: GameState, action: Action): GameState {
     )
       return action.type === "applyPlan"
         ? state
-        : reducer(state, { type: "draw" });
+        : reducer(state, { type: "draw", at: action.at });
     if (
       action.type === "applyPlan" &&
       s.table.flatMap((m) => m.tiles).some((id) => !ids.includes(id))
@@ -253,7 +307,7 @@ export function reducer(state: GameState, action: Action): GameState {
     if (!turnCheck(s).valid || !turnCheck(s).played.length)
       return action.type === "applyPlan"
         ? state
-        : reducer(state, { type: "draw" });
+        : reducer(state, { type: "draw", at: action.at });
   }
   if (action.type === "applyPlan") return s;
   const check = turnCheck(s);
@@ -272,6 +326,8 @@ export function reducer(state: GameState, action: Action): GameState {
     return advance(
       s,
       `${p.name}: invalid turn — ${check.reason} Drew penalty tiles.`,
+      false,
+      action.at ?? 0,
     );
   }
   if (!check.played.length)
@@ -284,6 +340,8 @@ export function reducer(state: GameState, action: Action): GameState {
   return advance(
     s,
     `${p.name} played ${check.played.length} tile${check.played.length === 1 ? "" : "s"}.`,
+    false,
+    action.at ?? 0,
   );
 }
 export function results(s: GameState) {
@@ -298,4 +356,44 @@ export function results(s: GameState) {
         ? totals.reduce((n, v, j) => n + (j === i ? 0 : v), 0)
         : -totals[i],
   }));
+}
+
+export function matchWinner(s: GameState): number | null {
+  if (!s.match) return null;
+  const top = Math.max(...s.match.totals),
+    leaders = s.match.totals
+      .map((n, i) => (n === top ? i : -1))
+      .filter((i) => i >= 0);
+  return top >= s.match.target && leaders.length === 1 ? leaders[0] : null;
+}
+function nextRound(s: GameState, at: number): GameState {
+  if (s.phase !== "over" || !s.match || matchWinner(s) !== null) return s;
+  const round = s.match.round + 1,
+    deck = shuffle(
+      tiles.map((t) => t.id),
+      random(s.seed + round * 7919),
+    );
+  const players = s.players.map((p) => ({
+    ...p,
+    rack: deck.splice(0, 14),
+    melded: false,
+  }));
+  const current = (round - 1) % players.length;
+  return {
+    ...s,
+    players,
+    current,
+    pool: deck,
+    table: [],
+    turnStart: { table: [], rack: [...players[current].rack] },
+    passes: 0,
+    phase: "playing",
+    lastPlaced: [],
+    log: [`Round ${round}: first to ${s.match.target} points wins the match.`],
+    turn: 1,
+    notice: "",
+    history: [],
+    match: { ...s.match, round },
+    ...(s.turnSeconds ? { deadline: at + s.turnSeconds * 1000 } : {}),
+  };
 }

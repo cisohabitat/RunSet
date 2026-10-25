@@ -1,11 +1,12 @@
 # RunSet improvement roadmap
 
-Status: Releases 1–3 implemented. Chromium automation covers practice completion,
-save isolation, safe deletion, and desktop/tablet/phone layouts. Real-device
-Safari and five-person usability checks remain unverified. The later expansion is next. Worker-based planning, contextual
-coaching, explicit hint placement, narrated moves, and penalty confirmation are
-covered by engine and browser regressions. Undo, crowded racks, restart, offline
-reload, and explicit save-preserving updates also have regression coverage.
+Status: Releases 1–3 and the local expansion (multi-round matches and optional
+turn timers) are implemented. Each implementation phase is published separately
+to `main`. Automated coverage includes guided learning, isolated saves,
+delete/replace, hints, penalty warnings, undo, crowded layouts, matches, timeout
+handling, offline reload, and explicit updates. Real-device Safari and the
+five-person usability study remain unverified. Online multiplayer is blocked on
+workspace access and a real backend; see [MULTIPLAYER.md](MULTIPLAYER.md).
 
 ## Product goal
 
@@ -15,12 +16,11 @@ turn, and return to their game comfortably on desktop, iPad, or iPhone.
 Preserve the existing classic rules, static hosting, local-only saves, and shared
 human/bot validator. Improve the experience before adding more game modes.
 
-## Current baseline
+## Starting baseline (before these phases)
 
-The current release includes five screens, an illustrated rules reference,
-responsive CSS, mouse dragging and tap selection, bots, and autosave. It does not
-include an interactive tutorial, dedicated device layouts, or a delete-game
-control. Chromium viewport checks have passed; real iPhone/iPad Safari testing
+The starting release included five screens, an illustrated rules reference,
+responsive CSS, mouse dragging and tap selection, bots, and autosave. It lacked an interactive tutorial, dedicated device layouts, and a delete-game
+control; those are now implemented. Chromium viewport checks have passed; real iPhone/iPad Safari testing
 has not yet been established.
 
 ## Release 1: a welcoming game on every device
@@ -170,12 +170,12 @@ and bot planning keep the UI responsive on iPhone and iPad.
 Acceptance: undo cannot reverse a completed turn, reveal future pool tiles, or
 break tile conservation; offline/update tests preserve valid saved games.
 
-## Later: expand the game after the basics are proven
+## Local expansion shipped; online multiplayer remains blocked
 
-Multi-round matches, optional timers, and online multiplayer follow the learning
-and device work. Multiplayer requires a separate backend and synchronization plan;
-it should not delay the browser-only experience. Timers remain off by default for
-learners.
+Multi-round matches to 100/200/500 points and optional 60/120-second turn timers
+are implemented. Timers remain off by default for learners. Online multiplayer
+requires workspace access and a provisioned backend; the concrete next steps are
+in [MULTIPLAYER.md](MULTIPLAYER.md).
 
 ## Implementation order and release gates
 

@@ -26,6 +26,9 @@ Open the local URL printed by Vite (normally http://localhost:5173).
   table re-partitions within a bounded 400 ms planning budget and retains a legal
   Normal fallback. Every bot submission passes through the human turn validator.
 - Setup, illustrated rules, game table, results, and single-round scores.
+- Turn-local undo, expandable racks/tables, restart confirmations, and a remembered
+  large-tile option. Installable offline play preloads practice and planner assets;
+  updates wait for an explicit Save and update action.
 - Optional worker-planned move hints with explicit preview/placement, point breakdowns,
   specific table corrections, bot narration, remembered pacing, and beginner penalty warnings.
 - Guided first-game practice and optional joker/rearranging lessons, stored separately
@@ -72,6 +75,7 @@ npm run typecheck
 npm test
 npm run build
 npm run test:e2e
+npm run test:offline
 npm run preview
 ```
 
@@ -83,7 +87,9 @@ with device speed. Runtime dependencies are React and React DOM only.
 
 `npm run test:e2e` uses Chromium (install with `npx playwright install chromium`
 if needed, or set `CHROMIUM_PATH`). Tests cover practice, saved-game isolation,
-delete/cancel/reload, and desktop/tablet/phone viewports. Real-device Safari and
+delete/cancel/reload, and desktop/tablet/phone viewports. `npm run test:offline` verifies the production service worker, offline reload,
+practice availability, and save-preserving updates.
+Real-device Safari and
 first-time-player usability sessions remain manual checks.
 
 `npm run build` type-checks and emits a static site in `dist/`. GitHub Actions runs
@@ -95,7 +101,9 @@ installation, type-checking, tests, and the production build on pushes and PRs.
 src/
   engine/      Pure TypeScript tiles, melds, turn reducer, solver, bots, tests
   ui/          Home, setup, rules, game table, tiles, and results
-  lib/         Versioned storage and Web Audio sound
+  lib/         Versioned storage, worker client, and Web Audio sound
+  workers/     Off-main-thread bot and hint planning
+  ui/Offline   Installation, offline status, and explicit updates
   App.tsx      Screen navigation, reducer, autosave, bot scheduling
   main.tsx     React entry point
   styles.css   Responsive tokens, themes, tile art, and animations

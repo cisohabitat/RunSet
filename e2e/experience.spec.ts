@@ -119,3 +119,81 @@ test("hints preview before placement and penalty warnings keep edits", async ({
   expect(await page.locator(".table .tile").count()).toBe(0);
   expect(await page.locator(".rack .tile").count()).toBe(14);
 });
+
+test("undo and restart retain safe replacement choices", async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(async () => {
+    const { practiceGame } = await import("/src/engine/practice.ts");
+    localStorage.setItem("runset.save.v1", JSON.stringify(practiceGame()));
+  });
+  await page.reload();
+  await page.getByRole("button", { name: "Continue game" }).click();
+  for (const name of ["red 10", "blue 10", "orange 10"])
+    await page.getByRole("button", { name, exact: true }).click();
+  await page.getByRole("button", { name: /New group or run/ }).click();
+  await page.getByRole("button", { name: "Undo move" }).click();
+  expect(await page.locator(".rack .tile").count()).toBe(14);
+  expect(await page.locator(".table .tile").count()).toBe(0);
+  await page.getByRole("button", { name: "Restart with same players" }).click();
+  await page.getByRole("button", { name: "Keep game" }).click();
+  expect(await page.locator(".rack .tile").count()).toBe(14);
+  await page.getByRole("button", { name: "Restart with same players" }).click();
+  await page
+    .getByRole("button", { name: "Start new game", exact: true })
+    .click();
+  expect(await page.getByRole("region", { name: "Your rack" }).count()).toBe(1);
+});
+
+test("crowded tables and fifty-tile racks stay usable on phone and tablet", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.evaluate(async () => {
+    const { practiceGame } = await import("/src/engine/practice.ts");
+    const s = practiceGame();
+    s.table = [0, 26, 52, 78].map((base, i) => ({
+      id: `stress-${i}`,
+      tiles: Array.from({ length: 13 }, (_, n) => base + n),
+    }));
+    const table = new Set(s.table.flatMap((m) => m.tiles));
+    const remaining = Array.from({ length: 106 }, (_, i) => i).filter(
+      (id) => !table.has(id),
+    );
+    s.players[0].rack = remaining.splice(0, 50);
+    s.players[0].melded = true;
+    s.players[1].rack = remaining;
+    s.pool = [];
+    s.turnStart = {
+      table: structuredClone(s.table),
+      rack: [...s.players[0].rack],
+    };
+    localStorage.setItem("runset.save.v1", JSON.stringify(s));
+  });
+  await page.reload();
+  await page.getByRole("button", { name: "Continue game" }).click();
+  expect(await page.locator(".rack .tile").count()).toBe(50);
+  for (const [width, height] of [
+    [360, 800],
+    [390, 844],
+    [768, 1024],
+    [820, 1180],
+    [1180, 820],
+    [1440, 900],
+  ]) {
+    await page.setViewportSize({ width, height });
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+    await page
+      .getByRole("button", { name: "Expand rack", exact: true })
+      .click();
+    await expect(page.locator(".expanded-rack")).toBeVisible();
+    await page
+      .getByRole("button", { name: "Compact rack", exact: true })
+      .click();
+  }
+  await page.getByRole("button", { name: "Table end ↓" }).click();
+  await page.getByRole("button", { name: "Table start ↑" }).click();
+});

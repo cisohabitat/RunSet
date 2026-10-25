@@ -16,6 +16,7 @@ import { Setup } from "./ui/Setup";
 import { HowToPlay } from "./ui/HowToPlay";
 import { Game } from "./ui/Game";
 import { GameOver } from "./ui/GameOver";
+import { Offline } from "./ui/Offline";
 import { ConfirmDialog } from "./ui/ConfirmDialog";
 const Tutorial = lazy(() => import("./ui/Tutorial"));
 type Screen = "home" | "setup" | "help" | "game" | "learn";
@@ -63,7 +64,20 @@ export default function App() {
       return 1400;
     }
   });
-  const [touch, setTouch] = useState(false);
+  const [touch, setTouch] = useState(() => {
+    try {
+      return localStorage.getItem("runset.largeTiles") === "true";
+    } catch {
+      return false;
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem("runset.largeTiles", String(touch));
+    } catch {
+      /* Optional view preference. */
+    }
+  }, [touch]);
   useEffect(() => {
     try {
       localStorage.setItem("runset.learning", String(learning));
@@ -293,6 +307,19 @@ export default function App() {
           className={`game-menu ${touch ? "touch-friendly" : ""}`}
           aria-label="Game menu"
         >
+          <button
+            className="text-button"
+            onClick={() => {
+              const human = game.players.find((p) => !p.bot)!;
+              start(
+                human.name,
+                game.players.length - 1,
+                game.players.find((p) => p.bot)?.bot ?? "normal",
+              );
+            }}
+          >
+            Restart with same players
+          </button>
           <details className="preferences">
             <summary>Playing options</summary>
             <label>
@@ -361,6 +388,7 @@ export default function App() {
             onHelp={help}
           />
         ))}
+      <Offline beforeUpdate={() => !game || saveGame(game)} />
       <footer className="site-footer">
         <span>
           runset.{" "}

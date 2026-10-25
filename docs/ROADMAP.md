@@ -1,10 +1,11 @@
 # RunSet improvement roadmap
 
-Status: Releases 1 and 2 implemented. Chromium automation covers practice completion,
+Status: Releases 1–3 implemented. Chromium automation covers practice completion,
 save isolation, safe deletion, and desktop/tablet/phone layouts. Real-device
-Safari and five-person usability checks remain unverified. Release 3 and the later expansion are next. Worker-based planning, contextual
+Safari and five-person usability checks remain unverified. The later expansion is next. Worker-based planning, contextual
 coaching, explicit hint placement, narrated moves, and penalty confirmation are
-covered by engine and browser regressions.
+covered by engine and browser regressions. Undo, crowded racks, restart, offline
+reload, and explicit save-preserving updates also have regression coverage.
 
 ## Product goal
 

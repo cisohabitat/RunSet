@@ -119,3 +119,44 @@ it("reuses a replaced joker in the same run", () => {
   expect(inspectMeld(s.table[0].tiles).values[104]).toBe(7);
   conserved(s);
 });
+
+it("undo restores exact table/rack without changing the pool or turn", () => {
+  const start = fixture([9, 35, 61, 0]);
+  const placed = reducer(start, {
+    type: "move",
+    ids: [9, 35, 61],
+    target: "new",
+  });
+  const undone = reducer(placed, { type: "undo" });
+  expect(undone.table).toEqual(start.table);
+  expect(undone.players[start.current].rack).toEqual(
+    start.players[start.current].rack,
+  );
+  expect(undone.pool).toEqual(start.pool);
+  expect(undone.turn).toBe(start.turn);
+  conserved(undone);
+});
+it("cannot undo across a completed turn or reveal the next pool tile", () => {
+  const start = fixture([9, 35, 61, 0]);
+  const placed = reducer(start, {
+    type: "move",
+    ids: [9, 35, 61],
+    target: "new",
+  });
+  for (const action of ["endTurn", "draw"] as const) {
+    const next = reducer(placed, { type: action });
+    expect(reducer(next, { type: "undo" })).toEqual(next);
+    conserved(next);
+  }
+});
+it("persists undo snapshots as conserved turn-local data", async () => {
+  const { validSave } = await import("../lib/storage");
+  const s = reducer(fixture([9, 35, 61, 0]), {
+    type: "move",
+    ids: [9, 35, 61],
+    target: "new",
+  });
+  expect(validSave(s)).toBe(true);
+  s.history![0].rack.push(105);
+  expect(validSave(s)).toBe(false);
+});

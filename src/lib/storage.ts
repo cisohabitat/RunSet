@@ -63,6 +63,29 @@ export function validSave(value: unknown): value is GameState {
   )
     return false;
   if (new Set(s.table.map((m) => m.id)).size !== s.table.length) return false;
+  if (
+    s.history !== undefined &&
+    (!Array.isArray(s.history) ||
+      s.history.length > 100 ||
+      s.history.some((h) => {
+        if (
+          !h ||
+          !Array.isArray(h.rack) ||
+          !Array.isArray(h.table) ||
+          h.table.some(
+            (m) => !m || typeof m.id !== "string" || !Array.isArray(m.tiles),
+          )
+        )
+          return true;
+        const ids = [...h.rack, ...h.table.flatMap((m) => m.tiles)];
+        return (
+          ids.length !== active.length ||
+          new Set(ids).size !== ids.length ||
+          ids.some((id) => !active.includes(id))
+        );
+      }))
+  )
+    return false;
   const ids = [
     ...s.pool,
     ...s.players.flatMap((p) => p.rack),

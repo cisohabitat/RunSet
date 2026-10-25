@@ -1919,3 +1919,78 @@ input {
   font-size: 7px;
   letter-spacing: 0;
 }
+.table-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 10px;
+  color: var(--muted);
+}
+.table-tools span {
+  margin-left: auto;
+}
+.table.expanded-table {
+  max-height: 80dvh;
+  min-height: 50dvh;
+}
+.expanded-rack .rack-tiles {
+  flex-wrap: wrap;
+  max-height: 240px;
+  overflow: auto;
+}
+.offline-tools {
+  max-width: 1180px;
+  padding: 12px 4%;
+  margin: auto;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.offline-tools p {
+  max-width: 850px;
+}
+.offline-tools .secondary {
+  padding: 10px 16px;
+  margin: 5px;
+}
+.player-dock .sort {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.player-dock .rack-heading {
+  align-items: flex-start;
+}
+.player-dock .rack-heading > div:first-child {
+  min-width: 95px;
+}
+.preferences + .text-button {
+  max-width: 100%;
+}
+@media (max-width: 720px) {
+  .table-tools {
+    gap: 4px;
+  }
+  .table-tools button {
+    font-size: 10px;
+  }
+  .table-tools span {
+    display: none;
+  }
+  .expanded-rack .rack-tiles {
+    max-height: 180px;
+  }
+  .player-dock:has(.expanded-rack) {
+    position: static;
+  }
+  .rack-heading .sort button {
+    font-size: 9px;
+    padding: 5px;
+  }
+  .sort {
+    max-width: 60%;
+  }
+}
+button:not(.tile) {
+  min-width: 44px;
+}

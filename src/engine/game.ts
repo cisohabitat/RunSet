@@ -21,10 +21,11 @@ export interface GameState {
   log: string[];
   turn: number;
   notice: string;
+  history?: { table: Meld[]; rack: number[] }[];
 }
 export type Action =
   | { type: "move"; ids: number[]; target: string }
-  | { type: "draw" | "endTurn" | "resetTurn" }
+  | { type: "draw" | "endTurn" | "resetTurn" | "undo" }
   | { type: "sortRack"; by: "color" | "number" }
   | { type: "botTurn" | "applyPlan"; table: Meld[] };
 const copy = <T>(x: T): T => structuredClone(x);
@@ -129,6 +130,7 @@ export function turnCheck(s: GameState): {
   return { valid: !reason, points, played, reason };
 }
 function advance(s: GameState, message: string, passed = false): GameState {
+  s.history = [];
   s.log = [...s.log.slice(-29), message];
   s.notice = message;
   s.passes = passed ? s.passes + 1 : 0;
@@ -146,6 +148,14 @@ export function reducer(state: GameState, action: Action): GameState {
   const s = copy(state),
     p = s.players[s.current];
   s.notice = "";
+  if (action.type === "undo") {
+    const previous = s.history?.pop();
+    if (!previous) return state;
+    s.table = previous.table;
+    p.rack = previous.rack;
+    s.notice = "Undid the last move.";
+    return s;
+  }
   if (action.type === "sortRack") {
     p.rack.sort((a, b) =>
       action.by === "number"
@@ -156,6 +166,7 @@ export function reducer(state: GameState, action: Action): GameState {
     return s;
   }
   if (action.type === "resetTurn") {
+    s.history = [];
     s.table = copy(s.turnStart.table);
     p.rack = [...s.turnStart.rack];
     return s;
@@ -181,6 +192,10 @@ export function reducer(state: GameState, action: Action): GameState {
       };
     if (action.target === "rack" && ids.some((id) => old.has(id)))
       return { ...state, notice: "Table tiles cannot return to your rack." };
+    s.history = [
+      ...(s.history ?? []).slice(-99),
+      { table: copy(s.table), rack: [...p.rack] },
+    ];
     p.rack = p.rack.filter((id) => !ids.includes(id));
     for (const m of s.table)
       m.tiles = m.tiles.filter((id) => !ids.includes(id));
@@ -224,7 +239,16 @@ export function reducer(state: GameState, action: Action): GameState {
       s.table.flatMap((m) => m.tiles).some((id) => !ids.includes(id))
     )
       return state;
+    if (action.type === "applyPlan")
+      s.history = [
+        ...(s.history ?? []).slice(-99),
+        { table: copy(s.table), rack: [...p.rack] },
+      ];
     s.table = copy(action.table);
+    s.history = [
+      ...(s.history ?? []).slice(-99),
+      { table: copy(s.table), rack: [...p.rack] },
+    ];
     p.rack = p.rack.filter((id) => !ids.includes(id));
     if (!turnCheck(s).valid || !turnCheck(s).played.length)
       return action.type === "applyPlan"

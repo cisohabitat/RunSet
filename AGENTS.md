@@ -39,6 +39,11 @@ from the public repository.
 - Bot and hint searches run in `src/workers/planner.ts`. Abort outstanding requests
   when their state, screen, or confirmation context changes. Hints must not mutate
   drafts or end turns; explicit placement is validated by the engine.
+- Undo history is bounded to 100 snapshots of the current turn only. Clear it
+  on reset, draw, or turn completion. Saves must validate every snapshot.
+- Production builds generate `dist/sw.js` with static asset hashes. Never cache
+  API routes. Updates require explicit acceptance and a successful game save.
+  Run `npm run test:offline` when changing the service worker or update behavior.
 - Guided practice uses `runset.practice.v1`, separate from the regular game save.
   Delete only the regular game key; preserve practice and preference keys. Cancel
   bot callbacks when a confirmation is open or a game is removed.

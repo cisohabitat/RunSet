@@ -19,6 +19,9 @@ export function Game({
   narrate?: boolean;
   touch?: boolean;
 }) {
+  const [expanded, setExpanded] = useState(false),
+    [tableView, setTableView] = useState<"normal" | "wide">("normal");
+  const tableRef = useRef<HTMLElement>(null);
   const [hint, setHint] = useState<Hint | null>(null),
     [planning, setPlanning] = useState(false);
   const request = useRef<AbortController | null>(null);
@@ -134,7 +137,42 @@ export function Game({
           </button>
         </aside>
       )}
-      <section className="table" aria-label="Table melds">
+      <div className="table-tools">
+        <button
+          className="text-button"
+          onClick={() =>
+            setTableView((x) => (x === "normal" ? "wide" : "normal"))
+          }
+        >
+          {tableView === "normal" ? "Expand table" : "Compact table"}
+        </button>
+        <button
+          className="text-button"
+          onClick={() =>
+            tableRef.current?.scrollTo({ top: 0, behavior: "auto" })
+          }
+        >
+          Table start ↑
+        </button>
+        <button
+          className="text-button"
+          onClick={() =>
+            tableRef.current?.scrollTo({
+              top: tableRef.current.scrollHeight,
+              behavior: "auto",
+            })
+          }
+        >
+          Table end ↓
+        </button>
+        <span>Scroll the table to see more groups and runs.</span>
+      </div>
+      <section
+        ref={tableRef}
+        className={`table ${tableView === "wide" ? "expanded-table" : ""}`}
+        aria-label="Table melds"
+        tabIndex={0}
+      >
         <div className="table-topline">
           <span>MAKE ROOM FOR A GOOD IDEA</span>
           <span>Round 01 · Turn {s.turn}</span>
@@ -251,7 +289,7 @@ export function Game({
       </div>
       <div className="player-dock">
         <section
-          className="rack"
+          className={`rack ${expanded ? "expanded-rack" : ""}`}
           aria-label="Your rack"
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => drop(e, "rack")}
@@ -265,6 +303,9 @@ export function Game({
               </span>
             </div>
             <div className="sort">
+              <button onClick={() => setExpanded((x) => !x)}>
+                {expanded ? "Compact rack" : "Expand rack"}
+              </button>
               <span>Sort</span>
               <button
                 disabled={!myTurn}
@@ -306,6 +347,13 @@ export function Game({
           )}
         </section>
         <div className="action-bar">
+          <button
+            className="text-button"
+            disabled={!myTurn || !s.history?.length}
+            onClick={() => act({ type: "undo" })}
+          >
+            Undo move
+          </button>
           <button
             className="text-button"
             disabled={!myTurn || planning}

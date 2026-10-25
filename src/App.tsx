@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useReducer, useState } from "react";
+import { lazy, Suspense, useEffect, useReducer, useRef, useState } from "react";
 import {
   type GameState,
   type Difficulty,
@@ -10,7 +10,13 @@ import {
   turnCheck,
 } from "./engine/game";
 import { runPlanner } from "./lib/planner";
-import { deleteGame, loadGame, saveGame } from "./lib/storage";
+import {
+  deleteGame,
+  loadGame,
+  persistGame,
+  saveGame,
+  SAVE_KEY,
+} from "./lib/storage";
 import { sound } from "./lib/sound";
 import { Home } from "./ui/Home";
 import { Setup } from "./ui/Setup";
@@ -90,6 +96,8 @@ export default function App() {
       /* Optional preferences. */
     }
   }, [learning, narrate, pace]);
+  const skipSave = useRef<GameState | null | undefined>(undefined);
+  const [storageBusy, setStorageBusy] = useState(false);
   const [notice, setNotice] = useState(initial.notice);
   const [muted, setMuted] = useState(() => {
     try {
@@ -106,9 +114,55 @@ export default function App() {
     }
   }, [muted]);
   useEffect(() => {
-    if (game && !saveGame(game))
-      setNotice("Browser storage is unavailable. This round cannot be saved.");
+    if (!game) return;
+    if (skipSave.current === game) {
+      skipSave.current = undefined;
+      return;
+    }
+    let active = true;
+    void persistGame(game).then((result) => {
+      if (!active || result.ok) return;
+      if (result.reason === "conflict") {
+        const remote = loadGame();
+        skipSave.current = remote.game;
+        dispatchBase(
+          remote.game
+            ? { type: "start", game: remote.game }
+            : { type: "clear" },
+        );
+        setConfirmation(null);
+        setNotice(
+          "This game changed in another tab. The latest saved position has been loaded.",
+        );
+      } else
+        setNotice(
+          "Browser storage is unavailable. This round cannot be saved.",
+        );
+    });
+    return () => {
+      active = false;
+    };
   }, [game]);
+  useEffect(() => {
+    const changed = (event: StorageEvent) => {
+      if (event.key !== SAVE_KEY && event.key !== null) return;
+      const remote = loadGame();
+      skipSave.current = remote.game;
+      setConfirmation(null);
+      dispatchBase(
+        remote.game ? { type: "start", game: remote.game } : { type: "clear" },
+      );
+      setNotice(
+        remote.game
+          ? "Updated to the game saved in another tab."
+          : "The saved game was deleted in another tab.",
+      );
+      if (!remote.game)
+        setScreen((current) => (current === "game" ? "home" : current));
+    };
+    window.addEventListener("storage", changed);
+    return () => window.removeEventListener("storage", changed);
+  }, []);
   useEffect(() => {
     if (
       screen !== "game" ||
@@ -250,7 +304,9 @@ export default function App() {
             setConfirmation(null);
             setNotice("");
           }}
-          onConfirm={() => {
+          busy={storageBusy}
+          onConfirm={async () => {
+            if (storageBusy) return;
             if (confirmation.kind === "penalty") {
               if (
                 !game ||
@@ -264,7 +320,10 @@ export default function App() {
               }
               dispatchBase({ type: "endTurn", at: Date.now() });
             } else if (confirmation.kind === "delete") {
-              if (!deleteGame()) {
+              setStorageBusy(true);
+              const deleted = await deleteGame();
+              setStorageBusy(false);
+              if (!deleted) {
                 setNotice(
                   "The saved game could not be deleted. Your progress is still available.",
                 );
@@ -273,7 +332,16 @@ export default function App() {
               dispatchBase({ type: "clear" });
               setScreen("home");
             } else if (confirmation.next) {
-              dispatchBase({ type: "start", game: confirmation.next });
+              const next = confirmation.next;
+              dispatchBase({
+                type: "start",
+                game: {
+                  ...next,
+                  ...(next.turnSeconds
+                    ? { deadline: Date.now() + next.turnSeconds * 1000 }
+                    : {}),
+                },
+              });
               setScreen("game");
             }
             setConfirmation(null);

@@ -1,6 +1,6 @@
 import { beforeEach, it, expect, vi } from "vitest";
 import { newGame, reducer } from "../engine/game";
-import { saveGame, loadGame, SAVE_KEY } from "./storage";
+import { deleteGame, saveGame, loadGame, SAVE_KEY } from "./storage";
 let data: Map<string, string>;
 beforeEach(() => {
   data = new Map();
@@ -9,8 +9,9 @@ beforeEach(() => {
     setItem: (key: string, value: string) => data.set(key, value),
     removeItem: (key: string) => data.delete(key),
   });
+  loadGame();
 });
-it("round-trips a half-finished turn exactly", () => {
+it("round-trips a half-finished turn exactly", async () => {
   const s = newGame("You", 2, "normal", 42);
   s.current = s.players.findIndex((p) => !p.bot);
   s.turnStart = { table: [], rack: [...s.players[s.current].rack] };
@@ -19,7 +20,7 @@ it("round-trips a half-finished turn exactly", () => {
     ids: s.players[s.current].rack.slice(0, 2),
     target: "new",
   });
-  expect(saveGame(moved)).toBe(true);
+  expect(await saveGame(moved)).toBe(true);
   expect(loadGame().game).toEqual(moved);
 });
 it("discards malformed and unsupported saves with a notice", () => {
@@ -33,7 +34,7 @@ it("discards malformed and unsupported saves with a notice", () => {
     expect(data.has(SAVE_KEY)).toBe(false);
   }
 });
-it("rejects missing tiles and allows games when storage is unavailable", () => {
+it("rejects missing tiles and allows games when storage is unavailable", async () => {
   const s = newGame("You", 1, "easy", 2);
   s.pool.pop();
   data.set(SAVE_KEY, JSON.stringify(s));
@@ -49,7 +50,7 @@ it("rejects missing tiles and allows games when storage is unavailable", () => {
       throw Error("denied");
     },
   });
-  expect(saveGame(s)).toBe(false);
+  expect(await saveGame(s)).toBe(false);
   expect(loadGame().game).toBeNull();
 });
 
@@ -63,10 +64,10 @@ it("rejects a damaged turn snapshot", () => {
 
 it("deletes only the game and preserves preferences", async () => {
   const { deleteGame } = await import("./storage");
-  saveGame(newGame("You", 1, "easy"));
+  await saveGame(newGame("You", 1, "easy"));
   data.set("runset.muted", "true");
   data.set("runset.practice.v1", "practice");
-  expect(deleteGame()).toBe(true);
+  expect(await deleteGame()).toBe(true);
   expect(loadGame().game).toBeNull();
   expect(data.get("runset.muted")).toBe("true");
   expect(data.get("runset.practice.v1")).toBe("practice");
@@ -78,5 +79,31 @@ it("reports deletion failure without claiming success", async () => {
       throw Error("denied");
     },
   });
-  expect(deleteGame()).toBe(false);
+  expect(await deleteGame()).toBe(false);
+});
+
+it("rejects stale writes and deletes without restoring a deleted game", async () => {
+  const s = newGame("You", 1, "easy", 3);
+  expect(await saveGame(s)).toBe(true);
+  data.delete(SAVE_KEY);
+  expect(await saveGame(s)).toBe(false);
+  expect(data.has(SAVE_KEY)).toBe(false);
+  loadGame();
+  const remote = newGame("Other", 1, "easy", 4);
+  data.set(SAVE_KEY, JSON.stringify(remote));
+  expect(await deleteGame()).toBe(false);
+  expect(JSON.parse(data.get(SAVE_KEY)!)).toEqual(remote);
+});
+it("serializes local saves and invalidates queued writes after deletion", async () => {
+  const a = newGame("You", 1, "easy", 3),
+    b = reducer(a, { type: "sortRack", by: "number" });
+  const first = saveGame(a),
+    second = saveGame(b);
+  expect(await first).toBe(true);
+  expect(await second).toBe(true);
+  const deletion = deleteGame(),
+    stale = saveGame(b);
+  expect(await deletion).toBe(true);
+  expect(await stale).toBe(false);
+  expect(data.has(SAVE_KEY)).toBe(false);
 });

@@ -151,3 +151,8 @@ Online multiplayer is deferred at the user’s request and is outside the active
 roadmap. No workspace authorization or shared backend is needed for the current
 game. The [archived multiplayer proposal](docs/MULTIPLAYER.md) is retained for
 possible future discussion.
+
+The [current improvement cycle](docs/IMPROVEMENTS.md) tracks follow-up work from
+the live review. Saves now synchronize between tabs and reject stale writes;
+advanced lessons require their full objective and replacement timers begin only
+when confirmed.

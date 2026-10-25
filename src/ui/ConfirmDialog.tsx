@@ -6,6 +6,7 @@ export function ConfirmDialog({
   cancelLabel = "Cancel",
   onConfirm,
   onCancel,
+  busy = false,
 }: {
   title: string;
   children: React.ReactNode;
@@ -13,6 +14,7 @@ export function ConfirmDialog({
   cancelLabel?: string;
   onConfirm: () => void;
   onCancel: () => void;
+  busy?: boolean;
 }) {
   const ref = useRef<HTMLDialogElement>(null),
     safe = useRef<HTMLButtonElement>(null);
@@ -33,17 +35,22 @@ export function ConfirmDialog({
       aria-labelledby="dialog-title"
       onCancel={(e) => {
         e.preventDefault();
-        onCancel();
+        if (!busy) onCancel();
       }}
     >
       <h2 id="dialog-title">{title}</h2>
       <div className="dialog-copy">{children}</div>
       <div className="dialog-actions">
-        <button ref={safe} className="secondary" onClick={onCancel}>
+        <button
+          ref={safe}
+          className="secondary"
+          onClick={onCancel}
+          disabled={busy}
+        >
           {cancelLabel}
         </button>
-        <button className="primary danger" onClick={onConfirm}>
-          {confirmLabel}
+        <button className="primary danger" onClick={onConfirm} disabled={busy}>
+          {busy ? "Working…" : confirmLabel}
         </button>
       </div>
     </dialog>

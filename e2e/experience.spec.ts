@@ -42,6 +42,7 @@ test("learn, preserve, delete and resize a round", async ({ page: p }) => {
     .getByRole("button", { name: "Delete saved game", exact: true })
     .click();
   await p.getByRole("button", { name: "Delete game", exact: true }).click();
+  await expect(p.getByRole("dialog")).not.toBeVisible();
   await p.reload();
   assert.equal(
     await p.getByRole("button", { name: "Continue game" }).count(),
@@ -331,6 +332,7 @@ test("delete during a bot turn cancels work and storage errors preserve the game
     .getByRole("button", { name: "Delete saved game", exact: true })
     .click();
   await page.getByRole("button", { name: "Delete game", exact: true }).click();
+  await expect(page.getByRole("dialog")).not.toBeVisible();
   await page.reload();
   expect(
     await page.evaluate(() => localStorage.getItem("runset.save.v1")),

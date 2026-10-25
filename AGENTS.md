@@ -50,6 +50,10 @@ from the public repository.
 - Production builds generate `dist/sw.js` with static asset hashes. Never cache
   API routes. Updates require explicit acceptance and a successful game save.
   Run `npm run test:offline` when changing the service worker or update behavior.
+- Game writes are asynchronous and serialized through `runset-game-save` Web Locks
+  where supported, with snapshot comparison and a per-document generation guard.
+  Handle storage events before writing remote state; do not bypass `persistGame`.
+  Await delete completion before reporting success or reloading.
 - Guided practice uses `runset.practice.v1`, separate from the regular game save.
   Delete only the regular game key; preserve practice and preference keys. Cancel
   bot callbacks when a confirmation is open or a game is removed.

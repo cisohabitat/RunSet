@@ -1,4 +1,5 @@
-import { newGame, type GameState } from "./game";
+import { newGame, turnCheck, type GameState } from "./game";
+import { inspectMeld } from "./meld";
 import { tiles } from "./tiles";
 export type Lesson = "basics" | "jokers" | "rearrange";
 export function practiceGame(lesson: Lesson = "basics"): GameState {
@@ -31,4 +32,19 @@ export function practiceGame(lesson: Lesson = "basics"): GameState {
   };
   s.log = ["Practice uses its own tiles. Your saved game is safe."];
   return s;
+}
+
+export function lessonComplete(lesson: Lesson, s: GameState): boolean {
+  const check = turnCheck(s);
+  if (!check.valid) return false;
+  const has = (expected: number[]) =>
+    s.table.some(
+      (m) =>
+        m.tiles.length === expected.length &&
+        expected.every((id) => m.tiles.includes(id)) &&
+        inspectMeld(m.tiles).valid,
+    );
+  if (lesson === "jokers") return has([3, 4, 5]) && has([104, 30, 56]);
+  if (lesson === "rearrange") return has([0, 1, 2]) && has([3, 4, 5, 6]);
+  return false;
 }

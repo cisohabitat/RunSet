@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { practiceGame, type Lesson } from "../engine/practice";
+import { lessonComplete, practiceGame, type Lesson } from "../engine/practice";
 import {
   reducer,
   turnCheck,
@@ -99,9 +99,7 @@ export default function Tutorial({
         ];
   const instructions = lesson === "basics" ? basics[step] : advanced;
   const finished =
-    lesson === "basics"
-      ? step === 7
-      : turnCheck(game).valid && turnCheck(game).played.length > 0;
+    lesson === "basics" ? step === 7 : lessonComplete(lesson, game);
   const dispatch = (action: Action) => {
     if (
       lesson === "basics" &&

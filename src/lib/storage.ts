@@ -1,6 +1,34 @@
 import { inspectMeld } from "../engine/meld";
 import { type GameState } from "../engine/game";
 export const SAVE_KEY = "runset.save.v1";
+let expectedRaw: string | null | undefined;
+let generation = 0;
+let pending: Promise<unknown> = Promise.resolve();
+export type WriteResult =
+  { ok: true } | { ok: false; reason: "conflict" | "storage" };
+function lockedWrite(change: () => void): Promise<WriteResult> {
+  const scheduled = generation;
+  const work = (): WriteResult => {
+    try {
+      if (scheduled !== generation) return { ok: false, reason: "conflict" };
+      const actual = localStorage.getItem(SAVE_KEY);
+      if (expectedRaw === undefined) expectedRaw = actual;
+      if (actual !== expectedRaw) return { ok: false, reason: "conflict" };
+      change();
+      expectedRaw = localStorage.getItem(SAVE_KEY);
+      return { ok: true };
+    } catch {
+      return { ok: false, reason: "storage" };
+    }
+  };
+  const run = () =>
+    typeof navigator !== "undefined" && navigator.locks
+      ? navigator.locks.request("runset-game-save", work)
+      : Promise.resolve(work());
+  const result = pending.then(run, run);
+  pending = result;
+  return result;
+}
 export function validSave(value: unknown): value is GameState {
   if (!value || typeof value !== "object") return false;
   const s = value as GameState;
@@ -134,10 +162,13 @@ export function validSave(value: unknown): value is GameState {
 export function loadGame(): { game: GameState | null; notice: string } {
   try {
     const raw = localStorage.getItem(SAVE_KEY);
+    expectedRaw = raw;
+    generation++;
     if (!raw) return { game: null, notice: "" };
     const s: unknown = JSON.parse(raw);
     if (!validSave(s)) {
       localStorage.removeItem(SAVE_KEY);
+      expectedRaw = null;
       return {
         game: null,
         notice: "An old or unreadable save was discarded. Start a fresh game.",
@@ -156,21 +187,22 @@ export function loadGame(): { game: GameState | null; notice: string } {
     };
   }
 }
-export function saveGame(game: GameState): boolean {
-  try {
-    localStorage.setItem(SAVE_KEY, JSON.stringify(game));
-    return true;
-  } catch {
-    return false;
-  }
+export function persistGame(game: GameState): Promise<WriteResult> {
+  const raw = JSON.stringify(game);
+  return lockedWrite(() => {
+    if (localStorage.getItem(SAVE_KEY) !== raw)
+      localStorage.setItem(SAVE_KEY, raw);
+  });
 }
-
-/** Remove only game progress. Preferences and practice data belong to separate keys. */
-export function deleteGame(): boolean {
-  try {
+export async function saveGame(game: GameState): Promise<boolean> {
+  return (await persistGame(game)).ok;
+}
+/** Delete under the same lock as autosave; invalidate queued work from this game. */
+export async function deleteGame(): Promise<boolean> {
+  const result = await lockedWrite(() => {
     localStorage.removeItem(SAVE_KEY);
-    return localStorage.getItem(SAVE_KEY) === null;
-  } catch {
-    return false;
-  }
+    if (localStorage.getItem(SAVE_KEY) !== null) throw Error("Deletion failed");
+    generation++;
+  });
+  return result.ok;
 }

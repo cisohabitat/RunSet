@@ -3,7 +3,11 @@ interface InstallPrompt extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: string }>;
 }
-export function Offline({ beforeUpdate }: { beforeUpdate: () => boolean }) {
+export function Offline({
+  beforeUpdate,
+}: {
+  beforeUpdate: () => boolean | Promise<boolean>;
+}) {
   const [registration, setRegistration] =
       useState<ServiceWorkerRegistration | null>(null),
     [waiting, setWaiting] = useState(false),
@@ -61,8 +65,8 @@ export function Offline({ beforeUpdate }: { beforeUpdate: () => boolean }) {
       reg?.removeEventListener("updatefound", change);
     };
   }, []);
-  const update = () => {
-    if (!beforeUpdate()) {
+  const update = async () => {
+    if (!(await beforeUpdate())) {
       setError(
         "The update is paused because your game could not be saved. Keep this tab open.",
       );

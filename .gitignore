@@ -9,3 +9,5 @@ docs/RunSet-Game-Specification.pdf
 
 playwright-report/
 test-results/
+
+benchmark-long.json

@@ -7,10 +7,10 @@ explicitly deferred and excluded from active release requirements.
 ## Automated results
 
 - `npm run typecheck`: passes with strict TypeScript.
-- `npm test`: 60 tests pass, including seeded simulations of more than 4,000 legal
+- `npm test`: 61 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: 15 Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: 16 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
@@ -19,7 +19,7 @@ explicitly deferred and excluded from active release requirements.
   preserving the saved game. The update test waits for the actual reload before
   reading storage.
 - `npm run build`: passes and emits a static application plus versioned offline
-  cache. The main JavaScript bundle is approximately 85 kB gzipped; optional
+  cache. The main JavaScript bundle is approximately 88 kB gzipped; optional
   practice and worker assets are separate.
 
 ## Layout coverage
@@ -43,3 +43,12 @@ The current cycle adds cross-tab deletion/conflict tests, exact advanced lesson
 goals, confirmation-time timer start, keyboard-only play, control/table overlap,
 coached learning, validated backups/recovery, and verified offline readiness.
 GitHub Actions success must be checked for each pushed SHA before proceeding.
+
+Phase 5 adds delayed-worker startup with a 4× CPU-throttled responsiveness check,
+a table-rearranging hint regression, and six recorded fixed-deal/seat-rotation
+games. The measured host and limitations are in BENCHMARKS.json and BENCHMARKS.md.
+Phase 4 GitHub Actions run 40246103183 passed all checks before phase 5 began.
+
+Production builds enforce a 100,000-byte gzip budget for the initial HTML and its
+referenced CSS/JS. Optional practice and worker assets are measured separately,
+not silently included in an initial-load claim.

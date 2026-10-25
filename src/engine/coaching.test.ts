@@ -65,3 +65,22 @@ it("explains patterns and points without relying on opponent racks", () => {
     ),
   ).toBe(true);
 });
+
+it("finds a rearrangement that a rack-only or extension hint misses", async () => {
+  const { fixture } = await import("./test-helpers");
+  const s = fixture(
+    [7, 8, 12],
+    [
+      { id: "four-sevens", tiles: [6, 32, 58, 84] },
+      { id: "red-run", tiles: [3, 4, 5] },
+    ],
+    true,
+  );
+  const hint = planHint(s);
+  expect(hint.table).not.toBeNull();
+  expect(hint.used).toEqual(expect.arrayContaining([7, 8]));
+  const placed = reducer(s, { type: "applyPlan", table: hint.table! });
+  expect(turnCheck(placed).valid).toBe(true);
+  expect(placed.current).toBe(s.current);
+  conserved(placed);
+});

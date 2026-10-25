@@ -18,3 +18,6 @@ self.onmessage = (
     });
   }
 };
+
+// Imports are complete. Startup latency must not consume the planning watchdog.
+self.postMessage({ ready: true });

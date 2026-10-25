@@ -34,24 +34,37 @@ export function runPlanner(
       finish();
       reject(new Error("Cancelled"));
     };
-    const timeout = setTimeout(() => {
+    let ready = false;
+    let timeout = setTimeout(() => {
       finish();
-      reject(new Error("Planning took too long. Try again or draw."));
-    }, 2500);
+      reject(new Error("The planner could not start. Try again or draw."));
+    }, 10000);
     signal.addEventListener("abort", abort, { once: true });
     worker.onerror = () => {
       finish();
       reject(new Error("Planning is unavailable. You can still draw a tile."));
     };
+    const safe = structuredClone(game);
+    safe.history = [];
+    safe.log = [];
+    safe.players.forEach((p, i) => {
+      if (i !== safe.current) p.rack = [];
+    });
     worker.onmessage = (e) => {
+      if (e.data?.ready === true && !ready) {
+        ready = true;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          finish();
+          reject(new Error("Planning took too long. Try again or draw."));
+        }, 2500);
+        worker.postMessage({ game: safe, kind });
+        return;
+      }
+      if (!ready) return;
       finish();
       if (e.data.error) reject(new Error(e.data.error));
       else resolve(e.data.result);
     };
-    const safe = structuredClone(game);
-    safe.players.forEach((p, i) => {
-      if (i !== safe.current) p.rack = [];
-    });
-    worker.postMessage({ game: safe, kind });
   });
 }

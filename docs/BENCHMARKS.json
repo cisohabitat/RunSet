@@ -1,0 +1,125 @@
+{
+  "generatedAt": "2026-10-25T23:50:57.643Z",
+  "environment": {
+    "node": "v24.19.0",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "platform": "linux"
+  },
+  "method": {
+    "seeds": 2,
+    "seatRotations": 3,
+    "planningBudgetMs": 380,
+    "description": "Same seeded deals with each difficulty rotated through every seat; exploratory sample, not proof of a strength ranking. Search is time bounded and may vary by machine."
+  },
+  "summary": {
+    "easy": {
+      "wins": 0,
+      "winRate": 0,
+      "moves": 192,
+      "tilesPlayed": 154,
+      "draws": 154,
+      "latencyMs": {
+        "p50": 0.4,
+        "p95": 1.03,
+        "max": 3.19
+      }
+    },
+    "normal": {
+      "wins": 5,
+      "winRate": 0.833,
+      "moves": 194,
+      "tilesPlayed": 175,
+      "draws": 126,
+      "latencyMs": {
+        "p50": 0.39,
+        "p95": 0.87,
+        "max": 2.76
+      }
+    },
+    "hard": {
+      "wins": 1,
+      "winRate": 0.167,
+      "moves": 193,
+      "tilesPlayed": 173,
+      "draws": 127,
+      "latencyMs": {
+        "p50": 380.01,
+        "p95": 380.27,
+        "max": 382.68
+      }
+    }
+  },
+  "games": [
+    {
+      "seed": 1,
+      "rotation": 0,
+      "winner": "normal",
+      "moves": 93
+    },
+    {
+      "seed": 1,
+      "rotation": 1,
+      "winner": "normal",
+      "moves": 97
+    },
+    {
+      "seed": 1,
+      "rotation": 2,
+      "winner": "normal",
+      "moves": 99
+    },
+    {
+      "seed": 2,
+      "rotation": 0,
+      "winner": "hard",
+      "moves": 95
+    },
+    {
+      "seed": 2,
+      "rotation": 1,
+      "winner": "normal",
+      "moves": 98
+    },
+    {
+      "seed": 2,
+      "rotation": 2,
+      "winner": "normal",
+      "moves": 97
+    }
+  ],
+  "hints": [
+    {
+      "case": "basics",
+      "proposed": true,
+      "tiles": 10,
+      "latencyMs": 1.69,
+      "legal": true
+    },
+    {
+      "case": "jokers",
+      "proposed": true,
+      "tiles": 4,
+      "latencyMs": 3.89,
+      "legal": true
+    },
+    {
+      "case": "rearrange",
+      "proposed": true,
+      "tiles": 2,
+      "latencyMs": 2.01,
+      "legal": true
+    }
+  ],
+  "checks": {
+    "allGamesFinished": true,
+    "allTablesLegal": true,
+    "all106TilesConserved": true,
+    "allHintPlansLegal": true,
+    "hardPlansOver400Ms": 0
+  },
+  "limitations": [
+    "This is a Node benchmark on the recorded host, not an iPhone/iPad measurement.",
+    "A small sample cannot establish reliable difficulty win-rate differences.",
+    "Browser CPU-throttle responsiveness is tested separately in e2e/planning.spec.ts."
+  ]
+}

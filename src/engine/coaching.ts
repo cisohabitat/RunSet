@@ -72,12 +72,13 @@ export function planHint(s: GameState): Hint {
   safe.players.forEach((x, i) => {
     if (i !== s.current) x.rack = [];
   });
-  const opening = rackPlan(p.rack, true);
+  // Hints may rearrange, independently of the opponent difficulty.
+  if (p.melded) safe.players[s.current].bot = "hard";
   const table = p.melded
     ? planBot(safe, 300)
     : [
         ...s.table,
-        ...opening.melds.map((tiles, i) => ({
+        ...rackPlan(p.rack, true).melds.map((tiles, i) => ({
           id: `hint-${s.turn}-${i}`,
           tiles,
         })),

@@ -35,3 +35,8 @@ valid save for recovery. Explicit deletion clears that automatic recovery copy.
 Offline readiness is reported only after the active worker confirms its cache;
 updates reload only the accepting tab. Tests use CI’s installed Playwright browser
 when `CI=1` and retain failure traces and screenshots.
+
+Phase 4 GitHub Actions passed on `371951a` before phase 5 began. Phase 5 records
+real measurements in [BENCHMARKS.md](BENCHMARKS.md), adds a separate worker-ready
+handshake and delayed-start regression, and enables rearranging hints. No physical
+device results or statistically established difficulty ranking are claimed.

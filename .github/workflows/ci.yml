@@ -17,6 +17,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - run: npx playwright test --config=playwright.offline.config.ts
+      - run: npm run benchmark -- --seeds=1 --budget=20 --out=test-results/benchmark-smoke.json
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

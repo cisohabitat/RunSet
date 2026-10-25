@@ -36,6 +36,11 @@ from the public repository.
   Add regression coverage for changed rules and preserve tile-conservation and
   bot-simulation checks. Tests may use smaller search budgets; retain a production
   Hard-budget regression check.
+- Run `npm run benchmark` when changing planning strategy; report the seed set,
+  search budget, timing host, and sample-size limits. Never assert a difficulty
+  win-rate ranking from the small pilot. Benchmark scripts must not open servers.
+- Workers send a ready handshake after imports. Keep startup and computation
+  watchdogs separate, and preserve cancellation during either stage.
 - Bot and hint searches run in `src/workers/planner.ts`. Abort outstanding requests
   when their state, screen, or confirmation context changes. Hints must not mutate
   drafts or end turns; explicit placement is validated by the engine.

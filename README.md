@@ -170,3 +170,8 @@ recover a previous valid position. Imports are validated before confirmation and
 never silently replace a game. Deleting progress clears automatic recovery; files
 you downloaded remain available. “Ready offline” is shown only after the active
 service worker verifies its cached assets. The game heading shows save status.
+
+Run `npm run benchmark -- --seeds=2 --budget=380` for fixed-deal bot comparisons
+and legality/latency measurements. See [the measured pilot and its limitations](docs/BENCHMARKS.md).
+Hard uses more rearrangement search; the current small sample does not establish
+that it wins more often than Normal. Hints can now search table rearrangements.

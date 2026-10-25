@@ -23,6 +23,7 @@ import { Setup } from "./ui/Setup";
 import { HowToPlay } from "./ui/HowToPlay";
 import { Game } from "./ui/Game";
 import { GameOver } from "./ui/GameOver";
+import { SaveTools } from "./ui/SaveTools";
 import { Offline } from "./ui/Offline";
 import { ConfirmDialog } from "./ui/ConfirmDialog";
 const Tutorial = lazy(() => import("./ui/Tutorial"));
@@ -48,6 +49,7 @@ export default function App() {
   const [confirmation, setConfirmation] = useState<{
     kind: "delete" | "replace" | "penalty";
     next?: GameState;
+    preserveDeadline?: boolean;
     expectedTurn?: number;
     expectedSeed?: number;
   } | null>(null);
@@ -98,6 +100,9 @@ export default function App() {
   }, [learning, narrate, pace]);
   const skipSave = useRef<GameState | null | undefined>(undefined);
   const [storageBusy, setStorageBusy] = useState(false);
+  const [saveStatus, setSaveStatus] = useState(
+    initial.game ? "Saved" : "No saved game",
+  );
   const [notice, setNotice] = useState(initial.notice);
   const [muted, setMuted] = useState(() => {
     try {
@@ -114,14 +119,26 @@ export default function App() {
     }
   }, [muted]);
   useEffect(() => {
-    if (!game) return;
+    if (!game) {
+      setSaveStatus("No saved game");
+      return;
+    }
     if (skipSave.current === game) {
       skipSave.current = undefined;
+      setSaveStatus("Saved");
       return;
     }
     let active = true;
+    setSaveStatus("Saving…");
     void persistGame(game).then((result) => {
-      if (!active || result.ok) return;
+      if (!active) return;
+      if (result.ok) {
+        setSaveStatus("Saved");
+        return;
+      }
+      setSaveStatus(
+        result.reason === "conflict" ? "Changed in another tab" : "Not saved",
+      );
       if (result.reason === "conflict") {
         const remote = loadGame();
         skipSave.current = remote.game;
@@ -147,6 +164,7 @@ export default function App() {
     const changed = (event: StorageEvent) => {
       if (event.key !== SAVE_KEY && event.key !== null) return;
       const remote = loadGame();
+      setSaveStatus(remote.game ? "Saved" : "No saved game");
       skipSave.current = remote.game;
       setConfirmation(null);
       dispatchBase(
@@ -246,6 +264,21 @@ export default function App() {
     }
     dispatchBase({ type: "start", game: next });
     setScreen("game");
+  };
+  const restore = (restored: GameState) => {
+    if (game) {
+      setConfirmation({
+        kind: "replace",
+        next: restored,
+        preserveDeadline: true,
+      });
+    } else {
+      dispatchBase({ type: "start", game: restored });
+      setScreen("game");
+    }
+    setNotice(
+      "The backup has been validated. Saved games keep their original turn and timer.",
+    );
   };
   const help = () => {
     setHelpBack(screen);
@@ -351,6 +384,7 @@ export default function App() {
               Escape clears selection. H asks for a hint.
             </p>
           </details>
+          <SaveTools game={game} onRestore={restore} />
           <Offline beforeUpdate={() => !game || saveGame(game)} />
         </nav>
       </details>
@@ -444,7 +478,7 @@ export default function App() {
                 type: "start",
                 game: {
                   ...next,
-                  ...(next.turnSeconds
+                  ...(!confirmation.preserveDeadline && next.turnSeconds
                     ? { deadline: Date.now() + next.turnSeconds * 1000 }
                     : {}),
                 },
@@ -502,6 +536,14 @@ export default function App() {
           onLearn={() => setScreen("learn")}
         />
       )}
+      {screen === "home" && (
+        <>
+          <p className="home-save-status" role="status">
+            {saveStatus}
+          </p>
+          <SaveTools game={game} onRestore={restore} />
+        </>
+      )}
       {screen === "setup" && (
         <Setup
           onStart={start}
@@ -534,6 +576,7 @@ export default function App() {
           />
         ) : (
           <Game
+            saveLabel={saveStatus}
             narrate={narrate}
             touch={touch}
             key={`${game.seed}-${game.turn}`}

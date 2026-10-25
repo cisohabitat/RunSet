@@ -1,6 +1,7 @@
 import { inspectMeld } from "../engine/meld";
 import { type GameState } from "../engine/game";
 export const SAVE_KEY = "runset.save.v1";
+export const BACKUP_KEY = "runset.backup.v1";
 let expectedRaw: string | null | undefined;
 let generation = 0;
 let pending: Promise<unknown> = Promise.resolve();
@@ -35,6 +36,8 @@ export function validSave(value: unknown): value is GameState {
   if (s.coach !== undefined && typeof s.coach !== "boolean") return false;
   if (
     s.version !== 1 ||
+    typeof s.notice !== "string" ||
+    s.notice.length > 2000 ||
     !["playing", "over"].includes(s.phase) ||
     !Array.isArray(s.players) ||
     s.players.length < 2 ||
@@ -48,6 +51,7 @@ export function validSave(value: unknown): value is GameState {
     !Array.isArray(s.turnStart.rack) ||
     !Array.isArray(s.lastPlaced) ||
     !Array.isArray(s.log) ||
+    s.log.length > 100 ||
     !Number.isFinite(s.turn) ||
     !Number.isFinite(s.seed) ||
     !Number.isInteger(s.passes)
@@ -57,6 +61,8 @@ export function validSave(value: unknown): value is GameState {
     s.players.some(
       (p) =>
         typeof p.name !== "string" ||
+        p.name.length < 1 ||
+        p.name.length > 24 ||
         ![null, "easy", "normal", "hard"].includes(p.bot) ||
         typeof p.melded !== "boolean" ||
         !Array.isArray(p.rack),
@@ -66,7 +72,7 @@ export function validSave(value: unknown): value is GameState {
   )
     return false;
   if (
-    s.log.some((x) => typeof x !== "string") ||
+    s.log.some((x) => typeof x !== "string" || x.length > 2000) ||
     s.lastPlaced.some((id) => !Number.isInteger(id) || id < 0 || id > 105) ||
     s.turnStart.table.some(
       (m) =>
@@ -179,6 +185,7 @@ export function loadGame(): { game: GameState | null; notice: string } {
   } catch {
     try {
       localStorage.removeItem(SAVE_KEY);
+      expectedRaw = null;
     } catch {
       /* Storage may be disabled. */
     }
@@ -188,11 +195,35 @@ export function loadGame(): { game: GameState | null; notice: string } {
     };
   }
 }
+export function parseSavedGame(raw: string | null): GameState | null {
+  try {
+    const value: unknown = JSON.parse(raw ?? "null");
+    return validSave(value) ? value : null;
+  } catch {
+    return null;
+  }
+}
+export function readRecoveryGame(): GameState | null {
+  try {
+    return parseSavedGame(localStorage.getItem(BACKUP_KEY));
+  } catch {
+    return null;
+  }
+}
 export function persistGame(game: GameState): Promise<WriteResult> {
   const raw = JSON.stringify(game);
   return lockedWrite(() => {
-    if (localStorage.getItem(SAVE_KEY) !== raw)
+    const previous = localStorage.getItem(SAVE_KEY);
+    if (previous !== raw) {
+      if (parseSavedGame(previous)) {
+        try {
+          localStorage.setItem(BACKUP_KEY, previous!);
+        } catch {
+          /* A backup must not prevent saving current progress. */
+        }
+      }
       localStorage.setItem(SAVE_KEY, raw);
+    }
   });
 }
 export async function saveGame(game: GameState): Promise<boolean> {
@@ -201,7 +232,20 @@ export async function saveGame(game: GameState): Promise<boolean> {
 /** Delete under the same lock as autosave; invalidate queued work from this game. */
 export async function deleteGame(): Promise<boolean> {
   const result = await lockedWrite(() => {
-    localStorage.removeItem(SAVE_KEY);
+    const backup = localStorage.getItem(BACKUP_KEY);
+    try {
+      localStorage.removeItem(BACKUP_KEY);
+      localStorage.removeItem(SAVE_KEY);
+    } catch (error) {
+      if (backup !== null) {
+        try {
+          localStorage.setItem(BACKUP_KEY, backup);
+        } catch {
+          /* Keep the original game available if deletion fails. */
+        }
+      }
+      throw error;
+    }
     if (localStorage.getItem(SAVE_KEY) !== null) throw Error("Deletion failed");
     generation++;
   });

@@ -28,3 +28,10 @@ that Hard is stronger or a particular device is fast without measurement.
 
 The manual [beginner study protocol](BEGINNER_STUDY.md) records the remaining
 five-person study and physical-device checks.
+
+Phase 4 provides a Saved/Saving/Not saved indicator, validated versioned JSON
+export/import (2 MB limit), confirmation before replacing progress, and a previous
+valid save for recovery. Explicit deletion clears that automatic recovery copy.
+Offline readiness is reported only after the active worker confirms its cache;
+updates reload only the accepting tab. Tests use CI’s installed Playwright browser
+when `CI=1` and retain failure traces and screenshots.

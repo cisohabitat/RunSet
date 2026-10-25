@@ -65,3 +65,58 @@ test("an explicit worker update keeps the saved game", async ({ page }) => {
     await writeFile("dist/sw.js", original);
   }
 });
+
+test("offline readiness is verified and an update preserves another tab", async ({
+  page,
+  context,
+}) => {
+  const original = await readFile("dist/sw.js", "utf8");
+  try {
+    await page.goto("/");
+    await expect(
+      page.getByRole("status").filter({ hasText: "Ready offline" }),
+    ).toBeVisible();
+    await page.getByRole("button", { name: "New game", exact: false }).click();
+    await page.getByRole("button", { name: "Deal the tiles" }).click();
+    await page.getByRole("button", { name: "Home", exact: true }).click();
+    await expect(page.getByText("Saved", { exact: true })).toBeVisible();
+    const saved = await page.evaluate(() =>
+      localStorage.getItem("runset.save.v1"),
+    );
+    const other = await context.newPage();
+    await other.goto("/");
+    await expect(
+      other.getByRole("status").filter({ hasText: "Ready offline" }),
+    ).toBeVisible();
+    let navigations = 0;
+    other.on("framenavigated", (frame) => {
+      if (frame === other.mainFrame()) navigations++;
+    });
+    await writeFile(
+      "dist/sw.js",
+      original.replace(/runset-[a-f0-9]{16}/, "runset-multiple-tabs"),
+    );
+    await page.evaluate(async () => {
+      await (await navigator.serviceWorker.getRegistration())?.update();
+    });
+    await Promise.all([
+      page.waitForEvent(
+        "framenavigated",
+        (frame) => frame === page.mainFrame(),
+      ),
+      page.getByRole("button", { name: "Save and update" }).click(),
+    ]);
+    await expect(
+      page.getByRole("button", { name: "Continue game" }),
+    ).toBeVisible();
+    await expect(
+      other.getByRole("button", { name: "Continue game" }),
+    ).toBeVisible();
+    expect(navigations).toBe(0);
+    expect(
+      await other.evaluate(() => localStorage.getItem("runset.save.v1")),
+    ).toBe(saved);
+  } finally {
+    await writeFile("dist/sw.js", original);
+  }
+});

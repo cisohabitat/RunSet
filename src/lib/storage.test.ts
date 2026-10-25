@@ -107,3 +107,18 @@ it("serializes local saves and invalidates queued writes after deletion", async 
   expect(await stale).toBe(false);
   expect(data.has(SAVE_KEY)).toBe(false);
 });
+
+it("keeps a previous valid position for recovery and removes it on explicit deletion", async () => {
+  const { readRecoveryGame, BACKUP_KEY } = await import("./storage");
+  const a = newGame("You", 1, "easy", 2),
+    b = reducer(a, { type: "sortRack", by: "number" });
+  await saveGame(a);
+  await saveGame(b);
+  expect(readRecoveryGame()).toEqual(a);
+  data.set(SAVE_KEY, "{corrupt");
+  expect(loadGame().game).toBeNull();
+  expect(readRecoveryGame()).toEqual(a);
+  expect(await saveGame(a)).toBe(true);
+  expect(await deleteGame()).toBe(true);
+  expect(data.has(BACKUP_KEY)).toBe(false);
+});

@@ -18,7 +18,7 @@ await writeFile(
   "dist/sw.js",
   `const CACHE=${JSON.stringify(version)},FILES=${JSON.stringify(urls)};
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES))));
-self.addEventListener('message',event=>{if(event.data?.type==='SKIP_WAITING')self.skipWaiting();});
+self.addEventListener('message',event=>{if(event.data?.type==='SKIP_WAITING')self.skipWaiting();if(event.data?.type==='CHECK_CACHE'&&event.ports[0])event.waitUntil((async()=>{try{const cache=await caches.open(CACHE),results=await Promise.all(FILES.map(url=>cache.match(url,{ignoreVary:true})));event.ports[0].postMessage({ready:results.every(Boolean)});}catch{event.ports[0].postMessage({ready:false});}})());});
 self.addEventListener('activate',event=>event.waitUntil((async()=>{const keys=(await caches.keys()).filter(key=>key.startsWith('runset-'));const keep=new Set([CACHE,...keys.filter(key=>key!==CACHE).slice(-1)]);await Promise.all(keys.filter(key=>!keep.has(key)).map(key=>caches.delete(key)));await self.clients.claim();})()));
 self.addEventListener('fetch',event=>{const url=new URL(event.request.url);if(event.request.method!=='GET'||url.origin!==self.location.origin||url.pathname.startsWith('/api/'))return;
 if(event.request.mode==='navigate'){event.respondWith(fetch(event.request).catch(()=>caches.open(CACHE).then(cache=>cache.match('/index.html',{ignoreVary:true}))));return;}

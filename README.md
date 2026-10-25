@@ -164,3 +164,9 @@ Practice highlights the current destination, corrects wrong selections, and
 requires the demonstrated result. Completing a lesson offers a real Easy game
 with optional coaching. Hint previews include a “Why this works” breakdown.
 The [beginner study](docs/BEGINNER_STUDY.md) is prepared but has not been run.
+
+Save tools on Home and in the Game menu export/import versioned JSON backups and
+recover a previous valid position. Imports are validated before confirmation and
+never silently replace a game. Deleting progress clears automatic recovery; files
+you downloaded remain available. “Ready offline” is shown only after the active
+service worker verifies its cached assets. The game heading shows save status.

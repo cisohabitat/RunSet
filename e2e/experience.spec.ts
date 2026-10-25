@@ -104,7 +104,12 @@ test("hints preview before placement and penalty warnings keep edits", async ({
     localStorage.getItem("runset.save.v1"),
   );
   await page.getByRole("button", { name: "Show a possible move" }).click();
-  await page.getByRole("button", { name: "Place hint", exact: true }).waitFor();
+  const hint = page.getByLabel("Move hint", { exact: true });
+  await expect(hint).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Place hint", exact: true }),
+    await hint.innerText(),
+  ).toBeVisible();
   expect(
     await page.evaluate(() => localStorage.getItem("runset.save.v1")),
   ).toBe(original);

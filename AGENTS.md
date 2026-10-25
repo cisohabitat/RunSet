@@ -59,6 +59,11 @@ from the public repository.
   bot callbacks when a confirmation is open or a game is removed.
 - Run `npm run test:e2e` for changed player flows; Playwright config uses installed
   Chromium or `CHROMIUM_PATH`. Browser tests belong in `e2e/`; Vitest covers `src/`.
+- After each phase push, inspect GitHub Actions for that exact commit and wait
+  for all checks, including offline tests, to pass before starting the next phase.
+  A successful Vercel status or local run is not proof of successful GitHub CI.
+- Backups must pass `validSave` and the versioned backup format before replacement.
+  Delete both regular progress and its automatic recovery copy, keeping preferences.
 - For UI changes, verify the affected player flow, responsive layout, and runtime
   console when browser tooling is available. Report any verification limits.
 - For documentation-only changes, check accuracy, local links, and

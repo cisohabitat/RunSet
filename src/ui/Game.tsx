@@ -12,6 +12,7 @@ export function Game({
   coaching = true,
   coachTarget,
   onSelectionChange,
+  saveLabel,
   narrate = false,
   touch = false,
 }: {
@@ -22,6 +23,7 @@ export function Game({
   coaching?: boolean;
   coachTarget?: string;
   onSelectionChange?: (ids: number[]) => void;
+  saveLabel?: string;
   narrate?: boolean;
   touch?: boolean;
 }) {
@@ -152,9 +154,19 @@ export function Game({
           <span className="eyebrow">THE TABLE</span>
           <h1>{myTurn ? "Your move." : "A little thinking…"}</h1>
         </div>
-        <button className="text-button" onClick={onHelp}>
-          Rules ↗
-        </button>
+        <div className="game-heading-actions">
+          {saveLabel && (
+            <span
+              className={`save-indicator ${saveLabel === "Not saved" ? "save-error" : ""}`}
+              role="status"
+            >
+              {saveLabel}
+            </span>
+          )}
+          <button className="text-button" onClick={onHelp}>
+            Rules ↗
+          </button>
+        </div>
       </div>
       {s.match && (
         <div className="match-bar" aria-label="Match scores">

@@ -1,3 +1,4 @@
+import { offlineReady } from "../lib/offline";
 import { useEffect, useState } from "react";
 interface InstallPrompt extends Event {
   prompt: () => Promise<void>;
@@ -8,6 +9,9 @@ export function Offline({
 }: {
   beforeUpdate: () => boolean | Promise<boolean>;
 }) {
+  const [readiness, setReadiness] = useState<
+    "preparing" | "ready" | "unavailable"
+  >("preparing");
   const [registration, setRegistration] =
       useState<ServiceWorkerRegistration | null>(null),
     [waiting, setWaiting] = useState(false),
@@ -26,6 +30,14 @@ export function Offline({
     window.addEventListener("beforeinstallprompt", prompt);
     let cancelled = false;
     let reg: ServiceWorkerRegistration | undefined;
+    const refreshReady = () => {
+      const active = navigator.serviceWorker.controller ?? reg?.active;
+      if (active)
+        void offlineReady(active).then((ready) => {
+          if (!cancelled) setReadiness(ready ? "ready" : "unavailable");
+        });
+    };
+    navigator.serviceWorker?.addEventListener("controllerchange", refreshReady);
     const check = () => {
       if (reg?.waiting) setWaiting(true);
     };
@@ -40,6 +52,8 @@ export function Offline({
             check();
         });
     };
+    if (!import.meta.env.PROD || !("serviceWorker" in navigator))
+      setReadiness("unavailable");
     if (import.meta.env.PROD && "serviceWorker" in navigator)
       navigator.serviceWorker
         .register("/sw.js")
@@ -48,14 +62,19 @@ export function Offline({
           if (cancelled) return;
           setRegistration(reg);
           check();
+          void navigator.serviceWorker.ready.then(() => {
+            if (!cancelled) refreshReady();
+          });
           reg.addEventListener("updatefound", change);
           void reg.update().catch(() => {});
         })
         .catch(() => {
-          if (!cancelled)
+          if (!cancelled) {
+            setReadiness("unavailable");
             setError(
               "Offline setup is unavailable. You can continue playing online.",
             );
+          }
         });
     return () => {
       cancelled = true;
@@ -63,6 +82,10 @@ export function Offline({
       window.removeEventListener("offline", status);
       window.removeEventListener("beforeinstallprompt", prompt);
       reg?.removeEventListener("updatefound", change);
+      navigator.serviceWorker?.removeEventListener(
+        "controllerchange",
+        refreshReady,
+      );
     };
   }, []);
   const update = async () => {
@@ -89,12 +112,15 @@ export function Offline({
   };
   return (
     <aside className="offline-tools" aria-label="Offline and installation">
-      {offline && (
-        <p role="status">
-          You’re offline. Local games and practice still work after the first
-          visit.
-        </p>
-      )}
+      <p className="offline-readiness" role="status">
+        {readiness === "ready"
+          ? offline
+            ? "Offline · game, lessons and bots are ready."
+            : "Ready offline"
+          : readiness === "preparing"
+            ? "Preparing offline play…"
+            : "Offline readiness could not be verified. Connect and finish any available update."}
+      </p>
       {waiting && (
         <div role="status">
           A new version is ready. Your saved game will be kept.{" "}
@@ -124,8 +150,7 @@ export function Offline({
           On iPhone or iPad, open this site in Safari, tap Share, then Add to
           Home Screen. On desktop or Android, use your browser’s Install app
           option. Visit once online to download the game; regular games and
-          lessons then work offline. Online rooms require an internet
-          connection.
+          lessons then work offline once “Ready offline” is shown.
         </p>
       )}
       {error && <p role="status">{error}</p>}

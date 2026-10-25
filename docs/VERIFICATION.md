@@ -7,14 +7,14 @@ explicitly deferred and excluded from active release requirements.
 ## Automated results
 
 - `npm run typecheck`: passes with strict TypeScript.
-- `npm test`: 49 tests pass, including seeded simulations of more than 4,000 legal
+- `npm test`: 60 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: seven Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: 15 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
-- `npm run test:offline`: two production Chromium flows pass: saved games and lazy
+- `npm run test:offline`: three production Chromium flows pass: saved games and lazy
   practice assets after an offline reload; and explicit service-worker updates
   preserving the saved game. The update test waits for the actual reload before
   reading storage.
@@ -38,3 +38,8 @@ not physical iPhone/iPad Safari coverage.
   target. No participants or results have been fabricated.
 - Vercel deployment status for each pushed commit: publishing to `main` is
   confirmed separately from Vercel completing its automatic build.
+
+The current cycle adds cross-tab deletion/conflict tests, exact advanced lesson
+goals, confirmation-time timer start, keyboard-only play, control/table overlap,
+coached learning, validated backups/recovery, and verified offline readiness.
+GitHub Actions success must be checked for each pushed SHA before proceeding.

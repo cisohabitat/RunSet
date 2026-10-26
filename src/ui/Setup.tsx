@@ -1,10 +1,12 @@
 import { useI18n } from "../i18n/I18n";
+import type { GameSettings } from "../lib/gameSettings";
 import { useState } from "react";
 import type { Difficulty, GameOptions } from "../engine/game";
 export function Setup({
   onStart,
   onBack,
   hasSave,
+  initial,
 }: {
   onStart: (
     name: string,
@@ -14,14 +16,23 @@ export function Setup({
   ) => void;
   onBack: () => void;
   hasSave: boolean;
+  initial?: GameSettings;
 }) {
   const { t, locale } = useI18n();
-  const [coach, setCoach] = useState(true);
-  const [target, setTarget] = useState<0 | 100 | 200 | 500>(0),
-    [turnSeconds, setTurnSeconds] = useState<0 | 60 | 120>(0);
-  const [name, setName] = useState(locale === "zh-CN" ? "你" : "You"),
-    [bots, setBots] = useState(2),
-    [difficulty, setDifficulty] = useState<Difficulty>("normal");
+  const [coach, setCoach] = useState(initial?.coach ?? true);
+  const [target, setTarget] = useState<0 | 100 | 200 | 500>(
+      initial?.target ?? 0,
+    ),
+    [turnSeconds, setTurnSeconds] = useState<0 | 60 | 120>(
+      initial?.turnSeconds ?? 0,
+    );
+  const [name, setName] = useState(
+      initial?.name ?? (locale === "zh-CN" ? "你" : "You"),
+    ),
+    [bots, setBots] = useState(initial?.bots ?? 2),
+    [difficulty, setDifficulty] = useState<Difficulty>(
+      initial?.difficulty ?? "normal",
+    );
   return (
     <main className="page setup">
       <button className="text-button" onClick={onBack}>

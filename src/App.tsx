@@ -18,6 +18,7 @@ import {
   saveGame,
   SAVE_KEY,
 } from "./lib/storage";
+import { settingsForGame, type GameSettings } from "./lib/gameSettings";
 import { sound } from "./lib/sound";
 import { Home } from "./ui/Home";
 const Setup = lazy(() =>
@@ -62,6 +63,11 @@ export default function App() {
     expectedTurn?: number;
     expectedSeed?: number;
   } | null>(null);
+  const [setupPreset, setSetupPreset] = useState<GameSettings>();
+  const openSetup = (source?: GameState) => {
+    setSetupPreset(source ? settingsForGame(source) : undefined);
+    setScreen("setup");
+  };
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [reading, setReading] = useState(() => {
     try {
@@ -300,6 +306,11 @@ export default function App() {
     dispatchBase({ type: "start", game: next });
     setScreen("game");
   };
+  const replay = () => {
+    if (!game) return;
+    const { name, bots, difficulty, ...options } = settingsForGame(game);
+    start(name, bots, difficulty, options);
+  };
   const restore = (restored: GameState) => {
     if (game) {
       setConfirmation({
@@ -342,19 +353,7 @@ export default function App() {
           <button
             className="text-button"
             data-menu-action
-            onClick={() => {
-              const human = game.players.find((p) => !p.bot)!;
-              start(
-                human.name,
-                game.players.length - 1,
-                game.players.find((p) => p.bot)?.bot ?? "normal",
-                {
-                  target: (game.match?.target ?? 0) as GameOptions["target"],
-                  turnSeconds: game.turnSeconds,
-                  coach: game.coach,
-                },
-              );
-            }}
+            onClick={() => replay()}
           >
             {t(
               game.phase === "over"
@@ -546,6 +545,14 @@ export default function App() {
                 {t("Reset turn instead")}
               </button>
             </>
+          ) : confirmation.kind === "replace" &&
+            game?.phase === "over" &&
+            !confirmation.preserveDeadline ? (
+            <p>
+              {t(
+                "A fresh game replaces this saved result. The new deal starts at round 1 with zero match scores; your display and sound preferences stay the same.",
+              )}
+            </p>
           ) : (
             <p>
               {t("Your progress")}{" "}
@@ -573,7 +580,7 @@ export default function App() {
       )}
       {screen === "home" && (
         <Home
-          onNew={() => setScreen("setup")}
+          onNew={() => openSetup()}
           onContinue={() => setScreen("game")}
           onHelp={help}
           hasSave={!!game}
@@ -598,6 +605,7 @@ export default function App() {
             onStart={start}
             onBack={() => setScreen("home")}
             hasSave={!!game && game.phase === "playing"}
+            initial={setupPreset}
           />
         </Suspense>
       )}
@@ -632,7 +640,8 @@ export default function App() {
                 dispatchBase({ type: "nextRound", at: Date.now() })
               }
               game={game}
-              onNew={() => setScreen("setup")}
+              onNew={() => openSetup(game)}
+              onReplay={replay}
               onHome={() => setScreen("home")}
             />
           </Suspense>

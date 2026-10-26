@@ -3547,3 +3547,106 @@ button:not(.tile) {
     display: none;
   }
 }
+
+.round-summary,
+.scoring-guide {
+  max-width: 720px;
+  margin: 24px auto;
+  padding: 20px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--soft);
+}
+.round-summary h2,
+.scoring-guide h2 {
+  font-size: 21px;
+}
+.round-summary p,
+.scoring-guide p,
+.replay-explanation {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-top: 10px;
+}
+.replay-explanation {
+  max-width: 720px;
+  margin: 24px auto 12px;
+}
+.winner-calculation {
+  font-weight: 750;
+}
+.round-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+.round-score span {
+  font-size: 14px;
+  color: var(--muted);
+}
+.round-score strong {
+  font-size: 28px;
+}
+.scoreboard .score-explanation,
+.scoreboard .empty-rack-result {
+  width: 100%;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.rack-calculation {
+  width: 100%;
+  min-width: 0;
+}
+.rack-calculation summary {
+  min-height: 48px;
+  display: list-item;
+  align-content: center;
+  cursor: pointer;
+  line-height: 1.6;
+}
+.scoreboard .tile-calculation {
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 12px 0;
+}
+.tile-calculation span {
+  display: inline-block;
+}
+.game-over h1,
+.scoreboard h2,
+.match-scores p {
+  overflow-wrap: anywhere;
+}
+.scoreboard article > div:first-child {
+  min-width: 0;
+  flex: 1 1 180px;
+}
+.scoreboard article > div:first-child > p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+.scoreboard .winner-badge {
+  font-size: 12px;
+}
+.app.comfortable-reading .winner-badge {
+  font-size: 16px;
+}
+.tile-calculation span + span {
+  margin-left: 0.35em;
+}
+.game-dropdown > summary {
+  white-space: nowrap;
+}
+@media (max-width: 720px) {
+  .site-header:has(.game-dropdown) .brand-icon {
+    display: none;
+  }
+}
+.scoreboard article > div:first-child {
+  flex-basis: 160px;
+}
+.app.comfortable-reading .round-score span {
+  font-size: 16px;
+}

@@ -205,3 +205,57 @@ test("new-game setup and default guidance are ready before the first offline gam
   ).toBeVisible();
   await context.setOffline(false);
 });
+
+test("first-use results, score calculations and replay work offline", async ({
+  page,
+  context,
+}) => {
+  const { newGame, reducer } = await import("../src/engine/game");
+  let s = newGame("You", 1, "easy", 4321, { coach: false });
+  s.current = s.players.findIndex((p) => !p.bot);
+  const rack = [9, 35, 61],
+    rest = Array.from({ length: 106 }, (_, i) => i).filter(
+      (id) => !rack.includes(id),
+    );
+  s.players[s.current].rack = rack;
+  s.players[1 - s.current].rack = rest.splice(0, 14);
+  s.pool = rest;
+  s.turnStart = { table: [], rack: [...rack] };
+  s = reducer(s, { type: "move", ids: rack, target: "new" });
+  s = reducer(s, { type: "endTurn" });
+  await page.goto("/");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Ready offline" }),
+  ).toBeVisible();
+  await page.evaluate(
+    (s) => localStorage.setItem("runset.save.v1", JSON.stringify(s)),
+    s,
+  );
+  await context.setOffline(true);
+  await page.reload();
+  await page.getByRole("button", { name: /View results/ }).click();
+  await expect(
+    page.getByLabel("Why the round ended", { exact: true }),
+  ).toContainText("played their last tile");
+  await page
+    .getByText("Show remaining tiles and calculation", { exact: true })
+    .click();
+  await expect(page.locator(".tile-calculation")).toBeVisible();
+  await page
+    .getByRole("button", { name: "Play again with same settings", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Start new game", exact: true })
+    .click();
+  await expect(
+    page.getByRole("region", { name: "Your rack", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Home", exact: true }).click();
+  const saved = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem("runset.save.v1")!),
+  );
+  expect(saved.players.filter((p) => p.bot)).toHaveLength(1);
+  expect(saved.players.find((p) => p.bot).bot).toBe("easy");
+  expect(saved.coach).not.toBe(true);
+  await context.setOffline(false);
+});

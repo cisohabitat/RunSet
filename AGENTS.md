@@ -90,6 +90,28 @@ from the public repository.
 - Setup is lazy-loaded and must work on its first offline visit. Phase 2 GitHub CI
   run 40292228237 passed before Phase 3 work began. Phase 1 remains paused.
 
+## Results and replay
+
+- `src/lib/roundSummary.ts` infers rack-empty or exhausted-pool/consecutive-pass
+  endings from validated final state. Report unknown causes honestly for completed
+  saves that lack those conditions; do not invent a historical event or change
+  the save schema. Match scores and winner selection remain engine-owned.
+- Remaining jokers count as 30. Losers lose their full rack total; the winner
+  gains the other totals without deducting their own remaining rack. Keep actual
+  tile arithmetic and the winner's addition consistent with `results`.
+- `settingsForGame` is the shared settings projection for replay, menu restart
+  and the result screen's Change settings form. Copy name, opponent count,
+  difficulty, target, turn length and current coaching choice, never old scores,
+  seed, deal, Undo history or deadline. New timers start at replacement acceptance.
+- Continue round preserves match totals; start over clears them. Keep replacement
+  confirmation and cancellation. Importing a backup is not a fresh replay: its
+  copy must not promise round 1/zero scores, and its deadline/history stay intact.
+- Test English/Chinese results in compact/comfortable layouts, long names and
+  large remaining racks. Details must wrap calculations and tiles on phones.
+  Results and Chinese translation code remain lazy-loaded and precached offline.
+- Phase 3 CI run 40295547425 passed before Phase 4 work began. Physical-device and
+  older-player study work (Phase 1) remains paused; no multiplayer is added.
+
 ## Working and verification
 
 - Inspect files and Git status before editing. Preserve unrelated changes and

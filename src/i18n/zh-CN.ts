@@ -1,3 +1,4 @@
+import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
@@ -58,6 +59,45 @@ const messages: Record<string, string> = {
     "先选牌，再点“新建同数组或顺子”。首次出牌至少要 30 分。至少出一张手牌后，才能结束回合；也可以{action}。",
   "Add tiles to a group or run, or make a new one. Play a rack tile before End turn, or {action}.":
     "可以给已有牌组接牌，也可以组成新牌组。至少出一张手牌后，才能结束回合；也可以{action}。",
+  "Why the round ended": "本局结束原因",
+  "Why this round ended": "这一局为什么结束？",
+  "{name} played their last tile. The first empty rack ends the round.":
+    "{name} 出完了最后一张手牌。有人先出完手牌，本局就结束。",
+  "The pool is empty and everyone passed in succession. The round has ended.":
+    "牌堆已摸完，而且所有人连续跳过，本局结束。",
+  "This saved round is complete. Its exact ending was not recorded.":
+    "这个存档中的牌局已结束，但没有记录具体的结束原因。",
+  "{name} wins with no tiles left.": "{name} 已出完手牌，获得本局胜利。",
+  "{name} wins with the lowest remaining tile total: {n}.":
+    "{name} 的剩余手牌总分最低（{n} 分），获得本局胜利。",
+  "The lowest total is tied at {n}. {name} wins because their seat comes first among the tied players.":
+    "最低总分为 {n} 分，有多人同分。按照座位顺序，{name} 在同分者中排在最前，因此获胜。",
+  "How scoring works": "计分说明",
+  "How the scores work": "这一局怎样计分？",
+  "Each number tile counts as its number. Each joker left in a rack counts as 30 points.":
+    "数字牌按牌上的数字计分。留在手里的万能牌，每张按 30 分计算。",
+  "Other players lose their remaining tile total. The winner gains those totals; their own remaining tiles are not deducted.":
+    "其他人扣除剩余手牌的总分，赢家获得这些分数之和。赢家自己的剩余手牌不扣分。",
+  "Winner’s round score:": "赢家本局得分：",
+  "Round score": "本局得分",
+  "The winner gains the other players’ remaining tile totals.":
+    "其他人的剩余手牌总分相加，就是赢家的本局得分。",
+  "Remaining tiles deduct {n} points from this round.":
+    "本局因剩余手牌扣除 {n} 分。",
+  "Show remaining tiles and calculation": "查看剩余手牌与计算过程",
+  "Joker (30)": "万能牌（30）",
+  "No tiles left.": "手牌已全部出完。",
+  "Play again with same settings": "按原设置再玩一次",
+  "Start over with same settings": "按原设置重新开始比赛",
+  "Change settings": "更改游戏设置",
+  "Deal the next round to keep match scores. Start over resets the match; Change settings opens your current options.":
+    "继续发下一局会保留比赛积分。重新开始会把积分清零；“更改游戏设置”可以修改当前选项。",
+  "Play again keeps your name, opponent count, difficulty, timer and guidance choice, with a fresh deal and zero scores. Change settings lets you edit those options.":
+    "按原设置再玩，会保留你的名字、对手人数、难度、计时和新手指导选项，重新发牌并将积分清零。“更改游戏设置”可修改这些选项。",
+  "A fresh game replaces this saved result. The new deal starts at round 1 with zero match scores; your display and sound preferences stay the same.":
+    "开始新游戏会替换已保存的结果，从第 1 局重新发牌，比赛积分清零。显示和声音设置会保留。",
+  "{n} tiles remaining · rack value {value}":
+    "{n} 张剩余手牌 · 手牌分数：{value}",
   "Game menu": "游戏菜单",
   Game: "游戏",
   Menu: "菜单",
@@ -565,4 +605,5 @@ const messages: Record<string, string> = {
   "Planning took too long. Try again or {action}.":
     "寻找出牌方法用时太长。可以重试，或{action}。",
 };
+export const translateChinese = translator(messages);
 export default messages;

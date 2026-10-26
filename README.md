@@ -42,8 +42,22 @@ while settings are open, with a visible reminder. The independent large-tile
 option remains available when comfortable reading is off.
 
 See [reading-mode verification](docs/READING_MODE.md). The older-player study and
-real-device checks (Phase 1) are paused; Phases 2–3 are implemented. The remaining
+real-device checks (Phase 1) are paused; Phases 2–4 are implemented. The remaining
 phases are tracked in [the roadmap](docs/ROADMAP.md).
+
+## Results and replay
+
+Results explain whether someone emptied their rack or the pool ran out and
+all players passed, including a seat-order tie-break when needed. Each score
+shows what was gained or deducted. Expand **Show remaining tiles and calculation**
+to see the actual numbers, including 30 points for each unplayed joker.
+
+**Play again with same settings** starts a fresh deal with your name, opponent
+count, difficulty, timer and guidance choice. Match scores start from zero.
+**Change settings** opens your current choices for editing. In an unfinished
+match, **Deal round N** continues the existing score; **Start over with same
+settings** resets it. Replacement still requires confirmation, and Cancel keeps
+the saved result. See [results verification](docs/RESULTS_AND_REPLAY.md).
 
 ## What’s included
 

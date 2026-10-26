@@ -6,7 +6,6 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { translator } from "./translate";
 export type Locale = "en" | "zh-CN";
 export const LANGUAGE_KEY = "runset.language";
 function initialLocale(): Locale {
@@ -32,7 +31,7 @@ const Context = createContext<I18n | null>(null);
 let chinese: ((text: string) => string) | undefined;
 const loadChinese = () =>
   import("./zh-CN").then(
-    ({ default: messages }) => (chinese ??= translator(messages)),
+    ({ translateChinese }) => (chinese ??= translateChinese),
   );
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, updateLocale] = useState<Locale>(initial);

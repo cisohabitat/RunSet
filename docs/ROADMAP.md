@@ -2,8 +2,8 @@
 
 ## Current roadmap: older Chinese-speaking players
 
-Phase 1 is paused at the user’s request. Phases 2–3 are implemented;
-Phases 4–6 remain planned. Each implementation phase is published separately,
+Phase 1 is paused at the user’s request. Phases 2–4 are implemented;
+Phases 5–6 remain planned. Each implementation phase is published separately,
 and GitHub CI for its exact commit must pass before the next phase begins.
 
 | Phase | Status | Work |
@@ -11,7 +11,7 @@ and GitHub CI for its exact commit must pass before the next phase begins.
 | 1 | Paused | Observe 3–5 older Chinese-speaking beginners; physical iPhone/iPad checks |
 | 2 | Implemented | Comfortable reading, larger tiles/controls, selected check marks, unified Settings; see [READING_MODE.md](READING_MODE.md) |
 | 3 | Implemented | Dynamic next actions, opening progress, End explanations, safe destination outlines and action definitions; see [FIRST_GAME_GUIDANCE.md](FIRST_GAME_GUIDANCE.md) |
-| 4 | Planned | Explain round endings/scoring and distinguish same-settings replay from setup |
+| 4 | Implemented | Ending and tie-break explanations, actual score arithmetic, same-settings replay and editable current options; see [RESULTS_AND_REPLAY.md](RESULTS_AND_REPLAY.md) |
 | 5 | Planned | Optional replayable Mandarin lesson/reminder audio with text retained |
 | 6 | Planned | Short mistake-focused exercises and a larger difficulty evaluation before tuning bots |
 

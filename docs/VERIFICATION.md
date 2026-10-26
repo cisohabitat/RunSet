@@ -7,19 +7,19 @@ explicitly deferred and excluded from active release requirements.
 ## Automated results
 
 - `npm run typecheck`: passes with strict TypeScript.
-- `npm test`: 83 tests pass, including seeded simulations of more than 4,000 legal
+- `npm test`: 90 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: 51 Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: 60 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
-- `npm run test:offline`: six production Chromium flows pass: saved games and lazy
+- `npm run test:offline`: seven production Chromium flows pass: saved games and lazy
   practice assets after an offline reload; and explicit service-worker updates
   preserving the saved game. The update test waits for the actual reload before
   reading storage.
 - `npm run build`: passes and emits a static application plus versioned offline
-  cache. The main JavaScript bundle is approximately 89 kB gzipped; optional
+  cache. The main JavaScript bundle is approximately 88 kB gzipped; optional
   practice, rules, Chinese dictionary and worker assets are separate.
 
 ## Layout coverage
@@ -104,3 +104,13 @@ setup opt-out and explicit empty-pool Pass help. Phone instruction bounds and th
 1180×757 laptop hint/meld controls pass. A sixth offline flow visits lazy setup
 for the first time after disconnecting and starts a guided game. See
 FIRST_GAME_GUIDANCE.md. Phase 2 CI run 40292228237 passed before Phase 3 began.
+
+Results/replay adds seven summary/settings helper tests and nine browser flows.
+They cover rack-empty and blocked endings, seat-order ties, literal names, 30-point
+remaining jokers, winner/loser arithmetic, continuing versus restarting a match,
+a completed match, same-settings replay, cancellation, prefilled editable setup,
+updated timer/target options, and backup restoration from a completed result.
+Phone/tablet/desktop, Chinese/English, light/dark and comfortable/compact layouts
+pass, including a long-name/104-tile rack case. The seventh offline flow opens
+results for the first time after disconnecting, expands arithmetic and replays.
+See RESULTS_AND_REPLAY.md. Phase 3 CI run 40295547425 passed before Phase 4 began.

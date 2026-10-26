@@ -1,8 +1,12 @@
 name: CI
 on: [push, pull_request]
+concurrency:
+  group: runset-ci-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,6 +29,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - run: npx playwright test --config=playwright.offline.config.ts
+        timeout-minutes: 5
       - run: npm run benchmark -- --seeds=1 --budget=20 --out=test-results/benchmark-smoke.json
       - uses: actions/upload-artifact@v4
         if: failure()

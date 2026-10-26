@@ -391,3 +391,7 @@ accessibility, then performance/recovery. Gate every phase on exact-commit CI.
 Benchmark smoke must validate original proposals before reducer fallback and
 count empty-pool passes separately. Report seed blocks, not independent seat
 rounds, when comparing difficulty; retain raw reports and engine fingerprints.
+
+CI cancels superseded runs on the same ref, bounds the job to twenty minutes
+and the offline step to five. These limits follow an observed stuck runner;
+keep all browser/offline/benchmark checks and failure artifacts intact.

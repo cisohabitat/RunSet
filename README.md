@@ -347,3 +347,6 @@ The [larger bot audit](docs/QUALITY_BOTS.md) covers 360 rounds and 39,212 turns
 with no rejected proposals or measured calls over 400 ms. Easy remains the
 learning default; Normal/Hard results overlap, so labels describe strategies.
 CI benchmark smoke now checks submitted plans before safe draw/pass fallback.
+
+CI retains full coverage with bounded job/offline execution and cancellation of
+superseded runs, so a stalled runner cannot leave a release gate open indefinitely.

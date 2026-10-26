@@ -77,3 +77,13 @@ Physical iPhone/iPad timing, native listening and beginner studies remain paused
 Decision: keep the gentle one-Easy default and existing honest strategy labels.
 No planner tuning was warranted by the audit. Publish the stronger benchmark
 checks so future legality regressions cannot hide behind safe reducer fallback.
+
+## Release gate recovery
+
+The first Phase 1 CI run (`40420825563`, commit `b4a5384`) passed the full browser
+suite but stalled in the offline step. The identical production offline suite
+passed locally in 33 seconds (13 tests). GitHub accepted normal/force cancellation
+requests but continued reporting the run active and refused a rerun. A corrective
+workflow release retains every test, bounds offline execution to five minutes
+and the full job to twenty, and cancels superseded runs on the same ref. The
+fresh exact-commit CI must pass before accessibility implementation starts.

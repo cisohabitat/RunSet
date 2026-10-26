@@ -2,12 +2,13 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Take your time. Choose your challenge.": "慢慢玩，挑战由你来选。",
   "On expiry: unfinished edits reset, then draw one.":
     "时间到后会还原未完成的出牌，再摸一张牌。",
   "On expiry: unfinished edits reset, then pass.":
     "时间到后会还原未完成的出牌，再跳过本回合。",
   "Watch the opponent; your turn is next.": "先看电脑出牌，接着就轮到你。",
-  "Complete the red-outlined meld, or Reset for free.":
+  "Complete the red-outlined group or run, or Reset.":
     "补全红框牌组，或免费重置。",
   "Opening: {n} / 30. Add rack tiles, or Reset.":
     "开局：{n} / 30 分。再出手牌，或重置。",
@@ -18,7 +19,7 @@ const messages: Record<string, string> = {
   "Ready: choose End turn to keep this play.": "已摆好，点“结束回合”保留出牌。",
   "Select tiles → New group or run. Reach 30 points, or {action}.":
     "选牌后新建牌组。开局要满 30 分，也可{action}。",
-  "Add to a meld, make a new one, or {action}.":
+  "Add to a group or run, make a new one, or {action}.":
     "给牌组接牌、新建牌组，或{action}。",
   "Ready to play?": "轻松开一局",
   "One gentle round. Take your time.": "先玩一局，慢慢来。",

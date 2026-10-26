@@ -1,0 +1,58 @@
+/* Shared foundations. Device tile dimensions belong to the layout rules. */
+:root {
+  --font-ui:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  --paper: #f7f6ef;
+  --ink: #203b32;
+  --muted: #58695f;
+  --line: #dedfd4;
+  --control-line: #7b887c;
+  --green: #214b3d;
+  --accent: #315e49;
+  --soft: #e9eee5;
+  --card: #fffef7;
+  --red: #bf4d3e;
+  --focus: #9d6813;
+  --tile-red: #b3463d;
+  --tile-blue: #276b87;
+  --tile-orange: #965a0e;
+  --tile-black: #344137;
+  --tile-joker: #536c3d;
+  --radius-control: 8px;
+  --radius-panel: 12px;
+  --radius-dialog: 16px;
+  --radius-tile: 6px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --shadow: 0 3px 0 #dddccf, 0 5px 9px #183b3210;
+  --shadow-menu: 0 12px 40px #0003;
+  --shadow-dialog: 0 20px 70px #0004;
+  font-family: var(--font-ui);
+  font-synthesis: none;
+  color: var(--ink);
+  background: var(--paper);
+  color-scheme: light;
+  accent-color: var(--accent);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #172820;
+    --ink: #e3e6d8;
+    --muted: #b6c3b2;
+    --line: #3a4b3d;
+    --control-line: #82927f;
+    --green: #44694e;
+    --accent: #9fc795;
+    --soft: #2a4030;
+    --card: #f0eddf;
+    --red: #f1a492;
+    --focus: #f2c365;
+    --shadow-menu: 0 12px 40px #0007;
+    --shadow-dialog: 0 20px 70px #0009;
+    color-scheme: dark;
+  }
+}

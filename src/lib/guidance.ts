@@ -67,7 +67,7 @@ export function turnGuidance(
   const compactMessage = p.bot
     ? "Watch the opponent; your turn is next."
     : s.table.some((m) => !inspectMeld(m.tiles).valid)
-      ? "Complete the red-outlined meld, or Reset for free."
+      ? "Complete the red-outlined group or run, or Reset."
       : !p.melded && check.played.length && check.points < 30
         ? `Opening: ${check.points} / 30. Add rack tiles, or Reset.`
         : selected.length
@@ -78,6 +78,6 @@ export function turnGuidance(
             ? "Ready: choose End turn to keep this play."
             : !p.melded
               ? `Select tiles → New group or run. Reach 30 points, or ${action}.`
-              : `Add to a meld, make a new one, or ${action}.`;
+              : `Add to a group or run, make a new one, or ${action}.`;
   return { message, compactMessage, endHelp };
 }

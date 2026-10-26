@@ -25,3 +25,7 @@ Release gate: Phase 1's application commit `ab202da` and CI mirror repair
 `53e3fa8` are published. [CI 40358242463](https://github.com/cisohabitat/RunSet/actions/runs/40358242463)
 passed for the exact repair commit before Phase 2 began. Local verification:
 96 unit tests, 131 browser flows, ten offline flows and six live learning checks.
+
+Phase 2's `37357a0` release and `a934892` timer correction are published.
+[CI 40364692450](https://github.com/cisohabitat/RunSet/actions/runs/40364692450)
+passed for the exact correction commit (137 browser flows) before Phase 3 began.

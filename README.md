@@ -267,6 +267,9 @@ phase-by-phase work, with exact-commit GitHub CI required between releases.
 The [shorter play flow](docs/PREMIUM_PLAY_FLOW.md) makes Continue primary for
 saved games, starts new players with one Easy opponent, and keeps custom setup
 options behind a disclosure. Existing replay options are preserved.
+The [shared visual foundations](docs/PREMIUM_VISUALS.md) add native bilingual
+fonts, tabular tile numbers, clearer control boundaries and consistent focus,
+corners and surfaces in both themes while retaining device tile dimensions.
 CI installs Chromium's full dependencies using Ubuntu's official HTTPS archive
 mirror with bounded download retries; this avoids the observed Azure mirror
 stalls without skipping browser or offline checks.

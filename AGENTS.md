@@ -260,6 +260,14 @@ from the public repository.
 
 ## Working and verification
 
+- Shared visual foundations live in `src/theme.css`: reuse its font, palette,
+  control border, focus, spacing, radius and shadow tokens. Keep decorative
+  separators separate from interactive boundaries. Do not merge device tile
+  dimensions into the theme or flatten deliberate reading/touch overrides.
+- Maintain at least 3:1 form-boundary/focus contrast against surrounding surfaces
+  and 4.5:1 tile-text contrast. Native/system fonts must work offline in both
+  languages; no unbundled font dependency is assumed. Keep tabular tile numbers.
+
 - Inspect files and Git status before editing. Preserve unrelated changes and
   check for more specific directory instructions.
 - Install locked dependencies with `npm ci` using Node 20.19+ or Node 22.12+.

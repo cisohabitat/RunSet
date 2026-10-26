@@ -256,8 +256,7 @@ export function Game({
         {s.match && (
           <div className="match-bar" aria-label={t("Match scores")}>
             <span>
-              {t("First to")}
-              {s.match.target}
+              {t("First to")} {s.match.target}
             </span>
             {s.players.map((player, i) => (
               <span key={i}>
@@ -747,8 +746,7 @@ export function Game({
                     <summary>{t("Match scores")}</summary>
                     <p>
                       {t("Round ")}
-                      {s.match.round} · {t("First to")}
-                      {s.match.target}
+                      {s.match.round} · {t("First to")} {s.match.target}
                     </p>
                     {s.players.map((player, i) => (
                       <p key={i}>

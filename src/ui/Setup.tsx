@@ -41,7 +41,7 @@ export function Setup({
       </button>
       <div className="eyebrow">{t("PULL UP A CHAIR")}</div>
       <h1>{t("Ready to play?")}</h1>
-      <p>{t("One gentle round. Take your time.")}</p>
+      <p>{t("Take your time. Choose your challenge.")}</p>
       <form
         onSubmit={(e) => {
           e.preventDefault();

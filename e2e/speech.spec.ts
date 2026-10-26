@@ -58,6 +58,9 @@ for (const [device, width, height, reading] of [
         .then((s) => s.replaceAll("→", "，")),
     );
     expect(spoken[0].rate).toBeLessThan(1);
+    expect(spoken[0].rate).toBeGreaterThanOrEqual(0.9);
+    expect(spoken[0].pitch).toBeGreaterThan(1);
+    expect(spoken[0].pitch).toBeLessThanOrEqual(1.12);
     await page.screenshot({
       path: `/tmp/runset-audio-${device}-playing.png`,
       fullPage: true,

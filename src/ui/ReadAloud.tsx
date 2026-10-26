@@ -86,7 +86,9 @@ export function ReadAloud({
       const utterance = new SpeechSynthesisUtterance(spokenText(text));
       utterance.voice = voice;
       utterance.lang = voice.lang;
-      utterance.rate = 0.85;
+      // A light, welcoming delivery without rushing older learners.
+      utterance.rate = 0.92;
+      utterance.pitch = 1.06;
       current.current = utterance;
       utterance.onend = () => {
         if (current.current !== utterance) return;

@@ -151,6 +151,9 @@ from the public repository.
   belongs to the device: do not promise downloaded narration or offline speech
   without an installed voice. Empty/late voice lists must allow a gesture retry.
 - Keep utterance identity guards: cancellation events can arrive after replay.
+  Keep delivery warm and lighthearted: modest pitch (1.06) and unhurried pace
+  (0.92). Avoid exaggerated pitch or fast speech for older learners. Browser
+  prosody cannot guarantee emotional acting; do not describe it as recorded audio.
   Cancel owned speech on text/language change, unmount, tab hiding/page exit and
   closing the reminder's More menu. Stop returns focus to the playback button.
 - Keep controls at least 44 px, full instructions and text fallback visible,

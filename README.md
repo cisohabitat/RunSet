@@ -224,6 +224,7 @@ In Learn to Play, tap **Listen / 听一听** to hear the current instruction. Us
 play, open **More / 更多 → Listen to reminder / 听一听提示** for the current
 next-action reminder. Chinese instructions use a Mandarin voice; English uses
 an English voice. Written instructions stay available and nothing plays automatically.
+Delivery is lightly brighter and unhurried; the voice's character depends on the device.
 
 RunSet uses your browser/device's reading voices, separately from game sound
 cues. Installed matching voices are preferred. Offline speech requires an

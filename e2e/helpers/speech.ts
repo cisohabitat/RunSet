@@ -53,6 +53,7 @@ export async function mockSpeech(
             text: utterance.text,
             lang: utterance.lang,
             rate: utterance.rate,
+            pitch: utterance.pitch,
           });
           state.active = state.last = utterance;
         },

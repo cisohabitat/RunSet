@@ -27,7 +27,12 @@ speech SDK, backend or credentials are added. The selected UI language determine
 the voice. Mainland Mandarin is preferred among equally local Chinese voices;
 other explicitly Mandarin language tags and Mandarin Taiwan/Singapore voices are
 accepted. Cantonese/Hong Kong and unrelated defaults are not substituted.
-Installed matching voices are preferred, with a slightly slower reading rate.
+Installed matching voices are preferred. Delivery uses a gentle pitch lift
+(1.06) and an unhurried but livelier pace (0.92, up from 0.85), matching the
+game's lighthearted tone. Browser speech has no dependable emotional-style
+control: these settings request brighter delivery, not guaranteed cheerful
+acting. The device may interpret pitch and rate differently. Consistent
+expressive narration would require recorded audio.
 
 Offline audio depends on an installed matching voice. Network-only voices are
 excluded when the browser reports offline. The application remains playable and

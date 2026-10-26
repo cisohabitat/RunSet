@@ -2918,6 +2918,10 @@ button:not(.tile) {
   opacity: 1;
 }
 .hint-actions {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--soft);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -2932,6 +2936,11 @@ button:not(.tile) {
 .hint-reasons {
   border-top: 1px solid var(--line);
   margin-top: 10px;
+}
+@media (max-width: 720px) {
+  .app .game .table-tools > button {
+    display: none;
+  }
 }
 .practice-layout.playing > .practice-panel {
   display: flex;

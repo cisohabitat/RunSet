@@ -7,7 +7,7 @@ explicitly deferred and excluded from active release requirements.
 ## Automated results
 
 - `npm run typecheck`: passes with strict TypeScript.
-- `npm test`: 96 tests pass, including seeded simulations of more than 4,000 legal
+- `npm test`: 97 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
 - `npm run test:e2e`: Phase 1's full 131 Chromium flows pass: guided learning/save isolation/
@@ -21,6 +21,9 @@ explicitly deferred and excluded from active release requirements.
 - Premium Phase 2 adds six bilingual play-flow checks (137 total browser flows).
   Its final focused 70-flow suite and ten offline flows pass; exact-commit
   GitHub CI runs the complete suite before Phase 3. See [play flow](PREMIUM_PLAY_FLOW.md).
+- Premium Phase 3 adds 12 theme/focus scenarios and eight deterministic long-hint
+  phone cases (157 total browser flows). Its final focused 28-flow suite and ten
+  offline flows pass; exact-commit CI gates Phase 4. See [visuals](PREMIUM_VISUALS.md).
 - `npm run build`: passes and emits a static application plus versioned offline
   cache. The main JavaScript bundle is approximately 84 kB gzipped; optional
   game UI, practice, rules, Chinese dictionary and worker assets are separate.

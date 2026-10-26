@@ -22,10 +22,15 @@ custom matches, and match labels separate the target from the text.
 Twelve new browser scenarios cover English/Chinese, light/dark, touch phone,
 touch iPad landscape and mouse desktop. They inspect Home, setup and a populated
 game, check keyboard focus/field contrast and horizontal overflow, and capture
-screenshots. The full suite now has 149 browser flows.
+screenshots. Eight additional deterministic hint cases cover a ten-tile,
+88-point opening on 360/375 px phones in both languages/themes. The phone
+toolbar stays on one row; secondary table navigation is available on larger
+screens. Hint previews keep their short count above sticky Place/Dismiss
+actions, with the complete message and explanations in Why this works.
+The full suite now has 157 browser flows.
 
-Local verification: 96 unit tests; 40 visual/device/reading flows; final 18
-foundation/play-flow checks; ten offline flows; strict typecheck/build. Initial
-HTML/CSS/JS total 97,015 bytes gzipped against the 100,000-byte budget.
+Local verification: 97 unit tests; 40 visual/device/reading flows; final 28
+foundation/play-flow/hint checks; ten offline flows; strict typecheck/build. Initial
+HTML/CSS/JS total 97,035 bytes gzipped against the 100,000-byte budget.
 Screenshots were visually inspected. Physical-device and older-player checks
 remain paused; Chromium viewport results do not certify Safari or human usability.

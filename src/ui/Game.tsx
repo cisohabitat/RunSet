@@ -347,7 +347,13 @@ export function Game({
             className={`coach-card ${hint.table ? "" : "hint-summary"}`}
             aria-label={t("Move hint")}
           >
-            <p role="status">{t(hint.message)}</p>
+            <p role="status">
+              {t(
+                hint.table
+                  ? `Possible move: ${hint.used.length} highlighted tiles.`
+                  : hint.message,
+              )}
+            </p>
             <div className="hint-actions">
               {hint.table && (
                 <button
@@ -373,6 +379,7 @@ export function Game({
             {hint.explanations && (
               <details className="hint-reasons">
                 <summary>{t("Why this works")}</summary>
+                <p>{t(hint.message)}</p>
                 <ul>
                   {hint.explanations.map((reason, i) => (
                     <li key={i}>{t(reason)}</li>

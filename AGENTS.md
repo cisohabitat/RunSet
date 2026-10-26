@@ -267,6 +267,11 @@ from the public repository.
 - Maintain at least 3:1 form-boundary/focus contrast against surrounding surfaces
   and 4.5:1 tile-text contrast. Native/system fonts must work offline in both
   languages; no unbundled font dependency is assumed. Keep tabular tile numbers.
+- Phone toolbars keep the View selector and omit secondary table-start/end
+  buttons to avoid wrapping. Place/Dismiss hint actions must stay reachable
+  while the explanation scrolls. Keep full hint text in Why this works, and
+  check a deterministic ten-tile opening rather than relying on timed search
+  to generate the longest caption. Do not loosen geometry to hide clipping.
 
 - Inspect files and Git status before editing. Preserve unrelated changes and
   check for more specific directory instructions.

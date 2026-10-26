@@ -5,6 +5,13 @@ import { translator } from "./translate";
 import messages from "./zh-CN";
 const t = translator(messages);
 describe("Simplified Chinese presentation", () => {
+  it("translates compact hint counts without losing the physical tile count", () => {
+    for (const n of [1, 10, 106]) {
+      const text = t(`Possible move: ${n} highlighted tiles.`);
+      expect(text).not.toMatch(/[a-z]/i);
+      expect(text).toContain(String(n));
+    }
+  });
   it("translates every static text passed to t, including accessibility labels", () => {
     const files = [
       "src/App.tsx",

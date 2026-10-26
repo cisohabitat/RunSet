@@ -2,6 +2,8 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Played in the latest turn.": "上一回合刚出的牌。",
+  "Corner dot: latest play": "角上的圆点：刚出的牌",
   "Possible move: {n} highlighted tiles.": "可出 {n} 张亮起的牌。",
   "Take your time. Choose your challenge.": "慢慢玩，挑战由你来选。",
   "On expiry: unfinished edits reset, then draw one.":

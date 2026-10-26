@@ -7,7 +7,6 @@ import {
   type Action,
   reducer,
   newGame,
-  results,
   turnCheck,
 } from "./engine/game";
 import { runPlanner } from "./lib/planner";
@@ -19,7 +18,7 @@ import {
   SAVE_KEY,
 } from "./lib/storage";
 import { settingsForGame, type GameSettings } from "./lib/gameSettings";
-import { sound } from "./lib/sound";
+import { sound, primeAudio, transitionCue } from "./lib/sound";
 import { Home } from "./ui/Home";
 const Setup = lazy(() =>
   import("./ui/Setup").then((module) => ({ default: module.Setup })),
@@ -242,12 +241,12 @@ export default function App() {
       controller.abort();
     };
   }, [game, screen, confirmation, settingsOpen, pace]);
+  const audibleGame = useRef(game);
   useEffect(() => {
-    if (screen !== "game" || !game) return;
-    if (game.phase === "over")
-      sound(results(game).find((p) => p.winner)?.bot ? "lose" : "win", muted);
-    else if (!game.players[game.current].bot) sound("turn", muted);
-  }, [game?.turn, game?.phase, screen, muted]);
+    const cue = transitionCue(audibleGame.current, game);
+    audibleGame.current = game;
+    if (screen === "game" && cue) sound(cue, muted);
+  }, [game, screen, muted]);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [screen]);
@@ -284,11 +283,6 @@ export default function App() {
       });
       return;
     }
-    if (a.type === "move") sound("place", muted);
-    else if (a.type === "draw") sound("draw", muted);
-    else if (a.type === "endTurn" && game && !turnCheck(game).valid)
-      sound("invalid", muted);
-    else sound("select", muted);
     dispatchBase(a);
   };
   const start = (
@@ -399,6 +393,12 @@ export default function App() {
     ) : null;
   return (
     <div
+      onPointerDownCapture={() => {
+        if (!muted) primeAudio();
+      }}
+      onKeyDownCapture={() => {
+        if (!muted) primeAudio();
+      }}
       className={`app ${reading ? "comfortable-reading" : ""} ${screen === "game" && game?.phase === "playing" ? "playing" : ""}`}
     >
       <header className="site-header">
@@ -618,6 +618,7 @@ export default function App() {
           }
         >
           <Tutorial
+            muted={muted}
             onExit={() => setScreen("home")}
             onPlay={() =>
               start(locale === "zh-CN" ? "你" : "You", 1, "easy", {
@@ -652,6 +653,7 @@ export default function App() {
             fallback={<p className="page">{t("Preparing game table…")}</p>}
           >
             <Game
+              muted={muted}
               saveLabel={saveStatus}
               narrate={narrate}
               touch={touch || reading}

@@ -356,7 +356,32 @@ input {
   cursor: grab;
 }
 .tile.glow {
-  animation: tile-glow 2s ease-in-out infinite;
+  box-shadow:
+    var(--shadow),
+    inset 0 0 0 2px var(--tile-black);
+  animation: tile-glow 1.2s ease-out 1;
+}
+.game .tile {
+  animation: none;
+}
+.game .tile.glow {
+  animation: tile-glow 1.2s ease-out 1;
+}
+.tile.recent {
+  box-shadow:
+    var(--shadow),
+    inset 0 0 0 1.5px var(--tile-black);
+}
+.tile-recent {
+  position: absolute;
+  right: 5px;
+  top: 4px;
+  color: var(--tile-black);
+  font-size: 12px;
+  line-height: 1;
+}
+.tile.selected .tile-recent {
+  visibility: hidden;
 }
 .hero-art .tile {
   width: 64px;
@@ -940,7 +965,7 @@ legend {
   width: 6px;
   height: 12px;
   background: #d3a55b;
-  animation: confetti 3s ease-in calc(var(--i) * 0.08s) both;
+  animation: confetti 2s ease-in calc(var(--i) * 0.04s) both;
 }
 .confetti i:nth-child(3n) {
   background: #6f936d;
@@ -1398,6 +1423,9 @@ legend {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .confetti {
+    display: none;
+  }
   *,
   *::before,
   *::after {

@@ -260,6 +260,15 @@ from the public repository.
 
 ## Working and verification
 
+- Latest-play marks come only from `lastPlaced`, separate from hints and local
+  selection. Keep joker labels unobstructed. Destination animations are optional,
+  bounded to visible tiles and cancelled on resize/unmount; reduced motion keeps
+  the same static information without JavaScript animation.
+- Prime optional audio from real pointer/key gestures. Use `transitionCue` on
+  actual before/after states; do not play success just because an action was
+  dispatched. Muting, view changes and reopening completed results must not
+  replay cues. Do not queue audio in suspended or hidden contexts.
+
 - Shared visual foundations live in `src/theme.css`: reuse its font, palette,
   control border, focus, spacing, radius and shadow tokens. Keep decorative
   separators separate from interactive boundaries. Do not merge device tile

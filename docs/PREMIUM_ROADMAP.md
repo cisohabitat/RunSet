@@ -10,7 +10,7 @@ older-player study remains paused. Multiplayer remains deferred.
 | 1. Reliable opponents    | Implemented | Complete-turn joker validation, legal alternatives, rack-empty shortcut and a 240 ms work cap. See [measured results](PREMIUM_BOTS.md); exact-commit CI gates the next phase. |
 | 2. Clear play flow       | Implemented | Returning players get Continue first; quick setup with optional advanced controls; view controls explain their effect and preserve the current game.                                        |
 | 3. Visual consistency    | Implemented     | Shared visual tokens, readable hierarchy, coordinated light/dark surfaces and focus states; English/Chinese phone, tablet and desktop screenshots.                                          |
-| 4. Movement and feedback | Planned     | Clearly distinguish newly played tiles, restrained placement/turn/round feedback, quiet sounds and reduced-motion equivalents.                                                              |
+| 4. Movement and feedback | Implemented     | Clearly distinguish newly played tiles, restrained placement/turn/round feedback, quiet sounds and reduced-motion equivalents.                                                              |
 | 5. Focused learning      | Planned     | Short opening, extension, incomplete-meld and joker exercises with concrete explanations; practice never replaces a regular save.                                                           |
 | 6. Consistent narration  | Planned     | Optional cached Mandarin/English audio where available, polished short scripts and readable fallback. Device speech stays available; pronunciation and cheerful delivery need human review. |
 | 7. Solo replay value     | Planned     | Replayable seeded practice, local progress and gentle milestones, isolated from regular saves and without accounts.                                                                         |
@@ -29,3 +29,8 @@ passed for the exact repair commit before Phase 2 began. Local verification:
 Phase 2's `37357a0` release and `a934892` timer correction are published.
 [CI 40364692450](https://github.com/cisohabitat/RunSet/actions/runs/40364692450)
 passed for the exact correction commit (137 browser flows) before Phase 3 began.
+
+Phase 3's visual foundations and hint correction are published through `e0a7415`.
+[CI 40371158085](https://github.com/cisohabitat/RunSet/actions/runs/40371158085)
+passed (157 browser flows) before Phase 4 began. All 12 live foundation checks
+also passed against the Vercel deployment.

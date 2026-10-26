@@ -7,6 +7,8 @@ import { runPlanner } from "../lib/planner";
 import { suggestedDestinations, turnGuidance } from "../lib/guidance";
 import { Tile } from "./Tile";
 import { ReadAloud } from "./ReadAloud";
+import { useTileFeedback } from "./useTileFeedback";
+import { sound } from "../lib/sound";
 export function Game({
   game: s,
   dispatch,
@@ -19,6 +21,7 @@ export function Game({
   narrate = false,
   touch = false,
   lessonAction,
+  muted = true,
 }: {
   game: GameState;
   dispatch: (a: Action) => void;
@@ -31,8 +34,11 @@ export function Game({
   narrate?: boolean;
   touch?: boolean;
   lessonAction?: { label: string; onClick: () => void };
+  muted?: boolean;
 }) {
   const { t } = useI18n();
+  const feedbackRoot = useRef<HTMLElement>(null);
+  useTileFeedback(feedbackRoot, s);
   const [focused, setFocused] = useState<number | null>(null);
   const rackRef = useRef<HTMLDivElement>(null);
   const focusRack = () =>
@@ -165,6 +171,7 @@ export function Game({
   }, [s.turn, myTurn]);
   const select = (id: number) => {
     if (myTurn) {
+      sound("select", muted);
       const next = selected.includes(id)
         ? selected.filter((v) => v !== id)
         : [...selected, id];
@@ -192,6 +199,7 @@ export function Game({
   };
   return (
     <main
+      ref={feedbackRoot}
       aria-describedby={coachTarget ? "practice-instructions" : undefined}
       className={`game ${touch ? "touch-friendly" : ""} ${tableView === "wide" ? "table-expanded" : ""}`}
       onKeyDown={(e) => {
@@ -465,7 +473,13 @@ export function Game({
         tabIndex={0}
       >
         <div className="table-topline">
-          <span>{t("MAKE ROOM FOR A GOOD IDEA")}</span>
+          <span>
+            {t(
+              s.lastPlaced.length
+                ? "Corner dot: latest play"
+                : "MAKE ROOM FOR A GOOD IDEA",
+            )}
+          </span>
           <span>
             {t("Round ")}
             {s.match?.round ?? 1}
@@ -500,11 +514,8 @@ export function Game({
                       }
                       onFocus={() => setFocused(id)}
                       selected={activeSelected.includes(id)}
-                      glow={
-                        s.lastPlaced.includes(id) ||
-                        suggested.includes(id) ||
-                        !!hint?.used.includes(id)
-                      }
+                      recent={s.lastPlaced.includes(id)}
+                      glow={suggested.includes(id) || !!hint?.used.includes(id)}
                       represents={
                         info.values[id]
                           ? `${info.jokerColors[id]} ${info.values[id]}`

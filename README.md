@@ -272,6 +272,9 @@ fonts, tabular tile numbers, clearer control boundaries and consistent focus,
 corners and surfaces in both themes while retaining device tile dimensions.
 Phone hint previews keep Place/Dismiss reachable; Why this works retains the
 full move description and opening calculation.
+The [feedback improvements](docs/PREMIUM_FEEDBACK.md) distinguish actual latest
+plays with static corner marks, add brief reduced-motion-safe placement feedback,
+and make quieter sound effects follow actual accepted game changes.
 CI installs Chromium's full dependencies using Ubuntu's official HTTPS archive
 mirror with bounded download retries; this avoids the observed Azure mirror
 stalls without skipping browser or offline checks.

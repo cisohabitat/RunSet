@@ -6,6 +6,7 @@ export function Tile({
   id,
   selected = false,
   glow = false,
+  recent = false,
   onSelect,
   draggable = false,
   onDrag,
@@ -16,6 +17,7 @@ export function Tile({
   id: number;
   selected?: boolean;
   glow?: boolean;
+  recent?: boolean;
   onSelect?: (id: number) => void;
   draggable?: boolean;
   onDrag?: (id: number) => void;
@@ -54,7 +56,8 @@ export function Tile({
         buttons[next]?.focus({ preventScroll: true });
         buttons[next]?.scrollIntoView({ block: "nearest", inline: "nearest" });
       }}
-      className={`tile ${tile.color ?? "joker"} ${selected ? "selected" : ""} ${glow ? "glow" : ""}`}
+      className={`tile ${tile.color ?? "joker"} ${selected ? "selected" : ""} ${glow ? "glow" : ""} ${recent ? "recent" : ""}`}
+      aria-description={recent ? t("Played in the latest turn.") : undefined}
       title={t(
         tile.joker && represents ? `Joker represents ${represents}` : undefined,
       )}
@@ -96,6 +99,11 @@ export function Tile({
       {selected && (
         <span className="tile-check" aria-hidden="true">
           ✓
+        </span>
+      )}
+      {recent && (
+        <span className="tile-recent" aria-hidden="true">
+          ●
         </span>
       )}
       <span className="tile-mark" aria-hidden="true">

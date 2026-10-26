@@ -18,6 +18,7 @@ import { validSave } from "../lib/storage";
 import { Game } from "./Game";
 import { Tile } from "./Tile";
 import { ReadAloud } from "./ReadAloud";
+import { sound, transitionCue } from "../lib/sound";
 interface Progress {
   lesson: Lesson;
   step: number;
@@ -61,15 +62,26 @@ function initial(locale: Locale): Progress {
 export default function Tutorial({
   onExit,
   onPlay,
+  muted = true,
 }: {
   onExit: () => void;
   onPlay: () => void;
+  muted?: boolean;
 }) {
   const { t, locale } = useI18n();
   const [progress, setProgress] = useState(() => initial(locale)),
     [storageNotice, setStorageNotice] = useState(""),
     [attempt, setAttempt] = useState(0);
   const { lesson, step, game } = progress;
+  const previousAudio = useRef({ game, lesson, attempt });
+  useEffect(() => {
+    const previous = previousAudio.current;
+    previousAudio.current = { game, lesson, attempt };
+    if (previous.lesson === lesson && previous.attempt === attempt) {
+      const cue = transitionCue(previous.game, game);
+      if (cue) sound(cue, muted);
+    }
+  }, [game, lesson, attempt, muted]);
   const finished =
     lesson === "basics" ? step === 7 : lessonComplete(lesson, game);
   const [feedback, setFeedback] = useState(""),
@@ -379,6 +391,7 @@ export default function Tutorial({
       </section>
       {!finished && (
         <Game
+          muted={muted}
           key={`${lesson}-${attempt}-${game.turn}`}
           coaching={false}
           lessonAction={

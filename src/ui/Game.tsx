@@ -15,6 +15,7 @@ export function Game({
   saveLabel,
   narrate = false,
   touch = false,
+  lessonAction,
 }: {
   game: GameState;
   dispatch: (a: Action) => void;
@@ -26,6 +27,7 @@ export function Game({
   saveLabel?: string;
   narrate?: boolean;
   touch?: boolean;
+  lessonAction?: { label: string; onClick: () => void };
 }) {
   const [focused, setFocused] = useState<number | null>(null);
   const rackRef = useRef<HTMLDivElement>(null);
@@ -567,22 +569,30 @@ export function Game({
             </span>
           </div>
           <div className="primary-actions">
-            <button
-              className="secondary"
-              disabled={!myTurn}
-              data-coach-target={coachTarget === "draw" || undefined}
-              onClick={() => act({ type: "draw" })}
-            >
-              {s.pool.length ? "Draw a tile" : "Pass"} ↓
-            </button>
-            <button
-              className={`primary ${!check.valid && dirty ? "danger" : ""}`}
-              disabled={!myTurn || (!check.played.length && !dirty)}
-              data-coach-target={coachTarget === "end" || undefined}
-              onClick={() => act({ type: "endTurn" })}
-            >
-              {check.valid || !dirty ? "End turn →" : "+3 tiles · End turn"}
-            </button>
+            {lessonAction ? (
+              <button className="primary" onClick={lessonAction.onClick}>
+                {lessonAction.label}
+              </button>
+            ) : (
+              <>
+                <button
+                  className="secondary"
+                  disabled={!myTurn}
+                  data-coach-target={coachTarget === "draw" || undefined}
+                  onClick={() => act({ type: "draw" })}
+                >
+                  {s.pool.length ? "Draw a tile" : "Pass"} ↓
+                </button>
+                <button
+                  className={`primary ${!check.valid && dirty ? "danger" : ""}`}
+                  disabled={!myTurn || (!check.played.length && !dirty)}
+                  data-coach-target={coachTarget === "end" || undefined}
+                  onClick={() => act({ type: "endTurn" })}
+                >
+                  {check.valid || !dirty ? "End turn →" : "+3 tiles · End turn"}
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

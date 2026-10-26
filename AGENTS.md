@@ -62,7 +62,8 @@ from the public repository.
 - Guided practice uses `runset.practice.v1`, separate from the regular game save.
   Opening-lesson steps must follow valid table objectives after Reset/Undo, and
   resume must recover older inconsistent steps. Test all three lessons with touch
-  and mouse input, not only their engine plans.
+  and mouse input, not only their engine plans. Restart must clear local tile
+  selections; out-of-sequence tutorial actions must explain the current step.
   Delete only the regular game key; preserve practice and preference keys. Cancel
   bot callbacks when a confirmation is open or a game is removed.
 - Run `npm run test:e2e` for changed player flows; Playwright config uses installed

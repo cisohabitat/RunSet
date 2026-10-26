@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   basicProgress,
   lessonComplete,
@@ -53,10 +53,18 @@ export default function Tutorial({
   onPlay: () => void;
 }) {
   const [progress, setProgress] = useState(initial),
-    [storageNotice, setStorageNotice] = useState("");
+    [storageNotice, setStorageNotice] = useState(""),
+    [attempt, setAttempt] = useState(0);
   const { lesson, step, game } = progress;
   const [feedback, setFeedback] = useState(""),
     [selectionTip, setSelectionTip] = useState("");
+  const panelRef = useRef<HTMLElement>(null);
+  const feedbackRef = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    if (feedback || selectionTip)
+      feedbackRef.current?.scrollIntoView({ block: "nearest" });
+    else panelRef.current?.scrollTo({ top: 0 });
+  }, [lesson, step, attempt, feedback, selectionTip]);
   const invalid = game.table.some((m) => !inspectMeld(m.tiles).valid);
   const objective =
     lesson === "basics"
@@ -107,6 +115,7 @@ export default function Tutorial({
     }
   };
   const choose = (lesson: Lesson) => {
+    setAttempt((value) => value + 1);
     setFeedback("");
     setSelectionTip("");
     update({ lesson, step: 0, game: practiceGame(lesson) });
@@ -160,6 +169,14 @@ export default function Tutorial({
     lesson === "basics" ? step === 7 : lessonComplete(lesson, game);
   const dispatch = (action: Action) => {
     setFeedback("");
+    if (
+      lesson === "basics" &&
+      ((action.type === "endTurn" && step !== 3) ||
+        (action.type === "draw" && step !== 5))
+    ) {
+      setFeedback(`First finish this step: ${instructions[1]} No turn or penalty was applied.`);
+      return;
+    }
     if (lesson !== "basics" && ["endTurn", "draw"].includes(action.type)) {
       setFeedback(
         "Finish the highlighted exercise first, or restart the lesson. No turn or penalty was applied.",
@@ -211,14 +228,12 @@ export default function Tutorial({
         nextStep = step === 3 && completed === 2 ? 3 : completed;
       }
 
-      if (action.type === "endTurn" && step !== 3) return;
-      if (action.type === "draw" && step !== 5) return;
     }
     update({ lesson, step: nextStep, game: next });
   };
   return (
     <div className={`practice-layout ${finished ? "" : "playing"}`}>
-      <section className="practice-panel" aria-label="Guided practice">
+      <section ref={panelRef} className="practice-panel" aria-label="Guided practice">
         <div className="practice-top">
           <span className="eyebrow">
             {lesson === "basics"
@@ -240,34 +255,12 @@ export default function Tutorial({
           value={lesson === "basics" ? Math.min(step + 1, 7) : finished ? 7 : 0}
         />
         {(feedback || selectionTip) && (
-          <p className="practice-feedback" role="status">
+          <p ref={feedbackRef} className="practice-feedback" role="status">
             {feedback || selectionTip}
           </p>
         )}
         {storageNotice && <p role="status">{storageNotice}</p>}
         <div className="practice-actions">
-          {step === 2 && lesson === "basics" && (
-            <button
-              className="primary"
-              onClick={() => update({ ...progress, step: 3 })}
-            >
-              I see: 30 + 6 = 36 →
-            </button>
-          )}
-          {step === 4 && lesson === "basics" && (
-            <button
-              className="primary"
-              onClick={() =>
-                update({
-                  ...progress,
-                  step: 5,
-                  game: reducer(game, { type: "draw" }),
-                })
-              }
-            >
-              Watch Juniper draw →
-            </button>
-          )}
           {finished && (
             <button className="primary" onClick={onPlay}>
               Play against one Easy opponent →
@@ -289,8 +282,14 @@ export default function Tutorial({
       </section>
       {!finished && (
         <Game
-          key={`${lesson}-${game.turn}`}
+          key={`${lesson}-${attempt}-${game.turn}`}
           coaching={false}
+          lessonAction={lesson === "basics" && (step === 2 || step === 4) ? {
+            label: step === 2 ? "I see: 30 + 6 = 36 →" : "Watch Juniper draw →",
+            onClick: () => update(step === 2
+              ? { ...progress, step: 3 }
+              : { ...progress, step: 5, game: reducer(game, { type: "draw" }) }),
+          } : undefined}
           coachTarget={objective.target}
           onSelectionChange={selectionChanged}
           game={game}

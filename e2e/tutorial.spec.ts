@@ -26,8 +26,18 @@ for (const [device, width, height, touch] of [
     await click(/Learn to play/);
     await expect(page.getByRole("heading", { name: "Make a run" })).toBeVisible();
     await place(["red 1", "red 2", "red 3"]);
+    // Check geometry before clicking: Playwright otherwise scrolls hidden controls into view.
+    const next = page.getByRole("button", { name: /I see/ });
+    expect(await next.evaluate(el => {
+      const r = el.getBoundingClientRect();
+      return r.top >= 0 && r.bottom <= innerHeight && document.elementFromPoint(r.x + r.width / 2, r.bottom - 2) === el;
+    })).toBe(true);
     await click(/I see/);
     await click("End turn →");
+    expect(await page.getByRole("button", { name: /Watch Juniper/ }).evaluate(el => {
+      const r = el.getBoundingClientRect();
+      return r.top >= 0 && r.bottom <= innerHeight && document.elementFromPoint(r.x + r.width / 2, r.bottom - 2) === el;
+    })).toBe(true);
     await click(/Watch Juniper/);
     await click(/Draw a tile/);
     await place(["red 13"]);
@@ -72,4 +82,30 @@ test("basics recovers when Reset is used after acknowledging opening points", as
   await page.reload();
   await page.getByRole("button", { name: /Learn to play/ }).click();
   await expect(page.getByRole("heading", { name: "Make a group", exact: true })).toBeVisible();
+});
+
+test("restarting a lesson clears the previous tile selection", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: /Learn to play/ }).click();
+  await page.getByRole("button", { name: "red 13", exact: true }).first().click();
+  await page.getByRole("button", { name: "Restart lesson", exact: true }).click();
+  await expect(page.locator('.tile[aria-pressed="true"]')).toHaveCount(0);
+  for (const name of ["red 10", "blue 10", "orange 10"])
+    await page.getByRole("button", { name, exact: true }).click();
+  await page.getByRole("button", { name: /New group or run/ }).click();
+  await expect(page.getByRole("heading", { name: "Make a run", exact: true })).toBeVisible();
+});
+
+test("out-of-sequence Draw and End explain the next step without changing practice", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: /Learn to play/ }).click();
+  await page.getByRole("button", { name: /Draw a tile/ }).click();
+  await expect(page.getByRole("status").filter({ hasText: "First finish this step" })).toContainText("Select the three 10s");
+  for (const name of ["red 10", "blue 10", "orange 10"])
+    await page.getByRole("button", { name, exact: true }).click();
+  await page.getByRole("button", { name: /New group or run/ }).click();
+  const before = await page.evaluate(() => localStorage.getItem("runset.practice.v1"));
+  await page.getByRole("button", { name: "End turn →", exact: true }).click();
+  await expect(page.getByRole("status").filter({ hasText: "First finish this step" })).toContainText("Select red 1, 2, and 3");
+  expect(await page.evaluate(() => localStorage.getItem("runset.practice.v1"))).toBe(before);
 });

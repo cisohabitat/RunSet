@@ -2887,3 +2887,16 @@ button:not(.tile) {
   max-height: none;
   overflow: visible;
 }
+/* Keep the destination label readable even in a shallow table viewport. */
+.playing .new-meld {
+  min-height: 48px;
+  flex-direction: row;
+  gap: 8px;
+  padding: 8px 12px;
+}
+.playing .new-meld small {
+  display: none;
+}
+.app.playing .table:has(.empty-table) {
+  min-height: 140px;
+}

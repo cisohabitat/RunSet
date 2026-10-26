@@ -21,6 +21,10 @@ for (const [device, width, height, touch] of [
     await page.goto("/");
     await click(/Learn to play/);
     await place(["red 10", "blue 10", "orange 10"]);
+    expect(await page.locator(".new-meld").evaluate(el => {
+      const r = el.getBoundingClientRect(), table = el.closest(".table").getBoundingClientRect();
+      return r.top >= table.top && r.bottom <= table.bottom;
+    })).toBe(true);
     await click("Exit practice");
     await page.reload();
     await click(/Learn to play/);

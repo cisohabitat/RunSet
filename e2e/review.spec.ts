@@ -68,6 +68,10 @@ test("phone controls remain fully reachable with a match, timer, coaching and la
   for (const [width, height] of [[360, 640], [375, 667], [390, 844], [820, 1180], [1180, 820], [1440, 900]]) {
     await page.setViewportSize({ width, height });
     await checkControls();
+    expect(await page.locator(".new-meld").evaluate(el => {
+      const r = el.getBoundingClientRect(), table = el.closest(".table").getBoundingClientRect();
+      return r.top >= table.top && r.bottom <= table.bottom;
+    })).toBe(true);
   }
   await page.setViewportSize({ width: 375, height: 667 });
   await page.getByRole("button", { name: "red 10", exact: true }).click();

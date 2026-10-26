@@ -158,6 +158,8 @@ from the public repository.
   separately from the next Escape that exits Expanded table. Preserve body-scroll
   cleanup and focus restoration. Check measured visible table gains, not just
   element height, and verify first-use controls offline.
+  After gameplay actions, await the actual saved state before capturing a
+  storage-invariance baseline; rendered Undo results can precede async saving.
 
 ## Phone tile density
 

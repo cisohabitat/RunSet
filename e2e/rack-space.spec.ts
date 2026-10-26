@@ -74,6 +74,20 @@ async function bounds(page: Page) {
   ).toBe(true);
   await expect(page.getByRole("timer")).toHaveCount(1);
 }
+async function savedUndo(page: Page) {
+  await expect
+    .poll(() =>
+      page.evaluate(() => {
+        const s = JSON.parse(localStorage.getItem("runset.save.v1")!);
+        return (
+          s.history?.length === 0 &&
+          s.players[0].rack.includes(3) &&
+          !s.table.some((meld: { tiles: number[] }) => meld.tiles.includes(3))
+        );
+      }),
+    )
+    .toBe(true);
+}
 for (const [width, height] of [
   [360, 640],
   [375, 667],
@@ -140,6 +154,7 @@ for (const [width, height] of [
           page.getByRole("button", { name: t("Undo move"), exact: true }),
         );
         await expect(page.locator('.rack [data-tile-id="3"]')).toHaveCount(1);
+        await savedUndo(page);
         // Hints must remain actionable with the rack hidden on compact and large views.
         if (
           locale === "zh-CN" &&
@@ -173,6 +188,7 @@ for (const [width, height] of [
           await hit(
             page.getByRole("button", { name: t("Undo move"), exact: true }),
           );
+          await savedUndo(page);
         }
         await hit(show);
         await expect(page.locator("#player-rack")).toBeVisible();

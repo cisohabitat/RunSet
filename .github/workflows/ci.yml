@@ -14,6 +14,14 @@ jobs:
       - run: npm test
       - run: npm run build
 
+      - name: Use Ubuntu HTTPS package mirror
+        run: |
+          for apt_source in /etc/apt/sources.list /etc/apt/sources.list.d/*.list /etc/apt/sources.list.d/*.sources; do
+            if [ -f "$apt_source" ]; then
+              sudo sed -Ei 's|https?://azure\.archive\.ubuntu\.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' "$apt_source"
+            fi
+          done
+          printf '%s\n' 'Acquire::Retries "2";' 'Acquire::http::Timeout "30";' 'Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/99-runset-downloads
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - run: npx playwright test --config=playwright.offline.config.ts

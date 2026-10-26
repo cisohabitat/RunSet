@@ -82,3 +82,10 @@ this host. All 131 Chromium flows and ten production offline flows pass. The
 three-round seed-1, 20 ms benchmark smoke also passes conservation, table and
 hint checks. Initial HTML/CSS/JS total 96,371 bytes gzipped (100,000-byte budget).
 Exact-commit GitHub CI must pass before Phase 2 begins.
+
+The initial `ab202da` CI attempt was stopped after more than eight minutes of
+slow Azure Ubuntu package downloads and retries, before browser tests could
+start. Its typecheck, unit tests and build passed. CI now switches only that
+mirror to Ubuntu's official HTTPS archive, with bounded retries/timeouts;
+the full dependency install and test commands stay enabled. All six live
+Learn to Play completion/recovery checks also passed on the deployed app.

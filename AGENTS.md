@@ -306,6 +306,10 @@ from the public repository.
 - After each phase push, inspect GitHub Actions for that exact commit and wait
   for all checks, including offline tests, to pass before starting the next phase.
   A successful Vercel status or local run is not proof of successful GitHub CI.
+- CI keeps Playwright's complete dependency installation. Its Ubuntu sources
+  use the official HTTPS archive mirror with bounded download retries/timeouts;
+  Azure's HTTP mirror repeatedly stalled on font/system packages. Preserve
+  signed package verification and browser/offline coverage when changing setup.
 - Backups must pass `validSave` and the versioned backup format before replacement.
   Delete both regular progress and its automatic recovery copy, keeping preferences.
 - For UI changes, verify the affected player flow, responsive layout, and runtime

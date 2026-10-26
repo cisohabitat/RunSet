@@ -262,6 +262,9 @@ is available, the game explains how to retry or add one. See
 
 The [premium improvement cycle](docs/PREMIUM_ROADMAP.md) tracks the current
 phase-by-phase work, with exact-commit GitHub CI required between releases.
+CI installs Chromium's full dependencies using Ubuntu's official HTTPS archive
+mirror with bounded download retries; this avoids the observed Azure mirror
+stalls without skipping browser or offline checks.
 
 See the [improvement roadmap](docs/ROADMAP.md) for phase status and acceptance
 criteria. Guided learning, safe deletion, device layouts, contextual hints, undo,

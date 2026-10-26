@@ -2,6 +2,8 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Hide rack": "收起手牌",
+  "Show rack": "显示手牌",
   "Read aloud": "朗读",
   Listen: "听一听",
   "Listen to reminder": "听一听提示",

@@ -59,6 +59,7 @@ export function Game({
       }
     });
   const viewButton = useRef<HTMLButtonElement>(null);
+  const [rackHidden, setRackHidden] = useState(false);
   const previousView = useRef(tableView);
   const lessonButton = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -72,11 +73,13 @@ export function Game({
         /* Optional view preference. */
       }
     }
-    if (previousView.current === "wide" && tableView === "normal")
+    if (previousView.current === "wide" && tableView === "normal") {
+      setRackHidden(false);
       requestAnimationFrame(() => {
         viewButton.current?.focus({ preventScroll: true });
         viewButton.current?.scrollIntoView({ block: "nearest" });
       });
+    }
     previousView.current = tableView;
     if (tableView !== "wide") return;
     const before = document.body.style.overflow;
@@ -381,6 +384,16 @@ export function Game({
         >
           {t(tableView === "normal" ? "Expand table" : "Compact table")}
         </button>
+        {coaching && tableView === "wide" && (
+          <button
+            className="text-button rack-visibility"
+            aria-expanded={!rackHidden}
+            aria-controls="player-rack"
+            onClick={() => setRackHidden((value) => !value)}
+          >
+            {t(rackHidden ? "Show rack" : "Hide rack")}
+          </button>
+        )}
         <button
           className="text-button"
           onClick={() =>
@@ -412,7 +425,7 @@ export function Game({
             role="timer"
             aria-label={t("Time left this turn")}
           >
-            {t("Time left:")}{" "}
+            <span className="board-clock-label">{t("Time left:")} </span>
             {Math.max(0, Math.ceil(((s.deadline ?? clock) - clock) / 1000))}
             {t("s")}
           </span>
@@ -576,6 +589,8 @@ export function Game({
       </div>
       <div className="player-dock">
         <section
+          id="player-rack"
+          hidden={tableView === "wide" && rackHidden}
           className={`rack ${expanded ? "expanded-rack" : ""}`}
           aria-label={t("Your rack")}
           onDragOver={(e) => e.preventDefault()}

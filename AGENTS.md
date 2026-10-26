@@ -120,7 +120,8 @@ from the public repository.
 - `runset.tableExpanded` is an optional regular-game view preference. Preserve it
   across turn remounts and reloads, and keep it through game deletion. Practice
   must not inherit or overwrite it. View changes do not change tiles or saves.
-- Expanded view fills the viewport and retains the rack and primary controls.
+- Expanded view fills the viewport with the rack shown by default and primary
+  controls always available.
   Keep its exit control, timer, save notices and hint actions usable. Sorting is
   available in More. Restore body scrolling and keyboard focus on exit/unmount;
   Escape must work even after a removed hint button and during bot turns, but
@@ -139,6 +140,24 @@ from the public repository.
 - Expanded table minimum-size selectors must win over normal/comfortable floors,
   including short landscape screens. Check full melds, touch hit targets, hints,
   rotation, a penalty dialog, turn/reload persistence and scroll cleanup.
+
+## Temporary rack hiding
+
+- Regular Expanded table offers Hide/Show rack with >=44 px targets and
+  `aria-expanded`/`aria-controls`. Use native `hidden` on the rack section, so
+  hidden tiles leave the accessibility tree and tab order. Preserve selection,
+  draft, deadline and save; hiding is a view change, not an engine action.
+- Rack hiding is temporary component state: reset on leaving Expanded table,
+  turn remount and reload. Only the existing expanded preference is stored.
+  Practice must ignore that preference and keep its rack available.
+- Keep Hide/Show visible on phones while hiding secondary table-navigation
+  controls. Use a concise visible countdown but retain its timer accessible
+  label; keep save/error text and controls in bounds in both reading modes.
+- Test real placement, Undo and hints while hidden; restoring selection on Show;
+  automatic restoration after Draw, exit and reload; and native-dialog Escape
+  separately from the next Escape that exits Expanded table. Preserve body-scroll
+  cleanup and focus restoration. Check measured visible table gains, not just
+  element height, and verify first-use controls offline.
 
 ## Phone tile density
 

@@ -281,6 +281,8 @@ test("first-use expanded game view and its remembered preference work offline", 
   await page.reload();
   await page.getByRole("button", { name: /Continue game/ }).click();
   await expect(page.locator(".game.table-expanded")).toBeVisible();
+  await page.getByRole("button", { name: "Hide rack", exact: true }).click();
+  await expect(page.locator("#player-rack")).toBeHidden();
   await page
     .getByRole("button", { name: "Compact table", exact: true })
     .click();
@@ -288,9 +290,12 @@ test("first-use expanded game view and its remembered preference work offline", 
     "hidden",
   );
   await page.getByRole("button", { name: "Expand table", exact: true }).click();
+  await expect(page.locator("#player-rack")).toBeVisible();
+  await page.getByRole("button", { name: "Hide rack", exact: true }).click();
   await page.reload();
   await page.getByRole("button", { name: /Continue game/ }).click();
   await expect(page.locator(".game.table-expanded")).toBeVisible();
+  await expect(page.locator("#player-rack")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(
     page.getByRole("button", { name: "Expand table", exact: true }),

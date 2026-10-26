@@ -41,6 +41,13 @@ Standard phone play now uses shorter tiles and tighter meld/rack gaps while
 retaining 44 px tap widths and 25 px numbers. Larger display choices stay intact;
 see [PHONE_TILES.md](PHONE_TILES.md) for measured gains and verification limits.
 
+## More table space on demand
+
+Expanded table now offers temporary Hide/Show rack to inspect or rearrange melds
+with more visible space. Primary actions remain available; selection and saves
+are preserved and the rack returns at the next turn, view exit or reload. See
+[TABLE_INSPECTION.md](TABLE_INSPECTION.md). This does not change tile sizes or rules.
+
 ## Earlier releases
 
 Status: Releases 1–3 and the local expansion (multi-round matches and optional

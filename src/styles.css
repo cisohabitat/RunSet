@@ -3795,7 +3795,10 @@ button:not(.tile) {
   overflow: auto;
 }
 @media (max-width: 720px) {
-  .app .game.table-expanded .table-tools > button:not(:first-child) {
+  .app
+    .game.table-expanded
+    .table-tools
+    > button:not(:first-child):not(.rack-visibility) {
     display: none;
   }
   .app .game.table-expanded .table-tools {
@@ -3804,6 +3807,18 @@ button:not(.tile) {
   .app .game.table-expanded .table-tools > button {
     margin-right: auto;
   }
+  .app .game.table-expanded .board-clock-label {
+    display: none;
+  }
+}
+
+/* Let players inspect the table without making any touch targets smaller. */
+.game .rack[hidden] {
+  display: none;
+}
+.app .game.table-expanded .table-tools .rack-visibility {
+  min-width: 44px;
+  min-height: 44px;
 }
 @media (max-height: 520px) {
   .app.playing .game.table-expanded .table {

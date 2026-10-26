@@ -217,6 +217,15 @@ The deadline persists across tab closure and leaving the game. On resume, an
 expired current turn is resolved. Practice is untimed. An expired turn closes an
 outdated penalty warning so it cannot apply a penalty to the next player.
 
+## Even more table space
+
+Choose **Expand table → Hide rack** (**展开牌桌 → 收起手牌**) to give the melds
+more room while inspecting or rearranging them. **Show rack / 显示手牌** brings
+your tiles back; selected tiles and edits stay intact. Turn buttons remain
+available. The rack returns automatically on the next turn, on leaving Expanded
+table, or after reload. This is separate from tile size and works with Comfortable
+reading too. See [measured gains and checks](docs/TABLE_INSPECTION.md).
+
 ## iPhone standard tiles
 
 Standard phone play uses shorter **44×54 px tiles**, keeping 25 px numbers and a

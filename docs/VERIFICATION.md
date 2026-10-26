@@ -10,7 +10,7 @@ explicitly deferred and excluded from active release requirements.
 - `npm test`: 92 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: 105 Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: 131 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
@@ -152,3 +152,10 @@ portrait/landscape sizes in both languages, unchanged number size, rack/meld
 capacity, touch placement/Undo, selection/save preservation across rotation,
 selected two-digit/joker readability and larger preferences with 50 tiles.
 See PHONE_TILES.md for before/after measurements and physical-device limits.
+
+Temporary rack hiding adds 26 browser flows for both languages/reading modes at
+six phone/tablet sizes, >=60 px measured visible-table gains, actual moves/Undo/
+hints, selection/save preservation, restoration on turn/exit/reload, native
+penalty Escape and practice isolation. The existing offline game-view test now
+uses Hide rack for the first time after disconnecting and verifies restoration.
+See TABLE_INSPECTION.md for measurements and physical-device limits.

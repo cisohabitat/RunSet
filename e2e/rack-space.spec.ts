@@ -1,3 +1,4 @@
+import { chooseView } from "./helpers/view";
 import { test, expect, type Page, type Locator } from "@playwright/test";
 import { landscapePosition } from "./helpers/landscape";
 import { translator } from "../src/i18n/translate";
@@ -110,29 +111,21 @@ for (const [width, height] of [
           colorScheme: reading ? "dark" : "light",
         });
         await load(page, locale, reading);
-        await expect(
-          page.getByRole("button", { name: t("Hide rack"), exact: true }),
-        ).toHaveCount(0);
+        const view = page.getByLabel(t("Table view"), { exact: true });
+        await expect(view).toHaveValue("normal");
         const snapshot = await page.evaluate(() =>
           localStorage.getItem("runset.save.v1"),
         );
         await page.locator('.rack [data-tile-id="3"]').tap();
-        await page
-          .getByRole("button", { name: t("Expand table"), exact: true })
-          .tap();
+        await chooseView(page, "wide", t);
         const before = await board(page);
-        const hide = page.getByRole("button", {
-          name: t("Hide rack"),
-          exact: true,
-        });
-        await expect(hide).toHaveAttribute("aria-expanded", "true");
-        await hit(hide);
-        const show = page.getByRole("button", {
-          name: t("Show rack"),
-          exact: true,
-        });
-        await expect(show).toHaveAttribute("aria-expanded", "false");
-        await expect(show).toHaveAttribute("aria-controls", "player-rack");
+        await expect(view).toHaveValue("wide");
+        await chooseView(page, "table", t);
+        await expect(view).toHaveValue("table");
+        await expect(view).toHaveAttribute(
+          "aria-controls",
+          "meld-table player-rack",
+        );
         await expect(page.locator("#player-rack")).toBeHidden();
         expect((await board(page)) - before).toBeGreaterThanOrEqual(60);
         await bounds(page);
@@ -190,14 +183,14 @@ for (const [width, height] of [
           );
           await savedUndo(page);
         }
-        await hit(show);
+        await chooseView(page, "wide", t);
         await expect(page.locator("#player-rack")).toBeVisible();
         await page.locator('.rack [data-tile-id="12"]').tap();
         const saved = await page.evaluate(() =>
           localStorage.getItem("runset.save.v1"),
         );
-        await hit(hide);
-        await hit(show);
+        await chooseView(page, "table", t);
+        await chooseView(page, "wide", t);
         await expect(page.locator('.rack [data-tile-id="12"]')).toHaveAttribute(
           "aria-pressed",
           "true",
@@ -205,29 +198,25 @@ for (const [width, height] of [
         expect(
           await page.evaluate(() => localStorage.getItem("runset.save.v1")),
         ).toBe(saved);
-        await hit(hide);
-        await page
-          .getByRole("button", { name: t("Compact table"), exact: true })
-          .tap();
+        await chooseView(page, "table", t);
+        await chooseView(page, "normal", t);
         await expect(page.locator("#player-rack")).toBeVisible();
         expect(
           await page.evaluate(() => document.body.style.overflow),
         ).not.toBe("hidden");
-        await page
-          .getByRole("button", { name: t("Expand table"), exact: true })
-          .tap();
+        await chooseView(page, "wide", t);
         await expect(page.locator("#player-rack")).toBeVisible();
-        await expect(hide).toBeVisible();
+        await expect(view).toHaveValue("wide");
         // The next turn starts with the rack available, including while a bot thinks.
-        await hit(hide);
+        await chooseView(page, "table", t);
         await page
           .getByRole("button", { name: t("Draw a tile") + " ↓", exact: true })
           .tap();
         await expect(page.locator("#player-rack")).toBeVisible();
-        await expect(hide).toBeVisible();
+        await expect(view).toHaveValue("wide");
         await bounds(page);
         if (width === 390 && !reading && locale === "en") {
-          await hit(hide);
+          await chooseView(page, "table", t);
           await page.reload();
           await page
             .getByRole("button", { name: "Continue game →", exact: true })
@@ -245,8 +234,8 @@ test("hidden rack keeps native penalty Escape separate from leaving expanded vie
   await page.emulateMedia({ reducedMotion: "reduce" });
   await load(page, "en", false);
   await page.locator('.rack [data-tile-id="3"]').tap();
-  await page.getByRole("button", { name: "Expand table", exact: true }).tap();
-  await hit(page.getByRole("button", { name: "Hide rack", exact: true }));
+  await chooseView(page, "wide");
+  await chooseView(page, "table");
   await hit(page.locator(".new-meld"));
   await page
     .getByRole("button", { name: "+3 tiles · End turn", exact: true })
@@ -274,7 +263,9 @@ test("practice keeps its rack visible and does not offer the temporary hiding co
   await expect(page.locator(".table")).toBeVisible();
   await expect(page.locator(".game.table-expanded")).toHaveCount(0);
   await expect(
-    page.getByRole("button", { name: "Hide rack", exact: true }),
+    page
+      .getByLabel("Table view", { exact: true })
+      .locator('option[value="table"]'),
   ).toHaveCount(0);
   await expect(page.locator("#player-rack")).toBeVisible();
 });

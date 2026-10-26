@@ -2,6 +2,34 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Watch the opponent; your turn is next.": "先看电脑出牌，接着就轮到你。",
+  "Complete the red-outlined meld, or Reset for free.":
+    "补全红框牌组，或免费重置。",
+  "Opening: {n} / 30. Add rack tiles, or Reset.":
+    "开局：{n} / 30 分。再出手牌，或重置。",
+  "{n} selected. Choose an outlined destination.":
+    "已选 {n} 张牌，请选带框的位置。",
+  "No safe finish yet. Select more tiles, or build in steps.":
+    "暂未找到可行出法。再选几张，或分步摆牌。",
+  "Ready: choose End turn to keep this play.": "已摆好，点“结束回合”保留出牌。",
+  "Select tiles → New group or run. Reach 30 points, or {action}.":
+    "选牌后新建牌组。开局要满 30 分，也可{action}。",
+  "Add to a meld, make a new one, or {action}.":
+    "给牌组接牌、新建牌组，或{action}。",
+  "Ready to play?": "轻松开一局",
+  "One gentle round. Take your time.": "先玩一局，慢慢来。",
+  "More game options": "更多游戏设置",
+  "Use gentle defaults": "恢复轻松设置",
+  "No timer": "不计时",
+  "Guidance on": "开启指导",
+  "Guidance off": "关闭指导",
+  seconds: "秒",
+  points: "分",
+  View: "视图",
+  "Table view": "牌桌视图",
+  Standard: "常规",
+  "Full screen": "全屏",
+  "Table only": "只看牌桌",
   "Table strategist": "困难 · 巧重组",
   "Hide rack": "收起手牌",
   "Show rack": "显示手牌",

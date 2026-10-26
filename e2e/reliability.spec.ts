@@ -80,6 +80,7 @@ test("replacement timer starts when the replacement is confirmed", async ({
   await page.getByRole("button", { name: "Deal the tiles" }).click();
   await page.getByRole("button", { name: "Home", exact: true }).click();
   await page.getByRole("button", { name: "New game", exact: false }).click();
+  await page.getByText("More game options", { exact: true }).click();
   await page.getByLabel("Time per turn").selectOption("60");
   await page.getByRole("button", { name: "Deal the tiles" }).click();
   await page.getByRole("dialog").waitFor();

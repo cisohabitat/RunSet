@@ -1,3 +1,4 @@
+import { chooseView } from "../e2e/helpers/view";
 import { test, expect } from "@playwright/test";
 import { mockSpeech } from "../e2e/helpers/speech";
 import { readFile, writeFile } from "node:fs/promises";
@@ -281,25 +282,21 @@ test("first-use expanded game view and its remembered preference work offline", 
   await page.reload();
   await page.getByRole("button", { name: /Continue game/ }).click();
   await expect(page.locator(".game.table-expanded")).toBeVisible();
-  await page.getByRole("button", { name: "Hide rack", exact: true }).click();
+  await chooseView(page, "table");
   await expect(page.locator("#player-rack")).toBeHidden();
-  await page
-    .getByRole("button", { name: "Compact table", exact: true })
-    .click();
+  await chooseView(page, "normal");
   expect(await page.evaluate(() => document.body.style.overflow)).not.toBe(
     "hidden",
   );
-  await page.getByRole("button", { name: "Expand table", exact: true }).click();
+  await chooseView(page, "wide");
   await expect(page.locator("#player-rack")).toBeVisible();
-  await page.getByRole("button", { name: "Hide rack", exact: true }).click();
+  await chooseView(page, "table");
   await page.reload();
   await page.getByRole("button", { name: /Continue game/ }).click();
   await expect(page.locator(".game.table-expanded")).toBeVisible();
   await expect(page.locator("#player-rack")).toBeVisible();
   await page.keyboard.press("Escape");
-  await expect(
-    page.getByRole("button", { name: "Expand table", exact: true }),
-  ).toBeFocused();
+  await expect(page.getByLabel("Table view", { exact: true })).toBeFocused();
   await context.setOffline(false);
 });
 

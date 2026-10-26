@@ -96,6 +96,7 @@ it("translates all guidance states, including selection and empty-pool feedback"
     for (const ids of [[], [9], [9, 35, 61]]) {
       const g = turnGuidance(state, ids, suggestedDestinations(state, ids));
       expect(t(g.message), g.message).not.toMatch(/[a-z]/i);
+      expect(t(g.compactMessage), g.compactMessage).not.toMatch(/[a-z]/i);
       expect(t(g.endHelp), g.endHelp).not.toMatch(/[a-z]/i);
     }
 });

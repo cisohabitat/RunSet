@@ -64,5 +64,20 @@ export function turnGuidance(
                 ? `Your opening is worth ${check.points} points. Choose End turn to complete your first play.`
                 : `Select tiles → New group or run. Your first play needs 30 points. Place a rack tile before End turn, or ${action}.`
               : `Add tiles to a group or run, or make a new one. Play a rack tile before End turn, or ${action}.`;
-  return { message, endHelp };
+  const compactMessage = p.bot
+    ? "Watch the opponent; your turn is next."
+    : s.table.some((m) => !inspectMeld(m.tiles).valid)
+      ? "Complete the red-outlined meld, or Reset for free."
+      : !p.melded && check.played.length && check.points < 30
+        ? `Opening: ${check.points} / 30. Add rack tiles, or Reset.`
+        : selected.length
+          ? destinations.length
+            ? `${selected.length} selected. Choose an outlined destination.`
+            : "No safe finish yet. Select more tiles, or build in steps."
+          : check.valid && check.played.length
+            ? "Ready: choose End turn to keep this play."
+            : !p.melded
+              ? `Select tiles → New group or run. Reach 30 points, or ${action}.`
+              : `Add to a meld, make a new one, or ${action}.`;
+  return { message, compactMessage, endHelp };
 }

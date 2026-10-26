@@ -1,3 +1,4 @@
+import { chooseView } from "./helpers/view";
 import { test, expect, type Locator, type Page } from "@playwright/test";
 import { landscapePosition } from "./helpers/landscape";
 import { translator } from "../src/i18n/translate";
@@ -140,9 +141,7 @@ for (const [width, height] of [
       ).toBe(saved);
       await page.setViewportSize({ width, height });
       expect(await tileSize(page)).toEqual([44, 60]);
-      await hit(
-        page.getByRole("button", { name: t("Expand table"), exact: true }),
-      );
+      await chooseView(page, "wide", t);
       expect(await tileSize(page)).toEqual([44, 60]);
       await stable(page);
       await hit(page.locator(".meld-target").first());
@@ -200,9 +199,7 @@ for (const locale of ["en", "zh-CN"] as const)
     expect(
       await page.evaluate(() => localStorage.getItem("runset.save.v1")),
     ).toBe(saved);
-    await page
-      .getByRole("button", { name: t("Expand table"), exact: true })
-      .tap();
+    await chooseView(page, "wide", t);
     await stable(page);
     await page.screenshot({
       path: `/tmp/runset-ipad-landscape-large-${locale}.png`,

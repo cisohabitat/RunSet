@@ -1,3 +1,4 @@
+import { chooseView } from "./helpers/view";
 import { test, expect, type Locator, type Page } from "@playwright/test";
 import { newGame, type GameState } from "../src/engine/game";
 import { validSave } from "../src/lib/storage";
@@ -126,9 +127,7 @@ for (const [device, width, height] of [
           localStorage.getItem("runset.save.v1"),
         );
         await tap(page.locator('.rack [data-tile-id="3"]'));
-        await tap(
-          page.getByRole("button", { name: t("Expand table"), exact: true }),
-        );
+        await chooseView(page, "wide", t);
         const expanded = await boardBounds(page);
         expect(expanded.visible).toBeGreaterThanOrEqual(
           device === "phone" ? 300 : 450,
@@ -194,14 +193,12 @@ for (const [device, width, height] of [
         );
         await page.keyboard.press("Escape");
         await expect(
-          page.getByRole("button", { name: t("Expand table"), exact: true }),
+          page.getByLabel(t("Table view"), { exact: true }),
         ).toBeFocused();
         expect(
           await page.evaluate(() => document.body.style.overflow),
         ).not.toBe("hidden");
-        await tap(
-          page.getByRole("button", { name: t("Expand table"), exact: true }),
-        );
+        await chooseView(page, "wide", t);
         await page.reload();
         await page
           .getByRole("button", { name: t("Continue game →"), exact: true })
@@ -220,7 +217,7 @@ for (const [device, width, height] of [
         await expect(page.locator(".game.table-expanded")).toBeVisible();
         await page.keyboard.press("Escape");
         await expect(
-          page.getByRole("button", { name: t("Expand table"), exact: true }),
+          page.getByLabel(t("Table view"), { exact: true }),
         ).toBeFocused();
         expect(errors).toEqual([]);
       });

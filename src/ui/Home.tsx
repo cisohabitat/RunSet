@@ -38,18 +38,21 @@ export function Home({
           )}
         </p>
         <div className="hero-actions">
-          <button className="primary" onClick={onLearn}>
+          {hasSave && (
+            <button className="primary" onClick={onContinue}>
+              {t(game?.phase === "over" ? "View results →" : "Continue game →")}
+            </button>
+          )}
+          <button
+            className={hasSave ? "secondary" : "primary"}
+            onClick={onLearn}
+          >
             {t("Learn to play ")}
             <span>→</span>
           </button>
           <button className="secondary" onClick={onNew}>
             {t("New game →")}
           </button>
-          {hasSave && (
-            <button className="secondary" onClick={onContinue}>
-              {t(game?.phase === "over" ? "View results →" : "Continue game →")}
-            </button>
-          )}
           <button className="text-button" onClick={onHelp}>
             {t("How to play ")}
             <span>→</span>

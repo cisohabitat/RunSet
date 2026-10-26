@@ -8,7 +8,7 @@ older-player study remains paused. Multiplayer remains deferred.
 | Phase                    | Status      | Deliverable and gate                                                                                                                                                                        |
 | ------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1. Reliable opponents    | Implemented | Complete-turn joker validation, legal alternatives, rack-empty shortcut and a 240 ms work cap. See [measured results](PREMIUM_BOTS.md); exact-commit CI gates the next phase. |
-| 2. Clear play flow       | Planned     | Returning players get Continue first; quick setup with optional advanced controls; view controls explain their effect and preserve the current game.                                        |
+| 2. Clear play flow       | Implemented | Returning players get Continue first; quick setup with optional advanced controls; view controls explain their effect and preserve the current game.                                        |
 | 3. Visual consistency    | Planned     | Shared visual tokens, readable hierarchy, coordinated light/dark surfaces and focus states; English/Chinese phone, tablet and desktop screenshots.                                          |
 | 4. Movement and feedback | Planned     | Clearly distinguish newly played tiles, restrained placement/turn/round feedback, quiet sounds and reduced-motion equivalents.                                                              |
 | 5. Focused learning      | Planned     | Short opening, extension, incomplete-meld and joker exercises with concrete explanations; practice never replaces a regular save.                                                           |
@@ -20,3 +20,8 @@ older-player study remains paused. Multiplayer remains deferred.
 Chromium viewport tests do not establish Apple device usability, audible voice
 quality or enjoyment. Difficulty outcomes from reused seeds and swapped seats
 are correlated; rule compliance is a release gate, win-rate ordering is not.
+
+Release gate: Phase 1's application commit `ab202da` and CI mirror repair
+`53e3fa8` are published. [CI 40358242463](https://github.com/cisohabitat/RunSet/actions/runs/40358242463)
+passed for the exact repair commit before Phase 2 began. Local verification:
+96 unit tests, 131 browser flows, ten offline flows and six live learning checks.

@@ -1,3 +1,4 @@
+import { chooseView } from "./helpers/view";
 import { test, expect, type Page, type Locator } from "@playwright/test";
 import { landscapePosition } from "./helpers/landscape";
 import { translator } from "../src/i18n/translate";
@@ -126,9 +127,7 @@ for (const [width, height] of [
         localStorage.getItem("runset.save.v1"),
       );
       await hit(page.locator('.rack [data-tile-id="3"]'));
-      await page
-        .getByRole("button", { name: t("Expand table"), exact: true })
-        .tap();
+      await chooseView(page, "wide", t);
       await bounds(page);
       expect(await size(page)).toEqual([44, 54]);
       await page.setViewportSize({ width: height, height: width });

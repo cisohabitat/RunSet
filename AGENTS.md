@@ -88,6 +88,12 @@ from the public repository.
 - In compact phone view, a visible beginner card takes priority over opponent
   cards. Restore opponents when the guidance is dismissed. Check the full next
   instruction inside the context bounds, plus primary controls and table space.
+- Standard phones at most 740 px tall use concise, fully translated guidance,
+  a 44 px labelled dismiss control and a toolbar countdown while coached.
+  Keep match scores/round accessible in More; restore normal information when
+  coaching is dismissed. Preserve full text for larger/comfortable views and
+  read-aloud reminders. Check the visible paragraph with match, timer and a
+  selected tile together; an element merely existing is insufficient.
 - Setup is lazy-loaded and must work on its first offline visit. Phase 2 GitHub CI
   run 40292228237 passed before Phase 3 work began. Phase 1 remains paused.
 
@@ -116,7 +122,7 @@ from the public repository.
 ## Table space and expanded workspace
 
 - The table toolbar is a direct child of Game, outside `.game-context`, so hints
-  and optional guidance cannot scroll the Expand/Compact control out of reach.
+  and optional guidance cannot scroll the View selector out of reach.
   Test toolbar bounds against the game workspace, not the optional context.
 - `runset.tableExpanded` is an optional regular-game view preference. Preserve it
   across turn remounts and reloads, and keep it through game deletion. Practice
@@ -144,14 +150,15 @@ from the public repository.
 
 ## Temporary rack hiding
 
-- Regular Expanded table offers Hide/Show rack with >=44 px targets and
-  `aria-expanded`/`aria-controls`. Use native `hidden` on the rack section, so
+- The native View selector offers Standard, Full screen and Table only with a
+  >=44 px target and `aria-controls` for table/rack. Its value exposes the active
+  view. Use native `hidden` on the rack section, so
   hidden tiles leave the accessibility tree and tab order. Preserve selection,
   draft, deadline and save; hiding is a view change, not an engine action.
 - Rack hiding is temporary component state: reset on leaving Expanded table,
   turn remount and reload. Only the existing expanded preference is stored.
   Practice must ignore that preference and keep its rack available.
-- Keep Hide/Show visible on phones while hiding secondary table-navigation
+- Keep the View selector visible on phones while hiding secondary table-navigation
   controls. Use a concise visible countdown but retain its timer accessible
   label; keep save/error text and controls in bounds in both reading modes.
 - Test real placement, Undo and hints while hidden; restoring selection on Show;
@@ -323,6 +330,11 @@ from the public repository.
   local deployment metadata.
 
 ## Documentation and handoff
+
+New setup defaults are one Easy opponent, no timer, one round and guidance on.
+Custom choices use More game options; editing an existing game's settings opens
+it automatically. Preserve saved choices and typed names; empty names use the
+UI locale's You/你 fallback. Returning Home prioritizes Continue/View results.
 
 Keep `README.md` aligned with implemented behavior, tooling, commands, storage
 limitations, and deployment setup. Update this file when conventions change.

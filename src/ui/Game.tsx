@@ -58,7 +58,7 @@ export function Game({
         return "normal";
       }
     });
-  const viewButton = useRef<HTMLButtonElement>(null);
+  const viewButton = useRef<HTMLSelectElement>(null);
   const [rackHidden, setRackHidden] = useState(false);
   const previousView = useRef(tableView);
   const lessonButton = useRef<HTMLButtonElement>(null);
@@ -90,7 +90,8 @@ export function Game({
         event.defaultPrevented ||
         document.querySelector("dialog[open]") ||
         (event.target instanceof Element &&
-          event.target.closest("input,textarea,select"))
+          event.target.closest("input,textarea,select") &&
+          event.target !== viewButton.current)
       )
         return;
       event.preventDefault();
@@ -321,12 +322,23 @@ export function Game({
             aria-label={t("First real game guidance")}
           >
             <strong>{t("Your first real game")}</strong>
-            <p>{t(guidance.message)}</p>
+            <p>
+              <span className="guide-full">{t(guidance.message)}</span>
+              <span className="guide-compact">
+                {t(guidance.compactMessage)}
+              </span>
+            </p>
             <button
               className="text-button"
+              aria-label={t("Got it — hide coaching")}
               onClick={() => dispatch({ type: "dismissCoach" })}
             >
-              {t("Got it — hide coaching")}
+              <span className="coach-dismiss-copy">
+                {t("Got it — hide coaching")}
+              </span>
+              <span className="coach-dismiss-icon" aria-hidden="true">
+                ×
+              </span>
             </button>
           </aside>
         )}
@@ -373,27 +385,26 @@ export function Game({
         )}
       </div>
       <div className="table-tools">
-        <button
-          className="text-button"
-          ref={viewButton}
-          aria-pressed={tableView === "wide"}
-          aria-controls="meld-table"
-          onClick={() =>
-            setTableView((x) => (x === "normal" ? "wide" : "normal"))
-          }
-        >
-          {t(tableView === "normal" ? "Expand table" : "Compact table")}
-        </button>
-        {coaching && tableView === "wide" && (
-          <button
-            className="text-button rack-visibility"
-            aria-expanded={!rackHidden}
-            aria-controls="player-rack"
-            onClick={() => setRackHidden((value) => !value)}
+        <label className="view-picker">
+          {t("View")}
+          <select
+            ref={viewButton}
+            aria-label={t("Table view")}
+            aria-controls="meld-table player-rack"
+            value={
+              tableView === "normal" ? "normal" : rackHidden ? "table" : "wide"
+            }
+            onChange={(event) => {
+              const value = event.target.value;
+              setTableView(value === "normal" ? "normal" : "wide");
+              setRackHidden(value === "table");
+            }}
           >
-            {t(rackHidden ? "Show rack" : "Hide rack")}
-          </button>
-        )}
+            <option value="normal">{t("Standard")}</option>
+            <option value="wide">{t("Full screen")}</option>
+            {coaching && <option value="table">{t("Table only")}</option>}
+          </select>
+        </label>
         <button
           className="text-button"
           onClick={() =>
@@ -419,7 +430,7 @@ export function Game({
             {t(saveLabel ?? "")}
           </span>
         )}
-        {s.turnSeconds && tableView === "wide" ? (
+        {s.turnSeconds ? (
           <span
             className="board-clock"
             role="timer"
@@ -721,6 +732,21 @@ export function Game({
                     reminder
                     text={`${t(guidance.message)} ${t(guidance.endHelp)}`}
                   />
+                )}
+                {s.match && (
+                  <details className="compact-match-scores">
+                    <summary>{t("Match scores")}</summary>
+                    <p>
+                      {t("Round ")}
+                      {s.match.round} · {t("First to")}
+                      {s.match.target}
+                    </p>
+                    {s.players.map((player, i) => (
+                      <p key={i}>
+                        {player.name}: <strong>{s.match!.totals[i]}</strong>
+                      </p>
+                    ))}
+                  </details>
                 )}
                 <div
                   className="focused-rack-options"

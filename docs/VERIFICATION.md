@@ -10,7 +10,7 @@ explicitly deferred and excluded from active release requirements.
 - `npm test`: 96 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: 131 Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: Phase 1's full 131 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
@@ -18,6 +18,9 @@ explicitly deferred and excluded from active release requirements.
   practice assets after an offline reload; and explicit service-worker updates
   preserving the saved game. The update test waits for the actual reload before
   reading storage.
+- Premium Phase 2 adds six bilingual play-flow checks (137 total browser flows).
+  Its final focused 70-flow suite and ten offline flows pass; exact-commit
+  GitHub CI runs the complete suite before Phase 3. See [play flow](PREMIUM_PLAY_FLOW.md).
 - `npm run build`: passes and emits a static application plus versioned offline
   cache. The main JavaScript bundle is approximately 84 kB gzipped; optional
   game UI, practice, rules, Chinese dictionary and worker assets are separate.

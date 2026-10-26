@@ -48,10 +48,8 @@ for (const locale of ["en", "zh-CN"] as const)
       "data-suggested-destination",
       "true",
     );
-    await expect(page.locator(".first-game-guide")).toContainText(
-      t(
-        "3 tiles selected. Choose an outlined destination. End turn will check the whole table before finishing.",
-      ),
+    await expect(page.locator(".first-game-guide .guide-compact")).toHaveText(
+      t("3 selected. Choose an outlined destination."),
     );
     await checkGuide();
     await page.screenshot({
@@ -71,10 +69,8 @@ for (const locale of ["en", "zh-CN"] as const)
     for (const id of [0, 1, 2])
       await page.locator(`.rack [data-tile-id="${id}"]`).click();
     await page.locator(".new-meld").click();
-    await expect(page.locator(".first-game-guide")).toContainText(
-      t(
-        "Your opening is 6 / 30 points. Add more tiles from your own rack, or Reset for free.",
-      ),
+    await expect(page.locator(".first-game-guide .guide-compact")).toHaveText(
+      t("Opening: 6 / 30. Add rack tiles, or Reset."),
     );
     await page
       .getByRole("button", { name: t("Reset turn"), exact: true })
@@ -116,6 +112,7 @@ test("new-game guidance defaults on and can be declined", async ({ page }) => {
   for (const coach of [true, false]) {
     await page.goto("/");
     await page.getByRole("button", { name: /New game/ }).click();
+    await page.getByText("More game options", { exact: true }).click();
     const option = page.getByLabel("Show first-game guidance", { exact: true });
     await expect(option).toBeChecked();
     if (!coach) await option.uncheck();

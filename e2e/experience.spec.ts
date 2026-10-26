@@ -223,6 +223,7 @@ test("matches deal subsequent rounds and timed turns draw on expiry", async ({
 }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "New game", exact: false }).click();
+  await page.getByText("More game options", { exact: true }).click();
   await page.getByLabel("Game length").selectOption("500");
   await page.getByLabel("Time per turn").selectOption("60");
   await page.getByRole("button", { name: "Deal the tiles" }).click();

@@ -47,8 +47,8 @@ phases are tracked in [the roadmap](docs/ROADMAP.md).
 
 ## More room for the table / 放大牌桌
 
-Choose **Expand table** (**展开牌桌**) above the board for a viewport workspace
-that keeps your rack and turn controls on screen. **Compact table** (**收起牌桌**)
+Choose **View → Full screen** (**视图 → 全屏**) above the board for a viewport workspace
+that keeps your rack and turn controls on screen. **Standard** (**常规**)
 or Escape returns to the regular layout. The choice is remembered across turns
 and reloads. In expanded view, **More** contains sorting; tiles and the board
 still scroll normally. Hints, their placement buttons and the timer stay available.
@@ -219,8 +219,8 @@ outdated penalty warning so it cannot apply a penalty to the next player.
 
 ## Even more table space
 
-Choose **Expand table → Hide rack** (**展开牌桌 → 收起手牌**) to give the melds
-more room while inspecting or rearranging them. **Show rack / 显示手牌** brings
+Choose **View → Table only** (**视图 → 只看牌桌**) to give the melds
+more room while inspecting or rearranging them. **Full screen / 全屏** brings
 your tiles back; selected tiles and edits stay intact. Turn buttons remain
 available. The rack returns automatically on the next turn, on leaving Expanded
 table, or after reload. This is separate from tile size and works with Comfortable
@@ -262,6 +262,9 @@ is available, the game explains how to retry or add one. See
 
 The [premium improvement cycle](docs/PREMIUM_ROADMAP.md) tracks the current
 phase-by-phase work, with exact-commit GitHub CI required between releases.
+The [shorter play flow](docs/PREMIUM_PLAY_FLOW.md) makes Continue primary for
+saved games, starts new players with one Easy opponent, and keeps custom setup
+options behind a disclosure. Existing replay options are preserved.
 CI installs Chromium's full dependencies using Ubuntu's official HTTPS archive
 mirror with bounded download retries; this avoids the observed Azure mirror
 stalls without skipping browser or offline checks.

@@ -3051,3 +3051,10 @@ button:not(.tile) {
     max-height: 48%;
   }
 }
+.primary:disabled {
+  opacity: 1;
+  color: var(--muted);
+  background: var(--soft);
+  border: 1px solid var(--line);
+  box-shadow: none;
+}

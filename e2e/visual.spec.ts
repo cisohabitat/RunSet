@@ -31,7 +31,7 @@ for (const theme of ["light", "dark"] as const) {
           return r.top >= copy.top && r.bottom <= copy.bottom + 1;
         }), `${lesson} instructions, ${width}px`).toBe(true);
       }
-      const contrasts = await page.locator(".rack .tile,.table .tile").evaluateAll(elements => {
+      const contrasts = await page.locator(".rack .tile,.table .tile,.primary:disabled").evaluateAll(elements => {
         const luminance = (rgb: string) => {
           const channels = rgb.match(/[\d.]+/g)!.slice(0, 3).map(Number).map(v => v / 255).map(v => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
           return channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
@@ -42,6 +42,7 @@ for (const theme of ["light", "dark"] as const) {
         });
       });
       expect(Math.min(...contrasts)).toBeGreaterThanOrEqual(4.5);
+      expect(await page.locator(".primary:disabled").first().evaluate(el => getComputedStyle(el).opacity)).toBe("1");
       await page.getByRole("button", { name: "Exit practice", exact: true }).click();
       await page.getByRole("button", { name: /Continue game/ }).click();
       await page.getByRole("button", { name: "Show a possible move" }).click();

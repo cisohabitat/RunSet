@@ -13,6 +13,7 @@ Changes:
   the invalid-turn penalty explicit.
 - Increase small game-control labels and strengthen muted text and tile colours
   in both themes. Automated checks require tile text contrast of at least 4.5:1.
+  Disabled primary buttons retain a readable label on a subdued surface.
 - Give New group or run a readable label and distinct surface. Allow enough
   context space on wider screens to show table tools with the hint card.
 - Replace unsupported diagonal-arrow glyphs with supported right arrows and fix

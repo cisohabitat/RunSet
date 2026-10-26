@@ -7,6 +7,7 @@ export async function mockSpeech(
   } = {},
 ) {
   await page.addInitScript((options) => {
+    localStorage.setItem("runset.audioVoice", "device");
     if (options.unsupported) {
       Object.defineProperty(window, "speechSynthesis", {
         value: undefined,

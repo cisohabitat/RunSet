@@ -4325,3 +4325,6 @@ button:not(.tile) {
     outline-color: var(--focus);
   }
 }
+
+.voice-picker { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); font-size: 14px; margin: 8px 0; }
+.voice-picker select { min-height: 44px; max-width: 100%; color: var(--ink); background: var(--paper); border: 1px solid var(--control-line); border-radius: var(--radius-control); padding: 4px 8px; font: inherit; }

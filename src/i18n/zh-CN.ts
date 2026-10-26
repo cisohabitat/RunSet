@@ -2,6 +2,13 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Reading voice": "朗读语音",
+  "Recorded guide": "录制导读",
+  "Device voice": "设备语音",
+  "Optional recorded guide. Available offline when Ready offline is shown.":
+    "可自选录制导读。显示离线就绪后，也能离线播放。",
+  "Audio could not play. Choose Device voice or read the instructions.":
+    "导读暂时无法播放。可选择设备语音，或阅读文字说明。",
   "The saved exercise could not be restored. Choose an exercise to start again.":
     "保存的练习暂时无法恢复。请选择一个练习重新开始。",
   "← Home": "← 首页",

@@ -326,3 +326,8 @@ Quick exercises cover opening with 30 points, extending a run, filling a gap and
 replacing/reusing a joker. They provide visual clues, explicit Check move and
 separate resumable progress, without timers or penalties. See
 [focused learning](docs/PREMIUM_EXERCISES.md).
+
+Lessons and quick exercises offer optional recorded English/Mandarin guidance,
+with Listen, Replay, Stop and a Device voice choice. The 34 static clips are
+cached when Ready offline appears. Human pronunciation/prosody review remains
+paused. See [narration behavior and generation](docs/PREMIUM_NARRATION.md).

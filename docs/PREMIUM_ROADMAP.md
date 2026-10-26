@@ -12,7 +12,7 @@ older-player study remains paused. Multiplayer remains deferred.
 | 3. Visual consistency    | Implemented     | Shared visual tokens, readable hierarchy, coordinated light/dark surfaces and focus states; English/Chinese phone, tablet and desktop screenshots.                                          |
 | 4. Movement and feedback | Implemented     | Clearly distinguish newly played tiles, restrained placement/turn/round feedback, quiet sounds and reduced-motion equivalents.                                                              |
 | 5. Focused learning      | Implemented     | Short opening, extension, incomplete-meld and joker exercises with concrete explanations; practice never replaces a regular save.                                                           |
-| 6. Consistent narration  | Planned     | Optional cached Mandarin/English audio where available, polished short scripts and readable fallback. Device speech stays available; pronunciation and cheerful delivery need human review. |
+| 6. Consistent narration  | Implemented     | Optional cached Mandarin/English audio where available, polished short scripts and readable fallback. Device speech stays available; pronunciation and cheerful delivery need human review. |
 | 7. Solo replay value     | Planned     | Replayable seeded practice, local progress and gentle milestones, isolated from regular saves and without accounts.                                                                         |
 | 8. Human acceptance      | Paused      | Physical iPhone/iPad Safari and older Chinese-speaking beginners. Prepare a reproducible checklist, but do not claim these sessions ran.                                                    |
 
@@ -40,3 +40,8 @@ for `87ecc81` before Phase 5 implementation began.
 
 Phase 5 adds [four focused exercises](PREMIUM_EXERCISES.md); its exact-commit CI
 must pass before Phase 6 implementation begins.
+
+Phase 5 passed [CI 40379089891](https://github.com/cisohabitat/RunSet/actions/runs/40379089891)
+for `a7c9ebf` before Phase 6 began. Phase 6 adds [recorded bilingual guidance](PREMIUM_NARRATION.md);
+its exact-commit CI gates Phase 7. Vercel was still serving Phase 3 with Phase 4
+deployments queued at this check; GitHub publication is separate from live readiness.

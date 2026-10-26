@@ -1,0 +1,87 @@
+[
+  {
+    "id": "lesson-0",
+    "en": "Make a group。Select the three 10s below → New group or run. Groups match numbers in different colours.",
+    "zh-CN": "组成同数组。先选中下面三张 10，再点“新建同数组或顺子”。数字相同、颜色不同的牌可以组成同数组。"
+  },
+  {
+    "id": "lesson-1",
+    "en": "Make a run。Select red 1, 2 and 3 → New group or run. A run has consecutive numbers in one colour.",
+    "zh-CN": "组成顺子。先选中红 1、红 2、红 3，再点“新建同数组或顺子”。同色、数字连续的牌可以组成顺子。"
+  },
+  {
+    "id": "lesson-2",
+    "en": "Your first 30 points。Your 10s score 30. Red 1 + 2 + 3 adds 6. Your opening is 36 points; at least 30 is required.",
+    "zh-CN": "第一次出牌至少 30 分。三张 10 共 30 分。红 1 + 2 + 3 再加 6 分，一共 36 分。第一次出牌至少要 30 分，你已经够了！"
+  },
+  {
+    "id": "lesson-3",
+    "en": "Finish your turn。Choose End turn. You played tiles from your rack and left every group and run valid.",
+    "zh-CN": "结束你的回合。点“结束回合”。你已经出了手牌，而且桌上的每个同数组和顺子都符合规则。"
+  },
+  {
+    "id": "lesson-4",
+    "en": "Watch the opponent。Juniper will draw from the pool: the shared pile of face-down tiles. Drawing ends a turn.",
+    "zh-CN": "看看电脑怎么做。电脑 Juniper 会摸一张牌。“待摸的牌”是大家共用、背面朝上的牌堆。摸牌后，回合就结束。"
+  },
+  {
+    "id": "lesson-5",
+    "en": "Try drawing。Choose Draw a tile. Drawing resets unfinished edits, adds one tile to your rack, and ends your turn.",
+    "zh-CN": "试着摸一张牌。点“摸一张牌”。摸牌会撤回未完成的摆牌，给你的手牌加一张，并结束这个回合。"
+  },
+  {
+    "id": "lesson-6",
+    "en": "Try an incomplete play。Place red 13 → New group or run, then Reset. Invalid End draws 3 penalty tiles; Reset is free.",
+    "zh-CN": "试试没有凑齐的牌组。选红 13，点“新建同数组或顺子”，再点“重置”。没有凑齐就结束会罚摸 3 张牌；点“重置”则不会罚摸。"
+  },
+  {
+    "id": "lesson-7",
+    "en": "You know the basics。Empty your rack to win. On each turn, play tiles or draw one. Your first play needs 30 points; after that you can add to or rearrange the table. Try an Easy game, or explore the optional lessons.",
+    "zh-CN": "你已学会基础玩法。先出完手牌就赢。每回合选择出牌，或摸一张。第一次出牌至少 30 分，之后可以接牌或重组桌上的牌。可以开始一局简单游戏，也可以继续学习下面的选修课。"
+  },
+  {
+    "id": "lesson-8",
+    "en": "Reuse the table joker。Red 5 fills the old gap. The joker is still on the table, now shown as red 7. Select it with blue 5 and orange 5 → New group or run.",
+    "zh-CN": "把万能牌用到新牌组里。红 5 已补上原来的空位。万能牌还在桌上，现在显示为红 7。选中它和手里的蓝 5、橙 5，再点“新建同数组或顺子”。"
+  },
+  {
+    "id": "lesson-9",
+    "en": "Retrieve a joker。The table joker represents red 5. Select your red 5 and add it to that run. The joker stays on the table until you reuse it in the next step.",
+    "zh-CN": "替换桌上的万能牌。桌上的万能牌现在代替红 5。选中手中的红 5，再点那个顺子的加号。万能牌会先留在桌上，下一步再把它用到新的牌组里。"
+  },
+  {
+    "id": "lesson-10",
+    "en": "Split a run。Select the table’s red 4 and 5 plus your red 6 and 7 → New group or run. You’ll leave red 1–3 and make red 4–7. Rearrange only after opening.",
+    "zh-CN": "把长顺子拆成两组。选中桌上的红 4、红 5，再选手中的红 6、红 7，点“新建同数组或顺子”。这样就留下红 1–3，并组成红 4–7。完成开局后才可以这样重组。"
+  },
+  {
+    "id": "lesson-11",
+    "en": "Joker lesson complete。Your red 5 replaced the joker’s original role. You reused the joker with blue 5 and orange 5, leaving both groups and runs valid. Here is your finished table.",
+    "zh-CN": "万能牌练习完成。你用红 5 替换了万能牌原来的位置，再把万能牌与蓝 5、橙 5 组成新的同数组。每个牌组都符合规则。下面是你完成的牌桌。"
+  },
+  {
+    "id": "lesson-12",
+    "en": "Run-splitting lesson complete。You split red 1–5 and added your red 6 and 7. Red 1–3 and red 4–7 are both valid runs. Here is your finished table.",
+    "zh-CN": "拆分顺子练习完成。你拆开了红 1–5，并加入手中的红 6、红 7。现在红 1–3 和红 4–7 都是有效的顺子。下面是你完成的牌桌。"
+  },
+  {
+    "id": "exercise-opening",
+    "en": "Make a group of three 10s in different colours. Their total is 30: enough to open.",
+    "zh-CN": "把三张不同颜色的 10 组成同数组。合计 30 分，就能开局。"
+  },
+  {
+    "id": "exercise-extend",
+    "en": "Add red 4 to the red 1, 2, 3 run already on the table.",
+    "zh-CN": "把红色 4 接到桌上的红色 1、2、3 顺子后面。"
+  },
+  {
+    "id": "exercise-repair",
+    "en": "The red 1 and 3 need a 2 between them. Complete the run before checking your move.",
+    "zh-CN": "红色 1 和 3 之间缺一张 2。先补齐顺子，再检查出牌。"
+  },
+  {
+    "id": "exercise-joker",
+    "en": "Replace the joker in red 4, joker, 6 with red 5. Then use that joker with blue 5 and orange 5 in a new group.",
+    "zh-CN": "用红色 5 替换红色 4、万能牌、6 中的万能牌，再把万能牌和蓝色 5、橙色 5 组成新的同数组。"
+  }
+]

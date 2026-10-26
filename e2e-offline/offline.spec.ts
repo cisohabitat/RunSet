@@ -351,3 +351,45 @@ test("first exercise visit and Chinese goal work after disconnecting", async ({
     page.getByRole("heading", { name: "做得好！目标完成了。" }),
   ).toBeVisible();
 });
+
+test("recorded Mandarin plays on first offline visit without installed speech voices", async ({
+  page,
+  context,
+}) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(window, "speechSynthesis", {
+      value: undefined,
+      configurable: true,
+    });
+    const Native = window.Audio;
+    (window as any).__recordings = [];
+    (window as any).Audio = function (src: string) {
+      const a = new Native(src);
+      (window as any).__recordings.push(a);
+      return a;
+    };
+  });
+  await page.goto("/");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Ready offline" }),
+  ).toBeVisible();
+  await context.setOffline(true);
+  await page.getByLabel("语言 / Language").selectOption("zh-CN");
+  await page.getByRole("button", { name: "小练习 →", exact: true }).click();
+  await page.getByRole("button", { name: "接长顺子 →", exact: true }).click();
+  await page.getByRole("button", { name: "听一听", exact: true }).click();
+  await expect
+    .poll(() =>
+      page.evaluate(() => {
+        const a = (window as any).__recordings.at(-1);
+        return a && !a.paused && a.currentTime > 0;
+      }),
+    )
+    .toBe(true);
+  await page.getByRole("button", { name: "停止朗读", exact: true }).click();
+  expect(
+    await page.evaluate(() =>
+      (window as any).__recordings.every((a: HTMLAudioElement) => a.paused),
+    ),
+  ).toBe(true);
+});

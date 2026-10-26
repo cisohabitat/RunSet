@@ -370,3 +370,10 @@ Focused exercises use `src/engine/exercises.ts` and `runset.exercises.v1`. Keep
 objectives and clues tied to real tile IDs and full-turn legality. Check never
 ends a turn or applies penalties. Preserve regular saves, normal lesson progress,
 page-flow instructions, explicit completion and restart selection cleanup.
+
+Recorded guidance uses exact caption/locale matches in `src/lib/narration.json`.
+Changed copy must fall back to device speech until recordings are regenerated
+and reviewed. No autoplay: cancel owned media on locale/source/screen/menu/tab
+changes. Preserve the device option, visible text and `runset.audioVoice` across
+delete. Audio assets belong in the offline cache; test actual first-use offline
+playback without Web Speech. Automated decoding cannot approve pronunciation.

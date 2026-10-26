@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useI18n } from "../i18n/I18n";
 import { readingVoice, spokenText } from "../lib/speech";
+import { narrationFor } from "../lib/narration";
+import { RecordedGuide } from "./RecordedGuide";
 
 /** A user gesture starts every utterance. Never enqueue automatic narration. */
-export function ReadAloud({
+function DeviceReadAloud({
   text,
   reminder = false,
 }: {
@@ -163,6 +165,72 @@ export function ReadAloud({
                   : "Optional device voice. Offline audio depends on installed voices."),
         )}
       </span>
+    </div>
+  );
+}
+
+function voicePreference() {
+  try {
+    return localStorage.getItem("runset.audioVoice") === "device"
+      ? "device"
+      : "recorded";
+  } catch {
+    return "recorded";
+  }
+}
+export function ReadAloud({
+  text,
+  reminder = false,
+}: {
+  text: string;
+  reminder?: boolean;
+}) {
+  const { locale, t } = useI18n();
+  const [voice, setVoice] = useState(voicePreference);
+  useEffect(() => {
+    const update = () => setVoice(voicePreference());
+    window.addEventListener("runset-audio-voice", update);
+    window.addEventListener("storage", update);
+    return () => {
+      window.removeEventListener("runset-audio-voice", update);
+      window.removeEventListener("storage", update);
+    };
+  }, []);
+  const src = narrationFor(text, locale);
+  return (
+    <div className="narration-choice">
+      {src && (
+        <label className="voice-picker">
+          {t("Reading voice")}{" "}
+          <select
+            aria-label={t("Reading voice")}
+            value={voice}
+            onChange={(e) => {
+              const value = e.target.value;
+              setVoice(value);
+              try {
+                localStorage.setItem("runset.audioVoice", value);
+                window.dispatchEvent(new Event("runset-audio-voice"));
+              } catch {
+                /* Session choice remains available. */
+              }
+            }}
+          >
+            <option value="recorded">{t("Recorded guide")}</option>
+            <option value="device">{t("Device voice")}</option>
+          </select>
+        </label>
+      )}
+      {src && voice !== "device" ? (
+        <RecordedGuide
+          key={`${locale}-${src}`}
+          src={src}
+          text={text}
+          reminder={reminder}
+        />
+      ) : (
+        <DeviceReadAloud text={text} reminder={reminder} />
+      )}
     </div>
   );
 }

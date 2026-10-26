@@ -3033,10 +3033,18 @@ button:not(.tile) {
   }
 }
 
-.tile.red { color: #b3463d; }
-.tile.blue { color: #276b87; }
-.tile.orange { color: #965a0e; }
-.tile.joker { color: #536c3d; }
+.tile.red {
+  color: #b3463d;
+}
+.tile.blue {
+  color: #276b87;
+}
+.tile.orange {
+  color: #965a0e;
+}
+.tile.joker {
+  color: #536c3d;
+}
 @media (max-width: 720px) {
   .practice-layout.playing:not([data-lesson="basics"]) > .practice-panel {
     max-height: 32dvh;
@@ -3110,6 +3118,138 @@ button:not(.tile) {
 }
 @media (min-width: 721px) and (max-height: 800px) {
   .game:has(.hint-summary) .opponents {
+    display: none;
+  }
+}
+
+/* The language choice stays visible on every screen and works with touch. */
+.language-switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.language-switch > span {
+  font-size: 12px;
+}
+.language-switch select {
+  width: auto;
+  min-height: 44px;
+  padding: 6px 8px;
+  font-size: 14px;
+  margin: 0;
+}
+:lang(zh-CN) body {
+  font-family:
+    system-ui, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+}
+:lang(zh-CN) .intro,
+:lang(zh-CN) .guide p {
+  font-size: 18px;
+  line-height: 1.8;
+}
+:lang(zh-CN) .eyebrow,
+:lang(zh-CN) .art-label {
+  letter-spacing: 0.04em;
+}
+:lang(zh-CN) .practice-layout .practice-panel p {
+  font-size: 16px;
+  line-height: 1.65;
+}
+:lang(zh-CN) .practice-layout .practice-actions > .text-button {
+  font-size: 14px;
+  min-height: 44px;
+}
+:lang(zh-CN) .playing .action-bar button,
+:lang(zh-CN) .playing .action-bar summary {
+  font-size: 14px;
+  min-height: 44px;
+}
+:lang(zh-CN) .tile-foot {
+  font-size: 10px;
+}
+@media (max-width: 720px) {
+  .language-switch > span {
+    display: none;
+  }
+  .header-right {
+    gap: 8px;
+  }
+  :lang(zh-CN) .practice-layout .practice-actions {
+    gap: 0;
+  }
+  :lang(zh-CN) .practice-layout .practice-actions > .text-button {
+    padding: 4px 6px;
+  }
+  :lang(zh-CN) .practice-layout.playing > .practice-panel {
+    width: calc(100% - 16px);
+    padding: 8px 10px;
+  }
+  :lang(zh-CN) .playing .action-bar button,
+  :lang(zh-CN) .playing .action-bar summary {
+    font-size: 13px;
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+}
+/* Larger lesson copy gets a full page instead of competing with the board. */
+:lang(zh-CN) .hero-copy h1 {
+  font-size: clamp(36px, 4vw, 56px);
+}
+:lang(zh-CN) h1 em {
+  font-family: inherit;
+  font-style: normal;
+}
+:lang(zh-CN) .practice-layout.playing {
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+:lang(zh-CN) .practice-layout.playing > .practice-panel {
+  max-height: none;
+}
+:lang(zh-CN) .practice-copy {
+  overflow: visible;
+}
+:lang(zh-CN) .practice-layout.playing > .game {
+  flex: none;
+  min-height: 480px;
+  overflow: visible;
+}
+:lang(zh-CN) .practice-layout.playing .table {
+  flex: none;
+  height: 220px;
+  min-height: 180px;
+  max-height: 45dvh;
+  scroll-padding-top: 48px;
+}
+:lang(zh-CN) .practice-layout.playing .table-topline {
+  position: static;
+}
+.sound-button {
+  white-space: nowrap;
+}
+@media (max-width: 720px) {
+  .site-header:has(.language-switch) {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .site-header:has(.language-switch) .brand {
+    font-size: 24px;
+    gap: 6px;
+  }
+  .site-header:has(.language-switch) .sound-button {
+    min-width: 44px;
+    padding: 8px;
+  }
+  .playing .header-right {
+    gap: 4px;
+  }
+  .playing .language-switch select {
+    max-width: 88px;
+    padding-left: 4px;
+    padding-right: 2px;
+  }
+  .playing .brand-icon {
     display: none;
   }
 }

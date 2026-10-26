@@ -1,3 +1,4 @@
+import { useI18n } from "../i18n/I18n";
 import { useEffect, useRef } from "react";
 export function ConfirmDialog({
   title,
@@ -16,6 +17,7 @@ export function ConfirmDialog({
   onCancel: () => void;
   busy?: boolean;
 }) {
+  const { t } = useI18n();
   const ref = useRef<HTMLDialogElement>(null),
     safe = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -46,8 +48,8 @@ export function ConfirmDialog({
         if (!busy) onCancel();
       }}
     >
-      <h2 id="dialog-title">{title}</h2>
-      <div className="dialog-copy">{children}</div>
+      <h2 id="dialog-title">{t(title)}</h2>
+      <div className="dialog-copy">{t(children)}</div>
       <div className="dialog-actions">
         <button
           ref={safe}
@@ -55,10 +57,10 @@ export function ConfirmDialog({
           onClick={onCancel}
           disabled={busy}
         >
-          {cancelLabel}
+          {t(cancelLabel)}
         </button>
         <button className="primary danger" onClick={onConfirm} disabled={busy}>
-          {busy ? "Working…" : confirmLabel}
+          {t(busy ? "Working…" : confirmLabel)}
         </button>
       </div>
     </dialog>

@@ -120,3 +120,39 @@ test("offline readiness is verified and an update preserves another tab", async 
     await writeFile("dist/sw.js", original);
   }
 });
+
+test("both languages, rules and lessons remain available after an offline reload", async ({
+  page,
+  context,
+}) => {
+  await page.goto("/");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Ready offline" }),
+  ).toBeVisible();
+  // Do not fetch Chinese before disconnecting: its separate chunk must be cached.
+  await context.setOffline(true);
+  await page.getByLabel("语言 / Language").selectOption("zh-CN");
+  await expect(page.getByRole("button", { name: /学习玩法/ })).toBeVisible();
+  await page.reload();
+  await expect(page.getByLabel("语言 / Language")).toHaveValue("zh-CN");
+  await page.getByRole("button", { name: /学习玩法/ }).click();
+  await expect(
+    page.getByRole("heading", { name: "组成同数组", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "首页", exact: true }).click();
+  await page
+    .getByRole("button", { name: /玩法说明/ })
+    .first()
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "数字相同，颜色不同。", exact: true }),
+  ).toBeVisible();
+  await page.getByLabel("语言 / Language").selectOption("en");
+  await expect(
+    page.getByRole("heading", {
+      name: "Same number. Different colours.",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await context.setOffline(false);
+});

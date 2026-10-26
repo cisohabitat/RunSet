@@ -1,3 +1,4 @@
+import { useI18n } from "../i18n/I18n";
 import { useState } from "react";
 import type { GameState } from "../engine/game";
 import { exportBackup, importBackup, MAX_BACKUP_BYTES } from "../lib/backup";
@@ -9,6 +10,7 @@ export function SaveTools({
   game: GameState | null;
   onRestore: (game: GameState) => void;
 }) {
+  const { t } = useI18n();
   const [message, setMessage] = useState(""),
     [busy, setBusy] = useState(false);
   const recovery = readRecoveryGame();
@@ -28,18 +30,18 @@ export function SaveTools({
     }
   };
   return (
-    <section className="save-tools" aria-label="Save tools">
-      <h2>Save and recovery</h2>
+    <section className="save-tools" aria-label={t("Save tools")}>
+      <h2>{t("Save and recovery")}</h2>
       <div className="backup-actions">
         <button
           className="secondary"
           disabled={!game || busy}
           onClick={download}
         >
-          Export game backup
+          {t("Export game backup")}
         </button>
         <label className="file-button">
-          Import game backup
+          {t("Import game backup")}
           <input
             type="file"
             accept="application/json,.json"
@@ -72,28 +74,31 @@ export function SaveTools({
             disabled={busy}
             onClick={() => onRestore(recovery)}
           >
-            Recover previous position
+            {t("Recover previous position")}
           </button>
         )}
       </div>
       <details className="backup-help">
-        <summary>About backups and recovery</summary>
-      <p>
-        Progress stays in this browser. Download a backup to keep a separate
-        copy or move your game to another device. Timed backups retain their
-        original deadline. Deleting a game also clears its automatic recovery
-        copy; downloaded files remain yours.
-      </p>
+        <summary>{t("About backups and recovery")}</summary>
+        <p>
+          {t(
+            "Progress stays in this browser. Download a backup to keep a separate copy or move your game to another device. Timed backups retain their original deadline. Deleting a game also clears its automatic recovery copy; downloaded files remain yours.",
+          )}
+        </p>
       </details>
       {recovery && (
         <p className="recovery-summary">
-          Recovery available: {recovery.players.find((p) => !p.bot)?.name} ·
-          turn {recovery.turn}
-          {recovery.match ? ` · round ${recovery.match.round}` : ""}. Recovery
-          may restore an earlier turn or a previously replaced game.
+          {t("Recovery available: ")}
+          {recovery.players.find((p) => !p.bot)?.name}
+          {t(" · turn ")}
+          {recovery.turn}
+          {t(recovery.match ? ` · round ${recovery.match.round}` : "")}
+          {t(
+            ". Recovery may restore an earlier turn or a previously replaced game.",
+          )}
         </p>
       )}
-      {message && <p role="status">{message}</p>}
+      {message && <p role="status">{t(message)}</p>}
     </section>
   );
 }

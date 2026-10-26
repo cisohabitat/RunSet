@@ -1,3 +1,4 @@
+import { useI18n } from "../i18n/I18n";
 import { useRef } from "react";
 import { tiles } from "../engine/tiles";
 const marks = { red: "◆", blue: "●", orange: "▲", black: "✦" };
@@ -22,7 +23,8 @@ export function Tile({
   tabIndex?: number;
   onFocus?: () => void;
 }) {
-  const t = tiles[id];
+  const { t } = useI18n();
+  const tile = tiles[id];
   const pointer = useRef<{ x: number; y: number; moved: boolean } | null>(null);
   return (
     <button
@@ -52,17 +54,17 @@ export function Tile({
         buttons[next]?.focus({ preventScroll: true });
         buttons[next]?.scrollIntoView({ block: "nearest", inline: "nearest" });
       }}
-      className={`tile ${t.color ?? "joker"} ${selected ? "selected" : ""} ${glow ? "glow" : ""}`}
-      title={
-        t.joker && represents ? `Joker represents ${represents}` : undefined
-      }
-      aria-label={
-        t.joker
+      className={`tile ${tile.color ?? "joker"} ${selected ? "selected" : ""} ${glow ? "glow" : ""}`}
+      title={t(
+        tile.joker && represents ? `Joker represents ${represents}` : undefined,
+      )}
+      aria-label={t(
+        tile.joker
           ? represents
             ? `Joker representing ${represents}`
             : "Joker"
-          : `${t.color} ${t.num}`
-      }
+          : `${tile.color} ${tile.num}`,
+      )}
       aria-pressed={onSelect ? selected : undefined}
       onClick={(e) => {
         e.stopPropagation();
@@ -92,11 +94,11 @@ export function Tile({
       }}
     >
       <span className="tile-mark" aria-hidden="true">
-        {t.joker ? "★" : marks[t.color!]}
+        {t(tile.joker ? "★" : marks[tile.color!])}
       </span>
-      <span>{t.joker ? "★" : t.num}</span>
+      <span>{t(tile.joker ? "★" : tile.num)}</span>
       <span className="tile-foot" aria-hidden="true">
-        {t.joker ? (represents ?? "WILD") : marks[t.color!]}
+        {t(tile.joker ? (represents ?? "WILD") : marks[tile.color!])}
       </span>
     </button>
   );

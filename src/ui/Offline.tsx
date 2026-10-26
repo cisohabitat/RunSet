@@ -1,3 +1,4 @@
+import { useI18n } from "../i18n/I18n";
 import { offlineReady } from "../lib/offline";
 import { useEffect, useState } from "react";
 interface InstallPrompt extends Event {
@@ -9,6 +10,7 @@ export function Offline({
 }: {
   beforeUpdate: () => boolean | Promise<boolean>;
 }) {
+  const { t } = useI18n();
   const [readiness, setReadiness] = useState<
     "preparing" | "ready" | "unavailable"
   >("preparing");
@@ -111,21 +113,23 @@ export function Offline({
     worker.postMessage({ type: "SKIP_WAITING" });
   };
   return (
-    <aside className="offline-tools" aria-label="Offline and installation">
+    <aside className="offline-tools" aria-label={t("Offline and installation")}>
       <p className="offline-readiness" role="status">
-        {readiness === "ready"
-          ? offline
-            ? "Offline · game, lessons and bots are ready."
-            : "Ready offline"
-          : readiness === "preparing"
-            ? "Preparing offline play…"
-            : "Offline readiness could not be verified. Connect and finish any available update."}
+        {t(
+          readiness === "ready"
+            ? offline
+              ? "Offline · game, lessons and bots are ready."
+              : "Ready offline"
+            : readiness === "preparing"
+              ? "Preparing offline play…"
+              : "Offline readiness could not be verified. Connect and finish any available update.",
+        )}
       </p>
       {waiting && (
         <div role="status">
-          A new version is ready. Your saved game will be kept.{" "}
+          {t("A new version is ready. Your saved game will be kept.")}{" "}
           <button className="secondary" onClick={update}>
-            Save and update
+            {t("Save and update")}
           </button>
         </div>
       )}
@@ -143,17 +147,16 @@ export function Offline({
           } else setHelp((x) => !x);
         }}
       >
-        Install or play offline
+        {t("Install or play offline")}
       </button>
       {help && (
         <p>
-          On iPhone or iPad, open this site in Safari, tap Share, then Add to
-          Home Screen. On desktop or Android, use your browser’s Install app
-          option. Visit once online to download the game; regular games and
-          lessons then work offline once “Ready offline” is shown.
+          {t(
+            "On iPhone or iPad, open this site in Safari, tap Share, then Add to Home Screen. On desktop or Android, use your browser’s Install app option. Visit once online to download the game; regular games and lessons then work offline once “Ready offline” is shown.",
+          )}
         </p>
       )}
-      {error && <p role="status">{error}</p>}
+      {error && <p role="status">{t(error)}</p>}
     </aside>
   );
 }

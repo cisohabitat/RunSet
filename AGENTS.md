@@ -27,6 +27,26 @@ from the public repository.
   shape marks, 360 px layouts, dark theme, and reduced motion. Keep dependencies
   limited to React/React DOM at runtime. No backend or credentials are required.
 
+## Languages and readable copy
+
+- English and Simplified Chinese use `useI18n` from `src/i18n/I18n.tsx`. Translate
+  displayed text, accessible labels and dynamic engine messages at the UI boundary.
+  Keep engine state, tile IDs, action types and stored logs language-independent.
+- Put Chinese copy in `src/i18n/zh-CN.ts`; keep 同数组 (group), 顺子 (run), 万能牌
+  (joker), 开局 (opening), 摸牌 (draw) and 跳过 (pass) consistent. Use short, direct
+  instructions with examples; do not assume prior knowledge of tile-rummy.
+- Player-entered names remain literal. Message placeholders named `name*` must
+  never be translated. Add dynamic-message tests when changing engine prose,
+  hint/planner fallbacks, lesson steps or interpolation patterns.
+- Language is the separate `runset.language` preference, retained on delete.
+  Switching language must not remount gameplay or practice, clear selection,
+  restart a timer or replace a save. Failed dictionary downloads must leave a
+  usable language choice and a readable error. No translation service is used.
+- Chinese lessons use larger text and page scrolling to keep tiles reachable.
+  Verify actual tap targets on 360/375 px phones, tablet and laptop in both themes.
+  Keep the Chinese dictionary and lazy rules in the offline precache; test switching
+  languages after disconnecting before the first Chinese visit.
+
 ## Working and verification
 
 - Inspect files and Git status before editing. Preserve unrelated changes and

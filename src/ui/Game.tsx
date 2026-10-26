@@ -1,3 +1,4 @@
+import { useI18n } from "../i18n/I18n";
 import { useEffect, useRef, useState } from "react";
 import { type GameState, type Action, turnCheck } from "../engine/game";
 import { inspectMeld } from "../engine/meld";
@@ -29,6 +30,7 @@ export function Game({
   touch?: boolean;
   lessonAction?: { label: string; onClick: () => void };
 }) {
+  const { t } = useI18n();
   const [focused, setFocused] = useState<number | null>(null);
   const rackRef = useRef<HTMLDivElement>(null);
   const focusRack = () =>
@@ -156,169 +158,183 @@ export function Game({
       }}
     >
       <div className="game-context">
-      <div className="game-heading">
-        <div>
-          <span className="eyebrow">THE TABLE</span>
-          <h1>{myTurn ? "Your move." : "A little thinking…"}</h1>
+        <div className="game-heading">
+          <div>
+            <span className="eyebrow">{t("THE TABLE")}</span>
+            <h1>{t(myTurn ? "Your move." : "A little thinking…")}</h1>
+          </div>
+          <div className="game-heading-actions">
+            {saveLabel && (
+              <span
+                className={`save-indicator ${saveLabel === "Not saved" ? "save-error" : ""}`}
+                role="status"
+              >
+                {t(saveLabel)}
+              </span>
+            )}
+            <button className="text-button" onClick={onHelp}>
+              {t("Rules →")}
+            </button>
+          </div>
         </div>
-        <div className="game-heading-actions">
-          {saveLabel && (
-            <span
-              className={`save-indicator ${saveLabel === "Not saved" ? "save-error" : ""}`}
-              role="status"
-            >
-              {saveLabel}
+        {s.match && (
+          <div className="match-bar" aria-label={t("Match scores")}>
+            <span>
+              {t("First to")}
+              {s.match.target}
             </span>
-          )}
-          <button className="text-button" onClick={onHelp}>
-            Rules →
-          </button>
-        </div>
-      </div>
-      {s.match && (
-        <div className="match-bar" aria-label="Match scores">
-          <span>First to {s.match.target}</span>
-          {s.players.map((player, i) => (
-            <span key={i}>
-              {player.name}: <strong>{s.match!.totals[i]}</strong>
-            </span>
-          ))}
-        </div>
-      )}
-      {s.turnSeconds && (
-        <p
-          className={`turn-clock ${Math.max(0, (s.deadline ?? clock) - clock) < 15000 ? "urgent" : ""}`}
-          role="timer"
-          aria-label="Time left this turn"
-        >
-          Time left:{" "}
-          {Math.max(0, Math.ceil(((s.deadline ?? clock) - clock) / 1000))}s ·
-          on expiry: reset unfinished edits and {s.pool.length ? "draw one" : "pass"}
-        </p>
-      )}
-      <div className="opponents">
-        {s.players
-          .filter((x) => x.bot)
-          .map((x, i) => (
-            <div
-              className={`opponent ${x === p ? "is-turn" : ""}`}
-              key={x.name}
-            >
-              <span className="avatar">{["✳", "◈", "✦"][i]}</span>
-              <div>
-                <strong>{x.name}</strong>
-                <span>
-                  {x.bot} · {x.rack.length} tiles {x.melded ? "· opened" : ""}
-                </span>
-              </div>
-              {x === p && (
-                <span className="thinking" aria-label="Taking a turn">
-                  •••
-                </span>
-              )}
-            </div>
-          ))}
-        <div className="pool-count">
-          <strong>{s.pool.length}</strong>
-          <span>in the pool</span>
-        </div>
-      </div>
-      {s.coach && !hint && (
-        <aside
-          className="first-game-guide"
-          aria-label="First real game guidance"
-        >
-          <strong>Your first real game</strong>
-          <p>
-            {!myTurn
-              ? "Watch the opponent. Your turn comes next."
-              : !human.melded
-                ? check.valid && check.played.length
-                  ? `Your opening is worth ${check.points} points. Choose End turn to complete your first play.`
-                  : `Look for a matching-number group or a same-colour run. Your first play needs 30 points. Hint can explain a possibility; ${s.pool.length ? "drawing" : "passing"} is always allowed.`
-                : `You have opened! Add tiles to existing groups or runs, make new ones, or ${s.pool.length ? "draw" : "pass"}. You can turn these tips off whenever you’re ready.`}
+            {s.players.map((player, i) => (
+              <span key={i}>
+                {player.name}: <strong>{s.match!.totals[i]}</strong>
+              </span>
+            ))}
+          </div>
+        )}
+        {s.turnSeconds && (
+          <p
+            className={`turn-clock ${Math.max(0, (s.deadline ?? clock) - clock) < 15000 ? "urgent" : ""}`}
+            role="timer"
+            aria-label={t("Time left this turn")}
+          >
+            {t("Time left:")}{" "}
+            {Math.max(0, Math.ceil(((s.deadline ?? clock) - clock) / 1000))}
+            {t("s · on expiry: reset unfinished edits and ")}
+            {t(s.pool.length ? "draw one" : "pass")}
           </p>
+        )}
+        <div className="opponents">
+          {s.players
+            .filter((x) => x.bot)
+            .map((x, i) => (
+              <div
+                className={`opponent ${x === p ? "is-turn" : ""}`}
+                key={x.name}
+              >
+                <span className="avatar">{t(["✳", "◈", "✦"][i])}</span>
+                <div>
+                  <strong>{x.name}</strong>
+                  <span>
+                    {t(x.bot)} · {x.rack.length}
+                    {t(" tiles")}
+                    {t(x.melded ? "· opened" : "")}
+                  </span>
+                </div>
+                {x === p && (
+                  <span className="thinking" aria-label={t("Taking a turn")}>
+                    •••
+                  </span>
+                )}
+              </div>
+            ))}
+          <div className="pool-count">
+            <strong>{s.pool.length}</strong>
+            <span>{t("in the pool")}</span>
+          </div>
+        </div>
+        {s.coach && !hint && (
+          <aside
+            className="first-game-guide"
+            aria-label={t("First real game guidance")}
+          >
+            <strong>{t("Your first real game")}</strong>
+            <p>
+              {t(
+                !myTurn
+                  ? "Watch the opponent. Your turn comes next."
+                  : !human.melded
+                    ? check.valid && check.played.length
+                      ? `Your opening is worth ${check.points} points. Choose End turn to complete your first play.`
+                      : `Look for a matching-number group or a same-colour run. Your first play needs 30 points. Hint can explain a possibility; ${s.pool.length ? "drawing" : "passing"} is always allowed.`
+                    : `You have opened! Add tiles to existing groups or runs, make new ones, or ${s.pool.length ? "draw" : "pass"}. You can turn these tips off whenever you’re ready.`,
+              )}
+            </p>
+            <button
+              className="text-button"
+              onClick={() => dispatch({ type: "dismissCoach" })}
+            >
+              {t("Got it — hide coaching")}
+            </button>
+          </aside>
+        )}
+        {hint && (
+          <aside
+            ref={hintRef}
+            className={`coach-card ${hint.table ? "" : "hint-summary"}`}
+            aria-label={t("Move hint")}
+          >
+            <p role="status">{t(hint.message)}</p>
+            <div className="hint-actions">
+              {hint.table && (
+                <button
+                  className="primary"
+                  onClick={() => {
+                    dispatch({ type: "applyPlan", table: hint.table! });
+                    setSelected([]);
+                  }}
+                >
+                  {t("Place hint")}
+                </button>
+              )}
+              <button className="text-button" onClick={() => setHint(null)}>
+                {t("Dismiss hint")}
+              </button>
+            </div>
+            {hint.explanations && (
+              <details className="hint-reasons">
+                <summary>{t("Why this works")}</summary>
+                <ul>
+                  {hint.explanations.map((reason, i) => (
+                    <li key={i}>{t(reason)}</li>
+                  ))}
+                </ul>
+              </details>
+            )}
+          </aside>
+        )}
+        <div className="table-tools">
           <button
             className="text-button"
-            onClick={() => dispatch({ type: "dismissCoach" })}
+            onClick={() =>
+              setTableView((x) => (x === "normal" ? "wide" : "normal"))
+            }
           >
-            Got it — hide coaching
+            {t(tableView === "normal" ? "Expand table" : "Compact table")}
           </button>
-        </aside>
-      )}
-      {hint && (
-        <aside ref={hintRef} className={`coach-card ${hint.table ? "" : "hint-summary"}`} aria-label="Move hint">
-          <p role="status">{hint.message}</p>
-          <div className="hint-actions">
-          {hint.table && (
-            <button
-              className="primary"
-              onClick={() => {
-                dispatch({ type: "applyPlan", table: hint.table! });
-                setSelected([]);
-              }}
-            >
-              Place hint
-            </button>
-          )}
-          <button className="text-button" onClick={() => setHint(null)}>
-            Dismiss hint
+          <button
+            className="text-button"
+            onClick={() =>
+              tableRef.current?.scrollTo({ top: 0, behavior: "auto" })
+            }
+          >
+            {t("Table start ↑")}
           </button>
-          </div>
-          {hint.explanations && (
-            <details className="hint-reasons">
-              <summary>Why this works</summary>
-              <ul>
-                {hint.explanations.map((reason, i) => (
-                  <li key={i}>{reason}</li>
-                ))}
-              </ul>
-            </details>
-          )}
-
-        </aside>
-      )}
-      <div className="table-tools">
-        <button
-          className="text-button"
-          onClick={() =>
-            setTableView((x) => (x === "normal" ? "wide" : "normal"))
-          }
-        >
-          {tableView === "normal" ? "Expand table" : "Compact table"}
-        </button>
-        <button
-          className="text-button"
-          onClick={() =>
-            tableRef.current?.scrollTo({ top: 0, behavior: "auto" })
-          }
-        >
-          Table start ↑
-        </button>
-        <button
-          className="text-button"
-          onClick={() =>
-            tableRef.current?.scrollTo({
-              top: tableRef.current.scrollHeight,
-              behavior: "auto",
-            })
-          }
-        >
-          Table end ↓
-        </button>
-        <span>Scroll the table to see more groups and runs.</span>
-      </div>
+          <button
+            className="text-button"
+            onClick={() =>
+              tableRef.current?.scrollTo({
+                top: tableRef.current.scrollHeight,
+                behavior: "auto",
+              })
+            }
+          >
+            {t("Table end ↓")}
+          </button>
+          <span>{t("Scroll the table to see more groups and runs.")}</span>
+        </div>
       </div>
       <section
         ref={tableRef}
         className={`table ${tableView === "wide" ? "expanded-table" : ""}`}
-        aria-label="Table melds"
+        aria-label={t("Table melds")}
         tabIndex={0}
       >
         <div className="table-topline">
-          <span>MAKE ROOM FOR A GOOD IDEA</span>
+          <span>{t("MAKE ROOM FOR A GOOD IDEA")}</span>
           <span>
-            Round {s.match?.round ?? 1} · Turn {s.turn}
+            {t("Round ")}
+            {s.match?.round ?? 1}
+            {t(" · Turn")}
+            {s.turn}
           </span>
         </div>
         <div className="melds">
@@ -366,18 +382,22 @@ export function Game({
                   ))}
                 </div>
                 {!info.valid && (
-                  <p className="meld-explanation">{explainMeld(m.tiles)}</p>
+                  <p className="meld-explanation">{t(explainMeld(m.tiles))}</p>
                 )}
                 <button
                   data-coach-target={coachTarget === m.id || undefined}
                   className="meld-target"
                   disabled={!myTurn || !activeSelected.length}
                   onClick={() => move(m.id)}
-                  aria-label={`Add selected tiles to meld ${s.table.indexOf(m) + 1}`}
+                  aria-label={t(
+                    `Add selected tiles to meld ${s.table.indexOf(m) + 1}`,
+                  )}
                 >
-                  {info.valid
-                    ? `${info.kind} · ${info.points} pts`
-                    : "Incomplete group or run"}{" "}
+                  {t(
+                    info.valid
+                      ? `${info.kind} · ${info.points} pts`
+                      : "Incomplete group or run",
+                  )}{" "}
                   <span>＋</span>
                 </button>
               </div>
@@ -391,11 +411,14 @@ export function Game({
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => drop(e, "new")}
           >
-            <span>＋</span>New group or run
+            <span>＋</span>
+            {t("New group or run")}
             <small>
-              {activeSelected.length
-                ? `Place ${activeSelected.length} selected`
-                : "Select tiles, then place here"}
+              {t(
+                activeSelected.length
+                  ? `Place ${activeSelected.length} selected`
+                  : "Select tiles, then place here",
+              )}
             </small>
           </button>
         </div>
@@ -403,77 +426,85 @@ export function Game({
           <div className="empty-table">
             <span>✳</span>
             <h2>
-              Every good game
+              {t("Every good game")}
               <br />
-              starts with a possibility.
+              {t("starts with a possibility.")}
             </h2>
-            <p>Open with 30 points from your rack.</p>
+            <p>{t("Open with 30 points from your rack.")}</p>
           </div>
         )}
       </section>
       {myTurn && !p.melded && check.played.length > 0 && (
         <p className="opening-breakdown">
-          Opening points:{" "}
-          {s.table
-            .filter(
-              (m) =>
-                !m.tiles.some((id) =>
-                  s.turnStart.table.some((old) => old.tiles.includes(id)),
-                ),
-            )
-            .map((m) =>
-              inspectMeld(m.tiles).valid
-                ? `${inspectMeld(m.tiles)
-                    .ordered.map((id) => inspectMeld(m.tiles).values[id])
-                    .join(" + ")} = ${inspectMeld(m.tiles).points}`
-                : "incomplete group or run",
-            )
-            .join("; ")}
-          . Need at least 30.
+          {t("Opening points:")}{" "}
+          {t(
+            s.table
+              .filter(
+                (m) =>
+                  !m.tiles.some((id) =>
+                    s.turnStart.table.some((old) => old.tiles.includes(id)),
+                  ),
+              )
+              .map((m) =>
+                inspectMeld(m.tiles).valid
+                  ? `${inspectMeld(m.tiles)
+                      .ordered.map((id) => inspectMeld(m.tiles).values[id])
+                      .join(" + ")} = ${inspectMeld(m.tiles).points}`
+                  : "incomplete group or run",
+              )
+              .join("; "),
+          )}
+          {t(". Need at least 30.")}
         </p>
       )}
       <div className="status-line" role="status" aria-live="polite">
         <span className={`status-dot ${myTurn ? "" : "waiting"}`} />
-        {myTurn
-          ? p.melded
-            ? `${check.played.length} tile${check.played.length === 1 ? "" : "s"} played this turn`
-            : `Opening meld: ${check.points} / 30 points`
-          : `${p.name} is finding a move…`}
+        {t(
+          myTurn
+            ? p.melded
+              ? `${check.played.length} tile${check.played.length === 1 ? "" : "s"} played this turn`
+              : `Opening meld: ${check.points} / 30 points`
+            : `${p.name} is finding a move…`,
+        )}
         {myTurn && !check.valid && check.played.length > 0 && (
-          <span className="warning">{check.reason}</span>
+          <span className="warning">{t(check.reason)}</span>
         )}
       </div>
       <div className="player-dock">
         <section
           className={`rack ${expanded ? "expanded-rack" : ""}`}
-          aria-label="Your rack"
+          aria-label={t("Your rack")}
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => drop(e, "rack")}
         >
           <div className="rack-heading">
             <div>
-              <strong>{human.name}’s rack</strong>
+              <strong>
+                {human.name}
+                {t("’s rack")}
+              </strong>
               <span>
-                {human.rack.length} tiles{" "}
-                {human.melded ? "· opened" : "· not opened yet"}
+                {human.rack.length}
+                {t(" tiles")}{" "}
+                {t(human.melded ? "· opened" : "· not opened yet")}
               </span>
             </div>
             <div className="sort">
               <button onClick={() => setExpanded((x) => !x)}>
-                {expanded ? "Compact rack" : "Expand rack"}
+                {t(expanded ? "Compact rack" : "Expand rack")}
               </button>
-              <span>Sort</span>
+              <span>{t("Sort")}</span>
               <button
                 disabled={!myTurn}
                 onClick={() => act({ type: "sortRack", by: "color" })}
               >
-                Colour
+                {t("Colour")}
               </button>
               <button
                 disabled={!myTurn}
                 onClick={() => act({ type: "sortRack", by: "number" })}
               >
-                Number
+                {t("Number")}
               </button>
             </div>
           </div>
@@ -481,7 +512,7 @@ export function Game({
             className="rack-tiles"
             ref={rackRef}
             role="group"
-            aria-label="Your tiles. Use left and right arrows to navigate."
+            aria-label={t("Your tiles. Use left and right arrows to navigate.")}
           >
             {human.rack.map((id) => (
               <Tile
@@ -515,10 +546,10 @@ export function Game({
               onClick={() => move("new")}
               disabled={!myTurn}
             >
-              Place selected
+              {t("Place selected")}
             </button>
             <button className="text-button" onClick={() => setSelected([])}>
-              Deselect all
+              {t("Deselect all")}
             </button>
           </div>
         )}
@@ -526,61 +557,63 @@ export function Game({
           <div className="turn-tools">
             <button
               className="text-button"
-              aria-label="Undo move"
+              aria-label={t("Undo move")}
               disabled={!myTurn || !s.history?.length}
               onClick={() => act({ type: "undo" })}
             >
-              Undo
+              {t("Undo")}
             </button>
             {coaching && (
               <button
                 className="text-button"
-                aria-label={
-                  planning ? "Finding a move…" : "Show a possible move"
-                }
+                aria-label={t(
+                  planning ? "Finding a move…" : "Show a possible move",
+                )}
                 disabled={!myTurn || planning}
                 onClick={askHint}
               >
-                {planning ? "Thinking…" : "Hint"}
+                {t(planning ? "Thinking…" : "Hint")}
               </button>
             )}
             <button
               className="text-button"
-              aria-label="Reset turn"
+              aria-label={t("Reset turn")}
               data-coach-target={coachTarget === "reset" || undefined}
               disabled={!myTurn}
               onClick={() => act({ type: "resetTurn" })}
             >
-              Reset
+              {t("Reset")}
             </button>
             <details className="more-actions">
-              <summary>More</summary>
+              <summary>{t("More")}</summary>
               <div>
                 <button
                   className="text-button"
                   disabled={!myTurn || !activeSelected.length}
                   onClick={() => move("rack")}
                 >
-                  Return selected tiles to rack
+                  {t("Return selected tiles to rack")}
                 </button>
                 <details className="move-history">
-                  <summary>Move history</summary>
+                  <summary>{t("Move history")}</summary>
                   {s.log.map((line, i) => (
-                    <p key={i}>{line}</p>
+                    <p key={i}>{t(line)}</p>
                   ))}
                 </details>
               </div>
             </details>
             <span className="selection-count" role="status">
-              {activeSelected.length
-                ? `${activeSelected.length} selected`
-                : "Select tiles"}
+              {t(
+                activeSelected.length
+                  ? `${activeSelected.length} selected`
+                  : "Select tiles",
+              )}
             </span>
           </div>
           <div className="primary-actions">
             {lessonAction ? (
               <button className="primary" onClick={lessonAction.onClick}>
-                {lessonAction.label}
+                {t(lessonAction.label)}
               </button>
             ) : (
               <>
@@ -590,7 +623,7 @@ export function Game({
                   data-coach-target={coachTarget === "draw" || undefined}
                   onClick={() => act({ type: "draw" })}
                 >
-                  {s.pool.length ? "Draw a tile" : "Pass"} ↓
+                  {t(s.pool.length ? "Draw a tile" : "Pass")} ↓
                 </button>
                 <button
                   className={`primary ${!check.valid && dirty ? "danger" : ""}`}
@@ -598,7 +631,11 @@ export function Game({
                   data-coach-target={coachTarget === "end" || undefined}
                   onClick={() => act({ type: "endTurn" })}
                 >
-                  {check.valid || !dirty ? "End turn →" : "+3 tiles · End turn"}
+                  {t(
+                    check.valid || !dirty
+                      ? "End turn →"
+                      : "+3 tiles · End turn",
+                  )}
                 </button>
               </>
             )}
@@ -607,7 +644,7 @@ export function Game({
       </div>
       {s.notice && (
         <p className="game-notice" role="status">
-          {narrate ? narrateMove(s) : s.notice}
+          {t(narrate ? narrateMove(s) : s.notice)}
         </p>
       )}
     </main>

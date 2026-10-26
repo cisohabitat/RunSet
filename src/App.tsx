@@ -1,3 +1,4 @@
+import { LanguageSwitch, useI18n } from "./i18n/I18n";
 import { lazy, Suspense, useEffect, useReducer, useRef, useState } from "react";
 import {
   type GameState,
@@ -20,7 +21,9 @@ import {
 import { sound } from "./lib/sound";
 import { Home } from "./ui/Home";
 import { Setup } from "./ui/Setup";
-import { HowToPlay } from "./ui/HowToPlay";
+const HowToPlay = lazy(() =>
+  import("./ui/HowToPlay").then((module) => ({ default: module.HowToPlay })),
+);
 import { Game } from "./ui/Game";
 import { GameOver } from "./ui/GameOver";
 import { SaveTools } from "./ui/SaveTools";
@@ -30,6 +33,7 @@ const Tutorial = lazy(() => import("./ui/Tutorial"));
 type Screen = "home" | "setup" | "help" | "game" | "learn";
 const initial = loadGame();
 export default function App() {
+  const { t, locale } = useI18n();
   const [screen, setScreen] = useState<Screen>("home"),
     [helpBack, setHelpBack] = useState<Screen>("home");
   const [game, dispatchBase] = useReducer(
@@ -235,7 +239,11 @@ export default function App() {
   }, [game?.turn, game?.phase, confirmation]);
   const dispatch = (action: Action) => {
     const a = { ...action, at: Date.now() };
-    if (game?.turnSeconds && game.deadline !== undefined && a.at >= game.deadline) {
+    if (
+      game?.turnSeconds &&
+      game.deadline !== undefined &&
+      a.at >= game.deadline
+    ) {
       dispatchBase(a);
       return;
     }
@@ -305,10 +313,10 @@ export default function App() {
             e.currentTarget.open = false;
         }}
       >
-        <summary aria-label="Game menu">
-          <span className="desktop-word">Game</span>{" "}Menu
+        <summary aria-label={t("Game menu")}>
+          <span className="desktop-word">{t("Game")}</span> {t("Menu")}
         </summary>
-        <nav className="game-menu-content" aria-label="Game options">
+        <nav className="game-menu-content" aria-label={t("Game options")}>
           {" "}
           <button
             className="text-button"
@@ -326,19 +334,21 @@ export default function App() {
               );
             }}
           >
-            {game.phase === "over"
-              ? "Rematch with same players"
-              : "Restart with same players"}
+            {t(
+              game.phase === "over"
+                ? "Rematch with same players"
+                : "Restart with same players",
+            )}
           </button>
           <details className="preferences">
-            <summary>Playing options</summary>
+            <summary>{t("Playing options")}</summary>
             <label>
               <input
                 type="checkbox"
                 checked={learning}
                 onChange={(e) => setLearning(e.target.checked)}
               />{" "}
-              Explain penalties before ending a turn
+              {t("Explain penalties before ending a turn")}
             </label>
             <label>
               <input
@@ -346,7 +356,7 @@ export default function App() {
                 checked={narrate}
                 onChange={(e) => setNarrate(e.target.checked)}
               />{" "}
-              Explain opponent moves
+              {t("Explain opponent moves")}
             </label>
             <label>
               <input
@@ -354,17 +364,17 @@ export default function App() {
                 checked={touch}
                 onChange={(e) => setTouch(e.target.checked)}
               />{" "}
-              Larger touch controls
+              {t("Larger touch controls")}
             </label>
             <label>
-              Opponent pace{" "}
+              {t("Opponent pace")}{" "}
               <select
                 value={pace}
                 onChange={(e) => setPace(Number(e.target.value))}
               >
-                <option value={700}>Quick</option>
-                <option value={1400}>Comfortable</option>
-                <option value={2400}>Take my time</option>
+                <option value={700}>{t("Quick")}</option>
+                <option value={1400}>{t("Comfortable")}</option>
+                <option value={2400}>{t("Take my time")}</option>
               </select>
             </label>
           </details>
@@ -373,21 +383,21 @@ export default function App() {
             data-menu-action
             onClick={() => setConfirmation({ kind: "delete" })}
           >
-            Delete saved game
+            {t("Delete saved game")}
           </button>
           <button
             className="text-button"
             data-menu-action
             onClick={() => setScreen("learn")}
           >
-            Practice without losing this game
+            {t("Practice without losing this game")}
           </button>
           <details className="keyboard-guide">
-            <summary>Keyboard controls</summary>
+            <summary>{t("Keyboard controls")}</summary>
             <p>
-              Use left/right arrows or Home/End within tiles. Space selects. N
-              places selected tiles in a new group or run. Ctrl/⌘ Z undoes.
-              Escape clears selection. H asks for a hint.
+              {t(
+                "Use left/right arrows or Home/End within tiles. Space selects. N places selected tiles in a new group or run. Ctrl/⌘ Z undoes. Escape clears selection. H asks for a hint.",
+              )}
             </p>
           </details>
           <SaveTools game={game} onRestore={restore} />
@@ -403,40 +413,43 @@ export default function App() {
         <button
           className="brand"
           onClick={() => setScreen("home")}
-          aria-label="RunSet home"
+          aria-label={t("RunSet home")}
         >
           <span className="brand-icon">
-            r<span>◆</span>
+            {t("r")}
+            <span>◆</span>
           </span>
-          runset<span className="brand-period">.</span>
+          {t("runset")}
+          <span className="brand-period">.</span>
         </button>
         <div className="header-right">
+          <LanguageSwitch />
           {gameMenu}
-          <span className="header-tag">A GOOD TIME, WELL PLAYED.</span>
+          <span className="header-tag">{t("A GOOD TIME, WELL PLAYED.")}</span>
           <button
             className="sound-button"
             onClick={() => setMuted((x) => !x)}
-            aria-label={muted ? "Unmute sound" : "Mute sound"}
+            aria-label={t(muted ? "Unmute sound" : "Mute sound")}
             aria-pressed={muted}
           >
-            {muted ? "♪ Off" : "♫ On"}
+            {t(muted ? "♪ Off" : "♫ On")}
           </button>
           {screen !== "home" && (
             <button className="text-button" onClick={() => setScreen("home")}>
-              Home
+              {t("Home")}
             </button>
           )}
         </div>
       </header>
       {confirmation && (
         <ConfirmDialog
-          title={
+          title={t(
             confirmation.kind === "penalty"
               ? "This turn would draw penalty tiles"
               : confirmation.kind === "delete"
                 ? "Delete this saved game?"
-                : "Replace your saved game?"
-          }
+                : "Replace your saved game?",
+          )}
           cancelLabel={
             confirmation.kind === "penalty" ? "Keep editing" : "Keep game"
           }
@@ -498,8 +511,10 @@ export default function App() {
           {confirmation.kind === "penalty" && game ? (
             <>
               <p>
-                {turnCheck(game).reason} Ending now restores your moves and
-                draws up to three penalty tiles.
+                {t(turnCheck(game).reason)}
+                {t(
+                  " Ending now restores your moves and draws up to three penalty tiles.",
+                )}
               </p>
               <button
                 className="secondary"
@@ -508,25 +523,30 @@ export default function App() {
                   setConfirmation(null);
                 }}
               >
-                Reset turn instead
+                {t("Reset turn instead")}
               </button>
             </>
           ) : (
             <p>
-              Your progress{" "}
-              {confirmation.kind === "delete"
-                ? "will be removed"
-                : "will be replaced"}{" "}
-              on this browser. Sound and learning preferences are kept.
+              {t("Your progress")}{" "}
+              {t(
+                confirmation.kind === "delete"
+                  ? "will be removed"
+                  : "will be replaced",
+              )}{" "}
+              {t("on this browser. Sound and learning preferences are kept.")}
             </p>
           )}
-          {notice && <p role="alert">{notice}</p>}
+          {notice && <p role="alert">{t(notice)}</p>}
         </ConfirmDialog>
       )}
       {notice && (
         <div className="notice" role="status">
-          {notice}
-          <button aria-label="Dismiss notice" onClick={() => setNotice("")}>
+          {t(notice)}
+          <button
+            aria-label={t("Dismiss notice")}
+            onClick={() => setNotice("")}
+          >
             ×
           </button>
         </div>
@@ -545,7 +565,7 @@ export default function App() {
       {screen === "home" && (
         <>
           <p className="home-save-status" role="status">
-            {saveStatus}
+            {t(saveStatus)}
           </p>
           <SaveTools game={game} onRestore={restore} />
         </>
@@ -559,16 +579,26 @@ export default function App() {
       )}
       {screen === "learn" && (
         <Suspense
-          fallback={<p className="page">Preparing your practice table…</p>}
+          fallback={
+            <p className="page">{t("Preparing your practice table…")}</p>
+          }
         >
           <Tutorial
             onExit={() => setScreen("home")}
-            onPlay={() => start("You", 1, "easy", { coach: true })}
+            onPlay={() =>
+              start(locale === "zh-CN" ? "你" : "You", 1, "easy", {
+                coach: true,
+              })
+            }
           />
         </Suspense>
       )}
 
-      {screen === "help" && <HowToPlay onBack={() => setScreen(helpBack)} />}
+      {screen === "help" && (
+        <Suspense fallback={<p className="page">{t("Loading rules…")}</p>}>
+          <HowToPlay onBack={() => setScreen(helpBack)} />
+        </Suspense>
+      )}
       {screen === "game" &&
         game &&
         (game.phase === "over" ? (
@@ -596,15 +626,15 @@ export default function App() {
       )}
       <footer className="site-footer">
         <span>
-          runset.{" "}
+          {t("runset.")}{" "}
           <span className="footer-note">
-            A classic game. A fresh perspective.
+            {t("A classic game. A fresh perspective.")}
           </span>
         </span>
         <button className="text-button" onClick={help}>
-          How to play →
+          {t("How to play →")}
         </button>
-        <span>MADE FOR THE LOVE OF THE GAME</span>
+        <span>{t("MADE FOR THE LOVE OF THE GAME")}</span>
       </footer>
     </div>
   );

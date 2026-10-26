@@ -7,20 +7,20 @@ explicitly deferred and excluded from active release requirements.
 ## Automated results
 
 - `npm run typecheck`: passes with strict TypeScript.
-- `npm test`: 71 tests pass, including seeded simulations of more than 4,000 legal
+- `npm test`: 76 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: 33 Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: 39 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
-- `npm run test:offline`: three production Chromium flows pass: saved games and lazy
+- `npm run test:offline`: four production Chromium flows pass: saved games and lazy
   practice assets after an offline reload; and explicit service-worker updates
   preserving the saved game. The update test waits for the actual reload before
   reading storage.
 - `npm run build`: passes and emits a static application plus versioned offline
-  cache. The main JavaScript bundle is approximately 88 kB gzipped; optional
-  practice and worker assets are separate.
+  cache. The main JavaScript bundle is approximately 89 kB gzipped; optional
+  practice, rules, Chinese dictionary and worker assets are separate.
 
 ## Layout coverage
 
@@ -76,3 +76,13 @@ The supplied-playtest follow-up adds the exact 1180×757 laptop layout (normal
 and large tiles with Hint and Expand/Compact), empty-pool Pass guidance, and
 explicit optional-lesson completion with a retained final table on phone/laptop.
 See PLAYTEST_FOLLOWUP.md for mapping to RS-01 through RS-03.
+
+Simplified Chinese coverage adds all three lessons at phone/iPad/laptop sizes,
+language switching with a live tile selection, browser-language detection and
+persisted overrides, backup errors, save/name preservation, safe deletion,
+empty-pool hints/timers, results and a narrow-phone menu. The fourth offline
+flow switches to Chinese after disconnecting (before fetching the dictionary),
+reloads, opens practice and rules, then switches back to English. Chinese
+screenshots were inspected in light/dark Chromium; actual Apple devices and
+comprehension testing with older Chinese speakers remain manual checks.
+See LOCALIZATION.md.

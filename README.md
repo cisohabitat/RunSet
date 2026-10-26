@@ -16,8 +16,24 @@ npm run dev
 
 Open the local URL printed by Vite (normally http://localhost:5173).
 
+## Language / 语言
+
+Choose **English** or **简体中文** from the language selector at the top of any
+screen. Chinese browsers start in Simplified Chinese unless a language has already
+been chosen. Your choice stays on this device and switching preserves games,
+lesson progress and selected tiles. Both languages work offline once readiness
+is confirmed. Names entered by players are preserved.
+
+在页面顶部选择 **简体中文**，即可使用中文游戏、玩法说明和练习。第一次玩，
+建议先点 **学习玩法**，跟着提示一步一步做。中文练习使用更大的文字和按钮，
+可上下滑动查看完整说明和牌桌。可随时切回 English，不会丢失进度。
+
+See [localization notes](docs/LOCALIZATION.md) for terminology and verification.
+
 ## What’s included
 
+- English and Simplified Chinese screens, all three lessons, hints, penalties,
+  timers, results, backup/recovery notices, and accessible tile labels.
 - The full 106-tile deck, seeded shuffle, random seats, and 14-tile deals.
 - Groups, runs, jokers, 30-point opening melds, and table rearrangements.
 - Joker retrieval by exact replacement and same-turn reuse; no table tiles return
@@ -58,7 +74,7 @@ No brand names or third-party tile artwork are used by the game.
 
 ## Controls and rules
 
-Select one or more tiles, then choose **New meld** or the add button under an
+Select one or more tiles, then choose **New group or run** or the add button under an
 existing meld. Dragging supports one tile or a selection. Return newly played
 rack tiles with **Return selected tiles to rack** or by dropping onto your rack.
 Use Tab to enter a rack or group, arrow keys or Home/End to move between tiles,

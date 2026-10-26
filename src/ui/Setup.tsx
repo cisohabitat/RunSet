@@ -1,3 +1,4 @@
+import { useI18n } from "../i18n/I18n";
 import { useState } from "react";
 import type { Difficulty, GameOptions } from "../engine/game";
 export function Setup({
@@ -14,23 +15,24 @@ export function Setup({
   onBack: () => void;
   hasSave: boolean;
 }) {
+  const { t, locale } = useI18n();
   const [target, setTarget] = useState<0 | 100 | 200 | 500>(0),
     [turnSeconds, setTurnSeconds] = useState<0 | 60 | 120>(0);
-  const [name, setName] = useState("You"),
+  const [name, setName] = useState(locale === "zh-CN" ? "你" : "You"),
     [bots, setBots] = useState(2),
     [difficulty, setDifficulty] = useState<Difficulty>("normal");
   return (
     <main className="page setup">
       <button className="text-button" onClick={onBack}>
-        ← Back
+        {t("← Back")}
       </button>
-      <div className="eyebrow">PULL UP A CHAIR</div>
+      <div className="eyebrow">{t("PULL UP A CHAIR")}</div>
       <h1>
-        Your table.
+        {t("Your table.")}
         <br />
-        <em>Your pace.</em>
+        <em>{t("Your pace.")}</em>
       </h1>
-      <p>Settle in for a round or a longer match of tile-rummy.</p>
+      <p>{t("Settle in for a round or a longer match of tile-rummy.")}</p>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -38,7 +40,7 @@ export function Setup({
         }}
       >
         <label className="field-label" htmlFor="name">
-          What should we call you?
+          {t("What should we call you?")}
         </label>
         <input
           id="name"
@@ -48,7 +50,7 @@ export function Setup({
           autoComplete="nickname"
         />
         <fieldset>
-          <legend>Computer opponents</legend>
+          <legend>{t("Computer opponents")}</legend>
           <div className="choices">
             {[1, 2, 3].map((n) => (
               <button
@@ -58,13 +60,13 @@ export function Setup({
                 key={n}
                 onClick={() => setBots(n)}
               >
-                {n} {n === 1 ? "opponent" : "opponents"}
+                {n} {t(n === 1 ? "opponent" : "opponents")}
               </button>
             ))}
           </div>
         </fieldset>
         <fieldset>
-          <legend>A little challenge?</legend>
+          <legend>{t("A little challenge?")}</legend>
           <div className="difficulty-choices">
             {(["easy", "normal", "hard"] as const).map((d, i) => (
               <button
@@ -75,25 +77,25 @@ export function Setup({
                 onClick={() => setDifficulty(d)}
               >
                 <strong>
-                  {["Easy does it", "A fair match", "Think ahead"][i]}
+                  {t(["Easy does it", "A fair match", "Think ahead"][i])}
                 </strong>
                 <span>
-                  {
+                  {t(
                     [
                       "New melds only. Room to learn.",
                       "Clever sets and well-timed additions.",
                       "Rearranges the table. Bring your best.",
-                    ][i]
-                  }
+                    ][i],
+                  )}
                 </span>
               </button>
             ))}
           </div>
         </fieldset>
         <fieldset>
-          <legend>How long would you like to play?</legend>
+          <legend>{t("How long would you like to play?")}</legend>
           <label className="field-label" htmlFor="match-length">
-            Game length
+            {t("Game length")}
           </label>
           <select
             id="match-length"
@@ -102,16 +104,16 @@ export function Setup({
               setTarget(Number(e.target.value) as 0 | 100 | 200 | 500)
             }
           >
-            <option value={0}>One round</option>
-            <option value={100}>Match · first to 100 points</option>
-            <option value={200}>Match · first to 200 points</option>
-            <option value={500}>Match · first to 500 points</option>
+            <option value={0}>{t("One round")}</option>
+            <option value={100}>{t("Match · first to 100 points")}</option>
+            <option value={200}>{t("Match · first to 200 points")}</option>
+            <option value={500}>{t("Match · first to 500 points")}</option>
           </select>
         </fieldset>
         <fieldset>
-          <legend>Optional turn timer</legend>
+          <legend>{t("Optional turn timer")}</legend>
           <label className="field-label" htmlFor="turn-timer">
-            Time per turn
+            {t("Time per turn")}
           </label>
           <select
             id="turn-timer"
@@ -120,25 +122,28 @@ export function Setup({
               setTurnSeconds(Number(e.target.value) as 0 | 60 | 120)
             }
           >
-            <option value={0}>No timer · recommended for learning</option>
-            <option value={60}>1 minute</option>
-            <option value={120}>2 minutes</option>
+            <option value={0}>
+              {t("No timer · recommended for learning")}
+            </option>
+            <option value={60}>{t("1 minute")}</option>
+            <option value={120}>{t("2 minutes")}</option>
           </select>
           {turnSeconds > 0 && (
             <p className="muted">
-              When time runs out, unfinished edits are restored and you draw one
-              tile (or pass if the pool is empty). The clock keeps running when
-              you leave the game.
+              {t(
+                "When time runs out, unfinished edits are restored and you draw one tile (or pass if the pool is empty). The clock keeps running when you leave the game.",
+              )}
             </p>
           )}
         </fieldset>
         {hasSave && (
           <p className="muted">
-            Starting a new game replaces your saved round.
+            {t("Starting a new game replaces your saved round.")}
           </p>
         )}
         <button className="primary" type="submit">
-          Deal the tiles <span>→</span>
+          {t("Deal the tiles ")}
+          <span>→</span>
         </button>
       </form>
     </main>

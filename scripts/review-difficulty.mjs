@@ -214,7 +214,7 @@ try {
     },
     limitations: [
       "Node timing on this CPU is not physical iPhone/iPad performance.",
-      "Only ten distinct deals per format by default; seat-swapped rounds sharing a deal are correlated.",
+      `${seeds} distinct deals per format; seat-swapped rounds sharing a deal are correlated.`,
       "Time-bounded search may choose different moves under different host load; seeded deals alone do not reproduce scores exactly.",
       "A bot round win is not a measurement of human enjoyment or beginner accessibility.",
       "This sample does not cover four-player games or long multi-round matches.",

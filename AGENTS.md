@@ -385,3 +385,9 @@ share a visible layout. `runset.solo.v1` is independent bounded local progress,
 with deterministic cross-tab merging and no streak requirement. Preserve both
 exercise keys when deleting regular games. Keep paused human checks explicitly
 untested in `docs/PREMIUM_ACCEPTANCE.md`; automated playback cannot approve tone.
+
+The active follow-up cycle is `docs/QUALITY_ROADMAP.md`: difficulty audit, then
+accessibility, then performance/recovery. Gate every phase on exact-commit CI.
+Benchmark smoke must validate original proposals before reducer fallback and
+count empty-pool passes separately. Report seed blocks, not independent seat
+rounds, when comparing difficulty; retain raw reports and engine fingerprints.

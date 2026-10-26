@@ -338,3 +338,12 @@ real-rule checks. Local progress deduplicates completions and marks all four
 exercise types without accounts or streaks. See [solo puzzles](docs/PREMIUM_SOLO.md).
 The [physical-device and beginner acceptance checklist](docs/PREMIUM_ACCEPTANCE.md)
 is prepared; the user-paused study and native listening review have not run.
+
+The current [quality follow-up](docs/QUALITY_ROADMAP.md) audits bot difficulty,
+accessibility, and performance/recovery, with a separate published CI gate for
+each phase. Physical-device and beginner studies remain paused.
+
+The [larger bot audit](docs/QUALITY_BOTS.md) covers 360 rounds and 39,212 turns
+with no rejected proposals or measured calls over 400 ms. Easy remains the
+learning default; Normal/Hard results overlap, so labels describe strategies.
+CI benchmark smoke now checks submitted plans before safe draw/pass fallback.

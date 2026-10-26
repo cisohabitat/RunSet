@@ -38,7 +38,14 @@ try {
     metrics = Object.fromEntries(
       levels.map((level) => [
         level,
-        { wins: 0, moves: 0, tilesPlayed: 0, draws: 0, latencies: [] },
+        {
+          wins: 0,
+          moves: 0,
+          tilesPlayed: 0,
+          draws: 0,
+          passes: 0,
+          latencies: [],
+        },
       ]),
     ),
     games = [];
@@ -63,18 +70,55 @@ try {
       });
       while (s.phase === "playing" && moves < 1000) {
         const p = s.players[s.current],
-          before = p.rack.length,
+          before = p.rack.length;
+        const safe = structuredClone(s);
+        safe.history = [];
+        safe.log = [];
+        safe.players.forEach((player, i) => {
+          if (i !== safe.current) player.rack = [];
+        });
+        const input = JSON.stringify(safe),
           start = performance.now(),
-          table = planBot(s, budget),
+          table = planBot(safe, budget),
           elapsed = performance.now() - start;
+        if (JSON.stringify(safe) !== input)
+          throw Error("Planner mutated input");
+        // Validate the submitted proposal before botTurn can safely convert an
+        // invalid move into a draw. A legal final table alone misses that bug.
+        const proposed = table.flatMap((m) => m.tiles),
+          mandatory = s.table.flatMap((m) => m.tiles),
+          available = new Set([...mandatory, ...p.rack]);
+        if (
+          new Set(proposed).size !== proposed.length ||
+          new Set(table.map((m) => m.id)).size !== table.length ||
+          mandatory.some((id) => !proposed.includes(id)) ||
+          proposed.some((id) => !available.has(id))
+        )
+          throw Error("Invalid submitted tile inventory");
+        const used = proposed.filter((id) => p.rack.includes(id)).length;
+        const trial = used ? reducer(s, { type: "applyPlan", table }) : s;
+        if (
+          used &&
+          (trial === s ||
+            !turnCheck(trial).valid ||
+            trial.players[s.current].rack.length !== before - used)
+        )
+          throw Error("Rejected submitted bot plan");
+        if (!used && JSON.stringify(table) !== JSON.stringify(s.table))
+          throw Error("Rearranged without playing a rack tile");
         const next = reducer(s, { type: "botTurn", table });
         conserved(next);
         const after = next.players[s.current].rack.length,
           m = metrics[p.bot];
+        if (used && after !== before - used)
+          throw Error("Submitted bot play was not applied");
         m.moves++;
         m.latencies.push(elapsed);
         m.tilesPlayed += Math.max(0, before - after);
-        if (after >= before) m.draws++;
+        if (after >= before) {
+          if (s.pool.length) m.draws++;
+          else m.passes++;
+        }
         s = next;
         moves++;
       }
@@ -99,9 +143,12 @@ try {
       const next = reducer(s, { type: "applyPlan", table: hint.table });
       conserved(next);
       legal =
+        next !== s &&
+        hint.used.length > 0 &&
         turnCheck(next).valid &&
         next.turn === s.turn &&
-        next.current === s.current;
+        next.current === s.current &&
+        hint.used.every((id) => next.table.some((m) => m.tiles.includes(id)));
     }
     if (!legal) throw Error("Illegal hint");
     hints.push({
@@ -127,6 +174,7 @@ try {
       seeds,
       seatRotations: 3,
       planningBudgetMs: budget,
+      productionRedaction: true,
       effectiveWorkBudgetMs: Math.min(budget, BOT_WORK_BUDGET_MS),
       description:
         "Same seeded deals with each difficulty rotated through every seat; exploratory sample, not proof of a strength ranking. Search is time bounded and may vary by machine.",
@@ -142,6 +190,7 @@ try {
             moves: m.moves,
             tilesPlayed: m.tilesPlayed,
             draws: m.draws,
+            passes: m.passes,
             latencyMs: {
               p50: +quantile(m.latencies, 0.5).toFixed(2),
               p95: +quantile(m.latencies, 0.95).toFixed(2),
@@ -155,6 +204,8 @@ try {
     hints,
     checks: {
       allGamesFinished: true,
+      allSubmittedPlansLegal: true,
+      allPlanningInputsUnchanged: true,
       allTablesLegal: true,
       all106TilesConserved: true,
       allHintPlansLegal: true,

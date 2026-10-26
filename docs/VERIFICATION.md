@@ -193,3 +193,9 @@ remain untested, as recorded in PREMIUM_ACCEPTANCE.md.
 
 A further exercise regression accepts a valid additional extension after the
 stated goal is met; full-turn legality still gates completion.
+
+Quality follow-up Phase 1: 360 fresh production-budget rounds on seeds 501–530,
+39,212 turns, all original plans legal, all tile IDs conserved and unchanged
+planner inputs. No call exceeded 400 ms on the recorded Node host. The benchmark
+smoke now validates original plans, actual placement and pass/draw distinction.
+See QUALITY_BOTS.md for raw data and correlated-seed limitations.

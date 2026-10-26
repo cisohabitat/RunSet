@@ -1544,7 +1544,7 @@ input {
   min-height: 60px;
 }
 .meld.invalid::before {
-  content: "! Needs fixing";
+  content: "! " attr(data-invalid-label);
   display: block;
   color: var(--red);
   font-size: 10px;
@@ -3252,4 +3252,261 @@ button:not(.tile) {
   .playing .brand-icon {
     display: none;
   }
+}
+
+/* Selected tiles carry a shape cue as well as colour and raised position. */
+.tile-check {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #163f36;
+  color: #fff;
+  font:
+    700 13px/18px system-ui,
+    sans-serif;
+}
+.tile.selected {
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+}
+.settings-dialog {
+  max-height: calc(100dvh - 24px);
+  overflow: auto;
+}
+.settings-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.settings-heading h2 {
+  margin: 0;
+}
+.settings-dialog fieldset {
+  border: 0;
+  border-top: 1px solid var(--line);
+  padding: 14px 0;
+  margin: 20px 0 0;
+  min-width: 0;
+}
+.settings-dialog legend {
+  font-weight: 750;
+  padding-right: 10px;
+}
+.settings-dialog label {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-height: 48px;
+  margin: 8px 0;
+  cursor: pointer;
+}
+.settings-dialog input[type="checkbox"] {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  accent-color: var(--green);
+}
+.settings-dialog p {
+  line-height: 1.7;
+}
+.settings-dialog select {
+  width: auto;
+  min-width: 0;
+  max-width: 65%;
+  margin-left: auto;
+}
+.settings-preview {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--soft);
+}
+
+/* Comfortable reading trades fixed-height panels for readable, flowing pages. */
+.app.comfortable-reading {
+  font-size: 18px;
+}
+.app.comfortable-reading.playing {
+  height: auto;
+  min-height: 100dvh;
+  overflow: visible;
+}
+.app.comfortable-reading
+  :is(
+    p,
+    .intro,
+    .dialog-copy,
+    .practice-panel p,
+    .game-notice,
+    .status-line,
+    .coach-card,
+    .first-game-guide,
+    .save-indicator
+  ) {
+  font-size: 18px;
+  line-height: 1.7;
+}
+.app.comfortable-reading
+  :is(button:not(.tile), summary, label, input, select, legend) {
+  font-size: 18px;
+}
+.app.comfortable-reading
+  :is(button:not(.tile), summary, select, input:not([type="checkbox"])) {
+  min-height: 48px;
+}
+.app.comfortable-reading
+  :is(
+    .eyebrow,
+    .table-topline,
+    .opponent span,
+    .pool-count span,
+    .rack-heading span,
+    figcaption,
+    .selection-count
+  ) {
+  font-size: 16px;
+  letter-spacing: 0;
+}
+.app.comfortable-reading .tile {
+  width: 58px;
+  min-width: 58px;
+  height: 80px;
+  min-height: 80px;
+  font-size: 32px;
+}
+.app.comfortable-reading .tile-foot {
+  font-size: 12px;
+}
+.app.comfortable-reading .tile-mark {
+  font-size: 9px;
+}
+.app.comfortable-reading :is(.game, .practice-layout.playing) {
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+  flex: none;
+}
+.app.comfortable-reading .game {
+  width: 100%;
+}
+.app.comfortable-reading
+  :is(
+    .game-context,
+    .practice-panel,
+    .practice-copy,
+    .game-notice,
+    .coach-card
+  ) {
+  max-height: none;
+  overflow: visible;
+}
+.app.comfortable-reading .practice-layout.playing > .practice-panel {
+  max-height: none;
+}
+.app.comfortable-reading .table {
+  flex: none;
+  height: 320px;
+  min-height: 220px;
+  max-height: 55dvh;
+}
+.app.comfortable-reading .table-topline {
+  position: static;
+}
+.app.comfortable-reading .player-dock {
+  position: static;
+}
+.app.comfortable-reading .rack-heading {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.app.comfortable-reading .sort {
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+.app.comfortable-reading .rack-tiles {
+  max-height: 200px;
+  padding-top: 16px;
+  padding-bottom: 14px;
+}
+.app.comfortable-reading .expanded-rack .rack-tiles {
+  max-height: 320px;
+}
+.app.comfortable-reading .site-header {
+  height: auto;
+  min-height: 84px;
+  flex-basis: auto;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.app.comfortable-reading .header-right {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.app.comfortable-reading .header-tag {
+  display: none;
+}
+.app.comfortable-reading .language-switch select {
+  max-width: none;
+}
+.app.comfortable-reading .game-menu-content {
+  font-size: 18px;
+}
+.app.comfortable-reading .primary-actions {
+  flex-wrap: wrap;
+}
+.app.comfortable-reading .table-tools {
+  flex-wrap: wrap;
+}
+.app.comfortable-reading .hint-summary {
+  display: block;
+}
+.app.comfortable-reading .hint-actions {
+  margin-top: 12px;
+}
+@media (max-width: 720px) {
+  .app.comfortable-reading .site-header {
+    justify-content: center;
+  }
+  .app.comfortable-reading .header-right {
+    justify-content: center;
+  }
+  .app.comfortable-reading .game-menu-content {
+    top: 12px;
+    max-height: calc(100dvh - 24px);
+  }
+  .app.comfortable-reading .game .table-tools button {
+    padding: 8px;
+  }
+  .app.comfortable-reading .practice-actions {
+    gap: 8px;
+  }
+}
+.app.comfortable-reading .header-right > .text-button {
+  width: auto;
+  min-width: 48px;
+}
+.app.comfortable-reading .new-meld {
+  flex-wrap: wrap;
+  max-width: 100%;
+  min-width: 0;
+}
+.app.comfortable-reading .new-meld small {
+  font-size: 16px;
+}
+.app.comfortable-reading .brand {
+  font-size: 28px;
+}
+.app.comfortable-reading
+  :is(.hero-meta span, .footer-note, .language-switch > span) {
+  font-size: 16px;
+}
+.app.comfortable-reading .hero-art :is(.art-label, .hand-note),
+.app.comfortable-reading .site-footer > span:last-child {
+  display: none;
 }

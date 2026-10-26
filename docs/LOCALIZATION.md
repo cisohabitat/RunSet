@@ -44,7 +44,7 @@ hint explanations are translated on display, including existing English saves.
 Unknown messages fall back to readable English. New or changed messages require
 matching dictionary entries and tests.
 
-The dictionary is a separate approximately 13.3 kB gzip chunk. Illustrated rules
+The dictionary is a separate approximately 13.6 kB gzip chunk. Illustrated rules
 are also loaded separately, preserving the existing 100,000-byte initial-download
 budget. The production service worker precaches both alongside lessons and bots.
 A failed language download leaves English available and reports a bilingual
@@ -68,3 +68,7 @@ The full checks are recorded in VERIFICATION.md. These are Chromium viewport
 checks; physical iPhone/iPad Safari and comprehension testing with older native
 Chinese speakers have not been performed. Such a playtest remains useful for
 confirming comfortable text size and preferred local terminology.
+
+Comfortable reading is available in both languages from Settings (设置). Its
+copy, controls and timed-game reminder are translated. Eight additional browser
+flows and a fifth offline flow cover the shared reading mode; see READING_MODE.md.

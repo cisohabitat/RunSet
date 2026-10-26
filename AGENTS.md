@@ -47,6 +47,29 @@ from the public repository.
   Keep the Chinese dictionary and lazy rules in the offline precache; test switching
   languages after disconnecting before the first Chinese visit.
 
+## Comfortable reading
+
+- `runset.reading` is a separate, optional view preference. Preserve the existing
+  `runset.largeTiles` tile-only preference, language, sound and learning settings.
+  Deleting a game must preserve all view preferences.
+- Comfortable reading uses `.comfortable-reading` on the existing App root.
+  Never remount the game or lesson when changing it. Preserve tile selections,
+  hints, timer deadlines and practice state. Main copy is 18 px, supporting labels
+  16 px, tiles 58×80 px, and main controls at least 48 px tall.
+- Large mode uses normal page scrolling with a bounded table and rack; avoid fixed
+  panel heights that squeeze text or hide destinations. Test both languages at
+  360×640, 820×1180 and 1180×757 and inspect light/dark screenshots.
+- Settings is one dialog accessible from every screen. Retain the opener and
+  captured dialog element through effect cleanup so Done/Escape restore focus in
+  StrictMode as well as production. Bot callbacks pause while it is open; timed
+  games continue ticking and must say so visibly.
+- Selected tiles need a check mark plus the raised/outlined state. Translate
+  invalid-meld labels in the DOM; do not embed English player messages in CSS.
+- Settings and results load separately and are included in the generated offline
+  precache. Verify first settings use while offline, not only a cached open dialog.
+- The older Chinese-speaking player study and physical-device checks (new roadmap
+  Phase 1) are paused by the user. Do not block Phase 2 on that study or claim it ran.
+
 ## Working and verification
 
 - Inspect files and Git status before editing. Preserve unrelated changes and

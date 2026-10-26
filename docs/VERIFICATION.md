@@ -10,11 +10,11 @@ explicitly deferred and excluded from active release requirements.
 - `npm test`: 76 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: 39 Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: 47 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
-- `npm run test:offline`: four production Chromium flows pass: saved games and lazy
+- `npm run test:offline`: five production Chromium flows pass: saved games and lazy
   practice assets after an offline reload; and explicit service-worker updates
   preserving the saved game. The update test waits for the actual reload before
   reading storage.
@@ -86,3 +86,12 @@ reloads, opens practice and rules, then switches back to English. Chinese
 screenshots were inspected in light/dark Chromium; actual Apple devices and
 comprehension testing with older Chinese speakers remain manual checks.
 See LOCALIZATION.md.
+
+Comfortable reading adds eight browser flows: both languages complete all three
+lessons at phone/tablet/laptop sizes, with larger text and tiles, hit-tested
+controls, visible selection check marks, no horizontal page overflow, and
+selection/save preservation when toggling the mode. Preferences persist across
+reload/deletion; Done/Escape restore focus. A timed-game check confirms expiry
+continues while Settings is open. The fifth offline flow opens Settings for the
+first time after disconnecting and retains reading mode on reload. See
+READING_MODE.md. Phase 1 human/device testing remains paused by the user.

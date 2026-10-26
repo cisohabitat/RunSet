@@ -155,13 +155,11 @@ test("Chinese regular game keeps names and save across switches, backup errors a
     await page.evaluate(() => localStorage.getItem("runset.save.v1")),
   ).toBe(saved);
   await page.getByLabel("语言 / Language").selectOption("zh-CN");
-  await page
-    .locator('input[type="file"]')
-    .setInputFiles({
-      name: "bad.json",
-      mimeType: "application/json",
-      buffer: Buffer.from("not-json"),
-    });
+  await page.locator('input[type="file"]').setInputFiles({
+    name: "bad.json",
+    mimeType: "application/json",
+    buffer: Buffer.from("not-json"),
+  });
   await expect(
     page.getByRole("status").filter({ hasText: "无法读取这个 JSON 文件" }),
   ).toBeVisible();
@@ -244,7 +242,11 @@ test("Chinese empty-pool hint, timer, menu and results work on a narrow phone", 
     animations: "disabled",
   });
   await page.getByLabel("游戏菜单", { exact: true }).click();
-  await expect(page.getByText("游戏设置", { exact: true })).toBeVisible();
+  await expect(
+    page
+      .locator(".game-menu-content")
+      .getByRole("button", { name: "设置", exact: true }),
+  ).toBeVisible();
   await page.getByLabel("游戏菜单", { exact: true }).click();
   await page.getByRole("button", { name: "首页", exact: true }).click();
   await page.evaluate(() => {

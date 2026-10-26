@@ -156,3 +156,30 @@ test("both languages, rules and lessons remain available after an offline reload
   ).toBeVisible();
   await context.setOffline(false);
 });
+
+test("comfortable reading and settings load for the first time offline", async ({
+  page,
+  context,
+}) => {
+  await page.goto("/");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Ready offline" }),
+  ).toBeVisible();
+  await context.setOffline(true);
+  await page.getByRole("button", { name: "Settings", exact: true }).click();
+  const dialog = page.getByRole("dialog", { name: "Settings", exact: true });
+  await dialog.getByLabel("Comfortable reading", { exact: true }).check();
+  await page.keyboard.press("Escape");
+  await page.reload();
+  await expect(page.locator(".app")).toHaveClass(/comfortable-reading/);
+  await page.getByRole("button", { name: /Learn to play/ }).click();
+  await expect(
+    page.getByRole("heading", { name: "Make a group", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Settings", exact: true }).click();
+  await expect(
+    dialog.getByLabel("Comfortable reading", { exact: true }),
+  ).toBeChecked();
+  await page.keyboard.press("Escape");
+  await context.setOffline(false);
+});

@@ -93,6 +93,11 @@ export function Tile({
         onDrag?.(id);
       }}
     >
+      {selected && (
+        <span className="tile-check" aria-hidden="true">
+          ✓
+        </span>
+      )}
       <span className="tile-mark" aria-hidden="true">
         {t(tile.joker ? "★" : marks[tile.color!])}
       </span>

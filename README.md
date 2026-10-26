@@ -30,6 +30,21 @@ is confirmed. Names entered by players are preserved.
 
 See [localization notes](docs/LOCALIZATION.md) for terminology and verification.
 
+## Comfortable reading / 大字舒适模式
+
+Open **Settings → Comfortable reading** (中文：**设置 → 大字舒适模式**) on any
+screen for 18 px main text, 16 px supporting labels, larger tiles and buttons,
+and a scrolling layout. Selected tiles have a visible check mark. Turn the mode
+off to return to the compact layout; selections and progress are preserved.
+Settings also groups sound effects, opponent speed and learning help. Preferences
+stay on this device, work offline and survive game deletion. Turn timers continue
+while settings are open, with a visible reminder. The independent large-tile
+option remains available when comfortable reading is off.
+
+See [reading-mode verification](docs/READING_MODE.md). The older-player study and
+real-device checks (Phase 1) are paused; Phase 2 is implemented. The remaining
+phases are tracked in [the roadmap](docs/ROADMAP.md).
+
 ## What’s included
 
 - English and Simplified Chinese screens, all three lessons, hints, penalties,
@@ -58,7 +73,7 @@ See [localization notes](docs/LOCALIZATION.md) for terminology and verification.
   compact backup help, and a winner-first results display. Optional lessons retain
   their completed table and explain joker replacement before reuse. Empty-pool
   hints and timer/coaching help consistently recommend Pass.
-- Desktop, tablet, and phone layouts with 44 px targets, a persistent player dock,
+- Desktop, tablet, and phone layouts with 44 px targets, an optional 48 px comfortable mode, a compact player dock,
   contained table/rack scrolling, and iPhone safe-area padding.
 - Tap/click selection, desktop dragging, keyboard-operable destinations, sorting,
   reset, draw/pass, live validation, and move history.
@@ -80,7 +95,8 @@ rack tiles with **Return selected tiles to rack** or by dropping onto your rack.
 Use Tab to enter a rack or group, arrow keys or Home/End to move between tiles,
 and Space/Enter to select. N places a selection in a new group or run, Ctrl/⌘ Z
 undoes, H requests a hint, and Escape clears the selection. Restart, deletion,
-preferences, offline tools, and keyboard help are available in the Game menu.
+offline tools, and keyboard help are available in the Game menu. Reading, sound,
+opponent pace and learning preferences are available in Settings on every screen.
 
 Open with at least 30 points from your own rack before touching table tiles.
 After opening, rearrange freely, keeping every meld valid. **Reset turn** restores

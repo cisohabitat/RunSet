@@ -1,5 +1,25 @@
 # RunSet improvement roadmap
 
+## Current roadmap: older Chinese-speaking players
+
+Phase 1 is paused at the user’s request. Phase 2 is implemented in this release;
+Phases 3–6 remain planned. Each implementation phase is published separately,
+and GitHub CI for its exact commit must pass before the next phase begins.
+
+| Phase | Status | Work |
+| --- | --- | --- |
+| 1 | Paused | Observe 3–5 older Chinese-speaking beginners; physical iPhone/iPad checks |
+| 2 | Implemented | Comfortable reading, larger tiles/controls, selected check marks, unified Settings; see [READING_MODE.md](READING_MODE.md) |
+| 3 | Planned | Clearer first-game next actions, unavailable End explanations and destinations |
+| 4 | Planned | Explain round endings/scoring and distinguish same-settings replay from setup |
+| 5 | Planned | Optional replayable Mandarin lesson/reminder audio with text retained |
+| 6 | Planned | Short mistake-focused exercises and a larger difficulty evaluation before tuning bots |
+
+English/Simplified Chinese support is already implemented; multiplayer stays
+deferred. The release history and original acceptance criteria follow below.
+
+## Earlier releases
+
 Status: Releases 1–3 and the local expansion (multi-round matches and optional
 turn timers) are implemented. Each implementation phase is published separately
 to `main`. Automated coverage includes guided learning, isolated saves,

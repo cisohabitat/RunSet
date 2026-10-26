@@ -8,6 +8,24 @@ const messages: Record<string, string> = {
   "{name}’s saved game": "{name} 保存的游戏",
   "Round {n}:": "第 {n} 局：",
   "Deal round {n} →": "发牌，开始第 {n} 局 →",
+  Settings: "设置",
+  Done: "完成",
+  "Reading and display": "阅读与显示",
+  "Comfortable reading": "大字舒适模式",
+  "Larger text, tiles and buttons. Pages scroll so you can read and play at your own pace.":
+    "放大文字、牌和按钮。页面可以上下滑动，让你慢慢看、慢慢玩。",
+  "Choose tiles, then choose where to place them.":
+    "先选牌，再选择放牌的位置。",
+  "Sound and pace": "声音与速度",
+  "Sound effects": "游戏音效",
+  "Learning help": "学习帮助",
+  "Settings are remembered on this device. Your game and lesson progress are kept.":
+    "设置会保存在此设备上，游戏和练习进度也会保留。",
+  "The turn timer keeps running while settings are open.":
+    "打开设置时，回合计时仍会继续。",
+  "Loading settings…": "正在打开设置…",
+  "Loading results…": "正在显示结果…",
+  "Needs fixing": "需要调整",
   "Game menu": "游戏菜单",
   Game: "游戏",
   Menu: "菜单",

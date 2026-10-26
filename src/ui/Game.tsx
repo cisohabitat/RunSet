@@ -343,6 +343,7 @@ export function Game({
             return (
               <div
                 key={m.id}
+                data-invalid-label={t("Needs fixing")}
                 className={`meld ${info.valid ? "" : "invalid"}`}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => drop(e, m.id)}

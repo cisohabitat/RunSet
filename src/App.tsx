@@ -25,7 +25,10 @@ const HowToPlay = lazy(() =>
   import("./ui/HowToPlay").then((module) => ({ default: module.HowToPlay })),
 );
 import { Game } from "./ui/Game";
-import { GameOver } from "./ui/GameOver";
+const GameOver = lazy(() =>
+  import("./ui/GameOver").then((module) => ({ default: module.GameOver })),
+);
+const Settings = lazy(() => import("./ui/Settings"));
 import { SaveTools } from "./ui/SaveTools";
 import { Offline } from "./ui/Offline";
 import { ConfirmDialog } from "./ui/ConfirmDialog";
@@ -57,6 +60,21 @@ export default function App() {
     expectedTurn?: number;
     expectedSeed?: number;
   } | null>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [reading, setReading] = useState(() => {
+    try {
+      return localStorage.getItem("runset.reading") === "true";
+    } catch {
+      return false;
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem("runset.reading", String(reading));
+    } catch {
+      /* Optional view preference. */
+    }
+  }, [reading]);
   const [learning, setLearning] = useState(() => {
     try {
       return localStorage.getItem("runset.learning") !== "false";
@@ -191,6 +209,7 @@ export default function App() {
     if (
       screen !== "game" ||
       confirmation ||
+      settingsOpen ||
       !game ||
       game.phase !== "playing" ||
       !game.players[game.current].bot
@@ -212,7 +231,7 @@ export default function App() {
       clearTimeout(timer);
       controller.abort();
     };
-  }, [game, screen, confirmation, pace]);
+  }, [game, screen, confirmation, settingsOpen, pace]);
   useEffect(() => {
     if (screen !== "game" || !game) return;
     if (game.phase === "over")
@@ -340,44 +359,13 @@ export default function App() {
                 : "Restart with same players",
             )}
           </button>
-          <details className="preferences">
-            <summary>{t("Playing options")}</summary>
-            <label>
-              <input
-                type="checkbox"
-                checked={learning}
-                onChange={(e) => setLearning(e.target.checked)}
-              />{" "}
-              {t("Explain penalties before ending a turn")}
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                checked={narrate}
-                onChange={(e) => setNarrate(e.target.checked)}
-              />{" "}
-              {t("Explain opponent moves")}
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                checked={touch}
-                onChange={(e) => setTouch(e.target.checked)}
-              />{" "}
-              {t("Larger touch controls")}
-            </label>
-            <label>
-              {t("Opponent pace")}{" "}
-              <select
-                value={pace}
-                onChange={(e) => setPace(Number(e.target.value))}
-              >
-                <option value={700}>{t("Quick")}</option>
-                <option value={1400}>{t("Comfortable")}</option>
-                <option value={2400}>{t("Take my time")}</option>
-              </select>
-            </label>
-          </details>
+          <button
+            className="text-button"
+            data-menu-action
+            onClick={() => setSettingsOpen(true)}
+          >
+            {t("Settings")}
+          </button>
           <button
             className="text-button danger-text"
             data-menu-action
@@ -407,7 +395,7 @@ export default function App() {
     ) : null;
   return (
     <div
-      className={`app ${screen === "game" && game?.phase === "playing" ? "playing" : ""}`}
+      className={`app ${reading ? "comfortable-reading" : ""} ${screen === "game" && game?.phase === "playing" ? "playing" : ""}`}
     >
       <header className="site-header">
         <button
@@ -428,11 +416,10 @@ export default function App() {
           <span className="header-tag">{t("A GOOD TIME, WELL PLAYED.")}</span>
           <button
             className="sound-button"
-            onClick={() => setMuted((x) => !x)}
-            aria-label={t(muted ? "Unmute sound" : "Mute sound")}
-            aria-pressed={muted}
+            onClick={() => setSettingsOpen(true)}
+            aria-haspopup="dialog"
           >
-            {t(muted ? "♪ Off" : "♫ On")}
+            {t("Settings")}
           </button>
           {screen !== "home" && (
             <button className="text-button" onClick={() => setScreen("home")}>
@@ -441,6 +428,36 @@ export default function App() {
           )}
         </div>
       </header>
+      {settingsOpen && (
+        <Suspense
+          fallback={
+            <p role="status" className="notice">
+              {t("Loading settings…")}
+            </p>
+          }
+        >
+          <Settings
+            reading={reading}
+            setReading={setReading}
+            touch={touch}
+            setTouch={setTouch}
+            muted={muted}
+            setMuted={setMuted}
+            learning={learning}
+            setLearning={setLearning}
+            narrate={narrate}
+            setNarrate={setNarrate}
+            pace={pace}
+            setPace={setPace}
+            timed={
+              !!game?.turnSeconds &&
+              screen === "game" &&
+              game.phase === "playing"
+            }
+            onClose={() => setSettingsOpen(false)}
+          />
+        </Suspense>
+      )}
       {confirmation && (
         <ConfirmDialog
           title={t(
@@ -602,19 +619,21 @@ export default function App() {
       {screen === "game" &&
         game &&
         (game.phase === "over" ? (
-          <GameOver
-            onNextRound={() =>
-              dispatchBase({ type: "nextRound", at: Date.now() })
-            }
-            game={game}
-            onNew={() => setScreen("setup")}
-            onHome={() => setScreen("home")}
-          />
+          <Suspense fallback={<p className="page">{t("Loading results…")}</p>}>
+            <GameOver
+              onNextRound={() =>
+                dispatchBase({ type: "nextRound", at: Date.now() })
+              }
+              game={game}
+              onNew={() => setScreen("setup")}
+              onHome={() => setScreen("home")}
+            />
+          </Suspense>
         ) : (
           <Game
             saveLabel={saveStatus}
             narrate={narrate}
-            touch={touch}
+            touch={touch || reading}
             key={`${game.seed}-${game.turn}`}
             game={game}
             dispatch={dispatch}

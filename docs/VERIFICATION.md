@@ -7,7 +7,7 @@ explicitly deferred and excluded from active release requirements.
 ## Automated results
 
 - `npm run typecheck`: passes with strict TypeScript.
-- `npm test`: 102 tests pass, including seeded simulations of more than 4,000 legal
+- `npm test`: 105 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
 - `npm run test:e2e`: Phase 1's full 131 Chromium flows pass: guided learning/save isolation/
@@ -174,3 +174,7 @@ hints, selection/save preservation, restoration on turn/exit/reload, native
 penalty Escape and practice isolation. The existing offline game-view test now
 uses Hide rack for the first time after disconnecting and verifies restoration.
 See TABLE_INSPECTION.md for measurements and physical-device limits.
+
+Premium Phase 5 adds three exercise engine regressions, four bilingual responsive
+flows (166 configured browser flows) and first-use offline exercise coverage
+(11 offline flows). Initial production transfer is 97,531 bytes gzipped.

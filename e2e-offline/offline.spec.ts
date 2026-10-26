@@ -330,3 +330,24 @@ for (const localService of [true, false]) {
     await context.setOffline(false);
   });
 }
+
+test("first exercise visit and Chinese goal work after disconnecting", async ({
+  page,
+  context,
+}) => {
+  await page.goto("/");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Ready offline" }),
+  ).toBeVisible();
+  await context.setOffline(true);
+  await page.getByLabel("语言 / Language").selectOption("zh-CN");
+  await page.getByRole("button", { name: "小练习 →", exact: true }).click();
+  await page.getByRole("button", { name: "接长顺子 →", exact: true }).click();
+  await expect(page.locator(".table")).toBeVisible();
+  await page.locator('.game [data-tile-id="3"]').click();
+  await page.locator(".meld-target").first().click();
+  await page.getByRole("button", { name: "检查出牌", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "做得好！目标完成了。" }),
+  ).toBeVisible();
+});

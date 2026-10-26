@@ -7,6 +7,7 @@ export function Home({
   onHelp,
   hasSave,
   onLearn,
+  onExercises,
   onDelete,
   game,
 }: {
@@ -15,6 +16,7 @@ export function Home({
   onHelp: () => void;
   hasSave: boolean;
   onLearn: () => void;
+  onExercises: () => void;
   onDelete: () => void;
   game: GameState | null;
 }) {
@@ -56,6 +58,9 @@ export function Home({
           <button className="text-button" onClick={onHelp}>
             {t("How to play ")}
             <span>→</span>
+          </button>
+          <button className="text-button" onClick={onExercises}>
+            {t("Quick exercises")} →
           </button>
         </div>
         {game && (

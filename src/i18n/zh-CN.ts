@@ -2,6 +2,46 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "The saved exercise could not be restored. Choose an exercise to start again.":
+    "保存的练习暂时无法恢复。请选择一个练习重新开始。",
+  "← Home": "← 首页",
+  "Quick exercises": "小练习",
+  "Open with 30 points": "凑够 30 分开局",
+  "Extend a run": "接长顺子",
+  "Fill the gap": "补齐缺号",
+  "Replace and reuse a joker": "替换并重用万能牌",
+  "Make a group of three 10s in different colours. Their total is 30: enough to open.":
+    "把三张不同颜色的 10 组成同数组。合计 30 分，就能开局。",
+  "Select the three 10s, then choose New group or run.":
+    "选中三张 10，再点“新建牌组”。",
+  "Add red 4 to the red 1, 2, 3 run already on the table.":
+    "把红色 4 接到桌上的红色 1、2、3 顺子后面。",
+  "Select red 4, then choose the existing run as its destination.":
+    "先选红色 4，再点桌上顺子的接牌按钮。",
+  "The red 1 and 3 need a 2 between them. Complete the run before checking your move.":
+    "红色 1 和 3 之间缺一张 2。先补齐顺子，再检查出牌。",
+  "Add red 2 to the incomplete run. After Reset, select red 1, 2 and 3 together and make a new run.":
+    "把红色 2 放入缺号的顺子。如果已重置，就选红色 1、2、3，新建顺子。",
+  "Replace the joker in red 4, joker, 6 with red 5. Then use that joker with blue 5 and orange 5 in a new group.":
+    "用红色 5 替换红色 4、万能牌、6 中的万能牌，再把万能牌和蓝色 5、橙色 5 组成新的同数组。",
+  "First add red 5 to the existing run. Then select the freed joker, blue 5 and orange 5 and choose New group or run.":
+    "先把红色 5 放入原顺子，再选已替换的万能牌、蓝色 5 和橙色 5，点“新建牌组”。",
+  "Practise one move at a time. No timer, no penalties. Your regular game is kept; its timer keeps running.":
+    "一次练一种出法，不计时、不罚牌。正式游戏会保留；若已计时，计时仍会继续。",
+  "Exercise goal": "练习目标",
+  "Show clue": "看看提示",
+  "Hide clue": "收起提示",
+  "Restart exercise": "重新练习",
+  "Choose another exercise": "换个练习",
+  "Check move": "检查出牌",
+  "Well done! Goal complete.": "做得好！目标完成了。",
+  "Keep going: complete the goal above, then check again.":
+    "继续试试：先完成上方目标，再检查。",
+  "Complete the goal above, then check again.": "先完成上方目标，再检查。",
+  "Exercise progress could not be saved. You can keep practising here.":
+    "练习进度暂时无法保存，你仍可继续练习。",
+  "Opening:": "开局：",
+
   "Played in the latest turn.": "上一回合刚出的牌。",
   "Corner dot: latest play": "角上的圆点：刚出的牌",
   "Possible move: {n} highlighted tiles.": "可出 {n} 张亮起的牌。",

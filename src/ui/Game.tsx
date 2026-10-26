@@ -21,6 +21,7 @@ export function Game({
   narrate = false,
   touch = false,
   lessonAction,
+  autoScrollLessonAction = true,
   muted = true,
 }: {
   game: GameState;
@@ -34,6 +35,7 @@ export function Game({
   narrate?: boolean;
   touch?: boolean;
   lessonAction?: { label: string; onClick: () => void };
+  autoScrollLessonAction?: boolean;
   muted?: boolean;
 }) {
   const { t, locale } = useI18n();
@@ -109,9 +111,9 @@ export function Game({
     };
   }, [tableView, coaching]);
   useLayoutEffect(() => {
-    if (lessonAction)
+    if (lessonAction && autoScrollLessonAction)
       lessonButton.current?.scrollIntoView({ block: "nearest" });
-  }, [lessonAction?.label]);
+  }, [lessonAction?.label, autoScrollLessonAction]);
   const tableRef = useRef<HTMLElement>(null);
   const hintRef = useRef<HTMLElement>(null);
   const hintButton = useRef<HTMLButtonElement>(null);

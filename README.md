@@ -321,3 +321,8 @@ Reports checkpoint each round and label completion explicitly. The
 during planning, keeps legal alternatives, stops at a rack-empty finish and
 reserves runtime headroom with a 240 ms work cap. It uses separate held-out deals;
 the historical reports retain the original rejected proposals.
+
+Quick exercises cover opening with 30 points, extending a run, filling a gap and
+replacing/reusing a joker. They provide visual clues, explicit Check move and
+separate resumable progress, without timers or penalties. See
+[focused learning](docs/PREMIUM_EXERCISES.md).

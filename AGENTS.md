@@ -365,3 +365,8 @@ Keep `README.md` aligned with implemented behavior, tooling, commands, storage
 limitations, and deployment setup. Update this file when conventions change.
 Summarize changes and verification results. Commit, push, or deploy only when
 requested; configuring Vercel is distinct from a successful live deployment.
+
+Focused exercises use `src/engine/exercises.ts` and `runset.exercises.v1`. Keep
+objectives and clues tied to real tile IDs and full-turn legality. Check never
+ends a turn or applies penalties. Preserve regular saves, normal lesson progress,
+page-flow instructions, explicit completion and restart selection cleanup.

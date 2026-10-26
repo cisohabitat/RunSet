@@ -37,7 +37,8 @@ import { SaveTools } from "./ui/SaveTools";
 import { Offline } from "./ui/Offline";
 import { ConfirmDialog } from "./ui/ConfirmDialog";
 const Tutorial = lazy(() => import("./ui/Tutorial"));
-type Screen = "home" | "setup" | "help" | "game" | "learn";
+const Exercises = lazy(() => import("./ui/Exercises"));
+type Screen = "home" | "setup" | "help" | "game" | "learn" | "exercises";
 const initial = loadGame();
 export default function App() {
   const { t, locale } = useI18n();
@@ -589,6 +590,7 @@ export default function App() {
           game={game}
           onDelete={() => setConfirmation({ kind: "delete" })}
           onLearn={() => setScreen("learn")}
+          onExercises={() => setScreen("exercises")}
         />
       )}
       {screen === "home" && (
@@ -629,6 +631,15 @@ export default function App() {
         </Suspense>
       )}
 
+      {screen === "exercises" && (
+        <Suspense
+          fallback={
+            <p className="page">{t("Preparing your practice table…")}</p>
+          }
+        >
+          <Exercises muted={muted} onExit={() => setScreen("home")} />
+        </Suspense>
+      )}
       {screen === "help" && (
         <Suspense fallback={<p className="page">{t("Loading rules…")}</p>}>
           <HowToPlay onBack={() => setScreen(helpBack)} />

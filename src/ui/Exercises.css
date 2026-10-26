@@ -1,0 +1,87 @@
+.exercises {
+  max-width: 1180px;
+  padding-bottom: 32px;
+}
+.exercises > h1 {
+  font-size: clamp(24px, 4vw, 36px);
+}
+.exercise-choices,
+.exercise-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.exercise-choices button {
+  flex: 1 1 240px;
+  min-height: 64px;
+  text-align: left;
+}
+.exercise-goal {
+  margin: 16px 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--panel);
+}
+.exercise-goal h2 {
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+.exercise-goal p {
+  line-height: 1.6;
+}
+.exercise-example {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.exercise-solution {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.exercise-clue {
+  border-left: 3px solid var(--accent);
+  padding-left: 12px;
+}
+.exercises .game {
+  height: auto;
+  min-height: 580px;
+}
+.exercises .table {
+  min-height: 240px;
+}
+.exercises button {
+  min-height: 44px;
+}
+.comfortable-reading .exercise-goal {
+  font-size: 18px;
+}
+/* Exercises use page flow so the goal and every destination remain reachable. */
+.app .exercises .game {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: auto;
+  padding: 0;
+  width: 100%;
+}
+.app .exercises .game-context,
+.app .exercises .table-tools {
+  display: none;
+}
+.app .exercises .table {
+  flex: none;
+  height: 300px;
+  min-height: 240px;
+  max-height: none;
+}
+.app .exercises .player-dock {
+  position: static;
+  flex: none;
+}
+.exercises .tile:disabled {
+  opacity: 1;
+  cursor: default;
+}

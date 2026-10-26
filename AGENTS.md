@@ -155,6 +155,8 @@ from the public repository.
   only to non-expanded view. Rotation must preserve selection, deadlines and save.
 - Check one-row density with populated six-meld fixtures at 1024×768, 1180×820 and
   1366×1024 in both languages; include larger preferences and 50 rack tiles.
+  Disable entrance animations with reduced-motion emulation before exact tile
+  geometry checks, including separately created mouse-only browser contexts.
 
 ## Optional read aloud
 

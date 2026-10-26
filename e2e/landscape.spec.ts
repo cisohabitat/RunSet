@@ -255,6 +255,7 @@ test("mouse desktop keeps its existing tile and heading sizes", async ({
   });
   const page = await context.newPage();
   try {
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await load(page, "en");
     expect(await tileSize(page)).toEqual([52, 70]);
     expect(

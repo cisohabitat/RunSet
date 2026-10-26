@@ -69,6 +69,8 @@ export default function Tutorial({
     [storageNotice, setStorageNotice] = useState(""),
     [attempt, setAttempt] = useState(0);
   const { lesson, step, game } = progress;
+  const finished =
+    lesson === "basics" ? step === 7 : lessonComplete(lesson, game);
   const [feedback, setFeedback] = useState(""),
     [selectionTip, setSelectionTip] = useState("");
   const panelRef = useRef<HTMLElement>(null);
@@ -76,8 +78,11 @@ export default function Tutorial({
   useEffect(() => {
     if (feedback || selectionTip)
       feedbackRef.current?.scrollIntoView({ block: "nearest" });
-    else panelRef.current?.scrollTo({ top: 0 });
-  }, [lesson, step, attempt, feedback, selectionTip]);
+    else {
+      panelRef.current?.scrollTo({ top: 0 });
+      if (finished) panelRef.current?.scrollIntoView({ block: "start" });
+    }
+  }, [lesson, step, attempt, feedback, selectionTip, finished]);
   const invalid = game.table.some((m) => !inspectMeld(m.tiles).valid);
   const jokerReplaced = game.table.some(
     (m) => m.id === "practice-wild" && m.tiles.includes(4),
@@ -185,8 +190,6 @@ export default function Tutorial({
           "Split a run",
           "Select the table’s red 4 and 5 plus your red 6 and 7 → New group or run. You’ll leave red 1–3 and make red 4–7. Rearrange only after opening.",
         ];
-  const finished =
-    lesson === "basics" ? step === 7 : lessonComplete(lesson, game);
   const instructions =
     lesson === "basics"
       ? basics[step]

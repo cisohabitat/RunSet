@@ -259,3 +259,40 @@ test("first-use results, score calculations and replay work offline", async ({
   expect(saved.coach).not.toBe(true);
   await context.setOffline(false);
 });
+
+test("first-use expanded game view and its remembered preference work offline", async ({
+  page,
+  context,
+}) => {
+  const { newGame } = await import("../src/engine/game");
+  const game = newGame("You", 1, "easy", 4321);
+  game.current = game.players.findIndex((player) => !player.bot);
+  game.turnStart = { table: [], rack: [...game.players[game.current].rack] };
+  await page.goto("/");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Ready offline" }),
+  ).toBeVisible();
+  await page.evaluate((game) => {
+    localStorage.setItem("runset.save.v1", JSON.stringify(game));
+    localStorage.setItem("runset.tableExpanded", "true");
+  }, game);
+  await context.setOffline(true);
+  await page.reload();
+  await page.getByRole("button", { name: /Continue game/ }).click();
+  await expect(page.locator(".game.table-expanded")).toBeVisible();
+  await page
+    .getByRole("button", { name: "Compact table", exact: true })
+    .click();
+  expect(await page.evaluate(() => document.body.style.overflow)).not.toBe(
+    "hidden",
+  );
+  await page.getByRole("button", { name: "Expand table", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: /Continue game/ }).click();
+  await expect(page.locator(".game.table-expanded")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(
+    page.getByRole("button", { name: "Expand table", exact: true }),
+  ).toBeFocused();
+  await context.setOffline(false);
+});

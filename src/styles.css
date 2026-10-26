@@ -3650,3 +3650,230 @@ button:not(.tile) {
 .app.comfortable-reading .round-score span {
   font-size: 16px;
 }
+
+/* The table controls stay outside optional, scrolling game explanations. */
+.game > .table-tools {
+  flex: none;
+}
+.board-save,
+.board-clock,
+.mobile-clear,
+.focused-rack-options {
+  display: none;
+}
+@media (max-width: 720px) {
+  .app.playing:not(.comfortable-reading) > .site-header {
+    height: 56px;
+    min-height: 56px;
+    flex-basis: 56px;
+  }
+  .app.playing:not(.comfortable-reading) > .game {
+    padding-top: 4px;
+    padding-bottom: max(4px, env(safe-area-inset-bottom));
+  }
+  .app.playing:not(.comfortable-reading) > .game > .table {
+    min-height: 180px;
+  }
+  .app:not(.comfortable-reading) .game .selection-actions {
+    display: none;
+  }
+  .app:not(.comfortable-reading) .game .mobile-clear {
+    display: inline-flex;
+  }
+  .app.playing:not(.comfortable-reading) .status-line {
+    min-height: 20px;
+    padding: 2px 0;
+  }
+}
+@media (min-width: 721px) and (max-width: 1180px) {
+  .app.playing:not(.comfortable-reading) > .game > .table {
+    min-height: clamp(240px, 35dvh, 420px);
+  }
+}
+.app.comfortable-reading > .game > .table {
+  height: clamp(340px, 55dvh, 720px);
+  max-height: none;
+}
+
+/* Expanded table is an actual viewport workspace with rack and turn controls. */
+.app .game.table-expanded {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  min-height: 0;
+  margin: 0;
+  padding: max(8px, env(safe-area-inset-top))
+    max(12px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom))
+    max(12px, env(safe-area-inset-left));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--paper);
+}
+.app:has(> .game.table-expanded) > .site-header {
+  display: none;
+}
+.app .game.table-expanded .game-context {
+  display: none;
+}
+.app .game.table-expanded .table-tools {
+  order: -1;
+  margin: 0 0 8px;
+  flex-wrap: wrap;
+  min-height: 44px;
+}
+.app .game.table-expanded .table-tools > span:not(.board-save, .board-clock) {
+  display: none;
+}
+.app .game.table-expanded :is(.board-save, .board-clock) {
+  display: inline;
+  font-size: 13px;
+}
+.app.playing .game.table-expanded .table {
+  flex: 1 1 0;
+  height: auto;
+  max-height: none;
+  min-height: 180px;
+}
+.app .game.table-expanded .table-topline {
+  display: none;
+}
+.app .game.table-expanded .rack-heading {
+  display: none;
+}
+.app .game.table-expanded .player-dock {
+  position: static;
+}
+.app .game.table-expanded .rack-tiles {
+  max-height: 116px;
+}
+.app .game.table-expanded .selection-actions {
+  display: none;
+}
+.app .game.table-expanded .mobile-clear {
+  display: inline-flex;
+}
+.app .game.table-expanded .focused-rack-options {
+  display: flex;
+  gap: 12px;
+}
+.app .game.table-expanded:has(.coach-card) .game-context {
+  display: block;
+  flex: none;
+  max-height: 140px;
+  overflow: auto;
+}
+.app .game.table-expanded .game-context > :not(.coach-card) {
+  display: none;
+}
+.app .game.table-expanded .coach-card {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+}
+.app .game.table-expanded .hint-actions {
+  order: -1;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: var(--soft);
+  margin: 0 0 8px;
+}
+.app:has(> .game.table-expanded) > .notice {
+  position: fixed;
+  top: 64px;
+  left: 12px;
+  right: 12px;
+  z-index: 60;
+  margin: 0;
+  max-height: 120px;
+  overflow: auto;
+}
+@media (max-width: 720px) {
+  .app .game.table-expanded .table-tools > button:not(:first-child) {
+    display: none;
+  }
+  .app .game.table-expanded .table-tools {
+    gap: 10px;
+  }
+  .app .game.table-expanded .table-tools > button {
+    margin-right: auto;
+  }
+}
+@media (max-height: 520px) {
+  .app.playing .game.table-expanded .table {
+    min-height: 140px;
+  }
+  .app .game.table-expanded .status-line {
+    display: none;
+  }
+  .app .game.table-expanded .action-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+  }
+  .app .game.table-expanded .turn-tools {
+    flex: 1;
+    width: auto;
+  }
+  .app .game.table-expanded .primary-actions {
+    width: auto;
+  }
+  .app .game.table-expanded .rack-tiles {
+    max-height: 96px;
+  }
+}
+
+/* Practice also needs a real table; let the lesson page scroll on smaller devices. */
+@media (max-width: 1180px) {
+  .app .practice-layout.playing {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+  .app .practice-layout.playing > .practice-panel {
+    max-height: none;
+  }
+  .app .practice-layout .practice-copy {
+    overflow: visible;
+  }
+  .app .practice-layout.playing > .game {
+    flex: none;
+    min-height: 0;
+    overflow: visible;
+  }
+  .app .practice-layout.playing .table {
+    flex: none;
+    height: clamp(280px, 45dvh, 600px);
+    min-height: 260px;
+    max-height: none;
+  }
+  .app .practice-layout.playing .table-topline {
+    position: static;
+  }
+}
+.app.comfortable-reading .game.table-expanded :is(.board-save, .board-clock) {
+  font-size: 16px;
+}
+@media (max-height: 520px) {
+  .app .game.table-expanded .primary-actions {
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+  }
+  .app .game.table-expanded .primary-actions > button {
+    white-space: nowrap;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+}
+/* Keep the heading readable while a hint shares a short laptop's context. */
+@media (min-width: 721px) and (max-width: 1180px) and (max-height: 800px) {
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.table-expanded):has(.coach-card)
+    > .table {
+    min-height: 220px;
+  }
+}

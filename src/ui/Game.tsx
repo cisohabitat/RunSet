@@ -47,9 +47,66 @@ export function Game({
     return () => clearInterval(timer);
   }, [s.turnSeconds]);
   const [expanded, setExpanded] = useState(false),
-    [tableView, setTableView] = useState<"normal" | "wide">("normal");
+    [tableView, setTableView] = useState<"normal" | "wide">(() => {
+      try {
+        return coaching &&
+          localStorage.getItem("runset.tableExpanded") === "true"
+          ? "wide"
+          : "normal";
+      } catch {
+        return "normal";
+      }
+    });
+  const viewButton = useRef<HTMLButtonElement>(null);
+  const previousView = useRef(tableView);
+  const lessonButton = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (coaching) {
+      try {
+        localStorage.setItem(
+          "runset.tableExpanded",
+          String(tableView === "wide"),
+        );
+      } catch {
+        /* Optional view preference. */
+      }
+    }
+    if (previousView.current === "wide" && tableView === "normal")
+      requestAnimationFrame(() => {
+        viewButton.current?.focus({ preventScroll: true });
+        viewButton.current?.scrollIntoView({ block: "nearest" });
+      });
+    previousView.current = tableView;
+    if (tableView !== "wide") return;
+    const before = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const exitOnEscape = (event: KeyboardEvent) => {
+      if (
+        event.key !== "Escape" ||
+        event.defaultPrevented ||
+        document.querySelector("dialog[open]") ||
+        (event.target instanceof Element &&
+          event.target.closest("input,textarea,select"))
+      )
+        return;
+      event.preventDefault();
+      setTableView("normal");
+    };
+    window.addEventListener("keydown", exitOnEscape);
+    return () => {
+      window.removeEventListener("keydown", exitOnEscape);
+      document.body.style.overflow = before;
+    };
+  }, [tableView, coaching]);
+  useEffect(() => {
+    if (lessonAction)
+      requestAnimationFrame(() =>
+        lessonButton.current?.scrollIntoView({ block: "nearest" }),
+      );
+  }, [lessonAction?.label]);
   const tableRef = useRef<HTMLElement>(null);
   const hintRef = useRef<HTMLElement>(null);
+  const hintButton = useRef<HTMLButtonElement>(null);
   const [hint, setHint] = useState<Hint | null>(null),
     [planning, setPlanning] = useState(false);
   const request = useRef<AbortController | null>(null);
@@ -135,11 +192,14 @@ export function Game({
       aria-describedby={coachTarget ? "practice-instructions" : undefined}
       className={`game ${touch ? "touch-friendly" : ""} ${tableView === "wide" ? "table-expanded" : ""}`}
       onKeyDown={(e) => {
-        if (
-          (e.target as HTMLElement).closest("input,textarea,select,dialog") ||
-          !myTurn
-        )
+        if ((e.target as HTMLElement).closest("input,textarea,select,dialog"))
           return;
+        if (e.key === "Escape" && tableView === "wide") {
+          e.preventDefault();
+          setTableView("normal");
+          return;
+        }
+        if (!myTurn) return;
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") {
           e.preventDefault();
           act({ type: "undo" });
@@ -177,7 +237,7 @@ export function Game({
             <h1>{t(myTurn ? "Your move." : "A little thinking…")}</h1>
           </div>
           <div className="game-heading-actions">
-            {saveLabel && (
+            {saveLabel && tableView === "normal" && (
               <span
                 className={`save-indicator ${saveLabel === "Not saved" ? "save-error" : ""}`}
                 role="status"
@@ -203,7 +263,7 @@ export function Game({
             ))}
           </div>
         )}
-        {s.turnSeconds && (
+        {s.turnSeconds && tableView === "normal" ? (
           <p
             className={`turn-clock ${Math.max(0, (s.deadline ?? clock) - clock) < 15000 ? "urgent" : ""}`}
             role="timer"
@@ -214,7 +274,7 @@ export function Game({
             {t("s · on expiry: reset unfinished edits and ")}
             {t(s.pool.length ? "draw one" : "pass")}
           </p>
-        )}
+        ) : null}
         <div className="opponents">
           {s.players
             .filter((x) => x.bot)
@@ -287,7 +347,13 @@ export function Game({
                   {t("Place hint")}
                 </button>
               )}
-              <button className="text-button" onClick={() => setHint(null)}>
+              <button
+                className="text-button"
+                onClick={() => {
+                  setHint(null);
+                  hintButton.current?.focus({ preventScroll: true });
+                }}
+              >
                 {t("Dismiss hint")}
               </button>
             </div>
@@ -303,39 +369,59 @@ export function Game({
             )}
           </aside>
         )}
-        <div className="table-tools">
-          <button
-            className="text-button"
-            onClick={() =>
-              setTableView((x) => (x === "normal" ? "wide" : "normal"))
-            }
+      </div>
+      <div className="table-tools">
+        <button
+          className="text-button"
+          ref={viewButton}
+          aria-pressed={tableView === "wide"}
+          aria-controls="meld-table"
+          onClick={() =>
+            setTableView((x) => (x === "normal" ? "wide" : "normal"))
+          }
+        >
+          {t(tableView === "normal" ? "Expand table" : "Compact table")}
+        </button>
+        <button
+          className="text-button"
+          onClick={() =>
+            tableRef.current?.scrollTo({ top: 0, behavior: "auto" })
+          }
+        >
+          {t("Table start ↑")}
+        </button>
+        <button
+          className="text-button"
+          onClick={() =>
+            tableRef.current?.scrollTo({
+              top: tableRef.current.scrollHeight,
+              behavior: "auto",
+            })
+          }
+        >
+          {t("Table end ↓")}
+        </button>
+        <span>{t("Scroll the table to see more groups and runs.")}</span>
+        {tableView === "wide" && (
+          <span className="board-save" role="status">
+            {t(saveLabel ?? "")}
+          </span>
+        )}
+        {s.turnSeconds && tableView === "wide" ? (
+          <span
+            className="board-clock"
+            role="timer"
+            aria-label={t("Time left this turn")}
           >
-            {t(tableView === "normal" ? "Expand table" : "Compact table")}
-          </button>
-          <button
-            className="text-button"
-            onClick={() =>
-              tableRef.current?.scrollTo({ top: 0, behavior: "auto" })
-            }
-          >
-            {t("Table start ↑")}
-          </button>
-          <button
-            className="text-button"
-            onClick={() =>
-              tableRef.current?.scrollTo({
-                top: tableRef.current.scrollHeight,
-                behavior: "auto",
-              })
-            }
-          >
-            {t("Table end ↓")}
-          </button>
-          <span>{t("Scroll the table to see more groups and runs.")}</span>
-        </div>
+            {t("Time left:")}{" "}
+            {Math.max(0, Math.ceil(((s.deadline ?? clock) - clock) / 1000))}
+            {t("s")}
+          </span>
+        ) : null}
       </div>
       <section
         ref={tableRef}
+        id="meld-table"
         className={`table ${tableView === "wide" ? "expanded-table" : ""}`}
         aria-label={t("Table melds")}
         tabIndex={0}
@@ -585,6 +671,7 @@ export function Game({
             {coaching && (
               <button
                 className="text-button"
+                ref={hintButton}
                 aria-label={t(
                   planning ? "Finding a move…" : "Show a possible move",
                 )}
@@ -603,9 +690,38 @@ export function Game({
             >
               {t("Reset")}
             </button>
+            {activeSelected.length > 0 && (
+              <button
+                className="text-button mobile-clear"
+                aria-label={t("Deselect all")}
+                onClick={() => setSelected([])}
+              >
+                {t("Clear")}
+              </button>
+            )}
             <details className="more-actions">
               <summary>{t("More")}</summary>
               <div>
+                <div
+                  className="focused-rack-options"
+                  role="group"
+                  aria-label={t("Sort")}
+                >
+                  <button
+                    className="text-button"
+                    disabled={!myTurn}
+                    onClick={() => act({ type: "sortRack", by: "color" })}
+                  >
+                    {t("Colour")}
+                  </button>
+                  <button
+                    className="text-button"
+                    disabled={!myTurn}
+                    onClick={() => act({ type: "sortRack", by: "number" })}
+                  >
+                    {t("Number")}
+                  </button>
+                </div>
                 <button
                   className="text-button"
                   disabled={!myTurn || !activeSelected.length}
@@ -649,7 +765,11 @@ export function Game({
           </div>
           <div className="primary-actions">
             {lessonAction ? (
-              <button className="primary" onClick={lessonAction.onClick}>
+              <button
+                ref={lessonButton}
+                className="primary"
+                onClick={lessonAction.onClick}
+              >
                 {t(lessonAction.label)}
               </button>
             ) : (

@@ -45,6 +45,19 @@ See [reading-mode verification](docs/READING_MODE.md). The older-player study an
 real-device checks (Phase 1) are paused; Phases 2–4 are implemented. The remaining
 phases are tracked in [the roadmap](docs/ROADMAP.md).
 
+## More room for the table / 放大牌桌
+
+Choose **Expand table** (**展开牌桌**) above the board for a viewport workspace
+that keeps your rack and turn controls on screen. **Compact table** (**收起牌桌**)
+or Escape returns to the regular layout. The choice is remembered across turns
+and reloads. In expanded view, **More** contains sorting; tiles and the board
+still scroll normally. Hints, their placement buttons and the timer stay available.
+
+The standard phone board has more space, comfortable reading uses taller boards
+on tablets, and phone/tablet practice no longer squeezes melds beneath fixed-height
+instructions. Practice pages scroll, and continuation buttons are brought into
+view when needed. See [board-space verification](docs/BOARD_SPACE.md).
+
 ## Results and replay
 
 Results explain whether someone emptied their rack or the pool ran out and

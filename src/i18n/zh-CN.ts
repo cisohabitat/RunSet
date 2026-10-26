@@ -98,6 +98,9 @@ const messages: Record<string, string> = {
     "开始新游戏会替换已保存的结果，从第 1 局重新发牌，比赛积分清零。显示和声音设置会保留。",
   "{n} tiles remaining · rack value {value}":
     "{n} 张剩余手牌 · 手牌分数：{value}",
+  Clear: "取消选择",
+  "Preparing game table…": "正在准备牌桌…",
+  s: "秒",
   "Game menu": "游戏菜单",
   Game: "游戏",
   Menu: "菜单",

@@ -10,17 +10,17 @@ explicitly deferred and excluded from active release requirements.
 - `npm test`: 90 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: 60 Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: 76 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
-- `npm run test:offline`: seven production Chromium flows pass: saved games and lazy
+- `npm run test:offline`: eight production Chromium flows pass: saved games and lazy
   practice assets after an offline reload; and explicit service-worker updates
   preserving the saved game. The update test waits for the actual reload before
   reading storage.
 - `npm run build`: passes and emits a static application plus versioned offline
-  cache. The main JavaScript bundle is approximately 88 kB gzipped; optional
-  practice, rules, Chinese dictionary and worker assets are separate.
+  cache. The main JavaScript bundle is approximately 84 kB gzipped; optional
+  game UI, practice, rules, Chinese dictionary and worker assets are separate.
 
 ## Layout coverage
 
@@ -114,3 +114,13 @@ Phone/tablet/desktop, Chinese/English, light/dark and comfortable/compact layout
 pass, including a long-name/104-tile rack case. The seventh offline flow opens
 results for the first time after disconnecting, expands arithmetic and replays.
 See RESULTS_AND_REPLAY.md. Phase 3 CI run 40295547425 passed before Phase 4 began.
+
+The board-space fix adds 16 touch-emulated browser flows: populated boards in
+English/Chinese, standard/comfortable modes and phone/portrait-iPad/landscape-iPad
+sizes; visible complete melds, touch placement at the table end, hints and their
+sticky actions, timer count, unchanged saves on view changes, turn/reload
+persistence, Escape/focus, short landscape controls, native penalty cancellation,
+round-end scrolling cleanup, and a roomier phone practice board. The eighth
+offline flow opens the lazy game UI for the first time offline and resumes its
+expanded preference. The short-laptop heading/meld/hint regression still passes.
+See BOARD_SPACE.md for measured before/after examples and verification limits.

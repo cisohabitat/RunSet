@@ -191,7 +191,7 @@ test("crowded tables and fifty-tile racks stay usable on phone and tablet", asyn
   });
   await page.reload();
   await page.getByRole("button", { name: "Continue game" }).click();
-  expect(await page.locator(".rack .tile").count()).toBe(50);
+  await expect(page.locator(".rack .tile")).toHaveCount(50);
   for (const [width, height] of [
     [360, 800],
     [390, 844],
@@ -226,7 +226,7 @@ test("matches deal subsequent rounds and timed turns draw on expiry", async ({
   await page.getByLabel("Game length").selectOption("500");
   await page.getByLabel("Time per turn").selectOption("60");
   await page.getByRole("button", { name: "Deal the tiles" }).click();
-  expect(await page.getByRole("timer").count()).toBe(1);
+  await expect(page.getByRole("timer")).toHaveCount(1);
   await expect(page.getByLabel("Match scores")).toBeVisible();
   await page.getByRole("button", { name: "Home", exact: true }).click();
   await page.evaluate(async () => {

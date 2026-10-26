@@ -53,8 +53,8 @@ for (const theme of ["light", "dark"] as const) {
         return r.top >= context.top && r.bottom <= context.bottom && document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2) === el;
       })).toBe(true);
       if (width >= 721) expect(await page.locator(".table-tools").evaluate(el => {
-        const r = el.getBoundingClientRect(), context = el.closest(".game-context")!.getBoundingClientRect();
-        return r.top >= context.top && r.bottom <= context.bottom;
+        const r = el.getBoundingClientRect(), workspace = el.closest(".game")!.getBoundingClientRect();
+        return r.top >= workspace.top && r.bottom <= Math.min(workspace.bottom, innerHeight);
       })).toBe(true);
       await expect(page.locator(".hint-reasons")).not.toHaveAttribute("open");
       await page.getByText("Why this works", { exact: true }).click();

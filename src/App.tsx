@@ -27,7 +27,9 @@ const Setup = lazy(() =>
 const HowToPlay = lazy(() =>
   import("./ui/HowToPlay").then((module) => ({ default: module.HowToPlay })),
 );
-import { Game } from "./ui/Game";
+const Game = lazy(() =>
+  import("./ui/Game").then((module) => ({ default: module.Game })),
+);
 const GameOver = lazy(() =>
   import("./ui/GameOver").then((module) => ({ default: module.GameOver })),
 );
@@ -646,15 +648,19 @@ export default function App() {
             />
           </Suspense>
         ) : (
-          <Game
-            saveLabel={saveStatus}
-            narrate={narrate}
-            touch={touch || reading}
-            key={`${game.seed}-${game.turn}`}
-            game={game}
-            dispatch={dispatch}
-            onHelp={help}
-          />
+          <Suspense
+            fallback={<p className="page">{t("Preparing game table…")}</p>}
+          >
+            <Game
+              saveLabel={saveStatus}
+              narrate={narrate}
+              touch={touch || reading}
+              key={`${game.seed}-${game.turn}`}
+              game={game}
+              dispatch={dispatch}
+              onHelp={help}
+            />
+          </Suspense>
         ))}
       {screen !== "game" && (
         <Offline beforeUpdate={() => !game || saveGame(game)} />

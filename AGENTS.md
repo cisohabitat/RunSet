@@ -112,6 +112,34 @@ from the public repository.
 - Phase 3 CI run 40295547425 passed before Phase 4 work began. Physical-device and
   older-player study work (Phase 1) remains paused; no multiplayer is added.
 
+## Table space and expanded workspace
+
+- The table toolbar is a direct child of Game, outside `.game-context`, so hints
+  and optional guidance cannot scroll the Expand/Compact control out of reach.
+  Test toolbar bounds against the game workspace, not the optional context.
+- `runset.tableExpanded` is an optional regular-game view preference. Preserve it
+  across turn remounts and reloads, and keep it through game deletion. Practice
+  must not inherit or overwrite it. View changes do not change tiles or saves.
+- Expanded view fills the viewport and retains the rack and primary controls.
+  Keep its exit control, timer, save notices and hint actions usable. Sorting is
+  available in More. Restore body scrolling and keyboard focus on exit/unmount;
+  Escape must work even after a removed hint button and during bot turns, but
+  must not consume Escape from an open native confirmation dialog.
+- Compact phones retain at least 180 px for the board. Tablets use a responsive
+  floor; preserve the 220 px short-laptop hint case with an unclipped heading.
+  Comfortable regular boards scale with viewport height rather than staying at
+  320 px. A focused view may be shorter than a scrolling large-mode board in
+  absolute height while showing more of it alongside the rack on screen.
+- Small-device practice flows on the page with a 260 px minimum table. Scroll
+  lesson continuation controls into view when they appear and completion into
+  view when finished. Preserve full instructions and lesson navigation.
+- Game UI loads separately and is precached offline. Tests measuring the DOM must
+  await the visible game view instead of immediately counting nodes after a
+  navigation click. No arbitrary sleeps or weakened geometry checks.
+- Expanded table minimum-size selectors must win over normal/comfortable floors,
+  including short landscape screens. Check full melds, touch hit targets, hints,
+  rotation, a penalty dialog, turn/reload persistence and scroll cleanup.
+
 ## Working and verification
 
 - Inspect files and Git status before editing. Preserve unrelated changes and

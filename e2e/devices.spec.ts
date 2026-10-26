@@ -9,6 +9,7 @@ test("primary controls stay visible without covering the table", async ({
   });
   await page.reload();
   await page.getByRole("button", { name: "Continue game" }).click();
+  await expect(page.locator(".table")).toBeVisible();
   for (const [width, height] of [
     [360, 800],
     [375, 667],

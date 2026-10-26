@@ -18,6 +18,14 @@ and GitHub CI for its exact commit must pass before the next phase begins.
 English/Simplified Chinese support is already implemented; multiplayer stays
 deferred. The release history and original acceptance criteria follow below.
 
+## Board-space follow-up
+
+The reported cramped phone/iPad meld area is fixed in a separate release after
+Phase 4. Expand table is now a real viewport workspace, its controls remain
+outside optional context, comfortable boards scale with the viewport, and
+smaller-device practice gets a full-sized table. See [BOARD_SPACE.md](BOARD_SPACE.md).
+This is a layout follow-up; Phases 5–6 remain planned and Phase 1 remains paused.
+
 ## Earlier releases
 
 Status: Releases 1–3 and the local expansion (multi-round matches and optional

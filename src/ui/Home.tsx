@@ -34,7 +34,7 @@ export function Home({
         </p>
         <div className="hero-actions">
           <button className="primary" onClick={onLearn}>
-            Learn to play <span>↗</span>
+            Learn to play <span>→</span>
           </button>
           <button className="secondary" onClick={onNew}>
             New game →
@@ -45,7 +45,7 @@ export function Home({
             </button>
           )}
           <button className="text-button" onClick={onHelp}>
-            How to play <span>↗</span>
+            How to play <span>→</span>
           </button>
         </div>
         {game && (
@@ -82,7 +82,7 @@ export function Home({
         </span>
         <div className="art-row row-one">
           <TileDemo ids={[3, 4, 5, 6]} />
-          <span className="hand-note">make a run ↗</span>
+          <span className="hand-note">make a run →</span>
         </div>
         <div className="art-row row-two">
           <TileDemo ids={[9, 35, 61]} />

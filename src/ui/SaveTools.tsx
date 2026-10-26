@@ -30,12 +30,6 @@ export function SaveTools({
   return (
     <section className="save-tools" aria-label="Save tools">
       <h2>Save and recovery</h2>
-      <p>
-        Progress stays in this browser. Download a backup to keep a separate
-        copy or move your game to another device. Timed backups retain their
-        original deadline. Deleting a game also clears its automatic recovery
-        copy; downloaded files remain yours.
-      </p>
       <div className="backup-actions">
         <button
           className="secondary"
@@ -82,6 +76,15 @@ export function SaveTools({
           </button>
         )}
       </div>
+      <details className="backup-help">
+        <summary>About backups and recovery</summary>
+      <p>
+        Progress stays in this browser. Download a backup to keep a separate
+        copy or move your game to another device. Timed backups retain their
+        original deadline. Deleting a game also clears its automatic recovery
+        copy; downloaded files remain yours.
+      </p>
+      </details>
       {recovery && (
         <p className="recovery-summary">
           Recovery available: {recovery.players.find((p) => !p.bot)?.name} ·

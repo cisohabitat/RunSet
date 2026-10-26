@@ -50,6 +50,7 @@ test("a completed lesson leads to a coached real game and explainable hints", as
   await page.getByRole("button", { name: "Continue game" }).click();
   await page.getByRole("button", { name: "Show a possible move" }).click();
   await expect(page.getByText("Why this works", { exact: true })).toBeVisible();
+  await page.getByText("Why this works", { exact: true }).click();
   await expect(page.locator(".hint-reasons li")).not.toHaveCount(0);
   await expect(
     page.getByRole("button", { name: "Place hint", exact: true }),

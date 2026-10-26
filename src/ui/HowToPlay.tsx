@@ -110,7 +110,7 @@ export function HowToPlay({ onBack }: { onBack: () => void }) {
         </article>
       </div>
       <button className="primary" onClick={onBack}>
-        Got it. Let’s play ↗
+        Got it. Let’s play →
       </button>
     </main>
   );

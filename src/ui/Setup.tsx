@@ -138,7 +138,7 @@ export function Setup({
           </p>
         )}
         <button className="primary" type="submit">
-          Deal the tiles <span>↗</span>
+          Deal the tiles <span>→</span>
         </button>
       </form>
     </main>

@@ -2900,3 +2900,154 @@ button:not(.tile) {
 .app.playing .table:has(.empty-table) {
   min-height: 140px;
 }
+/* Visual review: readable text and consistent controls across themes. */
+:root {
+  --muted: #58695f;
+}
+.eyebrow,
+.table-topline {
+  color: var(--muted);
+}
+.game-dropdown > summary {
+  column-gap: 4px;
+}
+.game-dropdown > summary::after {
+  margin-left: 3px;
+}
+.playing .new-meld {
+  color: var(--ink);
+  background: var(--paper);
+  border-color: var(--muted);
+  font-size: 12px;
+}
+.playing .table-tools button,
+.playing .sort button {
+  font-size: 12px;
+}
+.playing .table-topline {
+  font-size: 9px;
+  letter-spacing: 0.7px;
+}
+.playing .meld-target {
+  font-size: 11px;
+  color: var(--ink);
+}
+.playing .meld-target:disabled {
+  opacity: 1;
+}
+.hint-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.hint-actions button {
+  min-height: 44px;
+  margin: 0;
+  padding: 10px 14px;
+}
+.hint-reasons {
+  border-top: 1px solid var(--line);
+  margin-top: 10px;
+}
+.practice-layout.playing > .practice-panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.practice-top,
+.practice-panel h1,
+.practice-actions {
+  flex: none;
+}
+.practice-copy {
+  min-height: 0;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) transparent;
+  padding-right: 6px;
+}
+.practice-layout .practice-actions {
+  border-top: 1px solid var(--line);
+  padding-top: 3px;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.practice-layout .practice-actions > .text-button {
+  font-size: 12px;
+  padding: 4px 6px;
+}
+.save-tools {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--soft);
+  padding: 20px 24px;
+  width: min(1180px, calc(100% - 48px));
+}
+.backup-help summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--ink);
+}
+.backup-help summary::before {
+  content: "+";
+  font-size: 18px;
+  margin-right: 8px;
+}
+.backup-help[open] summary::before {
+  content: "−";
+}
+.game-menu-content .save-tools {
+  width: 100%;
+  padding: 12px;
+}
+@media (max-width: 720px) {
+  .playing .sort button {
+    font-size: 11px;
+  }
+  .practice-layout .practice-actions > .text-button {
+    font-size: 11px;
+    padding: 4px 5px;
+  }
+  .practice-layout.playing > .practice-panel {
+    max-height: 29dvh;
+  }
+  .practice-layout.playing .rack-heading .sort {
+    gap: 3px;
+  }
+  .practice-layout.playing .table {
+    min-height: 82px;
+  }
+  .save-tools {
+    width: calc(100% - 32px);
+    padding: 16px;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --muted: #b6c3b2;
+    --red: #f1a492;
+  }
+}
+
+.tile.red { color: #b3463d; }
+.tile.blue { color: #276b87; }
+.tile.orange { color: #965a0e; }
+.tile.joker { color: #536c3d; }
+@media (max-width: 720px) {
+  .practice-layout.playing:not([data-lesson="basics"]) > .practice-panel {
+    max-height: 32dvh;
+  }
+}
+.scoreboard .winner-card {
+  border: 2px solid var(--muted);
+  background: var(--soft);
+}
+@media (min-width: 721px) {
+  .playing .game-context {
+    max-height: 48%;
+  }
+}

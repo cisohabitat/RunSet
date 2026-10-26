@@ -84,6 +84,9 @@ from the public repository.
   Delete both regular progress and its automatic recovery copy, keeping preferences.
 - For UI changes, verify the affected player flow, responsive layout, and runtime
   console when browser tooling is available. Report any verification limits.
+  Inspect screenshots in light and dark themes. Hit-test important controls before
+  clicking so automatic scrolling cannot hide clipped actions. Preserve visible
+  hint actions, lesson navigation, and at least 4.5:1 tile-text contrast.
 - For documentation-only changes, check accuracy, local links, and
   `git diff --check`; no need to rerun gameplay tests.
 - Do not commit secrets, `.env` files, dependency folders, generated output, or

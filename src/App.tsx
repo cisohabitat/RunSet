@@ -306,7 +306,7 @@ export default function App() {
         }}
       >
         <summary aria-label="Game menu">
-          <span className="desktop-word">Game </span>Menu
+          <span className="desktop-word">Game</span>{" "}Menu
         </summary>
         <nav className="game-menu-content" aria-label="Game options">
           {" "}
@@ -369,7 +369,7 @@ export default function App() {
             </label>
           </details>
           <button
-            className="text-button"
+            className="text-button danger-text"
             data-menu-action
             onClick={() => setConfirmation({ kind: "delete" })}
           >
@@ -602,7 +602,7 @@ export default function App() {
           </span>
         </span>
         <button className="text-button" onClick={help}>
-          How to play ↗
+          How to play →
         </button>
         <span>MADE FOR THE LOVE OF THE GAME</span>
       </footer>

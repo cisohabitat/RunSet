@@ -64,8 +64,8 @@ export function GameOver({
         </section>
       )}
       <div className="scoreboard">
-        {scores.map((p, i) => (
-          <article key={i}>
+        {[...scores].sort((a, b) => Number(b.winner) - Number(a.winner)).map((p, i) => (
+          <article className={p.winner ? "winner-card" : undefined} key={i}>
             <div>
               <h2>
                 {p.name}{" "}
@@ -90,7 +90,7 @@ export function GameOver({
           </button>
         )}
         <button className="primary" onClick={onNew}>
-          Play again ↗
+          Play again →
         </button>
         <button className="secondary" onClick={onHome}>
           Home

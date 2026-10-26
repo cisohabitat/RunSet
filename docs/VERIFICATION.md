@@ -10,7 +10,7 @@ explicitly deferred and excluded from active release requirements.
 - `npm test`: 70 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: 26 Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: 28 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
@@ -67,3 +67,7 @@ The fresh review in BUG_REVIEW.md adds exact hint reload/Undo, damaged history
 recovery, mixed-edit save validity, generated group ID uniqueness, late-action
 expiry, legal joker splits, tutorial destination checks, and combined-option
 layout bounds down to 360×640.
+
+The visual review adds light/dark checks for unclipped lesson navigation and
+instructions, visible hint placement, wide-screen table tools, and at least
+4.5:1 tile-text contrast. See VISUAL_REVIEW.md for reviewed screens and changes.

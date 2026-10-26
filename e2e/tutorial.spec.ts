@@ -110,6 +110,6 @@ test("out-of-sequence Draw and End explain the next step without changing practi
   await page.getByRole("button", { name: /New group or run/ }).click();
   const before = await page.evaluate(() => localStorage.getItem("runset.practice.v1"));
   await page.getByRole("button", { name: "End turn →", exact: true }).click();
-  await expect(page.getByRole("status").filter({ hasText: "First finish this step" })).toContainText("Select red 1, 2, and 3");
+  await expect(page.getByRole("status").filter({ hasText: "First finish this step" })).toContainText("Select red 1, 2 and 3");
   expect(await page.evaluate(() => localStorage.getItem("runset.practice.v1"))).toBe(before);
 });

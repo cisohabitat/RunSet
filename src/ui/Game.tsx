@@ -171,7 +171,7 @@ export function Game({
             </span>
           )}
           <button className="text-button" onClick={onHelp}>
-            Rules ↗
+            Rules →
           </button>
         </div>
       </div>
@@ -249,19 +249,10 @@ export function Game({
       {hint && (
         <aside ref={hintRef} className="coach-card" aria-label="Move hint">
           <p role="status">{hint.message}</p>
-          {hint.explanations && (
-            <details className="hint-reasons" open>
-              <summary>Why this works</summary>
-              <ul>
-                {hint.explanations.map((reason, i) => (
-                  <li key={i}>{reason}</li>
-                ))}
-              </ul>
-            </details>
-          )}
+          <div className="hint-actions">
           {hint.table && (
             <button
-              className="secondary"
+              className="primary"
               onClick={() => {
                 dispatch({ type: "applyPlan", table: hint.table! });
                 setSelected([]);
@@ -273,6 +264,18 @@ export function Game({
           <button className="text-button" onClick={() => setHint(null)}>
             Dismiss hint
           </button>
+          </div>
+          {hint.explanations && (
+            <details className="hint-reasons">
+              <summary>Why this works</summary>
+              <ul>
+                {hint.explanations.map((reason, i) => (
+                  <li key={i}>{reason}</li>
+                ))}
+              </ul>
+            </details>
+          )}
+
         </aside>
       )}
       <div className="table-tools">

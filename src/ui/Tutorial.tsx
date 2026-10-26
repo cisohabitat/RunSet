@@ -123,31 +123,31 @@ export default function Tutorial({
   const basics = [
     [
       "Make a group",
-      "Your rack is the row of tiles you hold. Select the three 10s in red, blue, and orange, then choose New group or run. A group matches numbers, with a different colour on every tile.",
+      "Select the three 10s below → New group or run. Groups match numbers in different colours.",
     ],
     [
       "Make a run",
-      "Select red 1, 2, and 3, then choose New group or run. A run has at least three consecutive numbers in the same colour. The table is where everyone places groups and runs.",
+      "Select red 1, 2 and 3 → New group or run. A run has consecutive numbers in one colour.",
     ],
     [
       "Your first 30 points",
-      "Your three 10s are worth 10 + 10 + 10 = 30. Your red run adds 1 + 2 + 3 = 6. That is 36 points, enough to open. Later turns can play fewer points.",
+      "Your 10s score 30. Red 1 + 2 + 3 adds 6. Your opening is 36 points; at least 30 is required.",
     ],
     [
       "Finish your turn",
-      "Choose End turn. You played at least one tile and every group and run is valid. That is a legal turn.",
+      "Choose End turn. You played tiles from your rack and left every group and run valid.",
     ],
     [
       "Watch the opponent",
-      "Juniper draws one tile from the pool, the shared pile of face-down tiles. Drawing ends a turn. You can draw even if a play is available.",
+      "Juniper will draw from the pool: the shared pile of face-down tiles. Drawing ends a turn.",
     ],
     [
       "Try drawing",
-      "Choose Draw a tile. You get one tile from the pool and your turn ends immediately. Any unfinished table edits are reset first.",
+      "Choose Draw a tile. Drawing resets unfinished edits, adds one tile to your rack, and ends your turn.",
     ],
     [
       "Try an incomplete play",
-      "Select red 13 and choose New group or run. One tile is not a valid group or run. In a regular game, ending this turn would restore your tiles and draw up to three penalty tiles. Here, use Reset turn to fix it freely.",
+      "Place red 13 → New group or run, then Reset. Invalid End draws 3 penalty tiles; Reset is free.",
     ],
     [
       "You know the basics",
@@ -158,11 +158,11 @@ export default function Tutorial({
     lesson === "jokers"
       ? [
           "Retrieve a joker",
-          "The star in the red 4–6 run represents red 5. Add your red 5 to that run. Then select the star, blue 5, and orange 5 and place a new group. Every tile must remain in a valid group or run.",
+          "Add red 5 to the run to replace its joker. Then place the joker, blue 5 and orange 5 in a new group. A retrieved joker must be reused this turn.",
         ]
       : [
           "Split a run",
-          "The table has red 1–5. Select the table’s red 4 and 5 plus your red 6 and 7, and place a new run. You now have red 1–3 and red 4–7. Rearranging is allowed after your 30-point opening.",
+          "Select the table’s red 4 and 5 plus your red 6 and 7 → New group or run. You’ll leave red 1–3 and make red 4–7. Rearrange only after opening.",
         ];
   const instructions = lesson === "basics" ? basics[step] : advanced;
   const finished =
@@ -236,7 +236,7 @@ export default function Tutorial({
     update({ lesson, step: nextStep, game: next });
   };
   return (
-    <div className={`practice-layout ${finished ? "" : "playing"}`}>
+    <div data-lesson={lesson} className={`practice-layout ${finished ? "" : "playing"}`}>
       <section ref={panelRef} className="practice-panel" aria-label="Guided practice">
         <div className="practice-top">
           <span className="eyebrow">
@@ -250,6 +250,7 @@ export default function Tutorial({
           </button>
         </div>
         <h1>{instructions[0]}</h1>
+        <div className="practice-copy">
         <p id="practice-instructions" aria-live="polite">
           {instructions[1]}
         </p>
@@ -264,6 +265,7 @@ export default function Tutorial({
           </p>
         )}
         {storageNotice && <p role="status">{storageNotice}</p>}
+        </div>
         <div className="practice-actions">
           {finished && (
             <button className="primary" onClick={onPlay}>

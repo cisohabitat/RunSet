@@ -38,6 +38,8 @@ Open the local URL printed by Vite (normally http://localhost:5173).
   objective; reopening practice also recovers previously stuck opening lessons.
   Restarting clears selections, and early Draw/End actions explain the current step.
   Lesson continuation buttons stay in the visible game action bar. Safe delete and new-game replacement confirmations.
+- Readable light/dark tile colours, visible lesson navigation, action-first hints,
+  compact backup help, and a winner-first results display.
 - Desktop, tablet, and phone layouts with 44 px targets, a persistent player dock,
   contained table/rack scrolling, and iPhone safe-area padding.
 - Tap/click selection, desktop dragging, keyboard-operable destinations, sorting,

@@ -35,6 +35,12 @@ with game information and actions arranged across the available width. Explicit
 larger display choices remain available. See [IPAD_LANDSCAPE.md](IPAD_LANDSCAPE.md).
 This layout release does not change the bots identified in the difficulty review.
 
+## iPhone tile-density follow-up
+
+Standard phone play now uses shorter tiles and tighter meld/rack gaps while
+retaining 44 px tap widths and 25 px numbers. Larger display choices stay intact;
+see [PHONE_TILES.md](PHONE_TILES.md) for measured gains and verification limits.
+
 ## Earlier releases
 
 Status: Releases 1–3 and the local expansion (multi-round matches and optional

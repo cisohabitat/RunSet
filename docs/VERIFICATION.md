@@ -10,7 +10,7 @@ explicitly deferred and excluded from active release requirements.
 - `npm test`: 92 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: 93 Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: 105 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
@@ -146,3 +146,9 @@ rotation/selection/save preservation, large display overrides, 50-tile racks,
 three long opponent names with hints and unchanged mouse-only desktop sizes.
 Screenshots cover English/Chinese and light/dark; see IPAD_LANDSCAPE.md.
 Physical iPad Safari and actual safe-area/trackpad behavior remain unverified.
+
+The phone-density follow-up adds twelve flows for 44×54 standard tiles at five
+portrait/landscape sizes in both languages, unchanged number size, rack/meld
+capacity, touch placement/Undo, selection/save preservation across rotation,
+selected two-digit/joker readability and larger preferences with 50 tiles.
+See PHONE_TILES.md for before/after measurements and physical-device limits.

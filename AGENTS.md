@@ -140,6 +140,25 @@ from the public repository.
   including short landscape screens. Check full melds, touch hit targets, hints,
   rotation, a penalty dialog, turn/reload persistence and scroll cleanup.
 
+## Phone tile density
+
+- Standard regular-game phone touch tiles are 44×54 px with 25 px numbers. Retain
+  >=44 px tap width; reduce surrounding gaps/padding instead of shrinking that
+  width. Destination/action controls retain their targets. The 14 px corner check
+  is visual only and must not cover the number or replace the selection outline.
+  Rack padding must contain the raised tile plus its full outline/offset; verify
+  the outline against the scrolling rack's clip bounds before reducing padding.
+- Scope to coarse-pointer views <=720 px wide or short landscape views <960 px
+  wide and <=520 px high. Preserve iPad's 44×60 layout, practice and mouse-only
+  layouts. Respect larger-touch (54×74 phone) and comfortable-reading (58×80)
+  preferences; never overwrite stored choices to enable density.
+- Check 360×640, 375×667, 390×844, 430×932 and 844×390 in both languages. Include
+  selected two-digit tiles and jokers, actual touch placement/Undo, rotation and
+  exact-save preservation, 50 rack tiles and changing larger display preferences.
+- Measure populated fixtures honestly: some phones gain a full rack tile, while
+  others retain the same count with tighter spacing. Record physical-device and
+  older-player readability limits separately from Chromium viewport checks.
+
 ## Landscape tablet density
 
 - At 960–1440 px width, height >=600 px, landscape and `any-pointer: coarse`,

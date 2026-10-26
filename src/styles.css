@@ -4115,3 +4115,57 @@ button:not(.tile) {
     flex: none;
   }
 }
+
+/* Phone standard tiles keep a 44 px tap width while using less vertical space.
+   Larger touch controls and comfortable reading retain their chosen sizes. */
+@media (max-width: 720px) and (any-pointer: coarse),
+  (max-width: 959px) and (max-height: 520px) and (any-pointer: coarse) {
+  .app.playing:not(.comfortable-reading) > .game:not(.touch-friendly) .tile {
+    width: 44px;
+    min-width: 44px;
+    height: 54px;
+    min-height: 54px;
+    font-size: 25px;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.touch-friendly)
+    .tile-mark {
+    top: 4px;
+    left: 4px;
+    font-size: 6px;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.touch-friendly)
+    .tile-foot {
+    bottom: 4px;
+    font-size: 7px;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.touch-friendly)
+    .tile-check {
+    top: 2px;
+    right: 2px;
+    width: 14px;
+    height: 14px;
+    font:
+      700 11px/14px system-ui,
+      sans-serif;
+  }
+  .app.playing:not(.comfortable-reading) > .game:not(.touch-friendly) .melds {
+    gap: 8px;
+  }
+  .app.playing:not(.comfortable-reading) > .game:not(.touch-friendly) .meld {
+    padding: 6px 3px 0;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.touch-friendly)
+    .meld-tiles {
+    gap: 3px;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.touch-friendly)
+    .rack-tiles {
+    gap: 4px;
+    padding-block: 14px 3px;
+  }
+}

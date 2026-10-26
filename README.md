@@ -217,6 +217,13 @@ The deadline persists across tab closure and leaving the game. On resume, an
 expired current turn is resolved. Practice is untimed. An expired turn closes an
 outdated penalty warning so it cannot apply a penalty to the next player.
 
+## iPhone standard tiles
+
+Standard phone play uses shorter **44×54 px tiles**, keeping 25 px numbers and a
+44 px tap width. Tighter gaps show more rack tiles and fit melds more efficiently.
+This also applies in phone landscape. Comfortable reading and Larger touch
+controls keep their larger sizes. See [phone tile measurements](docs/PHONE_TILES.md).
+
 ## iPad landscape
 
 Standard landscape play uses smaller **44×60 px tiles**, tighter meld spacing,

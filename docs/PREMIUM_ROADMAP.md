@@ -13,7 +13,7 @@ older-player study remains paused. Multiplayer remains deferred.
 | 4. Movement and feedback | Implemented     | Clearly distinguish newly played tiles, restrained placement/turn/round feedback, quiet sounds and reduced-motion equivalents.                                                              |
 | 5. Focused learning      | Implemented     | Short opening, extension, incomplete-meld and joker exercises with concrete explanations; practice never replaces a regular save.                                                           |
 | 6. Consistent narration  | Implemented     | Optional cached Mandarin/English audio where available, polished short scripts and readable fallback. Device speech stays available; pronunciation and cheerful delivery need human review. |
-| 7. Solo replay value     | Planned     | Replayable seeded practice, local progress and gentle milestones, isolated from regular saves and without accounts.                                                                         |
+| 7. Solo replay value     | Implemented     | Replayable seeded practice, local progress and gentle milestones, isolated from regular saves and without accounts.                                                                         |
 | 8. Human acceptance      | Paused      | Physical iPhone/iPad Safari and older Chinese-speaking beginners. Prepare a reproducible checklist, but do not claim these sessions ran.                                                    |
 
 “Premium” here is a quality target, not a claim of AAA certification. Automated
@@ -45,3 +45,9 @@ Phase 5 passed [CI 40379089891](https://github.com/cisohabitat/RunSet/actions/ru
 for `a7c9ebf` before Phase 6 began. Phase 6 adds [recorded bilingual guidance](PREMIUM_NARRATION.md);
 its exact-commit CI gates Phase 7. Vercel was still serving Phase 3 with Phase 4
 deployments queued at this check; GitHub publication is separate from live readiness.
+
+Phase 6 passed [CI 40381106392](https://github.com/cisohabitat/RunSet/actions/runs/40381106392)
+for `86b1d99` before Phase 7 began. Phase 7 adds [numbered solo puzzles](PREMIUM_SOLO.md)
+and bounded local milestones. Phase 8 remains paused; the
+[human acceptance checklist](PREMIUM_ACCEPTANCE.md) is prepared, with all results
+explicitly untested. Phase 7 publication requires its own complete CI gate.

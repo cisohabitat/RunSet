@@ -377,3 +377,11 @@ and reviewed. No autoplay: cancel owned media on locale/source/screen/menu/tab
 changes. Preserve the device option, visible text and `runset.audioVoice` across
 delete. Audio assets belong in the offline cache; test actual first-use offline
 playback without Web Speech. Automated decoding cannot approve pronunciation.
+
+Numbered exercises accept integer codes 1–999999 and preserve legacy fixture
+4321. Transform goals, clues and every physical/snapshot ID together; verify
+seeded solutions through the real reducer and validSave. Different numbers may
+share a visible layout. `runset.solo.v1` is independent bounded local progress,
+with deterministic cross-tab merging and no streak requirement. Preserve both
+exercise keys when deleting regular games. Keep paused human checks explicitly
+untested in `docs/PREMIUM_ACCEPTANCE.md`; automated playback cannot approve tone.

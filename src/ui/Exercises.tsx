@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import {
   exerciseClue,
+  exerciseClueText,
+  exerciseDescription,
   exerciseComplete,
   exerciseCopy,
   exerciseGame,
@@ -13,6 +15,13 @@ import {
   type Action,
   type GameState,
 } from "../engine/game";
+import {
+  completeSolo,
+  mergeSolo,
+  emptySolo,
+  validSolo,
+  type SoloProgress,
+} from "../lib/soloProgress";
 import { validSave } from "../lib/storage";
 import { sound, transitionCue } from "../lib/sound";
 import { useI18n } from "../i18n/I18n";
@@ -35,12 +44,14 @@ function initial(): Session | null {
       exerciseKinds.includes(p.kind) &&
       validSave(p.game) &&
       p.game.current === 0 &&
+      p.game.players.length === 2 &&
+      p.game.players[0].bot === null &&
       p.game.turn === 1 &&
       p.game.phase === "playing" &&
       !p.game.turnSeconds &&
       !p.game.match &&
       JSON.stringify(p.game.turnStart) ===
-        JSON.stringify(exerciseGame(p.kind).turnStart)
+        JSON.stringify(exerciseGame(p.kind, p.game.seed).turnStart)
     )
       return {
         ...p,
@@ -51,6 +62,17 @@ function initial(): Session | null {
   }
   return null;
 }
+function initialSolo(): { progress: SoloProgress; recovered: boolean } {
+  try {
+    const raw = localStorage.getItem("runset.solo.v1");
+    if (raw === null) return { progress: emptySolo(), recovered: false };
+    const p = JSON.parse(raw);
+    if (validSolo(p)) return { progress: p, recovered: false };
+  } catch {
+    /* Invalid optional records must not prevent play. */
+  }
+  return { progress: emptySolo(), recovered: true };
+}
 export default function Exercises({
   onExit,
   muted,
@@ -60,6 +82,36 @@ export default function Exercises({
 }) {
   const { t, locale } = useI18n();
   const [session, setSession] = useState(initial);
+  const puzzlePicker = useRef<HTMLDetailsElement>(null);
+  const [numberError, setNumberError] = useState("");
+  const [puzzleNumber, setPuzzleNumber] = useState(() =>
+    String(session?.game.seed ?? 4321),
+  );
+  const [solo, setSolo] = useState(initialSolo);
+  const [soloSaveError, setSoloSaveError] = useState(false);
+  useEffect(() => {
+    const changed = (e: StorageEvent) => {
+      if (e.key !== "runset.solo.v1" || !e.newValue) return;
+      try {
+        const p = JSON.parse(e.newValue);
+        if (validSolo(p))
+          setSolo((old) => ({ ...old, progress: mergeSolo(old.progress, p) }));
+      } catch {
+        /* Keep the current valid optional record. */
+      }
+    };
+    window.addEventListener("storage", changed);
+    return () => window.removeEventListener("storage", changed);
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("runset.solo.v1", JSON.stringify(solo.progress));
+      setSoloSaveError(false);
+    } catch {
+      setSoloSaveError(true);
+    }
+  }, [solo.progress]);
   const [recovered] = useState(() => {
     try {
       return localStorage.getItem(key) !== null && !initial();
@@ -92,8 +144,18 @@ export default function Exercises({
       setSaveError(true);
     }
   }, [session, muted]);
-  const start = (kind: ExerciseKind) => {
-    const game = exerciseGame(kind);
+  const start = (kind: ExerciseKind, requested?: number) => {
+    const raw =
+      requested === undefined ? puzzleNumber.trim() : String(requested);
+    const code = Number(raw);
+    if (!/^[1-9][0-9]{0,5}$/.test(raw) || !Number.isInteger(code)) {
+      setNumberError("Enter a puzzle number from 1 to 999999.");
+      if (puzzlePicker.current) puzzlePicker.current.open = true;
+      return;
+    }
+    setNumberError("");
+    const game = exerciseGame(kind, code);
+    setPuzzleNumber(String(code));
     if (locale === "zh-CN") game.players[0].name = "你";
     setSession({ version: 1, kind, game, checked: false });
     setClue(false);
@@ -111,6 +173,10 @@ export default function Exercises({
     if (!session) return;
     if (exerciseComplete(session.kind, session.game)) {
       setSession({ ...session, checked: true });
+      setSolo((p) => ({
+        ...p,
+        progress: completeSolo(p.progress, session.kind, session.game.seed),
+      }));
       setFeedback("");
       sound("win", muted);
     } else {
@@ -123,7 +189,7 @@ export default function Exercises({
       sound("invalid", muted);
     }
   };
-  const copy = session && exerciseCopy[session.kind];
+  const copy = session && exerciseDescription(session.kind, session.game.seed);
   return (
     <div className="exercises page">
       <button className="text-button" onClick={onExit}>
@@ -135,6 +201,50 @@ export default function Exercises({
           "Practise one move at a time. No timer, no penalties. Your regular game is kept; its timer keeps running.",
         )}
       </p>
+      <details className="puzzle-picker" ref={puzzlePicker}>
+        <summary>
+          {t("Puzzle number")}: {session?.game.seed ?? puzzleNumber}
+        </summary>
+        <p>
+          {t(
+            "Use the same number and exercise to replay the same starting tiles. Starting a puzzle replaces only the exercise draft.",
+          )}
+        </p>
+        <form
+          noValidate
+          onSubmit={(e) => {
+            e.preventDefault();
+            start(session?.kind ?? "opening");
+          }}
+        >
+          <label>
+            {t("Puzzle number")}{" "}
+            <input
+              aria-label={t("Puzzle number")}
+              inputMode="numeric"
+              maxLength={6}
+              value={puzzleNumber}
+              onChange={(e) => setPuzzleNumber(e.target.value)}
+            />
+          </label>
+          <button className="secondary" type="submit">
+            {t("Start this puzzle")}
+          </button>
+          <button
+            className="text-button"
+            type="button"
+            onClick={() => {
+              const code =
+                (crypto.getRandomValues(new Uint32Array(1))[0] % 999999) + 1;
+              setPuzzleNumber(String(code));
+              if (session) start(session.kind, code);
+            }}
+          >
+            {t("New puzzle number")}
+          </button>
+        </form>
+        <p role="status">{t(numberError)}</p>
+      </details>
       {!session ? (
         <div className="exercise-choices">
           {exerciseKinds.map((kind) => (
@@ -170,7 +280,7 @@ export default function Exercises({
               )}
               <button
                 className="text-button"
-                onClick={() => start(session.kind)}
+                onClick={() => start(session.kind, session.game.seed)}
               >
                 {t("Restart exercise")}
               </button>
@@ -187,7 +297,7 @@ export default function Exercises({
             </div>
             {clue && !session.checked && (
               <div className="exercise-clue">
-                <p>{t(copy!.clue)}</p>
+                <p>{t(exerciseClueText(session.kind, session.game))}</p>
                 <div className="exercise-example">
                   <TileDemo ids={exerciseClue(session.kind, session.game)} />
                 </div>
@@ -221,6 +331,52 @@ export default function Exercises({
             />
           )}
         </>
+      )}
+      <details className="solo-progress">
+        <summary>
+          {t("Your local progress")} · {solo.progress.kinds.length} / 4
+        </summary>
+        <p>
+          {t(
+            "Progress stays on this device. No account or streak to maintain.",
+          )}
+        </p>
+        <p>
+          {t(
+            `Saved completed puzzles: ${solo.progress.completed.length} (up to 200).`,
+          )}
+        </p>
+        {solo.progress.kinds.length === 4 ? (
+          <p role="status">
+            {t("A lovely start: you have tried all four kinds of move!")}
+          </p>
+        ) : solo.progress.kinds.length > 0 ? (
+          <p>
+            {t(
+              "Your first move is in the book. Try another when you feel like it.",
+            )}
+          </p>
+        ) : null}
+        <ul>
+          {exerciseKinds.map((kind) => (
+            <li key={kind}>
+              {solo.progress.kinds.includes(kind) ? "✓ " : "○ "}
+              {t(exerciseCopy[kind].title)}
+            </li>
+          ))}
+        </ul>
+      </details>
+      {solo.recovered && (
+        <p role="status">
+          {t(
+            "Local progress could not be restored. New progress will start here.",
+          )}
+        </p>
+      )}
+      {soloSaveError && (
+        <p role="status">
+          {t("Local progress could not be saved. You can keep playing.")}
+        </p>
       )}
       {recovered && (
         <p role="status">

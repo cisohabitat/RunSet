@@ -2,6 +2,38 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Puzzle number": "练习编号",
+  "Start this puzzle": "开始此编号练习",
+  "New puzzle number": "换个编号",
+  "Enter a puzzle number from 1 to 999999.": "请输入 1 至 999999 的练习编号。",
+  "Use the same number and exercise to replay the same starting tiles. Starting a puzzle replaces only the exercise draft.":
+    "选择相同编号和练习，就能重玩相同起始牌。开始新练习只会替换当前练习。",
+  "Your local progress": "本机练习记录",
+  "Progress stays on this device. No account or streak to maintain.":
+    "记录只保存在本设备，不用注册，也不用每天打卡。",
+  "Saved completed puzzles: {n} (up to 200).":
+    "已保存完成记录：{n} 个练习（最多保留 200 个）。",
+  "A lovely start: you have tried all four kinds of move!":
+    "真不错！四种出法你都试过了。",
+  "Your first move is in the book. Try another when you feel like it.":
+    "已记下你的练习成果。想玩时，再试试别的出法。",
+  "Local progress could not be restored. New progress will start here.":
+    "本机练习记录暂时无法恢复，将从这里重新记录。",
+  "Local progress could not be saved. You can keep playing.":
+    "本机练习记录暂时无法保存，你仍可继续玩。",
+  "Select the pictured tiles, then choose New group or run.":
+    "选中图示的牌，再点“新建牌组”。",
+  "Select the pictured tiles, then choose the existing run.":
+    "选中图示的牌，再点桌上顺子的接牌按钮。",
+  "Make a group of three {n}s in different colours. Their total is {points}: enough to open.":
+    "把三张不同颜色的 {n} 组成同数组。合计 {points} 分，足够开局。",
+  "Add {tile} to the {run} run already on the table.":
+    "把{tile}接到桌上的{run}顺子后面。",
+  "The {first} and {last} need {middle} between them. Complete the run before checking your move.":
+    "{first}和{last}之间缺一张{middle}。先补齐顺子，再检查出牌。",
+  "Replace the joker with {replacement}. Then use it with {blue} and {orange} in a new group.":
+    "用{replacement}替换万能牌，再把万能牌和{blue}、{orange}组成新的同数组。",
+
   "Reading voice": "朗读语音",
   "Recorded guide": "录制导读",
   "Device voice": "设备语音",

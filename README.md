@@ -331,3 +331,10 @@ Lessons and quick exercises offer optional recorded English/Mandarin guidance,
 with Listen, Replay, Stop and a Device voice choice. The 34 static clips are
 cached when Ready offline appears. Human pronunciation/prosody review remains
 paused. See [narration behavior and generation](docs/PREMIUM_NARRATION.md).
+
+Quick exercises support replay by puzzle number (1–999999); 4321 keeps the
+original exercises. New numbers vary colours/values, with matching clues and
+real-rule checks. Local progress deduplicates completions and marks all four
+exercise types without accounts or streaks. See [solo puzzles](docs/PREMIUM_SOLO.md).
+The [physical-device and beginner acceptance checklist](docs/PREMIUM_ACCEPTANCE.md)
+is prepared; the user-paused study and native listening review have not run.

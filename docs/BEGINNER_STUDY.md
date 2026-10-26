@@ -1,6 +1,6 @@
 # First-time-player study (manual verification)
 
-Status: not run. Automated lesson completion is not a substitute for testing with
+Status: paused by the user; not run. Automated lesson completion is not a substitute for testing with
 people who have never played tile-rummy. No participant outcomes are claimed.
 
 Recruit five first-time players across desktop, iPhone, and iPad. Use participant
@@ -36,3 +36,7 @@ Also verify actual Safari touch scrolling, safe areas, portrait/landscape, iPad
 Split View, an attached keyboard/trackpad, VoiceOver, and enlarged text. Test
 small iPhones with both selected tiles and open coaching. Record physical-device
 results explicitly; Chromium viewport checks do not certify these behaviors.
+
+When resumed, also follow [premium acceptance](PREMIUM_ACCEPTANCE.md): include
+Quick exercises, numbered replay, native Mandarin pronunciation/prosody and
+physical Apple-device audio checks. Keep participant results blank until run.

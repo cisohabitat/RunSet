@@ -7,7 +7,7 @@ explicitly deferred and excluded from active release requirements.
 ## Automated results
 
 - `npm run typecheck`: passes with strict TypeScript.
-- `npm test`: 106 tests pass, including seeded simulations of more than 4,000 legal
+- `npm test`: 112 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
 - `npm run test:e2e`: Phase 1's full 131 Chromium flows pass: guided learning/save isolation/
@@ -183,3 +183,13 @@ Premium Phase 6 adds exact-caption MP3 coverage and three recorded-playback
 flows (169 configured browser flows), preserving all device-voice checks.
 Twelve production offline flows include first-use Mandarin MP3 playback without
 Web Speech. Human/native-speaker and physical-device audio review remains paused.
+
+Premium Phase 7 adds 400 reproducible solved exercise positions across 100
+numbers/four goals, malformed-number checks and three bounded-progress/merge
+regressions. Six new browser flows bring the configured total to 175; thirteen
+offline flows include a new numbered puzzle. Dynamic Chinese captions are
+checked for every sampled puzzle. Physical-device and native-listening results
+remain untested, as recorded in PREMIUM_ACCEPTANCE.md.
+
+A further exercise regression accepts a valid additional extension after the
+stated goal is met; full-turn legality still gates completion.

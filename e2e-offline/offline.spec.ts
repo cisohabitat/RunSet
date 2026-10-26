@@ -1,3 +1,4 @@
+import { exerciseGame, exerciseClue } from "../src/engine/exercises";
 import { chooseView } from "../e2e/helpers/view";
 import { test, expect } from "@playwright/test";
 import { mockSpeech } from "../e2e/helpers/speech";
@@ -392,4 +393,36 @@ test("recorded Mandarin plays on first offline visit without installed speech vo
       (window as any).__recordings.every((a: HTMLAudioElement) => a.paused),
     ),
   ).toBe(true);
+});
+
+test("a new numbered puzzle completes offline and saves local progress", async ({
+  page,
+  context,
+}) => {
+  await page.goto("/");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Ready offline" }),
+  ).toBeVisible();
+  await context.setOffline(true);
+  await page
+    .getByRole("button", { name: "Quick exercises →", exact: true })
+    .click();
+  await page.locator(".puzzle-picker summary").click();
+  await page.getByLabel("Puzzle number", { exact: true }).fill("827");
+  await page
+    .getByRole("button", { name: "Start this puzzle", exact: true })
+    .click();
+  const game = exerciseGame("opening", 827);
+  for (const id of exerciseClue("opening", game))
+    await page.locator(`.game [data-tile-id="${id}"]`).click();
+  await page.locator(".new-meld").click();
+  await page.getByRole("button", { name: "Check move", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "Well done! Goal complete." }),
+  ).toBeVisible();
+  expect(
+    await page.evaluate(
+      () => JSON.parse(localStorage.getItem("runset.solo.v1")!).completed,
+    ),
+  ).toContain("opening:827");
 });

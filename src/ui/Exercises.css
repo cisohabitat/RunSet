@@ -85,3 +85,35 @@
   opacity: 1;
   cursor: default;
 }
+.puzzle-picker,
+.solo-progress {
+  margin: 16px 0;
+  padding: 12px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+}
+.puzzle-picker summary,
+.solo-progress summary {
+  min-height: 44px;
+  display: list-item;
+  align-content: center;
+  cursor: pointer;
+}
+.puzzle-picker form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.puzzle-picker input {
+  min-height: 44px;
+  width: 8em;
+  max-width: 100%;
+  font: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius-control);
+  padding: 8px;
+}

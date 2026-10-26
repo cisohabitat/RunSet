@@ -50,6 +50,14 @@ from the public repository.
 - Online multiplayer is explicitly deferred. `docs/MULTIPLAYER.md` is an archived
   proposal, not an active task. Do not request workspace access, provision backend
   resources, or add online-play functionality unless the user reopens that scope.
+- Hint placement must capture exactly one conserved snapshot before either table
+  or rack changes. Generated meld IDs must remain unique after deletions/splits.
+- Validate a position before saving; invalid writes must preserve the previous save.
+  Recover a damaged Undo history only if the remaining complete state validates,
+  and show a notice. Save validation must return false for malformed nested input.
+- Enforce turn expiry on timestamped gameplay actions as well as polling ticks.
+- Bound optional game context so combined match, timer, coaching and touch options
+  cannot push primary controls outside the viewport. Test combined options.
 - Undo history is bounded to 100 snapshots of the current turn only. Clear it
   on reset, draw, or turn completion. Saves must validate every snapshot.
 - Production builds generate `dist/sw.js` with static asset hashes. Never cache
@@ -64,6 +72,7 @@ from the public repository.
   resume must recover older inconsistent steps. Test all three lessons with touch
   and mouse input, not only their engine plans. Restart must clear local tile
   selections; out-of-sequence tutorial actions must explain the current step.
+  Validate lesson destinations before moving tiles, including partial objectives.
   Delete only the regular game key; preserve practice and preference keys. Cancel
   bot callbacks when a confirmation is open or a game is removed.
 - Run `npm run test:e2e` for changed player flows; Playwright config uses installed

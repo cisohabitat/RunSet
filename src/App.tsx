@@ -153,7 +153,9 @@ export default function App() {
         );
       } else
         setNotice(
-          "Browser storage is unavailable. This round cannot be saved.",
+          result.reason === "invalid"
+            ? "This position failed validation and was not saved. Your previous saved game is preserved."
+            : "Browser storage is unavailable. This round cannot be saved.",
         );
     });
     return () => {
@@ -233,6 +235,10 @@ export default function App() {
   }, [game?.turn, game?.phase, confirmation]);
   const dispatch = (action: Action) => {
     const a = { ...action, at: Date.now() };
+    if (game?.turnSeconds && game.deadline !== undefined && a.at >= game.deadline) {
+      dispatchBase(a);
+      return;
+    }
     if (a.type === "endTurn" && learning && game && !turnCheck(game).valid) {
       setConfirmation({
         kind: "penalty",

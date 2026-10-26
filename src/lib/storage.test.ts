@@ -122,3 +122,33 @@ it("keeps a previous valid position for recovery and removes it on explicit dele
   expect(await deleteGame()).toBe(true);
   expect(data.has(BACKUP_KEY)).toBe(false);
 });
+
+it("never overwrites a valid save with an invalid in-memory position", async () => {
+  const s = newGame("You", 1, "easy", 7);
+  await saveGame(s);
+  const before = data.get(SAVE_KEY);
+  const invalid = structuredClone(s);
+  invalid.pool.pop();
+  expect(await saveGame(invalid)).toBe(false);
+  expect(data.get(SAVE_KEY)).toBe(before);
+});
+
+it("recovers old hint saves by clearing only damaged Undo history", async () => {
+  const { practiceGame } = await import("../engine/practice");
+  const s = reducer(practiceGame(), { type: "move", ids: [9, 35, 61], target: "new" });
+  // Prior hint code took this snapshot after changing the table but before removing rack tiles.
+  s.history!.push({ table: structuredClone(s.table), rack: [...s.turnStart.rack] });
+  data.set(SAVE_KEY, JSON.stringify(s));
+  const recovered = loadGame();
+  expect(recovered.game).toEqual({ ...s, history: [] });
+  expect(recovered.notice).toMatch(/Undo history/);
+  expect(await saveGame(recovered.game!)).toBe(true);
+  expect(loadGame().game).toEqual(recovered.game);
+});
+
+it("save validation returns false for malformed nested values instead of throwing", async () => {
+  const { validSave } = await import("./storage");
+  for (const patch of [{ players: [null, null] }, { table: [null] }, { turnStart: { table: [null], rack: [] } }]) {
+    expect(validSave({ ...newGame("You", 1, "easy", 7), ...patch })).toBe(false);
+  }
+});

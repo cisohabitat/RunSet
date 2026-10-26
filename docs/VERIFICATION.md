@@ -1,16 +1,16 @@
 # Roadmap verification
 
-Verification date: 2026-10-25. This records automated checks in the development
+Verification date: 2026-10-26. This records automated checks in the development
 environment; it does not certify physical Apple devices. Online multiplayer is
 explicitly deferred and excluded from active release requirements.
 
 ## Automated results
 
 - `npm run typecheck`: passes with strict TypeScript.
-- `npm test`: 61 tests pass, including seeded simulations of more than 4,000 legal
+- `npm test`: 70 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: 22 Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: 26 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
@@ -62,3 +62,8 @@ Additional tutorial regressions check Restart clears old selections and early
 Draw/End actions explain the current objective without changing progress.
 Tutorial continuation controls are checked with viewport bounds and hit-testing
 before clicking, so automatic Playwright scrolling cannot hide clipped controls.
+
+The fresh review in BUG_REVIEW.md adds exact hint reload/Undo, damaged history
+recovery, mixed-edit save validity, generated group ID uniqueness, late-action
+expiry, legal joker splits, tutorial destination checks, and combined-option
+layout bounds down to 360×640.

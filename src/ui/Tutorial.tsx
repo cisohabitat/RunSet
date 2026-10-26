@@ -87,7 +87,7 @@ export default function Tutorial({
                   : "new",
         }
       : lesson === "jokers"
-        ? game.table.some((m) => m.tiles.includes(4))
+        ? game.table.some((m) => m.id === "practice-wild" && m.tiles.includes(4))
           ? { ids: [104, 30, 56], target: "new" }
           : { ids: [4], target: "practice-wild" }
         : { ids: [3, 4, 5, 6], target: "new" };
@@ -186,7 +186,11 @@ export default function Tutorial({
     if (
       action.type === "move" &&
       action.target !== "rack" &&
-      action.ids.some((id) => !objective.ids.includes(id))
+      (action.ids.some((id) => !objective.ids.includes(id)) ||
+        (action.target !== objective.target &&
+          !(lesson === "basics" && step <= 1 && game.table.some((m) =>
+            m.id === action.target && m.tiles.every((id) => objective.ids.includes(id)),
+          ))))
     ) {
       setFeedback(
         `This exercise uses ${labels}. Select those tiles and choose the outlined destination.`,

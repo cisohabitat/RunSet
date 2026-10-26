@@ -2870,3 +2870,20 @@ button:not(.tile) {
     padding: 16px 6%;
   }
 }
+/* Optional scores, clocks and explanations share bounded space above the table.
+   The rack and turn buttons must remain reachable when several options are on. */
+.playing .game-context {
+  flex: 0 1 auto;
+  min-height: 0;
+  max-height: 35%;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.playing .table {
+  flex-basis: 0;
+}
+.playing .game-context .first-game-guide,
+.playing .game-context .coach-card {
+  max-height: none;
+  overflow: visible;
+}

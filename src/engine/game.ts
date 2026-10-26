@@ -155,7 +155,7 @@ export function turnCheck(s: GameState): {
       const after = s.table.find((x) => x.tiles.includes(joker));
       const unchanged =
         after &&
-        m.tiles.every((id) => after.tiles.includes(id)) &&
+        m.tiles.some((id) => !tiles[id].joker && after.tiles.includes(id)) &&
         inspectMeld(after.tiles).values[joker] === before.values[joker] &&
         inspectMeld(after.tiles).jokerColors[joker] ===
           before.jokerColors[joker];
@@ -199,17 +199,27 @@ function advance(
   s.turnStart = { table: copy(s.table), rack: [...s.players[s.current].rack] };
   return s;
 }
+function drawTurn(state: GameState, at: number): GameState {
+  const s = copy(state), p = s.players[s.current];
+  s.table = copy(s.turnStart.table);
+  p.rack = [...s.turnStart.rack];
+  const tile = s.pool.shift();
+  if (tile !== undefined) p.rack.push(tile);
+  s.lastPlaced = [];
+  return advance(s, `${p.name} ${tile === undefined ? "passed" : "drew a tile"}.`, tile === undefined, at);
+}
 export function reducer(state: GameState, action: Action): GameState {
   if (action.type === "nextRound") return nextRound(state, action.at ?? 0);
   if (action.type === "dismissCoach") return { ...state, coach: false };
   if (state.phase === "over") return state;
-  if (action.type === "tick") {
-    if (!state.turnSeconds || !state.deadline || action.now < state.deadline)
-      return state;
-    const next = reducer(state, { type: "draw", at: action.now });
+  const now = action.type === "tick" ? action.now : action.at;
+  if (state.turnSeconds && state.deadline !== undefined && now !== undefined && now >= state.deadline) {
+    const next = drawTurn(state, now);
     next.notice = `Time’s up. ${next.notice}`;
     return next;
   }
+  if (action.type === "tick") return state;
+  if (action.type === "draw") return drawTurn(state, action.at ?? 0);
   const s = copy(state),
     p = s.players[s.current];
   s.notice = "";
@@ -268,7 +278,10 @@ export function reducer(state: GameState, action: Action): GameState {
     else {
       let m = s.table.find((m) => m.id === action.target);
       if (!m) {
-        m = { id: `m-${s.turn}-${s.table.length}-${ids[0]}`, tiles: [] };
+        const base = `m-${s.turn}-${s.table.length}-${ids[0]}`;
+        let id = base, suffix = 1;
+        while (s.table.some((meld) => meld.id === id)) id = `${base}-${suffix++}`;
+        m = { id, tiles: [] };
         s.table.push(m);
       }
       m.tiles.push(...ids);
@@ -276,25 +289,13 @@ export function reducer(state: GameState, action: Action): GameState {
     s.table = s.table.filter((m) => m.tiles.length);
     return s;
   }
-  if (action.type === "draw") {
-    s.table = copy(s.turnStart.table);
-    p.rack = [...s.turnStart.rack];
-    const tile = s.pool.shift();
-    if (tile !== undefined) p.rack.push(tile);
-    s.lastPlaced = [];
-    return advance(
-      s,
-      `${p.name} ${tile === undefined ? "passed" : "drew a tile"}.`,
-      tile === undefined,
-      action.at ?? 0,
-    );
-  }
   if (action.type === "botTurn" || action.type === "applyPlan") {
     // Accept only conserved submissions, then use the exact human validator.
     const ids = action.table.flatMap((m) => m.tiles),
       available = [...s.table.flatMap((m) => m.tiles), ...p.rack];
     if (
       new Set(ids).size !== ids.length ||
+      new Set(action.table.map((m) => m.id)).size !== action.table.length ||
       ids.some((id) => !available.includes(id))
     )
       return action.type === "applyPlan"
@@ -311,10 +312,6 @@ export function reducer(state: GameState, action: Action): GameState {
         { table: copy(s.table), rack: [...p.rack] },
       ];
     s.table = copy(action.table);
-    s.history = [
-      ...(s.history ?? []).slice(-99),
-      { table: copy(s.table), rack: [...p.rack] },
-    ];
     p.rack = p.rack.filter((id) => !ids.includes(id));
     if (!turnCheck(s).valid || !turnCheck(s).played.length)
       return action.type === "applyPlan"

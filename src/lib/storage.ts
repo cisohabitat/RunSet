@@ -6,7 +6,7 @@ let expectedRaw: string | null | undefined;
 let generation = 0;
 let pending: Promise<unknown> = Promise.resolve();
 export type WriteResult =
-  { ok: true } | { ok: false; reason: "conflict" | "storage" };
+  { ok: true } | { ok: false; reason: "conflict" | "storage" | "invalid" };
 function lockedWrite(change: () => void): Promise<WriteResult> {
   const scheduled = generation;
   const work = (): WriteResult => {
@@ -31,6 +31,13 @@ function lockedWrite(change: () => void): Promise<WriteResult> {
   return result;
 }
 export function validSave(value: unknown): value is GameState {
+  try {
+    return validateSave(value);
+  } catch {
+    return false;
+  }
+}
+function validateSave(value: unknown): value is GameState {
   if (!value || typeof value !== "object") return false;
   const s = value as GameState;
   if (s.coach !== undefined && typeof s.coach !== "boolean") return false;
@@ -52,9 +59,9 @@ export function validSave(value: unknown): value is GameState {
     !Array.isArray(s.lastPlaced) ||
     !Array.isArray(s.log) ||
     s.log.length > 100 ||
-    !Number.isFinite(s.turn) ||
+    !Number.isInteger(s.turn) || s.turn < 1 ||
     !Number.isFinite(s.seed) ||
-    !Number.isInteger(s.passes)
+    !Number.isInteger(s.passes) || s.passes < 0 || s.passes > s.players.length
   )
     return false;
   if (
@@ -98,6 +105,7 @@ export function validSave(value: unknown): value is GameState {
   )
     return false;
   if (new Set(s.table.map((m) => m.id)).size !== s.table.length) return false;
+  if (new Set(s.turnStart.table.map((m) => m.id)).size !== s.turnStart.table.length) return false;
   if (s.turnSeconds !== undefined && ![0, 60, 120].includes(s.turnSeconds))
     return false;
   if (s.turnSeconds && (!Number.isFinite(s.deadline) || s.deadline! < 0))
@@ -148,6 +156,7 @@ export function validSave(value: unknown): value is GameState {
           return true;
         const ids = [...h.rack, ...h.table.flatMap((m) => m.tiles)];
         return (
+          new Set(h.table.map((m) => m.id)).size !== h.table.length ||
           ids.length !== active.length ||
           new Set(ids).size !== ids.length ||
           ids.some((id) => !active.includes(id))
@@ -172,7 +181,17 @@ export function loadGame(): { game: GameState | null; notice: string } {
     expectedRaw = raw;
     generation++;
     if (!raw) return { game: null, notice: "" };
-    const s: unknown = JSON.parse(raw);
+    let s: unknown = JSON.parse(raw);
+    let notice = "";
+    // Earlier hint placement could damage only the Undo snapshots. Keep the
+    // current conserved position when clearing that history makes it valid.
+    if (!validSave(s) && s && typeof s === "object" && "history" in s && Array.isArray(s.history) && s.history.length) {
+      const recovered = { ...s, history: [] };
+      if (validSave(recovered)) {
+        s = recovered;
+        notice = "Recovered your game by clearing damaged Undo history. Your current tiles and turn are unchanged.";
+      }
+    }
     if (!validSave(s)) {
       localStorage.removeItem(SAVE_KEY);
       expectedRaw = null;
@@ -181,7 +200,7 @@ export function loadGame(): { game: GameState | null; notice: string } {
         notice: "An old or unreadable save was discarded. Start a fresh game.",
       };
     }
-    return { game: s, notice: "" };
+    return { game: s, notice };
   } catch {
     try {
       localStorage.removeItem(SAVE_KEY);
@@ -211,6 +230,7 @@ export function readRecoveryGame(): GameState | null {
   }
 }
 export function persistGame(game: GameState): Promise<WriteResult> {
+  if (!validSave(game)) return Promise.resolve({ ok: false, reason: "invalid" });
   const raw = JSON.stringify(game);
   return lockedWrite(() => {
     const previous = localStorage.getItem(SAVE_KEY);

@@ -46,9 +46,13 @@ export function Game({
   const [expanded, setExpanded] = useState(false),
     [tableView, setTableView] = useState<"normal" | "wide">("normal");
   const tableRef = useRef<HTMLElement>(null);
+  const hintRef = useRef<HTMLElement>(null);
   const [hint, setHint] = useState<Hint | null>(null),
     [planning, setPlanning] = useState(false);
   const request = useRef<AbortController | null>(null);
+  useEffect(() => {
+    if (hint) hintRef.current?.scrollIntoView({ block: "nearest" });
+  }, [hint]);
   useEffect(() => {
     setHint(null);
     setPlanning(false);
@@ -151,6 +155,7 @@ export function Game({
         }
       }}
     >
+      <div className="game-context">
       <div className="game-heading">
         <div>
           <span className="eyebrow">THE TABLE</span>
@@ -242,7 +247,7 @@ export function Game({
         </aside>
       )}
       {hint && (
-        <aside className="coach-card" aria-label="Move hint">
+        <aside ref={hintRef} className="coach-card" aria-label="Move hint">
           <p role="status">{hint.message}</p>
           {hint.explanations && (
             <details className="hint-reasons" open>
@@ -299,6 +304,7 @@ export function Game({
           Table end ↓
         </button>
         <span>Scroll the table to see more groups and runs.</span>
+      </div>
       </div>
       <section
         ref={tableRef}

@@ -43,6 +43,8 @@ Open the local URL printed by Vite (normally http://localhost:5173).
 - Tap/click selection, desktop dragging, keyboard-operable destinations, sorting,
   reset, draw/pass, live validation, and move history.
 - Versioned localStorage autosave, including unfinished turns, and Continue.
+  Writes validate the complete position; older hint saves with damaged Undo history
+  recover their current tiles with a visible notice.
 - Synthesised sound with a remembered mute toggle; responsive layouts, shape marks
   for colours, system dark theme, and reduced-motion support.
 
@@ -97,6 +99,7 @@ with device speed. Runtime dependencies are React and React DOM only.
 if needed, or set `CHROMIUM_PATH`). Tests cover practice, saved-game isolation,
 delete/cancel/reload, and desktop/tablet/phone viewports. `npm run test:offline` verifies the production service worker, offline reload,
 practice availability, and save-preserving updates.
+The [fresh bug review](docs/BUG_REVIEW.md) records reproduced defects and fixes.
 Real-device Safari and
 first-time-player usability sessions remain manual checks.
 
@@ -150,7 +153,8 @@ outdated penalty warning so it cannot apply a penalty to the next player.
 
 See the [improvement roadmap](docs/ROADMAP.md) for phase status and acceptance
 criteria. Guided learning, safe deletion, device layouts, contextual hints, undo,
-offline installation, matches, and timers are implemented. Real-device Safari and
+offline installation, matches, and timers are implemented. The [fresh bug review](docs/BUG_REVIEW.md) records reproduced defects and fixes.
+Real-device Safari and
 first-time-player usability sessions remain manual verification items.
 
 Online multiplayer is deferred at the user’s request and is outside the active

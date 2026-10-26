@@ -89,8 +89,8 @@ export function HowToPlay({ onBack }: { onBack: () => void }) {
           </p>
           <p>
             Tap or click tiles to select, then choose a meld or “New meld”. You
-            can also drag a tile or selection. Choose your rack to return tiles
-            you placed this turn. Keyboard: Tab to tiles, Space to select, then
+            can also drag a tile or selection. To return tiles you placed this
+            turn, choose More, then Return selected tiles to rack. Keyboard: Tab to tiles, Space to select, then
             activate a destination button.
           </p>
         </article>

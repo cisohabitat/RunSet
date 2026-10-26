@@ -1,0 +1,2443 @@
+{
+  "generatedAt": "2026-10-26T15:55:31.061Z",
+  "startedAt": "2026-10-26T15:40:04.275Z",
+  "complete": true,
+  "environment": {
+    "node": "v24.19.0",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "platform": "linux",
+    "engineFingerprint": {
+      "bot": "defd5ad562bb015bd1a4a6d493fe527acde034b3f507a14b33d15b6518233478",
+      "solver": "14887c79ea76e6f72464bd35bdddcf9dd206dad2bc007c007b1f88990ad30488",
+      "game": "1b31ce55e58dcbcfb33b4c166d37041d0c3cf717ef0ef13d085991f4ba57752d",
+      "meld": "b5a90eeb78110ea6e1f5a7223e5555272bd532f41b873acbcdc833c950faa6ae",
+      "tiles": "8a4a02afe5ae158d97fddead9e2242ddc951867ed6d3a88845455026cee7b6a7"
+    }
+  },
+  "method": {
+    "mode": "pairs",
+    "firstSeed": 201,
+    "seeds": 20,
+    "assignments": [
+      [
+        "easy",
+        "normal"
+      ],
+      [
+        "easy",
+        "hard"
+      ],
+      [
+        "normal",
+        "easy"
+      ],
+      [
+        "normal",
+        "hard"
+      ],
+      [
+        "hard",
+        "easy"
+      ],
+      [
+        "hard",
+        "normal"
+      ]
+    ],
+    "planningBudgetMs": 380,
+    "effectiveWorkBudgetMs": 320,
+    "productionRedaction": true,
+    "description": "All ordered seat assignments for each seeded deal, sequentially on one host. Same-turn Normal comparison on post-opening Hard positions. Original submitted plans are checked before the reducer can turn a rejected plan into a draw. No bot strategy is modified."
+  },
+  "summary": {
+    "easy": {
+      "gamesPlayed": 80,
+      "wins": 1,
+      "winRate": 0.01,
+      "moves": 4513,
+      "plays": 994,
+      "draws": 3419,
+      "passes": 100,
+      "tilesPlayed": 3346,
+      "rejectedPlans": 0,
+      "rejectionReasons": {},
+      "tilesPerPlay": 3.37,
+      "openingPersonalTurns": {
+        "count": 80,
+        "p50": 1,
+        "p95": 14
+      },
+      "meanRemainingPoints": 102.51,
+      "latencyMs": {
+        "p50": 0.51,
+        "p95": 1.01,
+        "p99": 1.98,
+        "max": 33.27
+      },
+      "plansOver400Ms": 0
+    },
+    "normal": {
+      "gamesPlayed": 80,
+      "wins": 56,
+      "winRate": 0.7,
+      "moves": 4824,
+      "plays": 1763,
+      "draws": 2977,
+      "passes": 84,
+      "tilesPlayed": 3655,
+      "rejectedPlans": 0,
+      "rejectionReasons": {},
+      "tilesPerPlay": 2.07,
+      "openingPersonalTurns": {
+        "count": 80,
+        "p50": 1,
+        "p95": 14
+      },
+      "meanRemainingPoints": 38.92,
+      "latencyMs": {
+        "p50": 0.55,
+        "p95": 1.08,
+        "p99": 2.1,
+        "max": 26.21
+      },
+      "plansOver400Ms": 0
+    },
+    "hard": {
+      "gamesPlayed": 80,
+      "wins": 63,
+      "winRate": 0.79,
+      "moves": 4839,
+      "plays": 1809,
+      "draws": 2945,
+      "passes": 85,
+      "tilesPlayed": 3706,
+      "rejectedPlans": 0,
+      "rejectionReasons": {},
+      "tilesPerPlay": 2.05,
+      "openingPersonalTurns": {
+        "count": 80,
+        "p50": 1,
+        "p95": 14
+      },
+      "meanRemainingPoints": 31.18,
+      "latencyMs": {
+        "p50": 320.01,
+        "p95": 320.11,
+        "p99": 321.44,
+        "max": 424.85
+      },
+      "plansOver400Ms": 1
+    }
+  },
+  "hardVsNormal": {
+    "compared": 4522,
+    "normalBaselineRejected": 0,
+    "moreTiles": 286,
+    "sameTiles": 4236,
+    "fewerTiles": 0,
+    "baselineCouldEmptyRack": 7,
+    "latencyWhenBaselineCouldEmptyRackMs": {
+      "p50": 0.43,
+      "p95": 0.69,
+      "p99": 0.69,
+      "max": 0.69
+    }
+  },
+  "games": [
+    {
+      "seed": 201,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 115,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 84,
+        "normal": 43
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 201,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 117,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 94,
+        "hard": 48
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 201,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 109,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 52,
+        "easy": 140
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 201,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 131,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 29,
+        "hard": 40
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 201,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 108,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 57,
+        "easy": 156
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 201,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 125,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 8,
+        "normal": 17
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 202,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 122,
+        "normal": 67
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 2
+      }
+    },
+    {
+      "seed": 202,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 122,
+        "hard": 67
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 2
+      }
+    },
+    {
+      "seed": 202,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 58,
+        "easy": 78
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 2
+      }
+    },
+    {
+      "seed": 202,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 126,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 44,
+        "hard": 11
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 2
+      }
+    },
+    {
+      "seed": 202,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 115,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 29,
+        "easy": 138
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 2
+      }
+    },
+    {
+      "seed": 202,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 121,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 49,
+        "normal": 42
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 2
+      }
+    },
+    {
+      "seed": 203,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 114,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 73,
+        "normal": 34
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 203,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 108,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 153,
+        "hard": 66
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 203,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 114,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 39,
+        "easy": 104
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 203,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 133,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 34,
+        "hard": 14
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 203,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 114,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 26,
+        "easy": 161
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 203,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 133,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 0,
+        "normal": 11
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 204,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 101,
+        "normal": 23
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 204,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 107,
+        "hard": 22
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 204,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 78,
+        "easy": 95
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 204,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 130,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 56,
+        "hard": 73
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 204,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 115,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 0,
+        "easy": 82
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 204,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 133,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 0,
+        "normal": 22
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 205,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 114,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 101,
+        "normal": 88
+      },
+      "openingPersonalTurns": {
+        "easy": 3,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 205,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 114,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 108,
+        "hard": 47
+      },
+      "openingPersonalTurns": {
+        "easy": 3,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 205,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 106,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 138,
+        "easy": 181
+      },
+      "openingPersonalTurns": {
+        "normal": 3,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 205,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 130,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 45,
+        "hard": 26
+      },
+      "openingPersonalTurns": {
+        "normal": 3,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 205,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 12,
+        "easy": 118
+      },
+      "openingPersonalTurns": {
+        "hard": 3,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 205,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 135,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 4,
+        "normal": 15
+      },
+      "openingPersonalTurns": {
+        "hard": 3,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 206,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 115,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 71,
+        "normal": 43
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 17
+      }
+    },
+    {
+      "seed": 206,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 104,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 140,
+        "hard": 40
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 17
+      }
+    },
+    {
+      "seed": 206,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 21,
+        "easy": 41
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 15
+      }
+    },
+    {
+      "seed": 206,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 119,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 0,
+        "hard": 11
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 15
+      }
+    },
+    {
+      "seed": 206,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 6,
+        "easy": 84
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 15
+      }
+    },
+    {
+      "seed": 206,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 136,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 7,
+        "normal": 9
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 15
+      }
+    },
+    {
+      "seed": 207,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 109,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 139,
+        "normal": 91
+      },
+      "openingPersonalTurns": {
+        "easy": 7,
+        "normal": 7
+      }
+    },
+    {
+      "seed": 207,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 118,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 45,
+        "hard": 0
+      },
+      "openingPersonalTurns": {
+        "easy": 7,
+        "hard": 7
+      }
+    },
+    {
+      "seed": 207,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 107,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 98,
+        "easy": 152
+      },
+      "openingPersonalTurns": {
+        "normal": 7,
+        "easy": 7
+      }
+    },
+    {
+      "seed": 207,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 133,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 40,
+        "hard": 31
+      },
+      "openingPersonalTurns": {
+        "normal": 7,
+        "hard": 7
+      }
+    },
+    {
+      "seed": 207,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 110,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 33,
+        "easy": 71
+      },
+      "openingPersonalTurns": {
+        "hard": 7,
+        "easy": 7
+      }
+    },
+    {
+      "seed": 207,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 129,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 0,
+        "normal": 61
+      },
+      "openingPersonalTurns": {
+        "hard": 7,
+        "normal": 7
+      }
+    },
+    {
+      "seed": 208,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 118,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 107,
+        "normal": 24
+      },
+      "openingPersonalTurns": {
+        "easy": 5,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 208,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 114,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 103,
+        "hard": 56
+      },
+      "openingPersonalTurns": {
+        "easy": 5,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 208,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 15,
+        "easy": 73
+      },
+      "openingPersonalTurns": {
+        "normal": 5,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 208,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 123,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 26,
+        "hard": 33
+      },
+      "openingPersonalTurns": {
+        "normal": 5,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 208,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 31,
+        "easy": 102
+      },
+      "openingPersonalTurns": {
+        "hard": 5,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 208,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 124,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 63,
+        "normal": 40
+      },
+      "openingPersonalTurns": {
+        "hard": 5,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 209,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 115,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 103,
+        "normal": 12
+      },
+      "openingPersonalTurns": {
+        "easy": 5,
+        "normal": 6
+      }
+    },
+    {
+      "seed": 209,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 96,
+        "hard": 44
+      },
+      "openingPersonalTurns": {
+        "easy": 5,
+        "hard": 6
+      }
+    },
+    {
+      "seed": 209,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 35,
+        "easy": 93
+      },
+      "openingPersonalTurns": {
+        "normal": 5,
+        "easy": 6
+      }
+    },
+    {
+      "seed": 209,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 124,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 46,
+        "hard": 53
+      },
+      "openingPersonalTurns": {
+        "normal": 5,
+        "hard": 6
+      }
+    },
+    {
+      "seed": 209,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 117,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 28,
+        "easy": 94
+      },
+      "openingPersonalTurns": {
+        "hard": 5,
+        "easy": 6
+      }
+    },
+    {
+      "seed": 209,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 124,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 41,
+        "normal": 44
+      },
+      "openingPersonalTurns": {
+        "hard": 5,
+        "normal": 6
+      }
+    },
+    {
+      "seed": 210,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 110,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 141,
+        "normal": 70
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 210,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 110,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 154,
+        "hard": 50
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 210,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 115,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 37,
+        "easy": 113
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 210,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 121,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 88,
+        "hard": 101
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 210,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 7,
+        "easy": 78
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 210,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 130,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 20,
+        "normal": 11
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 211,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 102,
+        "normal": 14
+      },
+      "openingPersonalTurns": {
+        "easy": 4,
+        "normal": 6
+      }
+    },
+    {
+      "seed": 211,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 79,
+        "hard": 20
+      },
+      "openingPersonalTurns": {
+        "easy": 4,
+        "hard": 6
+      }
+    },
+    {
+      "seed": 211,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 26,
+        "easy": 74
+      },
+      "openingPersonalTurns": {
+        "normal": 4,
+        "easy": 6
+      }
+    },
+    {
+      "seed": 211,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 137,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 27,
+        "hard": 8
+      },
+      "openingPersonalTurns": {
+        "normal": 4,
+        "hard": 6
+      }
+    },
+    {
+      "seed": 211,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 115,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 40,
+        "easy": 92
+      },
+      "openingPersonalTurns": {
+        "hard": 4,
+        "easy": 6
+      }
+    },
+    {
+      "seed": 211,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 137,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 20,
+        "normal": 7
+      },
+      "openingPersonalTurns": {
+        "hard": 4,
+        "normal": 6
+      }
+    },
+    {
+      "seed": 212,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 108,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 80,
+        "normal": 26
+      },
+      "openingPersonalTurns": {
+        "easy": 12,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 212,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 109,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 102,
+        "hard": 27
+      },
+      "openingPersonalTurns": {
+        "easy": 12,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 212,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 31,
+        "easy": 71
+      },
+      "openingPersonalTurns": {
+        "normal": 12,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 212,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 123,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 43,
+        "hard": 17
+      },
+      "openingPersonalTurns": {
+        "normal": 12,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 212,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 21,
+        "easy": 71
+      },
+      "openingPersonalTurns": {
+        "hard": 12,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 212,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 115,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 48,
+        "normal": 63
+      },
+      "openingPersonalTurns": {
+        "hard": 12,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 213,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 111,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 85,
+        "normal": 52
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 213,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 118,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 80,
+        "hard": 58
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 213,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 115,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 57,
+        "easy": 79
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 213,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 132,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 52,
+        "hard": 12
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 213,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 118,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 29,
+        "easy": 61
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 213,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 133,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 39,
+        "normal": 14
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 214,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 110,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 80,
+        "normal": 47
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 7
+      }
+    },
+    {
+      "seed": 214,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 118,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 76,
+        "hard": 22
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 7
+      }
+    },
+    {
+      "seed": 214,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 106,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 86,
+        "easy": 147
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 7
+      }
+    },
+    {
+      "seed": 214,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 133,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 23,
+        "hard": 31
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 7
+      }
+    },
+    {
+      "seed": 214,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 119,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 60,
+        "easy": 119
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 7
+      }
+    },
+    {
+      "seed": 214,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 124,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 37,
+        "normal": 62
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 7
+      }
+    },
+    {
+      "seed": 215,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 146,
+        "normal": 32
+      },
+      "openingPersonalTurns": {
+        "easy": 4,
+        "normal": 6
+      }
+    },
+    {
+      "seed": 215,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 114,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 107,
+        "hard": 29
+      },
+      "openingPersonalTurns": {
+        "easy": 4,
+        "hard": 6
+      }
+    },
+    {
+      "seed": 215,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 111,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 56,
+        "easy": 139
+      },
+      "openingPersonalTurns": {
+        "normal": 4,
+        "easy": 6
+      }
+    },
+    {
+      "seed": 215,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 132,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 39,
+        "hard": 22
+      },
+      "openingPersonalTurns": {
+        "normal": 4,
+        "hard": 6
+      }
+    },
+    {
+      "seed": 215,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 107,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 87,
+        "easy": 133
+      },
+      "openingPersonalTurns": {
+        "hard": 4,
+        "easy": 6
+      }
+    },
+    {
+      "seed": 215,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 126,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 2,
+        "normal": 16
+      },
+      "openingPersonalTurns": {
+        "hard": 4,
+        "normal": 6
+      }
+    },
+    {
+      "seed": 216,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 114,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 92,
+        "normal": 22
+      },
+      "openingPersonalTurns": {
+        "easy": 5,
+        "normal": 8
+      }
+    },
+    {
+      "seed": 216,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 114,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 84,
+        "hard": 32
+      },
+      "openingPersonalTurns": {
+        "easy": 5,
+        "hard": 8
+      }
+    },
+    {
+      "seed": 216,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 119,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 3,
+        "easy": 55
+      },
+      "openingPersonalTurns": {
+        "normal": 5,
+        "easy": 8
+      }
+    },
+    {
+      "seed": 216,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 132,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 20,
+        "hard": 0
+      },
+      "openingPersonalTurns": {
+        "normal": 5,
+        "hard": 8
+      }
+    },
+    {
+      "seed": 216,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 35,
+        "easy": 127
+      },
+      "openingPersonalTurns": {
+        "hard": 5,
+        "easy": 8
+      }
+    },
+    {
+      "seed": 216,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 119,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 0,
+        "normal": 6
+      },
+      "openingPersonalTurns": {
+        "hard": 5,
+        "normal": 8
+      }
+    },
+    {
+      "seed": 217,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "easy",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 44,
+        "normal": 70
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 19
+      }
+    },
+    {
+      "seed": 217,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 80,
+        "hard": 7
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 19
+      }
+    },
+    {
+      "seed": 217,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 31,
+        "easy": 84
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 14
+      }
+    },
+    {
+      "seed": 217,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 130,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 19,
+        "hard": 0
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 14
+      }
+    },
+    {
+      "seed": 217,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 108,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 21,
+        "easy": 99
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 14
+      }
+    },
+    {
+      "seed": 217,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 124,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 6,
+        "normal": 7
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 14
+      }
+    },
+    {
+      "seed": 218,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 117,
+        "normal": 51
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 218,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 117,
+        "hard": 51
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 218,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 115,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 33,
+        "easy": 58
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 218,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 136,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 12,
+        "hard": 34
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 218,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 57,
+        "easy": 75
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 218,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 135,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 43,
+        "normal": 27
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 219,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 111,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 121,
+        "normal": 70
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 7
+      }
+    },
+    {
+      "seed": 219,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 110,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 130,
+        "hard": 43
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 7
+      }
+    },
+    {
+      "seed": 219,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 28,
+        "easy": 106
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 7
+      }
+    },
+    {
+      "seed": 219,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 134,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 29,
+        "hard": 47
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 7
+      }
+    },
+    {
+      "seed": 219,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 119,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 35,
+        "easy": 75
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 7
+      }
+    },
+    {
+      "seed": 219,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 117,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 0,
+        "normal": 6
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 7
+      }
+    },
+    {
+      "seed": 220,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 109,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 131,
+        "normal": 65
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 11
+      }
+    },
+    {
+      "seed": 220,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 109,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 131,
+        "hard": 65
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 11
+      }
+    },
+    {
+      "seed": 220,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 117,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 56,
+        "easy": 100
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 11
+      }
+    },
+    {
+      "seed": 220,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 129,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 12,
+        "hard": 24
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 11
+      }
+    },
+    {
+      "seed": 220,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 108,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 68,
+        "easy": 134
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 11
+      }
+    },
+    {
+      "seed": 220,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 131,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 43,
+        "normal": 28
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 11
+      }
+    }
+  ],
+  "rejectionExamples": [],
+  "checks": {
+    "completedRounds": 120,
+    "all106TilesConserved": true,
+    "allCompletedTablesLegal": true,
+    "allSubmittedPlansLegal": true,
+    "allPlanningInputsUnchanged": true
+  },
+  "limitations": [
+    "Node timing on this CPU is not physical iPhone/iPad performance.",
+    "Only ten distinct deals per format by default; seat-swapped rounds sharing a deal are correlated.",
+    "Time-bounded search may choose different moves under different host load; seeded deals alone do not reproduce scores exactly.",
+    "A bot round win is not a measurement of human enjoyment or beginner accessibility.",
+    "This sample does not cover four-player games or long multi-round matches."
+  ]
+}

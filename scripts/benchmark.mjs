@@ -29,6 +29,7 @@ try {
     results,
     turnCheck,
     planBot,
+    BOT_WORK_BUDGET_MS,
     inspectMeld,
     planHint,
     practiceGame,
@@ -126,6 +127,7 @@ try {
       seeds,
       seatRotations: 3,
       planningBudgetMs: budget,
+      effectiveWorkBudgetMs: Math.min(budget, BOT_WORK_BUDGET_MS),
       description:
         "Same seeded deals with each difficulty rotated through every seat; exploratory sample, not proof of a strength ranking. Search is time bounded and may vary by machine.",
     },

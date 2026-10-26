@@ -89,7 +89,7 @@ export function Setup({
                 onClick={() => setDifficulty(d)}
               >
                 <strong>
-                  {t(["Easy does it", "A fair match", "Think ahead"][i])}
+                  {t(["Easy does it", "A fair match", "Table strategist"][i])}
                 </strong>
                 <span>
                   {t(

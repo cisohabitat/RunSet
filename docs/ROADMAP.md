@@ -1,9 +1,13 @@
 # RunSet improvement roadmap
 
+The active follow-up is the [premium improvement cycle](PREMIUM_ROADMAP.md),
+released phase by phase with exact-commit GitHub CI gates. Historical phases
+below retain their original numbering; the paused human study stays paused.
+
 ## Current roadmap: older Chinese-speaking players
 
 Phase 1 is paused at the user’s request. Phases 2–5 are implemented;
-Phase 6 is partly complete: the bot review is published; practice challenges
+Phase 6 is partly complete: the bot review and reliability follow-up are implemented; practice challenges
 remain planned. Each implementation phase is published separately,
 and GitHub CI for its exact commit must pass before the next phase begins.
 
@@ -14,7 +18,7 @@ and GitHub CI for its exact commit must pass before the next phase begins.
 | 3 | Implemented | Dynamic next actions, opening progress, End explanations, safe destination outlines and action definitions; see [FIRST_GAME_GUIDANCE.md](FIRST_GAME_GUIDANCE.md) |
 | 4 | Implemented | Ending and tie-break explanations, actual score arithmetic, same-settings replay and editable current options; see [RESULTS_AND_REPLAY.md](RESULTS_AND_REPLAY.md) |
 | 5 | Implemented | Optional replayable Mandarin/English device-voice lessons and reminders, text retained; see [READ_ALOUD.md](READ_ALOUD.md) |
-| 6 | Partly complete | [Bot difficulty review](DIFFICULTY_REVIEW.md) completed; mistake-focused exercises, planner fixes and held-out evaluation remain planned |
+| 6 | Partly complete | [Bot difficulty review](DIFFICULTY_REVIEW.md) and [planner reliability follow-up](PREMIUM_BOTS.md) implemented; mistake-focused exercises follow in the premium cycle |
 
 English/Simplified Chinese support is already implemented; multiplayer stays
 deferred. The release history and original acceptance criteria follow below.

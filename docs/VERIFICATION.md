@@ -7,7 +7,7 @@ explicitly deferred and excluded from active release requirements.
 ## Automated results
 
 - `npm run typecheck`: passes with strict TypeScript.
-- `npm test`: 92 tests pass, including seeded simulations of more than 4,000 legal
+- `npm test`: 96 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
 - `npm run test:e2e`: 131 Chromium flows pass: guided learning/save isolation/
@@ -23,6 +23,12 @@ explicitly deferred and excluded from active release requirements.
   game UI, practice, rules, Chinese dictionary and worker assets are separate.
 
 ## Layout coverage
+
+The [premium opponent follow-up](PREMIUM_BOTS.md) adds original-proposal
+validation and held-out evaluations. The final 240 ms-cap reports cover 60 rounds
+and 6,542 conserved turns, with zero rejected proposals and no measured calls
+over 400 ms. The retained initial 320 ms-cap trial records one timing overrun;
+these are Node measurements, not physical-device performance guarantees.
 
 Automation exercises representative 360, 375, 390, 430, 768, 820, 1180, and 1440 px
 widths, including portrait and landscape sizes, minimum tile touch targets,

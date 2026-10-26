@@ -166,7 +166,7 @@ for (const [device, width, height, dark, reading] of [
         page.getByLabel(t("Show first-game guidance"), { exact: true }),
       ).not.toBeChecked();
       await expect(
-        page.getByRole("button", { name: new RegExp(t("Think ahead")) }),
+        page.getByRole("button", { name: new RegExp(t("Table strategist")) }),
       ).toHaveAttribute("aria-pressed", "true");
       expect(
         await page.evaluate(() => localStorage.getItem("runset.save.v1")),

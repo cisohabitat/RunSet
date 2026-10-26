@@ -67,8 +67,9 @@ from the public repository.
   invalid-meld labels in the DOM; do not embed English player messages in CSS.
 - Settings and results load separately and are included in the generated offline
   precache. Verify first settings use while offline, not only a cached open dialog.
-- The older Chinese-speaking player study and physical-device checks (new roadmap
-  Phase 1) are paused by the user. Do not block Phase 2 on that study or claim it ran.
+- The older Chinese-speaking player study and physical-device checks (older-player
+  roadmap Phase 1; premium Phase 8) are paused by the user. Do not block automated
+  implementation on that study or claim it ran.
 
 ## First-game guidance
 
@@ -238,6 +239,14 @@ from the public repository.
 - Do not call Hard a lookahead/minimax player: it searches current-turn partitions.
   Fix planner rule compliance before tuning win-rate heuristics, and evaluate
   changes on separate held-out deals rather than optimizing the review's seeds.
+- Bot extensions must pass the complete turn validator before becoming the
+  baseline. Hard filters partitions during search, so rejecting a joker plan
+  cannot hide a legal alternative. Stop at a legal rack-empty finish. Reserve
+  runtime headroom with the shared 240 ms work cap inside the requested budget;
+  measure the full call separately and report the host and sample limitations.
+- Track the active premium cycle in `docs/PREMIUM_ROADMAP.md`. Publish and verify
+  each phase before starting the next. The physical-device/older-player phase
+  remains paused; automated tests cannot substitute for those sessions.
 
 ## Working and verification
 

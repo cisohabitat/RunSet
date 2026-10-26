@@ -72,8 +72,15 @@ try {
       rollupOptions: { output: { entryFileNames: "engine.mjs" } },
     },
   });
-  const { newGame, reducer, results, planBot, inspectMeld, turnCheck } =
-    await import(pathToFileURL(join(temporary, "engine.mjs")).href);
+  const {
+    newGame,
+    reducer,
+    results,
+    planBot,
+    inspectMeld,
+    turnCheck,
+    BOT_WORK_BUDGET_MS,
+  } = await import(pathToFileURL(join(temporary, "engine.mjs")).href);
   const metrics = Object.fromEntries(
     levels.map((level) => [
       level,
@@ -103,7 +110,8 @@ try {
     latencyWhenBaselineCouldEmptyRackMs: [],
   };
   const games = [],
-    rejectionExamples = [];
+    rejectionExamples = [],
+    slowPlanExamples = [];
   const startedAt = new Date().toISOString();
   const allIds = (s) => [
     ...s.pool,
@@ -147,6 +155,7 @@ try {
       seeds,
       assignments,
       planningBudgetMs: budget,
+      effectiveWorkBudgetMs: Math.min(budget, BOT_WORK_BUDGET_MS),
       productionRedaction: true,
       description:
         "All ordered seat assignments for each seeded deal, sequentially on one host. Same-turn Normal comparison on post-opening Hard positions. Original submitted plans are checked before the reducer can turn a rejected plan into a draw. No bot strategy is modified.",
@@ -193,6 +202,7 @@ try {
     },
     games,
     rejectionExamples,
+    slowPlanExamples,
     checks: {
       completedRounds: games.length,
       all106TilesConserved: true,
@@ -265,6 +275,15 @@ try {
           !table.every((m) => inspectMeld(m.tiles).valid)
         )
           throw Error(`Invalid proposal: ${seed}/${seating}/${moves}`);
+        if (elapsed > 400 && slowPlanExamples.length < 5)
+          slowPlanExamples.push({
+            difficulty: p.bot,
+            seed,
+            seating,
+            turn: s.turn,
+            elapsedMs: rounded(elapsed),
+            state: safe,
+          });
         let used = proposed.filter((id) => p.rack.includes(id)).length;
         if (used) {
           const trial = reducer(s, { type: "applyPlan", table });

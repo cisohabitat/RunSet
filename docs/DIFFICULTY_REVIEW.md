@@ -1,5 +1,10 @@
 # Bot difficulty review
 
+Historical pre-fix review. The [premium reliability follow-up](PREMIUM_BOTS.md)
+addresses the rejected joker plans, timing headroom and Hard's misleading
+tagline using separate held-out deals. The original reports below are retained
+as evidence of the behavior reviewed at the time.
+
 Review date: 2026-10-26. This evaluates the current production engine without
 changing bot strategy, game rules or difficulty defaults. Machine-readable
 results are recorded separately for [three-player rounds](DIFFICULTY_MIXED.json)

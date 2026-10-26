@@ -260,6 +260,9 @@ is available, the game explains how to retry or add one. See
 
 ## Roadmap
 
+The [premium improvement cycle](docs/PREMIUM_ROADMAP.md) tracks the current
+phase-by-phase work, with exact-commit GitHub CI required between releases.
+
 See the [improvement roadmap](docs/ROADMAP.md) for phase status and acceptance
 criteria. Guided learning, safe deletion, device layouts, contextual hints, undo,
 offline installation, matches, and timers are implemented. The [fresh bug review](docs/BUG_REVIEW.md) records reproduced defects and fixes.
@@ -297,5 +300,8 @@ The [bot difficulty review](docs/DIFFICULTY_REVIEW.md) examines production-budge
 head-to-head and three-player rounds, all seat orders, rejected joker plans and
 planning cost. Reproduce with `node scripts/review-difficulty.mjs --mode=mixed`
 or `--mode=pairs`; defaults are ten seeded deals and a 380 ms planning budget.
-Reports checkpoint each round and label completion explicitly. Strategy tuning
-and the identified joker-planning fix are separate follow-up work.
+Reports checkpoint each round and label completion explicitly. The
+[reliability follow-up](docs/PREMIUM_BOTS.md) validates complete joker turns
+during planning, keeps legal alternatives, stops at a rack-empty finish and
+reserves runtime headroom with a 240 ms work cap. It uses separate held-out deals;
+the historical reports retain the original rejected proposals.

@@ -45,8 +45,9 @@ export function candidates(
         if (!used.includes(joker))
           choose(options, at + 1, [...used, joker], missing + 1, finish);
   };
-  for (let n = 1; n <= 13; n++)
+  groups: for (let n = 1; n <= 13; n++)
     for (let mask = 1; mask < 16; mask++) {
+      if (performance.now() >= deadline) break groups;
       const cs = colors.filter((_, i) => mask & (1 << i));
       if (cs.length < 3) continue;
       choose(
@@ -59,9 +60,10 @@ export function candidates(
         add,
       );
     }
-  for (const c of colors)
+  runs: for (const c of colors)
     for (let start = 1; start <= 11; start++)
       for (let end = start + 2; end <= 13; end++) {
+        if (performance.now() >= deadline) break runs;
         const options = Array.from({ length: end - start + 1 }, (_, i) =>
           ids.filter(
             (id) => tiles[id].color === c && tiles[id].num === start + i,
@@ -111,7 +113,8 @@ export function rackPlan(rack: number[], opening: boolean, budget = 90): Plan {
     if (memo.has(key)) return;
     memo.add(key);
     const anchor = left[0];
-    for (const meld of options)
+    for (const meld of options) {
+      if (performance.now() >= deadline) break;
       if (meld.includes(anchor) && meld.every((id) => left.includes(id)))
         visit(
           left.filter((id) => !meld.includes(id)),
@@ -119,6 +122,7 @@ export function rackPlan(rack: number[], opening: boolean, budget = 90): Plan {
           [...used, ...meld],
           points + inspectMeld(meld).points,
         );
+    }
     visit(left.slice(1), melds, used, points);
   }
   visit(
@@ -133,6 +137,7 @@ export function repartition(
   table: Meld[],
   rack: number[],
   budget: number,
+  accept?: (plan: Meld[]) => boolean,
 ): Meld[] | null {
   const deadline = performance.now() + budget,
     mandatory = table.flatMap((m) => m.tiles),
@@ -148,8 +153,16 @@ export function repartition(
       mandatory.map((id) => [id, options.filter((m) => m.includes(id))]),
     );
   function search(left: number[], remaining: number[], chosen: number[][]) {
-    if (performance.now() > deadline) return;
-    const key = [...left, ...remaining].sort((a, b) => a - b).join(",");
+    if (performance.now() >= deadline || bestCount === rack.length) return;
+    const key =
+      [...left, ...remaining].sort((a, b) => a - b).join(",") +
+      (accept
+        ? "|" +
+          chosen
+            .map((m) => m.join(","))
+            .sort()
+            .join(";")
+        : "");
     if (memo.has(key)) return;
     memo.add(key);
     if (!left.length) {
@@ -161,8 +174,11 @@ export function repartition(
         melds = [...chosen, ...extra.melds];
       const count = melds.flat().length - mandatory.length;
       if (count > bestCount) {
-        bestCount = count;
-        best = melds.map((tiles, i) => ({ id: `hard-${i}`, tiles }));
+        const candidate = melds.map((tiles, i) => ({ id: `hard-${i}`, tiles }));
+        if (!accept || accept(candidate)) {
+          bestCount = count;
+          best = candidate;
+        }
       }
       return;
     }

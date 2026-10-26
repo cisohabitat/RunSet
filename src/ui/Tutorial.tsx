@@ -17,6 +17,7 @@ import { inspectMeld } from "../engine/meld";
 import { validSave } from "../lib/storage";
 import { Game } from "./Game";
 import { Tile } from "./Tile";
+import { ReadAloud } from "./ReadAloud";
 interface Progress {
   lesson: Lesson;
   step: number;
@@ -307,6 +308,7 @@ export default function Tutorial({
           <p id="practice-instructions" aria-live="polite">
             {t(instructions[1])}
           </p>
+          <ReadAloud text={`${t(instructions[0])}。${t(instructions[1])}`} />
           <progress
             aria-label={t("Practice progress")}
             max={7}

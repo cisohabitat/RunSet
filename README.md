@@ -42,7 +42,7 @@ while settings are open, with a visible reminder. The independent large-tile
 option remains available when comfortable reading is off.
 
 See [reading-mode verification](docs/READING_MODE.md). The older-player study and
-real-device checks (Phase 1) are paused; Phases 2–4 are implemented. The remaining
+real-device checks (Phase 1) are paused; Phases 2–5 are implemented. The remaining
 phases are tracked in [the roadmap](docs/ROADMAP.md).
 
 ## More room for the table / 放大牌桌
@@ -216,6 +216,20 @@ moves and draws one tile (or passes with an empty pool), not a three-tile penalt
 The deadline persists across tab closure and leaving the game. On resume, an
 expired current turn is resolved. Practice is untimed. An expired turn closes an
 outdated penalty warning so it cannot apply a penalty to the next player.
+
+## Listen to instructions / 听一听
+
+In Learn to Play, tap **Listen / 听一听** to hear the current instruction. Use
+**Replay audio / 再听一次** or **Stop audio / 停止朗读** anytime. During regular
+play, open **More / 更多 → Listen to reminder / 听一听提示** for the current
+next-action reminder. Chinese instructions use a Mandarin voice; English uses
+an English voice. Written instructions stay available and nothing plays automatically.
+
+RunSet uses your browser/device's reading voices, separately from game sound
+cues. Installed matching voices are preferred. Offline speech requires an
+installed voice; some devices only offer network voices. If no suitable voice
+is available, the game explains how to retry or add one. See
+[read-aloud behavior and verification limits](docs/READ_ALOUD.md).
 
 ## Roadmap
 

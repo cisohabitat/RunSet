@@ -1,11 +1,12 @@
 import { useI18n } from "../i18n/I18n";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { type GameState, type Action, turnCheck } from "../engine/game";
 import { inspectMeld } from "../engine/meld";
 import { explainMeld, narrateMove, type Hint } from "../engine/coaching";
 import { runPlanner } from "../lib/planner";
 import { suggestedDestinations, turnGuidance } from "../lib/guidance";
 import { Tile } from "./Tile";
+import { ReadAloud } from "./ReadAloud";
 export function Game({
   game: s,
   dispatch,
@@ -98,11 +99,9 @@ export function Game({
       document.body.style.overflow = before;
     };
   }, [tableView, coaching]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (lessonAction)
-      requestAnimationFrame(() =>
-        lessonButton.current?.scrollIntoView({ block: "nearest" }),
-      );
+      lessonButton.current?.scrollIntoView({ block: "nearest" });
   }, [lessonAction?.label]);
   const tableRef = useRef<HTMLElement>(null);
   const hintRef = useRef<HTMLElement>(null);
@@ -702,6 +701,12 @@ export function Game({
             <details className="more-actions">
               <summary>{t("More")}</summary>
               <div>
+                {coaching && (
+                  <ReadAloud
+                    reminder
+                    text={`${t(guidance.message)} ${t(guidance.endHelp)}`}
+                  />
+                )}
                 <div
                   className="focused-rack-options"
                   role="group"

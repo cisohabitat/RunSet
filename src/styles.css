@@ -2115,6 +2115,7 @@ button:not(.tile) {
   line-height: 1.8;
 }
 .turn-tools {
+  position: relative;
   display: flex;
   gap: 10px;
   align-items: center;
@@ -2139,12 +2140,13 @@ button:not(.tile) {
   flex: 1;
   justify-content: center;
   min-height: 46px;
+  scroll-margin-block: 12px;
 }
 .action-bar {
   display: block;
 }
 .more-actions {
-  position: relative;
+  position: static;
   font-size: 12px;
 }
 .more-actions > summary {
@@ -2501,8 +2503,8 @@ button:not(.tile) {
     max-height: 27px;
   }
   .playing .more-actions > div {
-    right: auto;
-    left: -110px;
+    right: 0;
+    left: auto;
   }
   .playing .warning {
     font-size: 9px;
@@ -3868,6 +3870,36 @@ button:not(.tile) {
     padding: 8px 12px;
     gap: 8px;
   }
+}
+.read-aloud {
+  display: grid;
+  gap: 4px;
+  padding-block: 4px;
+}
+.read-aloud-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.app .read-aloud button {
+  min-width: 44px;
+  min-height: 44px;
+  margin: 0;
+  padding: 8px 12px;
+}
+.audio-note {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.audio-transcript {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}
+.comfortable-reading .audio-note,
+:lang(zh-CN) .audio-note {
+  font-size: 16px;
 }
 /* Keep the heading readable while a hint shares a short laptop's context. */
 @media (min-width: 721px) and (max-width: 1180px) and (max-height: 800px) {

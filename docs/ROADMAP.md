@@ -2,8 +2,8 @@
 
 ## Current roadmap: older Chinese-speaking players
 
-Phase 1 is paused at the user’s request. Phases 2–4 are implemented;
-Phases 5–6 remain planned. Each implementation phase is published separately,
+Phase 1 is paused at the user’s request. Phases 2–5 are implemented;
+Phase 6 remains planned. Each implementation phase is published separately,
 and GitHub CI for its exact commit must pass before the next phase begins.
 
 | Phase | Status | Work |
@@ -12,7 +12,7 @@ and GitHub CI for its exact commit must pass before the next phase begins.
 | 2 | Implemented | Comfortable reading, larger tiles/controls, selected check marks, unified Settings; see [READING_MODE.md](READING_MODE.md) |
 | 3 | Implemented | Dynamic next actions, opening progress, End explanations, safe destination outlines and action definitions; see [FIRST_GAME_GUIDANCE.md](FIRST_GAME_GUIDANCE.md) |
 | 4 | Implemented | Ending and tie-break explanations, actual score arithmetic, same-settings replay and editable current options; see [RESULTS_AND_REPLAY.md](RESULTS_AND_REPLAY.md) |
-| 5 | Planned | Optional replayable Mandarin lesson/reminder audio with text retained |
+| 5 | Implemented | Optional replayable Mandarin/English device-voice lessons and reminders, text retained; see [READ_ALOUD.md](READ_ALOUD.md) |
 | 6 | Planned | Short mistake-focused exercises and a larger difficulty evaluation before tuning bots |
 
 English/Simplified Chinese support is already implemented; multiplayer stays
@@ -24,7 +24,8 @@ The reported cramped phone/iPad meld area is fixed in a separate release after
 Phase 4. Expand table is now a real viewport workspace, its controls remain
 outside optional context, comfortable boards scale with the viewport, and
 smaller-device practice gets a full-sized table. See [BOARD_SPACE.md](BOARD_SPACE.md).
-This is a layout follow-up; Phases 5–6 remain planned and Phase 1 remains paused.
+This is a layout follow-up. Phase 5 adds optional audio separately; Phase 6 remains
+planned and Phase 1 remains paused.
 
 ## Earlier releases
 

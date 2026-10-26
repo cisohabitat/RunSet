@@ -2,6 +2,24 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Read aloud": "朗读",
+  Listen: "听一听",
+  "Listen to reminder": "听一听提示",
+  "Replay audio": "再听一次",
+  "Stop audio": "停止朗读",
+  "Reading aloud…": "正在朗读…",
+  "Optional device voice. Offline audio depends on installed voices.":
+    "可自选设备语音朗读。离线朗读需要设备已安装相应语音。",
+  "Read aloud is unavailable in this browser. The instructions are still available as text.":
+    "此浏览器不支持朗读。你仍可阅读文字说明。",
+  "Voices are not ready. Try Listen again, or read the instructions.":
+    "语音尚未准备好。请再点一次“听一听”，或阅读文字说明。",
+  "This voice needs an internet connection. You can still read and play offline.":
+    "此语音需要联网。离线时仍可阅读说明和玩游戏。",
+  "No voice for this language is available. Add a Mandarin or English reading voice in your device settings, then try again.":
+    "设备没有当前语言的朗读语音。请在设备设置中添加普通话或英语语音后重试。",
+  "Audio could not play. Try Listen again, or read the instructions.":
+    "朗读暂时无法播放。请重试，或阅读文字说明。",
   "Loading rules…": "正在加载规则…",
   "Practice uses its own tiles. Your saved game is safe.":
     "练习使用独立的牌局，不影响你保存的正式游戏。",

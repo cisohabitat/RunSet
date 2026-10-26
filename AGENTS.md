@@ -140,6 +140,26 @@ from the public repository.
   including short landscape screens. Check full melds, touch hit targets, hints,
   rotation, a penalty dialog, turn/reload persistence and scroll cleanup.
 
+## Optional read aloud
+
+- `ReadAloud` owns only browser speech, not game state. Every utterance requires
+  Listen/Replay; never speak automatically after loading, selecting, or advancing.
+  Retain written lesson copy and reminder text. Audio is separate from sound cues.
+- Use the current UI language. `readingVoice` selects a matching Mandarin/English
+  voice; never substitute Cantonese or the unrelated browser default. Prefer local
+  voices, and exclude network voices while offline. Voice quality/availability
+  belongs to the device: do not promise downloaded narration or offline speech
+  without an installed voice. Empty/late voice lists must allow a gesture retry.
+- Keep utterance identity guards: cancellation events can arrive after replay.
+  Cancel owned speech on text/language change, unmount, tab hiding/page exit and
+  closing the reminder's More menu. Stop returns focus to the playback button.
+- Keep controls at least 44 px, full instructions and text fallback visible,
+  and More within phone viewport bounds. Expanded-board geometry must still pass.
+- Browser tests mock the speech adapter to verify text/language, cancellation,
+  errors, replay and fallback; they do not prove audible output or pronunciation.
+  Test first-use offline lessons with installed and network-only mock voices.
+  Physical Apple voice playback/comprehension checks remain unverified.
+
 ## Working and verification
 
 - Inspect files and Git status before editing. Preserve unrelated changes and

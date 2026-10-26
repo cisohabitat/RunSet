@@ -7,14 +7,14 @@ explicitly deferred and excluded from active release requirements.
 ## Automated results
 
 - `npm run typecheck`: passes with strict TypeScript.
-- `npm test`: 90 tests pass, including seeded simulations of more than 4,000 legal
+- `npm test`: 92 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: 76 Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: 82 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
-- `npm run test:offline`: eight production Chromium flows pass: saved games and lazy
+- `npm run test:offline`: ten production Chromium flows pass: saved games and lazy
   practice assets after an offline reload; and explicit service-worker updates
   preserving the saved game. The update test waits for the actual reload before
   reading storage.
@@ -124,3 +124,10 @@ round-end scrolling cleanup, and a roomier phone practice board. The eighth
 offline flow opens the lazy game UI for the first time offline and resumes its
 expanded preference. The short-laptop heading/meld/hint regression still passes.
 See BOARD_SPACE.md for measured before/after examples and verification limits.
+
+Optional read aloud adds six browser flows for explicit Mandarin/English speech,
+replay/stop, instruction/language/exit cancellation, delayed or unavailable voices,
+synthesis failure and a save-preserving expanded-view reminder. Two more offline
+flows exercise first-use Chinese lessons with installed and network-only voices.
+Audio tests mock the speech adapter and cannot verify audible pronunciation or
+physical Apple playback. See READ_ALOUD.md.

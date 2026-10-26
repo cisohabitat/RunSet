@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { mockSpeech } from "../e2e/helpers/speech";
 import { readFile, writeFile } from "node:fs/promises";
 test("production assets, lessons and a saved round survive offline reload", async ({
   page,
@@ -296,3 +297,34 @@ test("first-use expanded game view and its remembered preference work offline", 
   ).toBeFocused();
   await context.setOffline(false);
 });
+
+for (const localService of [true, false]) {
+  test(`first-use Mandarin lesson offline with ${localService ? "installed" : "network-only"} voice`, async ({
+    page,
+    context,
+  }) => {
+    await mockSpeech(page, { voices: [{ lang: "zh-CN", localService }] });
+    await page.goto("/");
+    await expect(
+      page.getByRole("status").filter({ hasText: "Ready offline" }),
+    ).toBeVisible();
+    await page.evaluate(() => localStorage.setItem("runset.language", "zh-CN"));
+    await context.setOffline(true);
+    await page.reload();
+    await page.getByRole("button", { name: /学习玩法/ }).click();
+    await page.getByRole("button", { name: "听一听", exact: true }).click();
+    if (localService) {
+      expect(
+        await page.evaluate(() => (window as any).__speech.spoken[0].lang),
+      ).toBe("zh-CN");
+      await page.getByRole("button", { name: "停止朗读" }).click();
+    } else {
+      await expect(page.locator(".audio-note")).toContainText("此语音需要联网");
+      expect(
+        await page.evaluate(() => (window as any).__speech.spoken),
+      ).toEqual([]);
+    }
+    await expect(page.locator("#practice-instructions")).not.toBeEmpty();
+    await context.setOffline(false);
+  });
+}

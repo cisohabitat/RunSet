@@ -131,3 +131,11 @@ synthesis failure and a save-preserving expanded-view reminder. Two more offline
 flows exercise first-use Chinese lessons with installed and network-only voices.
 Audio tests mock the speech adapter and cannot verify audible pronunciation or
 physical Apple playback. See READ_ALOUD.md.
+
+The difficulty review adds 120 production-budget bot rounds (60 mixed, 60
+head-to-head) on seeds 101–110 with every ordered seat assignment. All 12,940
+turns preserve tiles and legal completed tables, but 229 original joker-related
+proposals are rejected into draws/passes; submitted-plan legality is explicitly
+false in the raw reports. Two Hard calls exceed 400 ms (max 436.22 ms). This
+release changes evaluation tooling/docs only; it does not claim these planner
+defects are fixed. See DIFFICULTY_REVIEW.md and its replayable examples.

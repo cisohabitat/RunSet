@@ -15,6 +15,10 @@ choose different moves on different machines, so the deals are reproducible,
 not a promise of identical final scores. The report records CPU, Node, budget,
 seed, rotation, legal-turn checks, and latency percentiles.
 
+The later [difficulty review](DIFFICULTY_REVIEW.md) adds a broader, balanced
+head-to-head and three-player evaluation. It records rejected original plans
+separately from safe reducer draws; the pilot below checked completed states.
+
 ## Recorded pilot
 
 Six games, from two seeded deals and three seat rotations, completed with all
@@ -53,7 +57,8 @@ worker. This prevents slow startup from spending the entire computation allowanc
 
 CI runs the full browser regression plus a short benchmark smoke test. Treat
 physical Apple-device timings, a larger win-rate sample, and the beginner study
-as separate measurements still requiring collection.
+as separate measurements. The broader Node win-rate sample is recorded in the
+difficulty review; physical-device timings and the beginner study remain uncollected.
 
 `npm run build` also checks a 100,000-byte gzip budget for initial HTML plus its
 referenced CSS and JavaScript. Lazy practice and worker chunks are separate.

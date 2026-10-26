@@ -163,6 +163,24 @@ from the public repository.
   Test first-use offline lessons with installed and network-only mock voices.
   Physical Apple voice playback/comprehension checks remain unverified.
 
+## Difficulty evaluation
+
+- `scripts/review-difficulty.mjs` evaluates production strategy without changing
+  it. Use all six ordered mixed seats and both orders for every head-to-head pair,
+  the production 380 ms budget, and record engine fingerprints and the timing host.
+- Check original submitted plans before reducer fallback. A rejected joker plan
+  can become a safe draw/pass while the completed table remains legal; report
+  proposal rejections separately and preserve examples. Count passes separately.
+- Redact hidden racks/log/history as the worker does. Keep per-round seed/seating,
+  endings/ties, actual accepted tiles, opening opportunities and raw latency
+  percentiles. Compare Hard and Normal from the same positions when useful.
+- Checkpoint reports are incomplete until every requested assignment finishes.
+  Seat permutations of one deal are correlated; do not claim independent samples
+  or infer human enjoyment. The old six-round pilot is not a strength ranking.
+- Do not call Hard a lookahead/minimax player: it searches current-turn partitions.
+  Fix planner rule compliance before tuning win-rate heuristics, and evaluate
+  changes on separate held-out deals rather than optimizing the review's seeds.
+
 ## Working and verification
 
 - Inspect files and Git status before editing. Preserve unrelated changes and

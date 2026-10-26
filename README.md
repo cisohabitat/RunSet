@@ -266,3 +266,10 @@ Run `npm run benchmark -- --seeds=2 --budget=380` for fixed-deal bot comparisons
 and legality/latency measurements. See [the measured pilot and its limitations](docs/BENCHMARKS.md).
 Hard uses more rearrangement search; the current small sample does not establish
 that it wins more often than Normal. Hints can now search table rearrangements.
+
+The [bot difficulty review](docs/DIFFICULTY_REVIEW.md) examines production-budget
+head-to-head and three-player rounds, all seat orders, rejected joker plans and
+planning cost. Reproduce with `node scripts/review-difficulty.mjs --mode=mixed`
+or `--mode=pairs`; defaults are ten seeded deals and a 380 ms planning budget.
+Reports checkpoint each round and label completion explicitly. Strategy tuning
+and the identified joker-planning fix are separate follow-up work.

@@ -1,0 +1,3464 @@
+{
+  "generatedAt": "2026-10-26T12:47:07.670Z",
+  "startedAt": "2026-10-26T12:39:23.782Z",
+  "complete": true,
+  "environment": {
+    "node": "v24.19.0",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "platform": "linux",
+    "engineFingerprint": {
+      "bot": "bd514ca369ef8721d3d845043791c58d42ff9ab9bef1a2d9c174e5483034b2b8",
+      "solver": "49b7d279e7bfeaceac3e31ff142b88b22a0384e7aa0d645c543344d3838f818d",
+      "game": "1b31ce55e58dcbcfb33b4c166d37041d0c3cf717ef0ef13d085991f4ba57752d",
+      "meld": "b5a90eeb78110ea6e1f5a7223e5555272bd532f41b873acbcdc833c950faa6ae",
+      "tiles": "8a4a02afe5ae158d97fddead9e2242ddc951867ed6d3a88845455026cee7b6a7"
+    }
+  },
+  "method": {
+    "mode": "pairs",
+    "firstSeed": 101,
+    "seeds": 10,
+    "assignments": [
+      [
+        "easy",
+        "normal"
+      ],
+      [
+        "easy",
+        "hard"
+      ],
+      [
+        "normal",
+        "easy"
+      ],
+      [
+        "normal",
+        "hard"
+      ],
+      [
+        "hard",
+        "easy"
+      ],
+      [
+        "hard",
+        "normal"
+      ]
+    ],
+    "planningBudgetMs": 380,
+    "productionRedaction": true,
+    "description": "All ordered seat assignments for each seeded deal, sequentially on one host. Same-turn Normal comparison on post-opening Hard positions. Original submitted plans are checked before the reducer can turn a rejected plan into a draw. No bot strategy is modified."
+  },
+  "summary": {
+    "easy": {
+      "gamesPlayed": 40,
+      "wins": 1,
+      "winRate": 0.03,
+      "moves": 2257,
+      "plays": 506,
+      "draws": 1706,
+      "passes": 45,
+      "tilesPlayed": 1673,
+      "rejectedPlans": 0,
+      "rejectionReasons": {},
+      "tilesPerPlay": 3.31,
+      "openingPersonalTurns": {
+        "count": 40,
+        "p50": 1,
+        "p95": 16
+      },
+      "meanRemainingPoints": 106.28,
+      "latencyMs": {
+        "p50": 0.42,
+        "p95": 0.8,
+        "p99": 1.45,
+        "max": 2.89
+      },
+      "plansOver400Ms": 0
+    },
+    "normal": {
+      "gamesPlayed": 40,
+      "wins": 25,
+      "winRate": 0.63,
+      "moves": 2368,
+      "plays": 846,
+      "draws": 1476,
+      "passes": 46,
+      "tilesPlayed": 1773,
+      "rejectedPlans": 68,
+      "rejectionReasons": {
+        "Replace a joker with its represented rack tile, then reuse it this turn.": 68
+      },
+      "tilesPerPlay": 2.1,
+      "openingPersonalTurns": {
+        "count": 40,
+        "p50": 1,
+        "p95": 15
+      },
+      "meanRemainingPoints": 47.15,
+      "latencyMs": {
+        "p50": 0.46,
+        "p95": 1.03,
+        "p99": 2.61,
+        "max": 91.41
+      },
+      "plansOver400Ms": 0
+    },
+    "hard": {
+      "gamesPlayed": 40,
+      "wins": 34,
+      "winRate": 0.85,
+      "moves": 2364,
+      "plays": 854,
+      "draws": 1467,
+      "passes": 43,
+      "tilesPlayed": 1814,
+      "rejectedPlans": 63,
+      "rejectionReasons": {
+        "Replace a joker with its represented rack tile, then reuse it this turn.": 63
+      },
+      "tilesPerPlay": 2.12,
+      "openingPersonalTurns": {
+        "count": 40,
+        "p50": 1,
+        "p95": 15
+      },
+      "meanRemainingPoints": 37.85,
+      "latencyMs": {
+        "p50": 83.29,
+        "p95": 380.24,
+        "p99": 381.05,
+        "max": 436.22
+      },
+      "plansOver400Ms": 2
+    }
+  },
+  "hardVsNormal": {
+    "compared": 2263,
+    "normalBaselineRejected": 63,
+    "moreTiles": 87,
+    "sameTiles": 2176,
+    "fewerTiles": 0,
+    "baselineCouldEmptyRack": 3,
+    "latencyWhenBaselineCouldEmptyRackMs": {
+      "p50": 380.04,
+      "p95": 380.04,
+      "p99": 380.04,
+      "max": 380.04
+    }
+  },
+  "games": [
+    {
+      "seed": 101,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 130,
+        "normal": 55
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 101,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 130,
+        "hard": 55
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 101,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 89,
+        "easy": 121
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 101,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 120,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 92,
+        "hard": 48
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 101,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 89,
+        "easy": 121
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 101,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 133,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 67,
+        "normal": 58
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 102,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 77,
+        "normal": 18
+      },
+      "openingPersonalTurns": {
+        "easy": 4,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 102,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 98,
+        "hard": 62
+      },
+      "openingPersonalTurns": {
+        "easy": 4,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 102,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 105,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 79,
+        "easy": 126
+      },
+      "openingPersonalTurns": {
+        "normal": 4,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 102,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 138,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 11,
+        "hard": 0
+      },
+      "openingPersonalTurns": {
+        "normal": 4,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 102,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 111,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 14,
+        "easy": 76
+      },
+      "openingPersonalTurns": {
+        "hard": 4,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 102,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 95,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 0,
+        "normal": 75
+      },
+      "openingPersonalTurns": {
+        "hard": 4,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 103,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 127,
+        "normal": 47
+      },
+      "openingPersonalTurns": {
+        "easy": 5,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 103,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 127,
+        "hard": 47
+      },
+      "openingPersonalTurns": {
+        "easy": 5,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 103,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 78,
+        "easy": 130
+      },
+      "openingPersonalTurns": {
+        "normal": 5,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 103,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 125,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 49,
+        "hard": 46
+      },
+      "openingPersonalTurns": {
+        "normal": 5,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 103,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 111,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 71,
+        "easy": 142
+      },
+      "openingPersonalTurns": {
+        "hard": 5,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 103,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 119,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 53,
+        "normal": 59
+      },
+      "openingPersonalTurns": {
+        "hard": 5,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 104,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 119,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 46,
+        "normal": 27
+      },
+      "openingPersonalTurns": {
+        "easy": 3,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 104,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 117,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 73,
+        "hard": 4
+      },
+      "openingPersonalTurns": {
+        "easy": 3,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 104,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 109,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 63,
+        "easy": 99
+      },
+      "openingPersonalTurns": {
+        "normal": 3,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 104,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 114,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 48,
+        "hard": 0
+      },
+      "openingPersonalTurns": {
+        "normal": 3,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 104,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 109,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 60,
+        "easy": 99
+      },
+      "openingPersonalTurns": {
+        "hard": 3,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 104,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 130,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 17,
+        "normal": 26
+      },
+      "openingPersonalTurns": {
+        "hard": 3,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 105,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 146,
+        "normal": 49
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 105,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 146,
+        "hard": 49
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 105,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 34,
+        "easy": 105
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 105,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 127,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 23,
+        "hard": 32
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 105,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 119,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 32,
+        "easy": 112
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 105,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 111,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 0,
+        "normal": 5
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 106,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 123,
+        "normal": 44
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 106,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 123,
+        "hard": 44
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 106,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 109,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 46,
+        "easy": 134
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 106,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 130,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 34,
+        "hard": 27
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 106,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 115,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 46,
+        "easy": 102
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 106,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 136,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 33,
+        "normal": 38
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 107,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 109,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 127,
+        "normal": 36
+      },
+      "openingPersonalTurns": {
+        "easy": 2,
+        "normal": 2
+      }
+    },
+    {
+      "seed": 107,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 105,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 80,
+        "hard": 7
+      },
+      "openingPersonalTurns": {
+        "easy": 2,
+        "hard": 2
+      }
+    },
+    {
+      "seed": 107,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 111,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 64,
+        "easy": 126
+      },
+      "openingPersonalTurns": {
+        "normal": 2,
+        "easy": 2
+      }
+    },
+    {
+      "seed": 107,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 106,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 41,
+        "hard": 47
+      },
+      "openingPersonalTurns": {
+        "normal": 2,
+        "hard": 2
+      }
+    },
+    {
+      "seed": 107,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 115,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 11,
+        "easy": 94
+      },
+      "openingPersonalTurns": {
+        "hard": 2,
+        "easy": 2
+      }
+    },
+    {
+      "seed": 107,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 106,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 41,
+        "normal": 47
+      },
+      "openingPersonalTurns": {
+        "hard": 2,
+        "normal": 2
+      }
+    },
+    {
+      "seed": 108,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 103,
+        "normal": 89
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 108,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 116,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 73,
+        "hard": 38
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 108,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 56,
+        "easy": 86
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 108,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 123,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 49,
+        "hard": 62
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 1
+      }
+    },
+    {
+      "seed": 108,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 47,
+        "easy": 117
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 1
+      }
+    },
+    {
+      "seed": 108,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 128,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 16,
+        "normal": 63
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 1
+      }
+    },
+    {
+      "seed": 109,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 118,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 79,
+        "normal": 35
+      },
+      "openingPersonalTurns": {
+        "easy": 16,
+        "normal": 3
+      }
+    },
+    {
+      "seed": 109,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 112,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 142,
+        "hard": 29
+      },
+      "openingPersonalTurns": {
+        "easy": 16,
+        "hard": 3
+      }
+    },
+    {
+      "seed": 109,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 113,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 42,
+        "easy": 65
+      },
+      "openingPersonalTurns": {
+        "normal": 15,
+        "easy": 3
+      }
+    },
+    {
+      "seed": 109,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 127,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 56,
+        "hard": 49
+      },
+      "openingPersonalTurns": {
+        "normal": 16,
+        "hard": 3
+      }
+    },
+    {
+      "seed": 109,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 109,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 26,
+        "easy": 122
+      },
+      "openingPersonalTurns": {
+        "hard": 15,
+        "easy": 3
+      }
+    },
+    {
+      "seed": 109,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 136,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 28,
+        "normal": 20
+      },
+      "openingPersonalTurns": {
+        "hard": 16,
+        "normal": 3
+      }
+    },
+    {
+      "seed": 110,
+      "seating": [
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 115,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 72,
+        "normal": 31
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 4
+      }
+    },
+    {
+      "seed": 110,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "winner": "easy",
+      "moves": 107,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 81,
+        "hard": 109
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 4
+      }
+    },
+    {
+      "seed": 110,
+      "seating": [
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 119,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 26,
+        "easy": 69
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 4
+      }
+    },
+    {
+      "seed": 110,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 135,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 48,
+        "hard": 32
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 4
+      }
+    },
+    {
+      "seed": 110,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 117,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 47,
+        "easy": 102
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 4
+      }
+    },
+    {
+      "seed": 110,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 127,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 29,
+        "normal": 36
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 4
+      }
+    }
+  ],
+  "rejectionExamples": [
+    {
+      "difficulty": "normal",
+      "seed": 101,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "turn": 103,
+      "reason": "Replace a joker with its represented rack tile, then reuse it this turn.",
+      "state": {
+        "version": 1,
+        "seed": 101,
+        "players": [
+          {
+            "name": "normal",
+            "bot": "normal",
+            "rack": [
+              44,
+              91,
+              79,
+              47,
+              65,
+              5,
+              43,
+              36
+            ],
+            "melded": true
+          },
+          {
+            "name": "hard",
+            "bot": "hard",
+            "rack": [
+              88,
+              8,
+              0,
+              23,
+              17,
+              10
+            ],
+            "melded": true
+          }
+        ],
+        "current": 0,
+        "pool": [
+          75,
+          37,
+          7,
+          22,
+          95,
+          58,
+          70,
+          39,
+          66,
+          56,
+          80,
+          14
+        ],
+        "table": [
+          {
+            "id": "hard-0",
+            "tiles": [
+              21,
+              105,
+              60,
+              86
+            ]
+          },
+          {
+            "id": "hard-1",
+            "tiles": [
+              25,
+              38,
+              64,
+              103
+            ]
+          },
+          {
+            "id": "hard-2",
+            "tiles": [
+              16,
+              42,
+              68,
+              94
+            ]
+          },
+          {
+            "id": "hard-3",
+            "tiles": [
+              24,
+              76,
+              102
+            ]
+          },
+          {
+            "id": "hard-4",
+            "tiles": [
+              50,
+              63,
+              89,
+              11
+            ]
+          },
+          {
+            "id": "hard-5",
+            "tiles": [
+              13,
+              26,
+              78,
+              52
+            ]
+          },
+          {
+            "id": "hard-6",
+            "tiles": [
+              40,
+              41,
+              29,
+              30,
+              31,
+              45,
+              46,
+              34,
+              48,
+              49
+            ]
+          },
+          {
+            "id": "hard-7",
+            "tiles": [
+              84,
+              85,
+              99,
+              100,
+              101,
+              96
+            ]
+          },
+          {
+            "id": "hard-8",
+            "tiles": [
+              82,
+              104,
+              97,
+              83,
+              98,
+              81
+            ]
+          },
+          {
+            "id": "bot-51-0",
+            "tiles": [
+              59,
+              73,
+              74,
+              62
+            ]
+          },
+          {
+            "id": "bot-56-0",
+            "tiles": [
+              9,
+              35,
+              87,
+              61
+            ]
+          },
+          {
+            "id": "bot-57-0",
+            "tiles": [
+              6,
+              32,
+              71
+            ]
+          },
+          {
+            "id": "bot-63-0",
+            "tiles": [
+              28,
+              54,
+              93,
+              15
+            ]
+          },
+          {
+            "id": "bot-64-0",
+            "tiles": [
+              12,
+              51,
+              90,
+              77
+            ]
+          },
+          {
+            "id": "bot-72-0",
+            "tiles": [
+              55,
+              69,
+              57,
+              67
+            ]
+          },
+          {
+            "id": "bot-76-0",
+            "tiles": [
+              20,
+              33,
+              72
+            ]
+          },
+          {
+            "id": "bot-88-0",
+            "tiles": [
+              27,
+              53,
+              92,
+              1
+            ]
+          },
+          {
+            "id": "bot-89-0",
+            "tiles": [
+              3,
+              4,
+              18,
+              19,
+              2
+            ]
+          }
+        ],
+        "turnStart": {
+          "table": [
+            {
+              "id": "hard-0",
+              "tiles": [
+                21,
+                105,
+                60,
+                86
+              ]
+            },
+            {
+              "id": "hard-1",
+              "tiles": [
+                25,
+                38,
+                64,
+                103
+              ]
+            },
+            {
+              "id": "hard-2",
+              "tiles": [
+                16,
+                42,
+                68,
+                94
+              ]
+            },
+            {
+              "id": "hard-3",
+              "tiles": [
+                24,
+                76,
+                102
+              ]
+            },
+            {
+              "id": "hard-4",
+              "tiles": [
+                50,
+                63,
+                89,
+                11
+              ]
+            },
+            {
+              "id": "hard-5",
+              "tiles": [
+                13,
+                26,
+                78,
+                52
+              ]
+            },
+            {
+              "id": "hard-6",
+              "tiles": [
+                40,
+                41,
+                29,
+                30,
+                31,
+                45,
+                46,
+                34,
+                48,
+                49
+              ]
+            },
+            {
+              "id": "hard-7",
+              "tiles": [
+                84,
+                85,
+                99,
+                100,
+                101,
+                96
+              ]
+            },
+            {
+              "id": "hard-8",
+              "tiles": [
+                82,
+                104,
+                97,
+                83,
+                98,
+                81
+              ]
+            },
+            {
+              "id": "bot-51-0",
+              "tiles": [
+                59,
+                73,
+                74,
+                62
+              ]
+            },
+            {
+              "id": "bot-56-0",
+              "tiles": [
+                9,
+                35,
+                87,
+                61
+              ]
+            },
+            {
+              "id": "bot-57-0",
+              "tiles": [
+                6,
+                32,
+                71
+              ]
+            },
+            {
+              "id": "bot-63-0",
+              "tiles": [
+                28,
+                54,
+                93,
+                15
+              ]
+            },
+            {
+              "id": "bot-64-0",
+              "tiles": [
+                12,
+                51,
+                90,
+                77
+              ]
+            },
+            {
+              "id": "bot-72-0",
+              "tiles": [
+                55,
+                69,
+                57,
+                67
+              ]
+            },
+            {
+              "id": "bot-76-0",
+              "tiles": [
+                20,
+                33,
+                72
+              ]
+            },
+            {
+              "id": "bot-88-0",
+              "tiles": [
+                27,
+                53,
+                92,
+                1
+              ]
+            },
+            {
+              "id": "bot-89-0",
+              "tiles": [
+                3,
+                4,
+                18,
+                19,
+                2
+              ]
+            }
+          ],
+          "rack": [
+            44,
+            91,
+            79,
+            47,
+            65,
+            5,
+            43,
+            36
+          ]
+        },
+        "passes": 0,
+        "phase": "playing",
+        "lastPlaced": [
+          81
+        ],
+        "log": [
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal played 1 tile.",
+          "hard played 3 tiles.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal played 1 tile.",
+          "hard played 2 tiles.",
+          "normal played 1 tile.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard played 1 tile.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard played 3 tiles.",
+          "normal played 5 tiles.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal played 1 tile.",
+          "hard played 1 tile.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard played 1 tile."
+        ],
+        "turn": 103,
+        "notice": "hard played 1 tile.",
+        "history": []
+      },
+      "proposedTable": [
+        {
+          "id": "hard-0",
+          "tiles": [
+            21,
+            105,
+            60,
+            86
+          ]
+        },
+        {
+          "id": "hard-1",
+          "tiles": [
+            25,
+            38,
+            64,
+            103
+          ]
+        },
+        {
+          "id": "hard-2",
+          "tiles": [
+            16,
+            42,
+            68,
+            94
+          ]
+        },
+        {
+          "id": "hard-3",
+          "tiles": [
+            24,
+            76,
+            102
+          ]
+        },
+        {
+          "id": "hard-4",
+          "tiles": [
+            50,
+            63,
+            89,
+            11
+          ]
+        },
+        {
+          "id": "hard-5",
+          "tiles": [
+            13,
+            26,
+            78,
+            52
+          ]
+        },
+        {
+          "id": "hard-6",
+          "tiles": [
+            40,
+            41,
+            29,
+            30,
+            31,
+            45,
+            46,
+            34,
+            48,
+            49
+          ]
+        },
+        {
+          "id": "hard-7",
+          "tiles": [
+            84,
+            85,
+            99,
+            100,
+            101,
+            96
+          ]
+        },
+        {
+          "id": "hard-8",
+          "tiles": [
+            82,
+            104,
+            97,
+            83,
+            98,
+            81,
+            79,
+            91
+          ]
+        },
+        {
+          "id": "bot-51-0",
+          "tiles": [
+            59,
+            73,
+            74,
+            62
+          ]
+        },
+        {
+          "id": "bot-56-0",
+          "tiles": [
+            9,
+            35,
+            87,
+            61
+          ]
+        },
+        {
+          "id": "bot-57-0",
+          "tiles": [
+            6,
+            32,
+            71
+          ]
+        },
+        {
+          "id": "bot-63-0",
+          "tiles": [
+            28,
+            54,
+            93,
+            15
+          ]
+        },
+        {
+          "id": "bot-64-0",
+          "tiles": [
+            12,
+            51,
+            90,
+            77
+          ]
+        },
+        {
+          "id": "bot-72-0",
+          "tiles": [
+            55,
+            69,
+            57,
+            67
+          ]
+        },
+        {
+          "id": "bot-76-0",
+          "tiles": [
+            20,
+            33,
+            72
+          ]
+        },
+        {
+          "id": "bot-88-0",
+          "tiles": [
+            27,
+            53,
+            92,
+            1
+          ]
+        },
+        {
+          "id": "bot-89-0",
+          "tiles": [
+            3,
+            4,
+            18,
+            19,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "difficulty": "normal",
+      "seed": 101,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "turn": 105,
+      "reason": "Replace a joker with its represented rack tile, then reuse it this turn.",
+      "state": {
+        "version": 1,
+        "seed": 101,
+        "players": [
+          {
+            "name": "normal",
+            "bot": "normal",
+            "rack": [
+              44,
+              91,
+              79,
+              47,
+              65,
+              5,
+              43,
+              36,
+              75
+            ],
+            "melded": true
+          },
+          {
+            "name": "hard",
+            "bot": "hard",
+            "rack": [
+              88,
+              8,
+              0,
+              23,
+              17,
+              10,
+              37
+            ],
+            "melded": true
+          }
+        ],
+        "current": 0,
+        "pool": [
+          7,
+          22,
+          95,
+          58,
+          70,
+          39,
+          66,
+          56,
+          80,
+          14
+        ],
+        "table": [
+          {
+            "id": "hard-0",
+            "tiles": [
+              21,
+              105,
+              60,
+              86
+            ]
+          },
+          {
+            "id": "hard-1",
+            "tiles": [
+              25,
+              38,
+              64,
+              103
+            ]
+          },
+          {
+            "id": "hard-2",
+            "tiles": [
+              16,
+              42,
+              68,
+              94
+            ]
+          },
+          {
+            "id": "hard-3",
+            "tiles": [
+              24,
+              76,
+              102
+            ]
+          },
+          {
+            "id": "hard-4",
+            "tiles": [
+              50,
+              63,
+              89,
+              11
+            ]
+          },
+          {
+            "id": "hard-5",
+            "tiles": [
+              13,
+              26,
+              78,
+              52
+            ]
+          },
+          {
+            "id": "hard-6",
+            "tiles": [
+              40,
+              41,
+              29,
+              30,
+              31,
+              45,
+              46,
+              34,
+              48,
+              49
+            ]
+          },
+          {
+            "id": "hard-7",
+            "tiles": [
+              84,
+              85,
+              99,
+              100,
+              101,
+              96
+            ]
+          },
+          {
+            "id": "hard-8",
+            "tiles": [
+              82,
+              104,
+              97,
+              83,
+              98,
+              81
+            ]
+          },
+          {
+            "id": "bot-51-0",
+            "tiles": [
+              59,
+              73,
+              74,
+              62
+            ]
+          },
+          {
+            "id": "bot-56-0",
+            "tiles": [
+              9,
+              35,
+              87,
+              61
+            ]
+          },
+          {
+            "id": "bot-57-0",
+            "tiles": [
+              6,
+              32,
+              71
+            ]
+          },
+          {
+            "id": "bot-63-0",
+            "tiles": [
+              28,
+              54,
+              93,
+              15
+            ]
+          },
+          {
+            "id": "bot-64-0",
+            "tiles": [
+              12,
+              51,
+              90,
+              77
+            ]
+          },
+          {
+            "id": "bot-72-0",
+            "tiles": [
+              55,
+              69,
+              57,
+              67
+            ]
+          },
+          {
+            "id": "bot-76-0",
+            "tiles": [
+              20,
+              33,
+              72
+            ]
+          },
+          {
+            "id": "bot-88-0",
+            "tiles": [
+              27,
+              53,
+              92,
+              1
+            ]
+          },
+          {
+            "id": "bot-89-0",
+            "tiles": [
+              3,
+              4,
+              18,
+              19,
+              2
+            ]
+          }
+        ],
+        "turnStart": {
+          "table": [
+            {
+              "id": "hard-0",
+              "tiles": [
+                21,
+                105,
+                60,
+                86
+              ]
+            },
+            {
+              "id": "hard-1",
+              "tiles": [
+                25,
+                38,
+                64,
+                103
+              ]
+            },
+            {
+              "id": "hard-2",
+              "tiles": [
+                16,
+                42,
+                68,
+                94
+              ]
+            },
+            {
+              "id": "hard-3",
+              "tiles": [
+                24,
+                76,
+                102
+              ]
+            },
+            {
+              "id": "hard-4",
+              "tiles": [
+                50,
+                63,
+                89,
+                11
+              ]
+            },
+            {
+              "id": "hard-5",
+              "tiles": [
+                13,
+                26,
+                78,
+                52
+              ]
+            },
+            {
+              "id": "hard-6",
+              "tiles": [
+                40,
+                41,
+                29,
+                30,
+                31,
+                45,
+                46,
+                34,
+                48,
+                49
+              ]
+            },
+            {
+              "id": "hard-7",
+              "tiles": [
+                84,
+                85,
+                99,
+                100,
+                101,
+                96
+              ]
+            },
+            {
+              "id": "hard-8",
+              "tiles": [
+                82,
+                104,
+                97,
+                83,
+                98,
+                81
+              ]
+            },
+            {
+              "id": "bot-51-0",
+              "tiles": [
+                59,
+                73,
+                74,
+                62
+              ]
+            },
+            {
+              "id": "bot-56-0",
+              "tiles": [
+                9,
+                35,
+                87,
+                61
+              ]
+            },
+            {
+              "id": "bot-57-0",
+              "tiles": [
+                6,
+                32,
+                71
+              ]
+            },
+            {
+              "id": "bot-63-0",
+              "tiles": [
+                28,
+                54,
+                93,
+                15
+              ]
+            },
+            {
+              "id": "bot-64-0",
+              "tiles": [
+                12,
+                51,
+                90,
+                77
+              ]
+            },
+            {
+              "id": "bot-72-0",
+              "tiles": [
+                55,
+                69,
+                57,
+                67
+              ]
+            },
+            {
+              "id": "bot-76-0",
+              "tiles": [
+                20,
+                33,
+                72
+              ]
+            },
+            {
+              "id": "bot-88-0",
+              "tiles": [
+                27,
+                53,
+                92,
+                1
+              ]
+            },
+            {
+              "id": "bot-89-0",
+              "tiles": [
+                3,
+                4,
+                18,
+                19,
+                2
+              ]
+            }
+          ],
+          "rack": [
+            44,
+            91,
+            79,
+            47,
+            65,
+            5,
+            43,
+            36,
+            75
+          ]
+        },
+        "passes": 0,
+        "phase": "playing",
+        "lastPlaced": [],
+        "log": [
+          "normal played 1 tile.",
+          "hard played 3 tiles.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal played 1 tile.",
+          "hard played 2 tiles.",
+          "normal played 1 tile.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard played 1 tile.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard played 3 tiles.",
+          "normal played 5 tiles.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal played 1 tile.",
+          "hard played 1 tile.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard played 1 tile.",
+          "normal drew a tile.",
+          "hard drew a tile."
+        ],
+        "turn": 105,
+        "notice": "hard drew a tile.",
+        "history": []
+      },
+      "proposedTable": [
+        {
+          "id": "hard-0",
+          "tiles": [
+            21,
+            105,
+            60,
+            86
+          ]
+        },
+        {
+          "id": "hard-1",
+          "tiles": [
+            25,
+            38,
+            64,
+            103
+          ]
+        },
+        {
+          "id": "hard-2",
+          "tiles": [
+            16,
+            42,
+            68,
+            94
+          ]
+        },
+        {
+          "id": "hard-3",
+          "tiles": [
+            24,
+            76,
+            102
+          ]
+        },
+        {
+          "id": "hard-4",
+          "tiles": [
+            50,
+            63,
+            89,
+            11
+          ]
+        },
+        {
+          "id": "hard-5",
+          "tiles": [
+            13,
+            26,
+            78,
+            52
+          ]
+        },
+        {
+          "id": "hard-6",
+          "tiles": [
+            40,
+            41,
+            29,
+            30,
+            31,
+            45,
+            46,
+            34,
+            48,
+            49
+          ]
+        },
+        {
+          "id": "hard-7",
+          "tiles": [
+            84,
+            85,
+            99,
+            100,
+            101,
+            96
+          ]
+        },
+        {
+          "id": "hard-8",
+          "tiles": [
+            82,
+            104,
+            97,
+            83,
+            98,
+            81,
+            79,
+            91
+          ]
+        },
+        {
+          "id": "bot-51-0",
+          "tiles": [
+            59,
+            73,
+            74,
+            62
+          ]
+        },
+        {
+          "id": "bot-56-0",
+          "tiles": [
+            9,
+            35,
+            87,
+            61
+          ]
+        },
+        {
+          "id": "bot-57-0",
+          "tiles": [
+            6,
+            32,
+            71
+          ]
+        },
+        {
+          "id": "bot-63-0",
+          "tiles": [
+            28,
+            54,
+            93,
+            15
+          ]
+        },
+        {
+          "id": "bot-64-0",
+          "tiles": [
+            12,
+            51,
+            90,
+            77
+          ]
+        },
+        {
+          "id": "bot-72-0",
+          "tiles": [
+            55,
+            69,
+            57,
+            67
+          ]
+        },
+        {
+          "id": "bot-76-0",
+          "tiles": [
+            20,
+            33,
+            72
+          ]
+        },
+        {
+          "id": "bot-88-0",
+          "tiles": [
+            27,
+            53,
+            92,
+            1
+          ]
+        },
+        {
+          "id": "bot-89-0",
+          "tiles": [
+            3,
+            4,
+            18,
+            19,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "seed": 105,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "turn": 71,
+      "reason": "Replace a joker with its represented rack tile, then reuse it this turn.",
+      "state": {
+        "version": 1,
+        "seed": 105,
+        "players": [
+          {
+            "name": "hard",
+            "bot": "hard",
+            "rack": [
+              83,
+              4,
+              27,
+              82,
+              44,
+              79,
+              98
+            ],
+            "melded": true
+          },
+          {
+            "name": "normal",
+            "bot": "normal",
+            "rack": [
+              96,
+              55,
+              6,
+              21,
+              56,
+              30,
+              14,
+              5,
+              42,
+              52,
+              9,
+              15
+            ],
+            "melded": true
+          }
+        ],
+        "current": 0,
+        "pool": [
+          94,
+          2,
+          10,
+          75,
+          28,
+          64,
+          66,
+          46,
+          16,
+          101,
+          7,
+          49,
+          3,
+          63,
+          38,
+          99,
+          80,
+          87,
+          91,
+          95,
+          81,
+          29,
+          45,
+          43,
+          85,
+          26,
+          57,
+          90,
+          84,
+          31,
+          62,
+          77,
+          97,
+          32,
+          13
+        ],
+        "table": [
+          {
+            "id": "hard-0",
+            "tiles": [
+              25,
+              51,
+              104,
+              103
+            ]
+          },
+          {
+            "id": "hard-1",
+            "tiles": [
+              41,
+              67,
+              93
+            ]
+          },
+          {
+            "id": "hard-2",
+            "tiles": [
+              48,
+              36,
+              50,
+              34
+            ]
+          },
+          {
+            "id": "hard-3",
+            "tiles": [
+              33,
+              47,
+              35
+            ]
+          },
+          {
+            "id": "hard-4",
+            "tiles": [
+              54,
+              68,
+              69,
+              70,
+              58,
+              72,
+              73,
+              61
+            ]
+          },
+          {
+            "id": "hard-5",
+            "tiles": [
+              71,
+              59,
+              60,
+              74
+            ]
+          },
+          {
+            "id": "bot-43-0",
+            "tiles": [
+              23,
+              11,
+              12,
+              22,
+              8,
+              20,
+              19,
+              18,
+              17
+            ]
+          },
+          {
+            "id": "bot-48-0",
+            "tiles": [
+              24,
+              37,
+              102,
+              76
+            ]
+          },
+          {
+            "id": "bot-54-0",
+            "tiles": [
+              0,
+              65,
+              78,
+              39
+            ]
+          },
+          {
+            "id": "bot-61-0",
+            "tiles": [
+              86,
+              100,
+              105,
+              89,
+              88
+            ]
+          },
+          {
+            "id": "bot-66-0",
+            "tiles": [
+              1,
+              40,
+              53,
+              92
+            ]
+          }
+        ],
+        "turnStart": {
+          "table": [
+            {
+              "id": "hard-0",
+              "tiles": [
+                25,
+                51,
+                104,
+                103
+              ]
+            },
+            {
+              "id": "hard-1",
+              "tiles": [
+                41,
+                67,
+                93
+              ]
+            },
+            {
+              "id": "hard-2",
+              "tiles": [
+                48,
+                36,
+                50,
+                34
+              ]
+            },
+            {
+              "id": "hard-3",
+              "tiles": [
+                33,
+                47,
+                35
+              ]
+            },
+            {
+              "id": "hard-4",
+              "tiles": [
+                54,
+                68,
+                69,
+                70,
+                58,
+                72,
+                73,
+                61
+              ]
+            },
+            {
+              "id": "hard-5",
+              "tiles": [
+                71,
+                59,
+                60,
+                74
+              ]
+            },
+            {
+              "id": "bot-43-0",
+              "tiles": [
+                23,
+                11,
+                12,
+                22,
+                8,
+                20,
+                19,
+                18,
+                17
+              ]
+            },
+            {
+              "id": "bot-48-0",
+              "tiles": [
+                24,
+                37,
+                102,
+                76
+              ]
+            },
+            {
+              "id": "bot-54-0",
+              "tiles": [
+                0,
+                65,
+                78,
+                39
+              ]
+            },
+            {
+              "id": "bot-61-0",
+              "tiles": [
+                86,
+                100,
+                105,
+                89,
+                88
+              ]
+            },
+            {
+              "id": "bot-66-0",
+              "tiles": [
+                1,
+                40,
+                53,
+                92
+              ]
+            }
+          ],
+          "rack": [
+            83,
+            4,
+            27,
+            82,
+            44,
+            79,
+            98
+          ]
+        },
+        "passes": 0,
+        "phase": "playing",
+        "lastPlaced": [],
+        "log": [
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard played 3 tiles.",
+          "normal played 2 tiles.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal played 3 tiles.",
+          "hard played 1 tile.",
+          "normal played 2 tiles.",
+          "hard played 1 tile.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal played 3 tiles.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard played 1 tile.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard played 4 tiles.",
+          "normal played 1 tile.",
+          "hard drew a tile.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal played 3 tiles.",
+          "hard played 2 tiles.",
+          "normal drew a tile.",
+          "hard drew a tile.",
+          "normal drew a tile."
+        ],
+        "turn": 71,
+        "notice": "normal drew a tile.",
+        "history": []
+      },
+      "proposedTable": [
+        {
+          "id": "hard-0",
+          "tiles": [
+            25,
+            51,
+            104,
+            103
+          ]
+        },
+        {
+          "id": "hard-1",
+          "tiles": [
+            41,
+            67,
+            93
+          ]
+        },
+        {
+          "id": "hard-2",
+          "tiles": [
+            48,
+            36,
+            50,
+            34
+          ]
+        },
+        {
+          "id": "hard-3",
+          "tiles": [
+            33,
+            47,
+            35
+          ]
+        },
+        {
+          "id": "hard-4",
+          "tiles": [
+            54,
+            68,
+            69,
+            70,
+            58,
+            72,
+            73,
+            61
+          ]
+        },
+        {
+          "id": "hard-5",
+          "tiles": [
+            71,
+            59,
+            60,
+            74
+          ]
+        },
+        {
+          "id": "bot-43-0",
+          "tiles": [
+            23,
+            11,
+            12,
+            22,
+            8,
+            20,
+            19,
+            18,
+            17
+          ]
+        },
+        {
+          "id": "bot-48-0",
+          "tiles": [
+            24,
+            37,
+            102,
+            76
+          ]
+        },
+        {
+          "id": "bot-54-0",
+          "tiles": [
+            0,
+            65,
+            78,
+            39
+          ]
+        },
+        {
+          "id": "bot-61-0",
+          "tiles": [
+            86,
+            100,
+            105,
+            89,
+            88,
+            98,
+            83,
+            82
+          ]
+        },
+        {
+          "id": "bot-66-0",
+          "tiles": [
+            1,
+            40,
+            53,
+            92
+          ]
+        }
+      ]
+    },
+    {
+      "difficulty": "hard",
+      "seed": 107,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "turn": 48,
+      "reason": "Replace a joker with its represented rack tile, then reuse it this turn.",
+      "state": {
+        "version": 1,
+        "seed": 107,
+        "players": [
+          {
+            "name": "easy",
+            "bot": "easy",
+            "rack": [
+              79,
+              103,
+              90,
+              20,
+              91,
+              23,
+              40,
+              10,
+              39,
+              75,
+              18,
+              84,
+              81,
+              82,
+              85,
+              15,
+              50,
+              97,
+              95
+            ],
+            "melded": true
+          },
+          {
+            "name": "hard",
+            "bot": "hard",
+            "rack": [
+              89,
+              102,
+              56,
+              24,
+              68,
+              7,
+              64,
+              11,
+              13,
+              52,
+              59,
+              36,
+              96
+            ],
+            "melded": true
+          }
+        ],
+        "current": 1,
+        "pool": [
+          48,
+          0,
+          61,
+          54,
+          3,
+          65,
+          29,
+          66,
+          76,
+          41,
+          62,
+          71,
+          27,
+          17,
+          6,
+          44,
+          49,
+          12,
+          70,
+          30,
+          28,
+          101,
+          63,
+          1,
+          26,
+          5,
+          46,
+          83,
+          53,
+          4,
+          32,
+          14,
+          88,
+          16,
+          33,
+          99,
+          51,
+          72,
+          37,
+          100
+        ],
+        "table": [
+          {
+            "id": "hard-0",
+            "tiles": [
+              98,
+              86,
+              104
+            ]
+          },
+          {
+            "id": "hard-1",
+            "tiles": [
+              25,
+              38,
+              77
+            ]
+          },
+          {
+            "id": "hard-2",
+            "tiles": [
+              22,
+              74,
+              105
+            ]
+          },
+          {
+            "id": "hard-3",
+            "tiles": [
+              2,
+              67,
+              80
+            ]
+          },
+          {
+            "id": "hard-4",
+            "tiles": [
+              55,
+              69,
+              57
+            ]
+          },
+          {
+            "id": "hard-5",
+            "tiles": [
+              19,
+              45,
+              58
+            ]
+          },
+          {
+            "id": "bot-25-0",
+            "tiles": [
+              9,
+              35,
+              87
+            ]
+          },
+          {
+            "id": "bot-28-0",
+            "tiles": [
+              78,
+              92,
+              93,
+              94
+            ]
+          },
+          {
+            "id": "bot-33-0",
+            "tiles": [
+              42,
+              43,
+              31
+            ]
+          },
+          {
+            "id": "bot-40-0",
+            "tiles": [
+              8,
+              47,
+              60
+            ]
+          },
+          {
+            "id": "bot-43-0",
+            "tiles": [
+              21,
+              34,
+              73
+            ]
+          }
+        ],
+        "turnStart": {
+          "table": [
+            {
+              "id": "hard-0",
+              "tiles": [
+                98,
+                86,
+                104
+              ]
+            },
+            {
+              "id": "hard-1",
+              "tiles": [
+                25,
+                38,
+                77
+              ]
+            },
+            {
+              "id": "hard-2",
+              "tiles": [
+                22,
+                74,
+                105
+              ]
+            },
+            {
+              "id": "hard-3",
+              "tiles": [
+                2,
+                67,
+                80
+              ]
+            },
+            {
+              "id": "hard-4",
+              "tiles": [
+                55,
+                69,
+                57
+              ]
+            },
+            {
+              "id": "hard-5",
+              "tiles": [
+                19,
+                45,
+                58
+              ]
+            },
+            {
+              "id": "bot-25-0",
+              "tiles": [
+                9,
+                35,
+                87
+              ]
+            },
+            {
+              "id": "bot-28-0",
+              "tiles": [
+                78,
+                92,
+                93,
+                94
+              ]
+            },
+            {
+              "id": "bot-33-0",
+              "tiles": [
+                42,
+                43,
+                31
+              ]
+            },
+            {
+              "id": "bot-40-0",
+              "tiles": [
+                8,
+                47,
+                60
+              ]
+            },
+            {
+              "id": "bot-43-0",
+              "tiles": [
+                21,
+                34,
+                73
+              ]
+            }
+          ],
+          "rack": [
+            89,
+            102,
+            56,
+            24,
+            68,
+            7,
+            64,
+            11,
+            13,
+            52,
+            59,
+            36,
+            96
+          ]
+        },
+        "passes": 0,
+        "phase": "playing",
+        "lastPlaced": [],
+        "log": [
+          "hard drew a tile.",
+          "easy drew a tile.",
+          "hard drew a tile.",
+          "easy drew a tile.",
+          "hard drew a tile.",
+          "easy drew a tile.",
+          "hard drew a tile.",
+          "easy played 3 tiles.",
+          "hard drew a tile.",
+          "easy drew a tile.",
+          "hard played 4 tiles.",
+          "easy drew a tile.",
+          "hard drew a tile.",
+          "easy drew a tile.",
+          "hard drew a tile.",
+          "easy played 3 tiles.",
+          "hard drew a tile.",
+          "easy drew a tile.",
+          "hard drew a tile.",
+          "easy drew a tile.",
+          "hard drew a tile.",
+          "easy drew a tile.",
+          "hard played 3 tiles.",
+          "easy drew a tile.",
+          "hard drew a tile.",
+          "easy played 3 tiles.",
+          "hard drew a tile.",
+          "easy drew a tile.",
+          "hard drew a tile.",
+          "easy drew a tile."
+        ],
+        "turn": 48,
+        "notice": "easy drew a tile.",
+        "history": []
+      },
+      "proposedTable": [
+        {
+          "id": "hard-0",
+          "tiles": [
+            98,
+            86,
+            104,
+            96
+          ]
+        },
+        {
+          "id": "hard-1",
+          "tiles": [
+            25,
+            38,
+            77
+          ]
+        },
+        {
+          "id": "hard-2",
+          "tiles": [
+            22,
+            74,
+            105
+          ]
+        },
+        {
+          "id": "hard-3",
+          "tiles": [
+            2,
+            67,
+            80
+          ]
+        },
+        {
+          "id": "hard-4",
+          "tiles": [
+            55,
+            69,
+            57
+          ]
+        },
+        {
+          "id": "hard-5",
+          "tiles": [
+            19,
+            45,
+            58
+          ]
+        },
+        {
+          "id": "bot-25-0",
+          "tiles": [
+            9,
+            35,
+            87
+          ]
+        },
+        {
+          "id": "bot-28-0",
+          "tiles": [
+            78,
+            92,
+            93,
+            94
+          ]
+        },
+        {
+          "id": "bot-33-0",
+          "tiles": [
+            42,
+            43,
+            31
+          ]
+        },
+        {
+          "id": "bot-40-0",
+          "tiles": [
+            8,
+            47,
+            60
+          ]
+        },
+        {
+          "id": "bot-43-0",
+          "tiles": [
+            21,
+            34,
+            73
+          ]
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "completedRounds": 60,
+    "all106TilesConserved": true,
+    "allCompletedTablesLegal": true,
+    "allSubmittedPlansLegal": false,
+    "allPlanningInputsUnchanged": true
+  },
+  "limitations": [
+    "Node timing on this CPU is not physical iPhone/iPad performance.",
+    "Only ten distinct deals per format by default; seat-swapped rounds sharing a deal are correlated.",
+    "Time-bounded search may choose different moves under different host load; seeded deals alone do not reproduce scores exactly.",
+    "A bot round win is not a measurement of human enjoyment or beginner accessibility.",
+    "This sample does not cover four-player games or long multi-round matches."
+  ]
+}

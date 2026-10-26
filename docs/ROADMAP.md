@@ -3,7 +3,8 @@
 ## Current roadmap: older Chinese-speaking players
 
 Phase 1 is paused at the user’s request. Phases 2–5 are implemented;
-Phase 6 remains planned. Each implementation phase is published separately,
+Phase 6 is partly complete: the bot review is published; practice challenges
+remain planned. Each implementation phase is published separately,
 and GitHub CI for its exact commit must pass before the next phase begins.
 
 | Phase | Status | Work |
@@ -13,7 +14,7 @@ and GitHub CI for its exact commit must pass before the next phase begins.
 | 3 | Implemented | Dynamic next actions, opening progress, End explanations, safe destination outlines and action definitions; see [FIRST_GAME_GUIDANCE.md](FIRST_GAME_GUIDANCE.md) |
 | 4 | Implemented | Ending and tie-break explanations, actual score arithmetic, same-settings replay and editable current options; see [RESULTS_AND_REPLAY.md](RESULTS_AND_REPLAY.md) |
 | 5 | Implemented | Optional replayable Mandarin/English device-voice lessons and reminders, text retained; see [READ_ALOUD.md](READ_ALOUD.md) |
-| 6 | Planned | Short mistake-focused exercises and a larger difficulty evaluation before tuning bots |
+| 6 | Partly complete | [Bot difficulty review](DIFFICULTY_REVIEW.md) completed; mistake-focused exercises, planner fixes and held-out evaluation remain planned |
 
 English/Simplified Chinese support is already implemented; multiplayer stays
 deferred. The release history and original acceptance criteria follow below.
@@ -24,8 +25,8 @@ The reported cramped phone/iPad meld area is fixed in a separate release after
 Phase 4. Expand table is now a real viewport workspace, its controls remain
 outside optional context, comfortable boards scale with the viewport, and
 smaller-device practice gets a full-sized table. See [BOARD_SPACE.md](BOARD_SPACE.md).
-This is a layout follow-up. Phase 5 adds optional audio separately; Phase 6 remains
-planned and Phase 1 remains paused.
+This is a layout follow-up. Phase 5 adds optional audio separately. Phase 6
+now includes the completed bot review; Phase 1 remains paused.
 
 ## Earlier releases
 

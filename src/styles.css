@@ -4277,6 +4277,9 @@ button:not(.tile) {
 .coach-dismiss-icon {
   display: none;
 }
+.app .game .board-clock .board-expiry {
+  display: inline;
+}
 @media (max-width: 720px) and (max-height: 740px) {
   .app:not(.comfortable-reading)
     .game:has(.first-game-guide)

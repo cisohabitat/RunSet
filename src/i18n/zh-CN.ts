@@ -2,6 +2,10 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "On expiry: unfinished edits reset, then draw one.":
+    "时间到后会还原未完成的出牌，再摸一张牌。",
+  "On expiry: unfinished edits reset, then pass.":
+    "时间到后会还原未完成的出牌，再跳过本回合。",
   "Watch the opponent; your turn is next.": "先看电脑出牌，接着就轮到你。",
   "Complete the red-outlined meld, or Reset for free.":
     "补全红框牌组，或免费重置。",

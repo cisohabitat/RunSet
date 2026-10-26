@@ -52,6 +52,8 @@ that keeps your rack and turn controls on screen. **Standard** (**常规**)
 or Escape returns to the regular layout. The choice is remembered across turns
 and reloads. In expanded view, **More** contains sorting; tiles and the board
 still scroll normally. Hints, their placement buttons and the timer stay available.
+The compact countdown also shows its draw/pass expiry action and exposes the
+unfinished-edit reset explanation to assistive technology.
 
 The standard phone board has more space, comfortable reading uses taller boards
 on tablets, and phone/tablet practice no longer squeezes melds beneath fixed-height

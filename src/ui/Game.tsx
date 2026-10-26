@@ -435,10 +435,19 @@ export function Game({
             className="board-clock"
             role="timer"
             aria-label={t("Time left this turn")}
+            aria-description={t(
+              s.pool.length
+                ? "On expiry: unfinished edits reset, then draw one."
+                : "On expiry: unfinished edits reset, then pass.",
+            )}
           >
             <span className="board-clock-label">{t("Time left:")} </span>
             {Math.max(0, Math.ceil(((s.deadline ?? clock) - clock) / 1000))}
             {t("s")}
+            <span className="board-expiry">
+              {" "}
+              → {t(s.pool.length ? "draw one" : "pass")}
+            </span>
           </span>
         ) : null}
       </div>

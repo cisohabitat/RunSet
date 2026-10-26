@@ -94,6 +94,9 @@ from the public repository.
   coaching is dismissed. Preserve full text for larger/comfortable views and
   read-aloud reminders. Check the visible paragraph with match, timer and a
   selected tile together; an element merely existing is insufficient.
+- Compact timers must retain the expiry action (draw/pass), including an empty
+  pool, with the reset explanation available through `aria-description`. Do not
+  shorten a timer to seconds alone when replacing the normal clock's guidance.
 - Setup is lazy-loaded and must work on its first offline visit. Phase 2 GitHub CI
   run 40292228237 passed before Phase 3 work began. Phase 1 remains paused.
 

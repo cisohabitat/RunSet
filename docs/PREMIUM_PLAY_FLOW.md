@@ -32,6 +32,8 @@ actual match scores and round number remain in More → Match scores. The guide
 has a labelled 44 px dismiss control. Larger screens and Comfortable reading
 retain full instructions. This avoids a clipped coaching sliver when a match,
 timer, selection and rack are all present, while keeping the 180 px table floor.
+The compact countdown includes its draw/pass expiry action, with the unfinished
+edit reset explanation retained through `aria-description`, including empty pools.
 
 Verification covers both languages and phone/tablet/desktop viewports, the first
 screen's Deal hit target, safe whitespace-name fallback, saved-game priority,
@@ -40,7 +42,7 @@ focus and offline first use. Physical Apple device checks remain paused.
 
 The final focused browser suite passes 70 flows, including the combined short
 phone case and large-reading landscape. All 96 unit tests and ten production
-offline flows pass. Typecheck/build pass; initial HTML/CSS/JS total 96,780 bytes
+offline flows pass. Typecheck/build pass; initial HTML/CSS/JS total 96,790 bytes
 gzipped against the 100,000-byte budget. Screenshots were inspected in
 light/dark themes and both languages. The full browser suite now contains 137
 flows and runs in GitHub CI before the next phase starts.

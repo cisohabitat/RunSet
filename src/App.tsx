@@ -20,7 +20,9 @@ import {
 } from "./lib/storage";
 import { sound } from "./lib/sound";
 import { Home } from "./ui/Home";
-import { Setup } from "./ui/Setup";
+const Setup = lazy(() =>
+  import("./ui/Setup").then((module) => ({ default: module.Setup })),
+);
 const HowToPlay = lazy(() =>
   import("./ui/HowToPlay").then((module) => ({ default: module.HowToPlay })),
 );
@@ -349,6 +351,7 @@ export default function App() {
                 {
                   target: (game.match?.target ?? 0) as GameOptions["target"],
                   turnSeconds: game.turnSeconds,
+                  coach: game.coach,
                 },
               );
             }}
@@ -588,11 +591,15 @@ export default function App() {
         </>
       )}
       {screen === "setup" && (
-        <Setup
-          onStart={start}
-          onBack={() => setScreen("home")}
-          hasSave={!!game && game.phase === "playing"}
-        />
+        <Suspense
+          fallback={<p className="page">{t("Preparing game setup…")}</p>}
+        >
+          <Setup
+            onStart={start}
+            onBack={() => setScreen("home")}
+            hasSave={!!game && game.phase === "playing"}
+          />
+        </Suspense>
       )}
       {screen === "learn" && (
         <Suspense

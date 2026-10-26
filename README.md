@@ -42,7 +42,7 @@ while settings are open, with a visible reminder. The independent large-tile
 option remains available when comfortable reading is off.
 
 See [reading-mode verification](docs/READING_MODE.md). The older-player study and
-real-device checks (Phase 1) are paused; Phase 2 is implemented. The remaining
+real-device checks (Phase 1) are paused; Phases 2–3 are implemented. The remaining
 phases are tracked in [the roadmap](docs/ROADMAP.md).
 
 ## What’s included
@@ -64,6 +64,10 @@ phases are tracked in [the roadmap](docs/ROADMAP.md).
   updates wait for an explicit Save and update action.
 - Optional worker-planned move hints with explicit preview/placement, point breakdowns,
   specific table corrections, bot narration, remembered pacing, and beginner penalty warnings.
+- Optional first-game guidance defaults to on in setup, follows selected tiles and
+  opening points, and explains safe End/Reset/Draw/Pass choices. Valid destination
+  outlines use the same turn validator; intermediate edits stay available.
+  See [first-game guidance](docs/FIRST_GAME_GUIDANCE.md).
 - Guided first-game practice and optional joker/rearranging lessons, stored separately
   from regular games. Reset and Undo return the opening lesson to the missing
   objective; reopening practice also recovers previously stuck opening lessons.

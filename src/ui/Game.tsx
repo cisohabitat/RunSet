@@ -1,9 +1,10 @@
 import { useI18n } from "../i18n/I18n";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { type GameState, type Action, turnCheck } from "../engine/game";
 import { inspectMeld } from "../engine/meld";
 import { explainMeld, narrateMove, type Hint } from "../engine/coaching";
 import { runPlanner } from "../lib/planner";
+import { suggestedDestinations, turnGuidance } from "../lib/guidance";
 import { Tile } from "./Tile";
 export function Game({
   game: s,
@@ -87,6 +88,18 @@ export function Game({
     (id) =>
       human.rack.includes(id) || s.table.some((m) => m.tiles.includes(id)),
   );
+  const selectionKey = activeSelected.join(",");
+  const destinations = useMemo(
+    () =>
+      coaching
+        ? suggestedDestinations(
+            s,
+            selectionKey ? selectionKey.split(",").map(Number) : [],
+          )
+        : [],
+    [s, selectionKey, coaching],
+  );
+  const guidance = turnGuidance(s, activeSelected, destinations);
   useEffect(() => {
     if (myTurn) focusRack();
   }, [s.turn, myTurn]);
@@ -231,23 +244,22 @@ export function Game({
             <span>{t("in the pool")}</span>
           </div>
         </div>
+        {coaching && (
+          <p
+            id="end-turn-help"
+            className="turn-help"
+            hidden={!!hint || !!s.coach}
+          >
+            {t(guidance.endHelp)}
+          </p>
+        )}
         {s.coach && !hint && (
           <aside
             className="first-game-guide"
             aria-label={t("First real game guidance")}
           >
             <strong>{t("Your first real game")}</strong>
-            <p>
-              {t(
-                !myTurn
-                  ? "Watch the opponent. Your turn comes next."
-                  : !human.melded
-                    ? check.valid && check.played.length
-                      ? `Your opening is worth ${check.points} points. Choose End turn to complete your first play.`
-                      : `Look for a matching-number group or a same-colour run. Your first play needs 30 points. Hint can explain a possibility; ${s.pool.length ? "drawing" : "passing"} is always allowed.`
-                    : `You have opened! Add tiles to existing groups or runs, make new ones, or ${s.pool.length ? "draw" : "pass"}. You can turn these tips off whenever you’re ready.`,
-              )}
-            </p>
+            <p>{t(guidance.message)}</p>
             <button
               className="text-button"
               onClick={() => dispatch({ type: "dismissCoach" })}
@@ -387,6 +399,9 @@ export function Game({
                 )}
                 <button
                   data-coach-target={coachTarget === m.id || undefined}
+                  data-suggested-destination={
+                    destinations.includes(m.id) || undefined
+                  }
                   className="meld-target"
                   disabled={!myTurn || !activeSelected.length}
                   onClick={() => move(m.id)}
@@ -406,6 +421,9 @@ export function Game({
           })}
           <button
             data-coach-target={coachTarget === "new" || undefined}
+            data-suggested-destination={
+              destinations.includes("new") || undefined
+            }
             className="new-meld"
             disabled={!myTurn}
             onClick={() => move("new")}
@@ -595,6 +613,24 @@ export function Game({
                 >
                   {t("Return selected tiles to rack")}
                 </button>
+                <details className="turn-actions-help">
+                  <summary>{t("Reset, Draw and Pass explained")}</summary>
+                  <p>
+                    {t(
+                      "Reset puts this turn back as it was. You keep your turn and draw no penalty tiles.",
+                    )}
+                  </p>
+                  <p>
+                    {t(
+                      "Draw restores unfinished edits, adds one tile to your rack and ends your turn.",
+                    )}
+                  </p>
+                  <p>
+                    {t(
+                      "Pass is available when the pool is empty. It restores unfinished edits and ends your turn without adding a tile.",
+                    )}
+                  </p>
+                </details>
                 <details className="move-history">
                   <summary>{t("Move history")}</summary>
                   {s.log.map((line, i) => (
@@ -630,6 +666,7 @@ export function Game({
                   className={`primary ${!check.valid && dirty ? "danger" : ""}`}
                   disabled={!myTurn || (!check.played.length && !dirty)}
                   data-coach-target={coachTarget === "end" || undefined}
+                  aria-describedby={coaching ? "end-turn-help" : undefined}
                   onClick={() => act({ type: "endTurn" })}
                 >
                   {t(

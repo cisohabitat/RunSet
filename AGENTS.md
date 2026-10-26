@@ -70,6 +70,26 @@ from the public repository.
 - The older Chinese-speaking player study and physical-device checks (new roadmap
   Phase 1) are paused by the user. Do not block Phase 2 on that study or claim it ran.
 
+## First-game guidance
+
+- Setup defaults `coach` on and lets the player opt out. Preserve its current
+  value when restarting with the same players; older saves keep their own value.
+- `src/lib/guidance.ts` owns deterministic display guidance and destination
+  suggestions. Inspect hypothetical moves through the existing reducer and
+  `turnCheck`, with empty temporary Undo history; never mutate the actual game.
+  Keep opening, source-group validity and joker replacement/reuse restrictions.
+- An outlined destination indicates that moving this selection there leaves a
+  complete valid turn. It is a suggestion, not a restriction on intermediate
+  editing. End turn still uses the authoritative reducer and penalty warning.
+- End-turn explanations use `aria-describedby` and pool-aware Draw/Pass copy.
+  Guided games also show the next action, progress to 30 and safe Reset advice.
+  Keep the lesson-specific instructions for practice (`coaching=false`).
+- In compact phone view, a visible beginner card takes priority over opponent
+  cards. Restore opponents when the guidance is dismissed. Check the full next
+  instruction inside the context bounds, plus primary controls and table space.
+- Setup is lazy-loaded and must work on its first offline visit. Phase 2 GitHub CI
+  run 40292228237 passed before Phase 3 work began. Phase 1 remains paused.
+
 ## Working and verification
 
 - Inspect files and Git status before editing. Preserve unrelated changes and

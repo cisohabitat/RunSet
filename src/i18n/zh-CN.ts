@@ -26,6 +26,38 @@ const messages: Record<string, string> = {
   "Loading settings…": "正在打开设置…",
   "Loading results…": "正在显示结果…",
   "Needs fixing": "需要调整",
+  "Preparing game setup…": "正在准备游戏设置…",
+  "Show first-game guidance": "显示新手出牌指导",
+  "Wait for your turn before playing tiles.": "请等轮到你时再出牌。",
+  "End turn is unavailable until you play a rack tile. You can {action} instead.":
+    "至少出一张手牌后，才能点“结束回合”。也可以选择{action}。",
+  "Ending now restores this turn and draws up to 3 penalty tiles. Keep editing, or Reset for free.":
+    "现在结束会撤回本回合操作，并罚摸最多 3 张牌。请继续调整，或点“重置”（不会罚摸）。",
+  "Rearranging alone does not end a turn. Play a rack tile, or {action}; unfinished edits will be reset.":
+    "只重组桌上的牌还不能结束回合。请至少出一张手牌，或选择{action}；未完成的摆牌会撤回。",
+  "Ready to end: every group and run is valid, and you played from your rack.":
+    "可以结束回合了：你已经出了手牌，桌上的每个牌组也都符合规则。",
+  "Complete the red-outlined group or run, or use Reset to undo this turn without a penalty.":
+    "请补齐红色边框里的牌组，也可以点“重置”撤回本回合操作，不会罚摸。",
+  "Your opening is {n} / 30 points. Add more tiles from your own rack, or Reset for free.":
+    "首次出牌已有 {n} / 30 分。请再加一些自己的手牌，也可以点“重置”（不会罚摸）。",
+  "{n} tiles selected. Choose an outlined destination. End turn will check the whole table before finishing.":
+    "已选 {n} 张牌，请选择有边框提示的放牌位置。点“结束回合”时，仍会检查整个牌桌是否符合规则。",
+  "No safe finish was found for these selected tiles. Select more tiles, or use New group or run to build in steps.":
+    "这些牌暂时还不能完成有效回合。可以再选一些牌，或点“新建同数组或顺子”，一步一步组合。",
+  "Reset, Draw and Pass explained": "重置、摸牌和跳过有什么不同？",
+  "Reset puts this turn back as it was. You keep your turn and draw no penalty tiles.":
+    "重置：撤回本回合的摆牌。回合仍然是你的，也不会罚摸。",
+  "Draw restores unfinished edits, adds one tile to your rack and ends your turn.":
+    "摸牌：撤回未完成的摆牌，再摸一张牌，回合就结束。",
+  "Pass is available when the pool is empty. It restores unfinished edits and ends your turn without adding a tile.":
+    "跳过：没有牌可摸时才会出现。撤回未完成的摆牌，结束本回合，不会增加手牌。",
+  "Your table is ready. Choose End turn to keep these moves, or continue playing.":
+    "牌桌已符合规则。点“结束回合”保留本次出牌，也可以继续出牌。",
+  "Select tiles → New group or run. Your first play needs 30 points. Place a rack tile before End turn, or {action}.":
+    "先选牌，再点“新建同数组或顺子”。首次出牌至少要 30 分。至少出一张手牌后，才能结束回合；也可以{action}。",
+  "Add tiles to a group or run, or make a new one. Play a rack tile before End turn, or {action}.":
+    "可以给已有牌组接牌，也可以组成新牌组。至少出一张手牌后，才能结束回合；也可以{action}。",
   "Game menu": "游戏菜单",
   Game: "游戏",
   Menu: "菜单",

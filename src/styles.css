@@ -3510,3 +3510,40 @@ button:not(.tile) {
 .app.comfortable-reading .site-footer > span:last-child {
   display: none;
 }
+
+.setup-coach {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  margin: 20px 0;
+}
+.setup-coach input {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  accent-color: var(--green);
+}
+.turn-help {
+  margin: 0 0 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.game [data-suggested-destination="true"] {
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+  background: var(--soft);
+}
+.turn-actions-help p {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+.app.comfortable-reading .turn-help {
+  font-size: 18px;
+}
+@media (max-width: 720px) {
+  .app:not(.comfortable-reading) .game:has(.first-game-guide) .opponents {
+    display: none;
+  }
+}

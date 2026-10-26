@@ -44,7 +44,7 @@ hint explanations are translated on display, including existing English saves.
 Unknown messages fall back to readable English. New or changed messages require
 matching dictionary entries and tests.
 
-The dictionary is a separate approximately 13.6 kB gzip chunk. Illustrated rules
+The dictionary is a separate approximately 14.4 kB gzip chunk. Illustrated rules
 are also loaded separately, preserving the existing 100,000-byte initial-download
 budget. The production service worker precaches both alongside lessons and bots.
 A failed language download leaves English available and reports a bilingual
@@ -72,3 +72,8 @@ confirming comfortable text size and preferred local terminology.
 Comfortable reading is available in both languages from Settings (设置). Its
 copy, controls and timed-game reminder are translated. Eight additional browser
 flows and a fifth offline flow cover the shared reading mode; see READING_MODE.md.
+
+Phase 3 translates dynamic next-step guidance, selection suggestions, opening
+progress, End-turn availability and Reset/Draw/Pass definitions. Pure-helper tests
+check all message states; English/Chinese browser flows inspect phone instruction
+bounds. First-use setup and guidance are verified offline as a sixth offline flow.

@@ -183,3 +183,25 @@ test("comfortable reading and settings load for the first time offline", async (
   await page.keyboard.press("Escape");
   await context.setOffline(false);
 });
+
+test("new-game setup and default guidance are ready before the first offline game", async ({
+  page,
+  context,
+}) => {
+  await page.goto("/");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Ready offline" }),
+  ).toBeVisible();
+  await context.setOffline(true);
+  await page.getByRole("button", { name: /New game/ }).click();
+  await expect(
+    page.getByLabel("Show first-game guidance", { exact: true }),
+  ).toBeChecked();
+  await page.getByRole("button", { name: /Deal the tiles/ }).click();
+  await expect(page.getByLabel("First real game guidance")).toBeVisible();
+  await page.getByRole("button", { name: "Home", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: /Continue game/ }),
+  ).toBeVisible();
+  await context.setOffline(false);
+});

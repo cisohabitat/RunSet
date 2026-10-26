@@ -16,6 +16,7 @@ export function Setup({
   hasSave: boolean;
 }) {
   const { t, locale } = useI18n();
+  const [coach, setCoach] = useState(true);
   const [target, setTarget] = useState<0 | 100 | 200 | 500>(0),
     [turnSeconds, setTurnSeconds] = useState<0 | 60 | 120>(0);
   const [name, setName] = useState(locale === "zh-CN" ? "你" : "You"),
@@ -36,7 +37,7 @@ export function Setup({
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          onStart(name, bots, difficulty, { target, turnSeconds });
+          onStart(name, bots, difficulty, { target, turnSeconds, coach });
         }}
       >
         <label className="field-label" htmlFor="name">
@@ -136,6 +137,14 @@ export function Setup({
             </p>
           )}
         </fieldset>
+        <label className="setup-coach">
+          <input
+            type="checkbox"
+            checked={coach}
+            onChange={(e) => setCoach(e.target.checked)}
+          />
+          {t("Show first-game guidance")}
+        </label>
         {hasSave && (
           <p className="muted">
             {t("Starting a new game replaces your saved round.")}

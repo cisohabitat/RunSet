@@ -15,13 +15,23 @@ for (const locale of ["en", "zh-CN"] as const)
       });
       await page.addInitScript(() => {
         (window as any).__tileLandings = [];
+        (window as any).__tileInterrupted = [];
         const original = HTMLElement.prototype.animate;
         HTMLElement.prototype.animate = function (
           ...args: Parameters<typeof original>
         ) {
           if (this.dataset.tileId)
             (window as any).__tileLandings.push(Number(this.dataset.tileId));
-          return original.apply(this, args);
+          const animation = original.apply(this, args);
+          const cancel = animation.cancel.bind(animation);
+          animation.cancel = () => {
+            if (this.dataset.tileId && animation.playState === "running")
+              (window as any).__tileInterrupted.push(
+                Number(this.dataset.tileId),
+              );
+            cancel();
+          };
+          return animation;
         };
       });
       await page.goto("/");
@@ -43,10 +53,15 @@ for (const locale of ["en", "zh-CN"] as const)
         "aria-description",
         t("Played in the latest turn."),
       );
+      await page.locator('.rack [data-tile-id="3"]').click();
+      await expect(page.locator('.rack [data-tile-id="3"]')).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      );
       await page.evaluate(() => {
         (window as any).__tileLandings = [];
+        (window as any).__tileInterrupted = [];
       });
-      await page.locator('.rack [data-tile-id="3"]').click();
       await page.locator(".meld-target").first().click();
       await expect(page.locator('.table [data-tile-id="3"]')).toBeVisible();
       const animations = await page.evaluate(
@@ -68,6 +83,10 @@ for (const locale of ["en", "zh-CN"] as const)
           ),
         )
         .toBe(false);
+      await expect(page.locator(".save-indicator")).toHaveText(t("Saved"));
+      expect(
+        await page.evaluate(() => (window as any).__tileInterrupted),
+      ).toEqual([]);
       await page.screenshot({
         path: `/tmp/runset-feedback-${locale}-${reduced}.png`,
         animations: "disabled",

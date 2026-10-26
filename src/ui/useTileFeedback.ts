@@ -5,6 +5,7 @@ import type { GameState } from "../engine/game";
 export function useTileFeedback(
   root: RefObject<HTMLElement | null>,
   game: GameState,
+  layoutKey: string,
 ) {
   const previous = useRef(
     new Map<
@@ -61,7 +62,7 @@ export function useTileFeedback(
         next.set(id, { parent, x: rect.x, y: rect.y, visible });
       });
     previous.current = next;
-  });
+  }, [game, layoutKey, root]);
   useEffect(() => {
     const clear = () => {
       active.current.forEach((animation) => animation.cancel());

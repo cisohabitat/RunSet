@@ -11,6 +11,8 @@ animations do not delay reducers or saves. Reduced-motion mode skips JavaScript
 landings and keeps the static marks. Resize/unmount cancels owned animation
 objects. Round confetti remains a single short celebration and is hidden with
 reduced motion; the result heading and score explanation remain available.
+Save-label and clock refreshes do not restart or cancel a placement landing;
+browser checks detect interrupted animations across a completed save.
 
 Sound selection clicks are quieter, with soft attacks/decays. Placement, draw,
 turn and result cues follow actual reducer transitions. Rejected moves do not
@@ -29,6 +31,6 @@ remain paused.
 
 Local verification: 102 unit tests, 40 focused browser flows and ten offline
 flows pass. The final motion/audio checks pass with both languages and motion
-preferences. Typecheck/build pass; initial HTML/CSS/JS total 97,411 bytes gzipped
+preferences. Typecheck/build pass; initial HTML/CSS/JS total 97,410 bytes gzipped
 (100,000-byte budget). The full browser suite now contains 162 flows; exact-commit
 GitHub CI gates Phase 5. Latest-play screenshots were visually inspected.

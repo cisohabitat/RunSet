@@ -36,9 +36,8 @@ export function Game({
   lessonAction?: { label: string; onClick: () => void };
   muted?: boolean;
 }) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const feedbackRoot = useRef<HTMLElement>(null);
-  useTileFeedback(feedbackRoot, s);
   const [focused, setFocused] = useState<number | null>(null);
   const rackRef = useRef<HTMLDivElement>(null);
   const focusRack = () =>
@@ -155,6 +154,13 @@ export function Game({
       human.rack.includes(id) || s.table.some((m) => m.tiles.includes(id)),
   );
   const selectionKey = activeSelected.join(",");
+  useTileFeedback(
+    feedbackRoot,
+    s,
+    [tableView, rackHidden, expanded, touch, locale, selectionKey, !!hint].join(
+      "|",
+    ),
+  );
   const destinations = useMemo(
     () =>
       coaching

@@ -193,7 +193,7 @@ export function Game({
         >
           Time left:{" "}
           {Math.max(0, Math.ceil(((s.deadline ?? clock) - clock) / 1000))}s ·
-          unfinished moves reset and draw one on expiry
+          on expiry: reset unfinished edits and {s.pool.length ? "draw one" : "pass"}
         </p>
       )}
       <div className="opponents">
@@ -235,8 +235,8 @@ export function Game({
               : !human.melded
                 ? check.valid && check.played.length
                   ? `Your opening is worth ${check.points} points. Choose End turn to complete your first play.`
-                  : "Look for a matching-number group or a same-colour run. Your first play needs 30 points. Hint can explain a possibility; drawing is always allowed."
-                : "You have opened! Add tiles to existing groups or runs, make new ones, or draw. You can turn these tips off whenever you’re ready."}
+                  : `Look for a matching-number group or a same-colour run. Your first play needs 30 points. Hint can explain a possibility; ${s.pool.length ? "drawing" : "passing"} is always allowed.`
+                : `You have opened! Add tiles to existing groups or runs, make new ones, or ${s.pool.length ? "draw" : "pass"}. You can turn these tips off whenever you’re ready.`}
           </p>
           <button
             className="text-button"
@@ -247,7 +247,7 @@ export function Game({
         </aside>
       )}
       {hint && (
-        <aside ref={hintRef} className="coach-card" aria-label="Move hint">
+        <aside ref={hintRef} className={`coach-card ${hint.table ? "" : "hint-summary"}`} aria-label="Move hint">
           <p role="status">{hint.message}</p>
           <div className="hint-actions">
           {hint.table && (

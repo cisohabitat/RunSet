@@ -3058,3 +3058,58 @@ button:not(.tile) {
   border: 1px solid var(--line);
   box-shadow: none;
 }
+/* A short laptop must show complete tiles and their meld destination controls. */
+@media (min-width: 721px) and (min-height: 700px) {
+  .app.playing .table:not(:has(.empty-table)) {
+    min-height: 220px;
+  }
+}
+.practice-result {
+  margin: 18px 0;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+.practice-result h2 {
+  font-size: 17px;
+  margin-bottom: 12px;
+}
+.practice-result-melds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.practice-result figure {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  background: var(--paper);
+}
+.practice-result .tile-demo {
+  margin: 0 0 12px;
+  flex-wrap: wrap;
+}
+.practice-result figcaption {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+@media (min-width: 721px) {
+  .hint-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hint-summary > p {
+    flex: 1;
+  }
+  .hint-summary .hint-actions {
+    flex: none;
+    margin-top: 0;
+  }
+}
+@media (min-width: 721px) and (max-height: 800px) {
+  .game:has(.hint-summary) .opponents {
+    display: none;
+  }
+}

@@ -17,6 +17,7 @@ export function runPlanner(
   signal: AbortSignal,
 ): Promise<Meld[] | Hint> {
   return new Promise((resolve, reject) => {
+    const fallback = game.pool.length ? "draw a tile" : "pass";
     if (signal.aborted) {
       reject(new Error("Cancelled"));
       return;
@@ -37,12 +38,12 @@ export function runPlanner(
     let ready = false;
     let timeout = setTimeout(() => {
       finish();
-      reject(new Error("The planner could not start. Try again or draw."));
+      reject(new Error(`The planner could not start. Try again or ${fallback}.`));
     }, 10000);
     signal.addEventListener("abort", abort, { once: true });
     worker.onerror = () => {
       finish();
-      reject(new Error("Planning is unavailable. You can still draw a tile."));
+      reject(new Error(`Planning is unavailable. You can still ${fallback}.`));
     };
     const safe = structuredClone(game);
     safe.history = [];
@@ -56,7 +57,7 @@ export function runPlanner(
         clearTimeout(timeout);
         timeout = setTimeout(() => {
           finish();
-          reject(new Error("Planning took too long. Try again or draw."));
+          reject(new Error(`Planning took too long. Try again or ${fallback}.`));
         }, 2500);
         worker.postMessage({ game: safe, kind });
         return;

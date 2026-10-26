@@ -104,8 +104,8 @@ export function planHint(s: GameState): Hint {
       table: null,
       used: [],
       message: p.melded
-        ? "No legal addition was found in this search. You can draw; unfinished edits will be reset."
-        : `No opening reaching 30 points was found. You can draw and try on your next turn. Your current opening is worth ${check.points} points.`,
+        ? `No legal addition was found in this search. ${s.pool.length ? "You can draw" : "The pool is empty; you can pass"}; unfinished edits will be reset.`
+        : `No opening reaching 30 points was found. ${s.pool.length ? "You can draw and try on your next turn" : "The pool is empty; you can pass"}. Your current opening is worth ${check.points} points.`,
     };
   const explanations = table
     .filter((m) => m.tiles.some((id) => used.includes(id)))

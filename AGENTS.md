@@ -58,6 +58,9 @@ from the public repository.
 - Enforce turn expiry on timestamped gameplay actions as well as polling ticks.
 - Bound optional game context so combined match, timer, coaching and touch options
   cannot push primary controls outside the viewport. Test combined options.
+  Include 1180×757 laptop bounds with populated melds and an open hint; inspect
+  complete tiles and meld controls, not only the table element or dock.
+- Guidance and planner error fallbacks must say Pass when the pool is empty.
 - Undo history is bounded to 100 snapshots of the current turn only. Clear it
   on reset, draw, or turn completion. Saves must validate every snapshot.
 - Production builds generate `dist/sw.js` with static asset hashes. Never cache
@@ -73,6 +76,8 @@ from the public repository.
   and mouse input, not only their engine plans. Restart must clear local tile
   selections; out-of-sequence tutorial actions must explain the current step.
   Validate lesson destinations before moving tiles, including partial objectives.
+  Optional lessons must explicitly confirm completion and retain a read-only
+  final table. Explain the intermediate on-table joker before asking for reuse.
   Delete only the regular game key; preserve practice and preference keys. Cancel
   bot callbacks when a confirmation is open or a game is removed.
 - Run `npm run test:e2e` for changed player flows; Playwright config uses installed

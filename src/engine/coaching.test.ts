@@ -84,3 +84,18 @@ it("finds a rearrangement that a rack-only or extension hint misses", async () =
   expect(placed.current).toBe(s.current);
   conserved(placed);
 });
+
+it("recommends Pass when the pool is empty, before and after opening", async () => {
+  const { fixture } = await import("./test-helpers");
+  for (const opened of [false, true]) {
+    const s = fixture([12], [], opened);
+    s.players.find(p => p.bot)!.rack.push(...s.pool.splice(0));
+    const before = structuredClone(s);
+    const hint = planHint(s);
+    expect(hint.table).toBeNull();
+    expect(hint.message).toMatch(/pass/i);
+    expect(hint.message).not.toMatch(/\bdraw\b/i);
+    expect(s).toEqual(before);
+    conserved(s);
+  }
+});

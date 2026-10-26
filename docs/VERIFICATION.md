@@ -7,10 +7,10 @@ explicitly deferred and excluded from active release requirements.
 ## Automated results
 
 - `npm run typecheck`: passes with strict TypeScript.
-- `npm test`: 70 tests pass, including seeded simulations of more than 4,000 legal
+- `npm test`: 71 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: 28 Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: 33 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
@@ -71,3 +71,8 @@ layout bounds down to 360×640.
 The visual review adds light/dark checks for unclipped lesson navigation and
 instructions, visible hint placement, wide-screen table tools, and at least
 4.5:1 tile-text contrast. See VISUAL_REVIEW.md for reviewed screens and changes.
+
+The supplied-playtest follow-up adds the exact 1180×757 laptop layout (normal
+and large tiles with Hint and Expand/Compact), empty-pool Pass guidance, and
+explicit optional-lesson completion with a retained final table on phone/laptop.
+See PLAYTEST_FOLLOWUP.md for mapping to RS-01 through RS-03.

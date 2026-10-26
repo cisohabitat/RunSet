@@ -14,7 +14,7 @@ self.onmessage = (
     });
   } catch {
     self.postMessage({
-      error: "The planner could not finish. Try again or draw a tile.",
+      error: `The planner could not finish. Try again or ${event.data.game.pool.length ? "draw a tile" : "pass"}.`,
     });
   }
 };

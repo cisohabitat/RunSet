@@ -39,7 +39,9 @@ Open the local URL printed by Vite (normally http://localhost:5173).
   Restarting clears selections, and early Draw/End actions explain the current step.
   Lesson continuation buttons stay in the visible game action bar. Safe delete and new-game replacement confirmations.
 - Readable light/dark tile colours, visible lesson navigation, action-first hints,
-  compact backup help, and a winner-first results display.
+  compact backup help, and a winner-first results display. Optional lessons retain
+  their completed table and explain joker replacement before reuse. Empty-pool
+  hints and timer/coaching help consistently recommend Pass.
 - Desktop, tablet, and phone layouts with 44 px targets, a persistent player dock,
   contained table/rack scrolling, and iPhone safe-area padding.
 - Tap/click selection, desktop dragging, keyboard-operable destinations, sorting,
@@ -102,6 +104,7 @@ if needed, or set `CHROMIUM_PATH`). Tests cover practice, saved-game isolation,
 delete/cancel/reload, and desktop/tablet/phone viewports. `npm run test:offline` verifies the production service worker, offline reload,
 practice availability, and save-preserving updates.
 The [fresh bug review](docs/BUG_REVIEW.md) records reproduced defects and fixes.
+The [playtest follow-up](docs/PLAYTEST_FOLLOWUP.md) addresses the supplied live report.
 Real-device Safari and
 first-time-player usability sessions remain manual checks.
 
@@ -156,6 +159,7 @@ outdated penalty warning so it cannot apply a penalty to the next player.
 See the [improvement roadmap](docs/ROADMAP.md) for phase status and acceptance
 criteria. Guided learning, safe deletion, device layouts, contextual hints, undo,
 offline installation, matches, and timers are implemented. The [fresh bug review](docs/BUG_REVIEW.md) records reproduced defects and fixes.
+The [playtest follow-up](docs/PLAYTEST_FOLLOWUP.md) addresses the supplied live report.
 Real-device Safari and
 first-time-player usability sessions remain manual verification items.
 

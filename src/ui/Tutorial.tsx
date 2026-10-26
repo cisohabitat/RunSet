@@ -15,6 +15,7 @@ import { tiles } from "../engine/tiles";
 import { inspectMeld } from "../engine/meld";
 import { validSave } from "../lib/storage";
 import { Game } from "./Game";
+import { Tile } from "./Tile";
 interface Progress {
   lesson: Lesson;
   step: number;
@@ -66,6 +67,7 @@ export default function Tutorial({
     else panelRef.current?.scrollTo({ top: 0 });
   }, [lesson, step, attempt, feedback, selectionTip]);
   const invalid = game.table.some((m) => !inspectMeld(m.tiles).valid);
+  const jokerReplaced = game.table.some((m) => m.id === "practice-wild" && m.tiles.includes(4));
   const objective =
     lesson === "basics"
       ? {
@@ -87,7 +89,7 @@ export default function Tutorial({
                   : "new",
         }
       : lesson === "jokers"
-        ? game.table.some((m) => m.id === "practice-wild" && m.tiles.includes(4))
+        ? jokerReplaced
           ? { ids: [104, 30, 56], target: "new" }
           : { ids: [4], target: "practice-wild" }
         : { ids: [3, 4, 5, 6], target: "new" };
@@ -156,17 +158,28 @@ export default function Tutorial({
   ];
   const advanced =
     lesson === "jokers"
-      ? [
+      ? jokerReplaced ? [
+          "Reuse the table joker",
+          "Red 5 fills the old gap. The joker is still on the table, now shown as red 7. Select it with blue 5 and orange 5 → New group or run.",
+        ] : [
           "Retrieve a joker",
-          "Add red 5 to the run to replace its joker. Then place the joker, blue 5 and orange 5 in a new group. A retrieved joker must be reused this turn.",
+          "The table joker represents red 5. Select your red 5 and add it to that run. The joker stays on the table until you reuse it in the next step.",
         ]
       : [
           "Split a run",
           "Select the table’s red 4 and 5 plus your red 6 and 7 → New group or run. You’ll leave red 1–3 and make red 4–7. Rearrange only after opening.",
         ];
-  const instructions = lesson === "basics" ? basics[step] : advanced;
   const finished =
     lesson === "basics" ? step === 7 : lessonComplete(lesson, game);
+  const instructions = lesson === "basics" ? basics[step] : finished
+    ? lesson === "jokers" ? [
+        "Joker lesson complete",
+        "Your red 5 replaced the joker’s original role. You reused the joker with blue 5 and orange 5, leaving both groups and runs valid. Here is your finished table.",
+      ] : [
+        "Run-splitting lesson complete",
+        "You split red 1–5 and added your red 6 and 7. Red 1–3 and red 4–7 are both valid runs. Here is your finished table.",
+      ]
+    : advanced;
   const dispatch = (action: Action) => {
     setFeedback("");
     if (
@@ -266,6 +279,26 @@ export default function Tutorial({
         )}
         {storageNotice && <p role="status">{storageNotice}</p>}
         </div>
+        {finished && lesson !== "basics" && (
+          <section className="practice-result" aria-label="Completed lesson table">
+            <h2>Your finished table</h2>
+            <div className="practice-result-melds">
+              {game.table.map((meld) => {
+                const info = inspectMeld(meld.tiles);
+                return (
+                  <figure key={meld.id}>
+                    <div className="tile-demo">
+                      {info.ordered.map((id) => (
+                        <Tile key={id} id={id} represents={tiles[id].joker ? `${info.jokerColors[id]} ${info.values[id]}` : undefined} />
+                      ))}
+                    </div>
+                    <figcaption>{info.kind === "run" ? "Run" : "Group"} · {info.points} points · valid</figcaption>
+                  </figure>
+                );
+              })}
+            </div>
+          </section>
+        )}
         <div className="practice-actions">
           {finished && (
             <button className="primary" onClick={onPlay}>

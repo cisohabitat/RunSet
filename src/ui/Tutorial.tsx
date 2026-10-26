@@ -31,8 +31,15 @@ function initial(): Progress {
       p.step >= 0 &&
       p.step <= 7 &&
       validSave(p.game)
-    )
+    ) {
+      // Older practice saves may be waiting for End turn after Reset or Undo
+      // removed an opening meld. Resume at the objective the table supports.
+      if (p.lesson === "basics" && p.step <= 3) {
+        const completed = basicProgress(p.game);
+        return { ...p, step: p.step === 3 && completed === 2 ? 3 : completed };
+      }
       return p;
+    }
   } catch {
     /* Practice is optional. */
   }
@@ -199,8 +206,10 @@ export default function Tutorial({
         game.table.some((m) => m.tiles.length < 3)
       )
         nextStep = 7;
-      if (step <= 2 && ["move", "undo", "resetTurn"].includes(action.type))
-        nextStep = basicProgress(next);
+      if (step <= 3 && ["move", "undo", "resetTurn"].includes(action.type)) {
+        const completed = basicProgress(next);
+        nextStep = step === 3 && completed === 2 ? 3 : completed;
+      }
 
       if (action.type === "endTurn" && step !== 3) return;
       if (action.type === "draw" && step !== 5) return;

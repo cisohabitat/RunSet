@@ -60,6 +60,9 @@ from the public repository.
   Handle storage events before writing remote state; do not bypass `persistGame`.
   Await delete completion before reporting success or reloading.
 - Guided practice uses `runset.practice.v1`, separate from the regular game save.
+  Opening-lesson steps must follow valid table objectives after Reset/Undo, and
+  resume must recover older inconsistent steps. Test all three lessons with touch
+  and mouse input, not only their engine plans.
   Delete only the regular game key; preserve practice and preference keys. Cancel
   bot callbacks when a confirmation is open or a game is removed.
 - Run `npm run test:e2e` for changed player flows; Playwright config uses installed

@@ -10,7 +10,7 @@ explicitly deferred and excluded from active release requirements.
 - `npm test`: 61 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: 16 Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: 20 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
@@ -52,3 +52,8 @@ Phase 4 GitHub Actions run 40246103183 passed all checks before phase 5 began.
 Production builds enforce a 100,000-byte gzip budget for the initial HTML and its
 referenced CSS/JS. Optional practice and worker assets are measured separately,
 not silently included in an initial-load claim.
+
+Learn-to-Play regression coverage completes basics, joker retrieval/reuse, and
+rearranging at phone/tablet touch sizes and desktop mouse size. It also checks
+practice resume, regular-save isolation, Undo/Reset after acknowledging the
+opening, and recovery of older practice saves stuck on End turn.

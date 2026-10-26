@@ -34,7 +34,8 @@ Open the local URL printed by Vite (normally http://localhost:5173).
 - Optional worker-planned move hints with explicit preview/placement, point breakdowns,
   specific table corrections, bot narration, remembered pacing, and beginner penalty warnings.
 - Guided first-game practice and optional joker/rearranging lessons, stored separately
-  from regular games. Safe delete and new-game replacement confirmations.
+  from regular games. Reset and Undo return the opening lesson to the missing
+  objective; reopening practice also recovers previously stuck opening lessons. Safe delete and new-game replacement confirmations.
 - Desktop, tablet, and phone layouts with 44 px targets, a persistent player dock,
   contained table/rack scrolling, and iPhone safe-area padding.
 - Tap/click selection, desktop dragging, keyboard-operable destinations, sorting,

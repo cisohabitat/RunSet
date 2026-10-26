@@ -217,6 +217,16 @@ The deadline persists across tab closure and leaving the game. On resume, an
 expired current turn is resolved. Practice is untimed. An expired turn closes an
 outdated penalty warning so it cannot apply a penalty to the next player.
 
+## iPad landscape
+
+Standard landscape play uses smaller **44×60 px tiles**, tighter meld spacing,
+a shorter heading/header and side-by-side game information to show more of the
+table. This applies automatically to touch tablets with enough landscape space.
+For the densest view, leave Comfortable reading and Larger touch controls off;
+both preferences still provide their larger tiles when enabled. Portrait
+rotation preserves your selected tiles and game. See
+[iPad landscape verification](docs/IPAD_LANDSCAPE.md).
+
 ## Listen to instructions / 听一听
 
 In Learn to Play, tap **Listen / 听一听** to hear the current instruction. Use

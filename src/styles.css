@@ -3909,3 +3909,209 @@ button:not(.tile) {
     min-height: 220px;
   }
 }
+
+/* Touch tablets in landscape: use horizontal room before shrinking the board.
+   Explicit larger-tile and comfortable-reading choices retain their tile sizes. */
+@media (min-width: 960px) and (max-width: 1440px) and (min-height: 600px) and (orientation: landscape) and (any-pointer: coarse) {
+  .app.playing:not(.comfortable-reading) > .site-header {
+    height: 52px;
+    min-height: 52px;
+    flex-basis: 52px;
+    padding: 0 20px;
+  }
+  .app.playing:not(.comfortable-reading) .brand {
+    font-size: 26px;
+  }
+  .app.playing:not(.comfortable-reading) > .game:not(.table-expanded) {
+    padding: 8px 20px 12px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .game-heading {
+    min-height: 32px;
+    margin-bottom: 4px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .game-heading h1 {
+    font-size: 22px;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.table-expanded)
+    .game-context {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 12px;
+    row-gap: 4px;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.table-expanded)
+    .game-context
+    > * {
+    grid-column: 1 / -1;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.table-expanded)
+    .game-heading {
+    grid-row: 1;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.table-expanded)
+    .match-bar {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.table-expanded)
+    .turn-clock {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.table-expanded)
+    .opponents {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.table-expanded)
+    :is(.first-game-guide, .turn-help) {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  .app.playing:not(.comfortable-reading) > .game .opponent {
+    min-width: 0;
+    min-height: 44px;
+    padding: 4px 10px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .opponent > div {
+    min-width: 0;
+  }
+  .app.playing:not(.comfortable-reading) > .game .opponent strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.table-expanded)
+    .game-context:has(.coach-card)
+    .turn-clock {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.table-expanded)
+    .game-context:has(.coach-card)
+    .opponents {
+    grid-row: 4;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.table-expanded)
+    .coach-card {
+    grid-column: 2;
+    grid-row: 2 / span 3;
+    display: flex;
+    flex-direction: column;
+    max-height: 160px;
+    overflow: auto;
+    margin-bottom: 0;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.table-expanded)
+    .hint-actions {
+    order: -1;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--soft);
+    flex: none;
+  }
+  .app.playing:not(.comfortable-reading) > .game .avatar {
+    width: 28px;
+    height: 28px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .first-game-guide {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 12px;
+    padding: 6px 10px;
+    margin-bottom: 6px;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game
+    .first-game-guide
+    :is(strong, p) {
+    grid-column: 1;
+    margin: 0;
+  }
+  .app.playing:not(.comfortable-reading) > .game .first-game-guide button {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    min-height: 44px;
+    max-width: 180px;
+    padding: 8px;
+  }
+  .app.playing:not(.comfortable-reading) > .game > .table {
+    padding: 12px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .melds {
+    gap: 8px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .meld {
+    padding: 6px 4px 0;
+  }
+  .app.playing:not(.comfortable-reading) > .game .meld-tiles {
+    gap: 3px;
+  }
+  .app.playing:not(.comfortable-reading) > .game:not(.touch-friendly) .tile {
+    width: 44px;
+    min-width: 44px;
+    height: 60px;
+    min-height: 60px;
+    font-size: 26px;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.touch-friendly)
+    .tile-mark {
+    top: 5px;
+    left: 5px;
+    font-size: 7px;
+  }
+  .app.playing:not(.comfortable-reading)
+    > .game:not(.touch-friendly)
+    .tile-foot {
+    bottom: 5px;
+    font-size: 7px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .rack {
+    padding: 6px 10px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .opponents {
+    margin-bottom: 4px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .match-bar {
+    padding-block: 4px;
+    margin-bottom: 4px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .turn-clock {
+    margin-bottom: 2px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .status-line {
+    min-height: 24px;
+    padding-block: 3px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .rack-tiles {
+    padding-block: 10px 6px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .action-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .turn-tools {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+  }
+  .app.playing:not(.comfortable-reading) > .game .primary-actions {
+    width: min(380px, 42%);
+    flex: none;
+  }
+}

@@ -140,6 +140,22 @@ from the public repository.
   including short landscape screens. Check full melds, touch hit targets, hints,
   rotation, a penalty dialog, turn/reload persistence and scroll cleanup.
 
+## Landscape tablet density
+
+- At 960–1440 px width, height >=600 px, landscape and `any-pointer: coarse`,
+  standard regular play uses 44×60 px tiles, tighter meld padding/gaps and a
+  52 px header. Preserve >=44 px hit targets and readable numbers/shape marks.
+- Respect explicit larger-tile and comfortable-reading preferences. Comfortable
+  tiles remain 58×80 px; do not apply compact tablet rules to practice, phones,
+  portrait layouts or mouse-only desktops.
+- Share horizontal space for scores/timer and opponents/guidance. Keep complete
+  instructions, long names and three-opponent bounds. Live hint controls must
+  remain hit-testable; context cannot overlap the table/rack/actions.
+- Keep expanded workspace safe-area padding: compact outer game padding applies
+  only to non-expanded view. Rotation must preserve selection, deadlines and save.
+- Check one-row density with populated six-meld fixtures at 1024×768, 1180×820 and
+  1366×1024 in both languages; include larger preferences and 50 rack tiles.
+
 ## Optional read aloud
 
 - `ReadAloud` owns only browser speech, not game state. Every utterance requires

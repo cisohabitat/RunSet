@@ -28,6 +28,13 @@ smaller-device practice gets a full-sized table. See [BOARD_SPACE.md](BOARD_SPAC
 This is a layout follow-up. Phase 5 adds optional audio separately. Phase 6
 now includes the completed bot review; Phase 1 remains paused.
 
+## iPad landscape follow-up
+
+Standard tablet landscape play now uses smaller tiles and a shorter header,
+with game information and actions arranged across the available width. Explicit
+larger display choices remain available. See [IPAD_LANDSCAPE.md](IPAD_LANDSCAPE.md).
+This layout release does not change the bots identified in the difficulty review.
+
 ## Earlier releases
 
 Status: Releases 1–3 and the local expansion (multi-round matches and optional

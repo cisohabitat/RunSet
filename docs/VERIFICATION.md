@@ -10,7 +10,7 @@ explicitly deferred and excluded from active release requirements.
 - `npm test`: 92 tests pass, including seeded simulations of more than 4,000 legal
   bot turns, tile conservation, practice states, hint planning, undo boundaries,
   persistence, cumulative scoring, round continuation, and timer expiry.
-- `npm run test:e2e`: 82 Chromium flows pass: guided learning/save isolation/
+- `npm run test:e2e`: 93 Chromium flows pass: guided learning/save isolation/
   delete/device resizing; hint preview/placement and penalties; undo/restart;
   fifty-tile racks and crowded tables; matches/resume/timers; timed confirmation
   races; and bot-turn deletion plus storage failures.
@@ -139,3 +139,10 @@ proposals are rejected into draws/passes; submitted-plan legality is explicitly
 false in the raw reports. Two Hard calls exceed 400 ms (max 436.22 ms). This
 release changes evaluation tooling/docs only; it does not claim these planner
 defects are fixed. See DIFFICULTY_REVIEW.md and its replayable examples.
+
+The landscape-tablet follow-up adds eleven flows for 44×60 standard tiles,
+smaller headers, one-row six-meld density, complete guidance, real touch play,
+rotation/selection/save preservation, large display overrides, 50-tile racks,
+three long opponent names with hints and unchanged mouse-only desktop sizes.
+Screenshots cover English/Chinese and light/dark; see IPAD_LANDSCAPE.md.
+Physical iPad Safari and actual safe-area/trackpad behavior remain unverified.

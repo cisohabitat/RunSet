@@ -1,7 +1,8 @@
 import { useI18n } from "../i18n/I18n";
-import { memo, useRef } from "react";
+import { memo } from "react";
 import { tiles } from "../engine/tiles";
-const marks = { red: "◆", blue: "●", orange: "▲", black: "✦" };
+import { TileFace } from "./TileFace";
+import { useTouchClick } from "./useTouchClick";
 export const Tile = memo(function Tile({
   id,
   selected = false,
@@ -27,7 +28,7 @@ export const Tile = memo(function Tile({
 }) {
   const { t } = useI18n();
   const tile = tiles[id];
-  const pointer = useRef<{ x: number; y: number; moved: boolean } | null>(null);
+  const touchClick = useTouchClick(() => onSelect?.(id));
   return (
     <button
       type="button"
@@ -69,29 +70,15 @@ export const Tile = memo(function Tile({
           : `${tile.color} ${tile.num}`,
       )}
       aria-pressed={onSelect ? selected : undefined}
-      onClick={(e) => {
-        e.stopPropagation();
-        if (pointer.current?.moved) {
-          pointer.current = null;
-          return;
-        }
-        onSelect?.(id);
-        pointer.current = null;
-      }}
-      onPointerDown={(e) => {
-        pointer.current = { x: e.clientX, y: e.clientY, moved: false };
-      }}
-      onPointerMove={(e) => {
-        const p = pointer.current;
-        if (p && Math.hypot(e.clientX - p.x, e.clientY - p.y) > 8)
-          p.moved = true;
-      }}
-      onPointerCancel={() => {
-        if (pointer.current) pointer.current.moved = true;
+      {...touchClick}
+      onClick={(event) => {
+        event.stopPropagation();
+        touchClick.onClick(event);
       }}
       disabled={!onSelect}
       draggable={draggable}
       onDragStart={(e) => {
+        touchClick.onDragStart();
         e.dataTransfer.setData("text/plain", String(id));
         onDrag?.(id);
       }}
@@ -106,13 +93,7 @@ export const Tile = memo(function Tile({
           ●
         </span>
       )}
-      <span className="tile-mark" aria-hidden="true">
-        {t(tile.joker ? "★" : marks[tile.color!])}
-      </span>
-      <span>{t(tile.joker ? "★" : tile.num)}</span>
-      <span className="tile-foot" aria-hidden="true">
-        {t(tile.joker ? (represents ?? "WILD") : marks[tile.color!])}
-      </span>
+      <TileFace id={id} represents={represents} />
     </button>
   );
 });

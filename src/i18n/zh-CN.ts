@@ -2,6 +2,10 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Find selected tiles": "找到选中的牌",
+  "Find latest placement": "找到刚放置的牌",
+  "Each tap finds the next tile. Your selection and game stay the same.":
+    "每点一次就找到下一张牌。已选的牌和游戏进度都不会改变。",
   "Arrange rack": "整理手牌",
   "Rack order preview": "手牌顺序预览",
   "Choose one tile, then move it left or right. This changes your rack display only.":

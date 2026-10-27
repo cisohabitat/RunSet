@@ -24,6 +24,7 @@ import { orderedRack } from "../lib/rackOrder";
 import { useRackOrder } from "./useRackOrder";
 import { RackOrganizer } from "./RackOrganizer";
 import { useTouchClick } from "./useTouchClick";
+import { BoardFinder } from "./BoardFinder";
 export function Game({
   game: s,
   dispatch,
@@ -218,6 +219,11 @@ export function Game({
   );
   const [rackOrder, rememberRackOrder] = useRackOrder();
   const [orderNotice, setOrderNotice] = useState("");
+  const [findNotice, setFindNotice] = useState<{
+    kind: "selected" | "latest";
+    index: number;
+    total: number;
+  } | null>(null);
   const displayRack = coaching
     ? orderedRack(human.rack, rackOrder, s.seed)
     : human.rack;
@@ -269,10 +275,9 @@ export function Game({
     },
     [selected, myTurn, muted, onSelectionChange],
   );
-  const dragTile = useCallback((id: number) => {
+  const dragTile = useCallback(() => {
     pendingPlacement.current = null;
     setPlacement(null);
-    setSelected((current) => (current.includes(id) ? current : [id]));
   }, []);
   const move = (target: string, ids = activeSelected) => {
     if (!myTurn) return;
@@ -298,6 +303,32 @@ export function Game({
     setPlacement(null);
     setSelected([]);
     dispatch(a);
+  };
+  const findTile = (
+    id: number,
+    index: number,
+    total: number,
+    kind: "selected" | "latest",
+  ) => {
+    const menu =
+      feedbackRoot.current?.querySelector<HTMLDetailsElement>(".more-actions");
+    if (menu) menu.open = false;
+    if (human.rack.includes(id)) setRackHidden(false);
+    requestAnimationFrame(() => {
+      const target = Array.from(
+        feedbackRoot.current?.querySelectorAll<HTMLButtonElement>(
+          `.table [data-tile-id="${id}"],.rack [data-tile-id="${id}"]`,
+        ) ?? [],
+      ).find((el) => !el.closest("dialog"));
+      if (!target?.isConnected || target.disabled) return;
+      target.focus({ preventScroll: true });
+      target.scrollIntoView({
+        block: "nearest",
+        inline: "center",
+        behavior: "auto",
+      });
+      setFindNotice({ kind, index, total });
+    });
   };
   const Workspace = embedded ? "section" : "main";
   return (
@@ -981,6 +1012,15 @@ export function Game({
                   </button>
                 </div>
                 {coaching && (
+                  <BoardFinder
+                    key={`${s.seed}|${s.turn}|${s.current}`}
+                    game={s}
+                    selected={activeSelected}
+                    disabled={!myTurn}
+                    onFind={findTile}
+                  />
+                )}
+                {coaching && (
                   <RackOrganizer
                     key={[
                       s.seed,
@@ -1096,6 +1136,11 @@ export function Game({
           }}
         />
       )}
+      <span className="board-find-announcement" role="status">
+        {findNotice
+          ? `${t(findNotice.kind === "selected" ? "Selected tiles" : "Latest placements")} · ${t(`Tile ${findNotice.index} of ${findNotice.total}`)}`
+          : ""}
+      </span>
       <span className="rack-order-announcement" role="status">
         {t(orderNotice)}
       </span>

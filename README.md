@@ -464,3 +464,8 @@ Practice retains its own order. The panel does not pause timed games.
 
 CI runs its complete browser suites in parallel jobs after quality checks. Wait
 for the whole exact-commit workflow before treating a phase as accepted.
+
+More → Find selected tiles cycles through your selected rack/table tiles. It
+reveals a hidden rack when needed. Find latest placement locates the last actual
+edit, including a placed hint; after Undo it can locate the latest completed play.
+Both controls preserve selection, saved tiles and timed deadlines.

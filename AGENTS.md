@@ -562,7 +562,7 @@ Retain all suites, dependency/audio installation, HTTPS mirror fixes, twenty-min
 job limits, five-minute offline limit and unique failure artifacts. Acceptance
 requires the complete exact-commit workflow, not only the quality job.
 New-meld touch handling accounts for WebKit scrolling a focused button away before
-its compatibility click. useTouchClick acts only after a completed in-bounds tap,
+its compatibility click. useTouchClick acts only after a completed tap on the original button,
 filters movement/cancellation and suppresses a duplicate native touch click.
 Retain normal mouse/keyboard behavior and the genuine touch cancellation test.
 The existing CI check job is the aggregate of quality and every browser matrix
@@ -571,3 +571,23 @@ Create the benchmark report directory explicitly in the quality job; it cannot
 rely on a browser job having created test-results on a different runner.
 Keep rack-order and placement announcement selectors distinct. UI tests that
 read newly started games must await async persistence before dereferencing saves.
+
+BoardFinder reads accepted physical edits from a new reducer Undo snapshot;
+verify before/after seed, turn, seat and physical locations, including the
+one-hundred-snapshot cap. Never treat a rejected request or Undo as a new edit.
+Finders close More, reveal a hidden rack only when needed, scroll/focus one actual
+tile and preserve selection, game bytes and deadlines. Exclude dialog clones.
+
+WebKit can retarget pointer-up after native focus scrolling even with pointer
+capture. Touch listeners therefore exist only for an active gesture on window,
+filtered by pointer ID and removed on finish/cancel/drag/unmount. Mouse dragging
+and keyboard remain native. Keep cancellation and one-action-per-tap coverage.
+Home artwork uses shared non-interactive TileFace/TileArt; interactive Tile stays
+in optional gameplay chunks. Preserve identical tile faces, colours and shapes.
+After a handled touch, a native compatibility click can hit a newly exposed
+control. Its separate bounded guard must survive the activating tile's unmount,
+ignore keyboard/programmatic clicks, and clean up on the next pointer-down,
+pagehide or its one-second deadline. Do not let a trailing click place selected
+tiles unintentionally. Desktop drag start must not change selection visibility:
+drop already chooses the dragged physical ID or its existing selection. Retain
+the real selected/unselected drag, single-snapshot and Undo regression.

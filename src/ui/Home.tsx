@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useI18n } from "../i18n/I18n";
 import type { GameState } from "../engine/game";
-import { TileDemo } from "./Tile";
+import { TileArt as TileDemo } from "./TileFace";
 export type HomeProps = {
   status: string;
   children: ReactNode;

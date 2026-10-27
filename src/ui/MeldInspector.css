@@ -61,7 +61,8 @@
   outline-offset: 1px;
 }
 .placement-announcement,
-.rack-order-announcement {
+.rack-order-announcement,
+.board-find-announcement {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -101,4 +102,13 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+.game .board-finder {
+  min-height: 48px;
+  font-size: 16px;
+}
+.game .tile:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
 }

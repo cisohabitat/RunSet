@@ -472,3 +472,8 @@ RecordedGuide has a ten-second startup watchdog, cleared by playing/cancel and
 identity-guarded against stale callbacks. Network-failure media tests block SWs;
 keep separate real offline-playback tests. Headless Firefox needs a virtual sink
 for genuine decoding/playback; this does not verify voice tone or pronunciation.
+
+MoveReview reads latest IDs from the completed snapshot (turnStart.table while
+playing, final table when over), never the current draft. Do not infer an edit
+order or source choices that were not recorded. Missing placement data produces
+no review. Preserve modal focus, selection, saves and timer semantics.

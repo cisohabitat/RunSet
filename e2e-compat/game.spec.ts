@@ -148,3 +148,50 @@ for (const locale of ["en", "zh-CN"] as const) {
     ).toEqual(game);
   });
 }
+
+for (const locale of ["en", "zh-CN"] as const)
+  test(`${locale}: first-use placement review works after disconnecting`, async ({
+    page,
+    context,
+  }) => {
+    const { reviewPosition } = await import("../e2e/helpers/lastPlay");
+    const game = reviewPosition(),
+      t = locale === "en" ? (s: string) => s : translator(messages);
+    await page.addInitScript(
+      ({ game, locale }) => {
+        localStorage.setItem("runset.save.v1", JSON.stringify(game));
+        localStorage.setItem("runset.language", locale);
+      },
+      { game, locale },
+    );
+    await page.goto("/");
+    await expect(
+      page.getByRole("status").filter({ hasText: t("Ready offline") }),
+    ).toBeVisible();
+    await context.setOffline(true);
+    await page.reload();
+    await page
+      .getByRole("button", { name: t("Continue game →"), exact: true })
+      .click();
+    await page.getByText(t("More"), { exact: true }).click();
+    await page
+      .getByRole("button", { name: t("Review latest play"), exact: true })
+      .click();
+    await expect(
+      page.getByRole("dialog", {
+        name: t("Where the latest tiles landed"),
+        exact: true,
+      }),
+    ).toBeVisible();
+    await page
+      .getByRole("button", { name: t("Next tile"), exact: true })
+      .click();
+    await page
+      .getByRole("button", { name: t("Close review"), exact: true })
+      .click();
+    expect(
+      await page.evaluate(() =>
+        JSON.parse(localStorage.getItem("runset.save.v1")!),
+      ),
+    ).toEqual(game);
+  });

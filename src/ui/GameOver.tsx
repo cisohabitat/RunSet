@@ -2,6 +2,7 @@ import { useI18n } from "../i18n/I18n";
 import { type GameState, results, matchWinner } from "../engine/game";
 import { roundSummary, learningTakeaway } from "../lib/roundSummary";
 import { tiles } from "../engine/tiles";
+import { MoveReview } from "./MoveReview";
 import { TileDemo } from "./Tile";
 export function GameOver({
   game,
@@ -199,6 +200,7 @@ export function GameOver({
             : "Play again keeps your name, opponent count, difficulty, timer and guidance choice, with a fresh deal and zero scores. Change settings lets you edit those options.",
         )}
       </p>
+      <MoveReview game={game} />
       <div className="hero-actions">
         {game.match && champion === null && (
           <button className="primary" onClick={onNextRound}>

@@ -397,3 +397,7 @@ phone/tablet and Firefox desktop checks complement Chromium. See
 Install cross-browser dependencies with `npx playwright install --with-deps
 chromium firefox webkit`. Headless Linux audio checks need a virtual PulseAudio
 output; CI starts a null sink so actual MP3 decoding/playback is exercised.
+
+More → Review latest play shows each newly played tile in its completed destination
+with a rule explanation. It is read-only and preserves current edits and selection.
+Results can review the final play too; intermediate rearrangement order is not recorded.

@@ -1,7 +1,11 @@
 import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: ".",
-  testMatch: ["e2e-compat/**/*.spec.ts", "e2e/narration.spec.ts"],
+  testMatch: [
+    "e2e-compat/**/*.spec.ts",
+    "e2e/narration.spec.ts",
+    "e2e/move-review.spec.ts",
+  ],
   timeout: 60000,
   workers: 1,
   reporter: [["list"], ["html", { open: "never" }]],

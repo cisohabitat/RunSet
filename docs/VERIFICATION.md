@@ -241,3 +241,8 @@ recorded playback and first-use offline audio. A new Chromium narration regressi
 brings that suite to 234 flows; unit/offline counts remain 118/19. Local production
 compatibility passed all 24 cases after providing a virtual audio sink and ensuring
 network-abort fixtures bypass service-worker cache. Physical Safari remains paused.
+
+Reliability Phase 2 adds three snapshot/metadata unit regressions (121 units),
+two bilingual review flows (236 Chromium flows), and cross-browser review plus
+first-use offline coverage (36 compatibility flows). It checks a changed live
+draft, preserved selection/save, modal Axe/focus and review after reload.

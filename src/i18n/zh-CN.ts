@@ -2,9 +2,22 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
-  "Level": "难度",
+  "Close review": "关闭回看",
+  "Next tile": "下一张",
+  "Previous tile": "上一张",
+  "Your current table and selected tiles stay unchanged when you close this review.":
+    "关闭回看后，当前牌桌和已选的牌都保持原样。",
+  "Destination: group or run {n}": "放在第 {n} 组同数组或顺子",
+  "Tile {n} of {r}": "第 {n} 张，共 {r} 张",
+  "Latest placements": "上一手的摆放位置",
+  "Review only. This shows new tiles in their final groups, not the order of earlier rearrangements. Timed games keep running.":
+    "这里只是回看新出的牌最后放在哪组，不表示之前拆组的先后顺序。计时牌局仍会继续计时。",
+  "Where the latest tiles landed": "上一手的牌放到哪里了",
+  "Review latest play": "回看上一手出牌",
+  Level: "难度",
   "Split / join": "拆组 / 合组",
-  "Please wait. You can return Home while this loads.": "请稍等。加载时也可以先返回首页。",
+  "Please wait. You can return Home while this loads.":
+    "请稍等。加载时也可以先返回首页。",
   "A joker needs its exact replacement. Reuse the freed joker in a new valid meld during the same turn.":
     "换出万能牌时，必须用它所代表的那张牌替换，并在同一回合把换出的万能牌用在新的合法牌组里。",
   "A run needs consecutive numbers. Look for the missing number, keeping the same colour.":

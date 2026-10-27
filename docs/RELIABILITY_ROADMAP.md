@@ -6,8 +6,8 @@ paused. Multiplayer remains deferred.
 
 | Phase | Status | Deliverable |
 | --- | --- | --- |
-| 1. Cross-browser coverage | Implemented; CI gate pending | Production WebKit phone/tablet and Firefox desktop: touch/mouse moves, Undo, reload, view changes, real narration, offline assets. |
-| 2. Review the last move | Queued | Read-only tile destinations from the latest completed play, with explicit limits for older saves. |
+| 1. Cross-browser coverage | Published; CI passed | Production WebKit phone/tablet and Firefox desktop: touch/mouse moves, Undo, reload, view changes, real narration, offline assets. |
+| 2. Review the last move | Implemented; CI gate pending | Read-only tile destinations from the latest completed play, with explicit limits for older saves. |
 | 3. Targeted practice | Queued | Optional suggestions based on completed exercise kinds and final rack facts. |
 | 4. Display choices | Queued | Optional high-contrast palette and landscape-phone checks. |
 | 5. Longer-session comfort | Queued | Clear break/resume context and opponent pacing, preserving timer semantics. |
@@ -28,3 +28,18 @@ Local release checks: strict TypeScript/production build (99,419 initial gzipped
 bytes), 118 unit tests and all 24 compatibility flows passed. Screenshots were
 inspected in WebKit phone/light and tablet/dark. The final exact-commit CI gate
 includes the original Chromium, 19 offline and benchmark suites.
+
+Phase 1 2826a27 passed CI 40459858493 before Phase 2 began. Phase 2 walks through
+new tile destinations in the completed-turn snapshot. It preserves current drafts
+and selection and explicitly avoids implying a chronological rearrangement replay.
+Draw/pass turns and older saves without matching placement data offer no replay.
+
+Review is available during the human turn and on results, so another bot's next
+turn does not dismiss it mid-reading. Three unit checks cover modified drafts,
+rack-empty finals and missing metadata. The compatibility gate also checks first
+use after disconnecting; the new shared review chunk is precached.
+
+Phase 2 local checks passed strict TypeScript, 121 unit tests and the production
+build at 99,474 initial gzipped bytes. Chromium review flows passed in both
+languages; compatibility coverage now includes modal Axe/focus/save checks and
+first-use offline review. No regular save format or game rule changed.

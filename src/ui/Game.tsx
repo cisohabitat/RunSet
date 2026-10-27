@@ -13,6 +13,7 @@ import { explainMeld, narrateMove, type Hint } from "../engine/coaching";
 import { runPlanner } from "../lib/planner";
 import { suggestedDestinations, turnGuidance } from "../lib/guidance";
 import { Tile } from "./Tile";
+import { MoveReview } from "./MoveReview";
 import { HintPreview } from "./HintPreview";
 import { ReadAloud } from "./ReadAloud";
 import { useTileFeedback } from "./useTileFeedback";
@@ -810,6 +811,7 @@ export function Game({
                     )}
                   </details>
                 )}
+                {coaching && myTurn && <MoveReview game={s} />}
                 {s.match && (
                   <details className="compact-match-scores">
                     <summary>{t("Match scores")}</summary>

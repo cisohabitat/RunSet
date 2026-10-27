@@ -4373,3 +4373,5 @@ button:not(.tile) {
 
 .setup fieldset { min-inline-size: 0; }
 .setup .choices { flex-wrap: wrap; }
+
+.move-review .dialog-actions button { font-size: 16px; }

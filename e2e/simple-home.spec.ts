@@ -227,6 +227,17 @@ test("a failed simple-home download returns to full home without losing the game
 test("settings restores its opener when opening did not move browser focus", async ({
   page,
 }) => {
+  let release!: () => void;
+  const download = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route(
+    /\/(?:src\/ui\/SimpleHome\.tsx|assets\/SimpleHome-[^/]+\.js)(?:\?.*)?$/,
+    async (route) => {
+      await download;
+      await route.continue();
+    },
+  );
   await page.goto("/");
   const opener = page.getByRole("button", { name: "Settings", exact: true });
   await page.getByRole("button", { name: "New game →", exact: true }).focus();
@@ -237,6 +248,8 @@ test("settings restores its opener when opening did not move browser focus", asy
     .getByRole("button", { name: "Done", exact: true })
     .first()
     .click();
-  await expect(opener).toBeFocused();
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  release();
   await expect(page.locator(".simple-home")).toBeVisible();
+  await expect(opener).toBeFocused();
 });

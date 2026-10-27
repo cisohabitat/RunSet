@@ -50,3 +50,8 @@ The initial CI was superseded while dependency installation used an indirect
 APT mirror list still pointing at Azure HTTP. The HTTPS rewrite now covers both
 runner mirror-list files as well as direct sources. All browser installs,
 signed verification, retry bounds and complete checks are retained.
+Phone WebKit also required a guarded next-frame focus retry after native-dialog
+inertness clears. The retry runs only with body focus and no new dialog. A held
+SimpleHome download exercises closing Settings before the next view finishes.
+All nine affected production-browser checks passed; the build remains 99,986
+initial gzipped bytes. Live confirmation and exact-commit CI remain release gates.

@@ -53,7 +53,19 @@ export default function Settings({
     close.current?.focus();
     return () => {
       modal?.close();
-      if (opener.current?.isConnected) opener.current.focus();
+      const target = opener.current;
+      if (target?.isConnected) {
+        target.focus();
+        // WebKit can release native-dialog inertness after effect cleanup.
+        requestAnimationFrame(() => {
+          if (
+            target.isConnected &&
+            document.activeElement === document.body &&
+            !document.querySelector("dialog[open]")
+          )
+            target.focus({ preventScroll: true });
+        });
+      }
     };
   }, []);
   return (

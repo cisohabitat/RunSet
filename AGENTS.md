@@ -512,3 +512,6 @@ GitHub runner APT sources can use mirror+file entries. Include apt-mirrors.txt
 and apt-security-mirrors.txt in the Azure-to-official-HTTPS rewrite; changing
 only .list/.sources leaves those downloads on the slow HTTP mirror. Keep signed
 verification, bounded retries and the complete browser/dependency install.
+Native-dialog close may release inertness after effect cleanup in WebKit. Keep
+one guarded next-frame focus retry only while the opener remains connected,
+focus is still on body, and no other dialog is open. Never steal later focus.

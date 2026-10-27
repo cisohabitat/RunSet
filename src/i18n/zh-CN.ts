@@ -2,6 +2,21 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Set up together": "一起设置",
+  "Take a moment together, then choose what feels comfortable. Each choice is optional.":
+    "一起花点时间试试，选择用起来舒服的设置。每一项都可以按自己的喜好选择。",
+  "Choose English or 简体中文 above.": "在上方选择 English（英语）或简体中文。",
+  "Try Comfortable reading for larger text and tiles, and Higher contrast if colours are hard to see. Simple home screen keeps the main choices large.":
+    "想看大一点的文字和牌，可以开启“大字舒适模式”；如果颜色看不清，可以试试“加强对比度”。“简洁首页”会放大主要按钮。",
+  "Choose Sound effects if wanted. In Learn to play, tap Listen to hear an instruction; you can always read it.":
+    "可以按喜好开启“游戏音效”。在“学习玩法”中，点“听一听”就能听到说明，也可以直接看文字。",
+  "Set Opponent pace to Unhurried for a five-second wait before planning. Timed turns still keep their limit.":
+    "把“电脑出牌速度”设为“慢慢来”，电脑会先等五秒再思考。限时回合的时限不会改变。",
+  "Try Learn to play together first. New games default to one Easy opponent, no timer and guidance on.":
+    "可以先一起试试“学习玩法”。新游戏默认只有一位简单难度的电脑对手、不限时，并开启引导。",
+  "Choose display settings": "选择显示设置",
+  "Use the controls below. Your current game is kept.":
+    "请使用下方的设置。当前游戏会保留。",
   "{n} tile{s}": "{n}张牌",
   "Returned {n} to rack.": "已将 {n} 张牌放回手牌。",
   "Placed {n} in group/run {r}.": "已将 {n} 张牌放到第 {r} 组。",

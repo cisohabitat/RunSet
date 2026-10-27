@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { useI18n } from "../i18n/I18n";
+import { useEffect, useRef, useState } from "react";
+import { LanguageSwitch, useI18n } from "../i18n/I18n";
 export default function Settings({
   reading,
   simple,
@@ -39,7 +39,10 @@ export default function Settings({
   timed: boolean;
   onClose: () => void;
 }) {
-  const { t } = useI18n();
+  const { t, error } = useI18n();
+  const [guideOpen, setGuideOpen] = useState(false);
+  const guide = useRef<HTMLDetailsElement>(null);
+  const readingControl = useRef<HTMLInputElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const close = useRef<HTMLButtonElement>(null);
   const opener = useRef<HTMLElement | null>(null);
@@ -84,6 +87,76 @@ export default function Settings({
           {t("Done")}
         </button>
       </div>
+      <details
+        ref={guide}
+        className="caregiver-guide"
+        onToggle={(e) => setGuideOpen(e.currentTarget.open)}
+      >
+        <summary style={{ minHeight: 48, paddingBlock: 12, cursor: "pointer" }}>
+          {t("Set up together")}
+        </summary>
+        {guideOpen && (
+          <>
+            <p>
+              {t(
+                "Take a moment together, then choose what feels comfortable. Each choice is optional.",
+              )}
+            </p>
+            <LanguageSwitch />
+            {error && (
+              <p role="alert">
+                中文暂时无法加载，请联网后重试。 Chinese could not load. Please
+                retry.
+              </p>
+            )}
+            <ol>
+              <li>
+                <p>{t("Choose English or 简体中文 above.")}</p>
+              </li>
+              <li>
+                <p>
+                  {t(
+                    "Try Comfortable reading for larger text and tiles, and Higher contrast if colours are hard to see. Simple home screen keeps the main choices large.",
+                  )}
+                </p>
+              </li>
+              <li>
+                <p>
+                  {t(
+                    "Choose Sound effects if wanted. In Learn to play, tap Listen to hear an instruction; you can always read it.",
+                  )}
+                </p>
+              </li>
+              <li>
+                <p>
+                  {t(
+                    "Set Opponent pace to Unhurried for a five-second wait before planning. Timed turns still keep their limit.",
+                  )}
+                </p>
+              </li>
+              <li>
+                <p>
+                  {t(
+                    "Try Learn to play together first. New games default to one Easy opponent, no timer and guidance on.",
+                  )}
+                </p>
+              </li>
+            </ol>
+            <button
+              className="secondary"
+              style={{ minHeight: 48 }}
+              onClick={() => {
+                if (guide.current) guide.current.open = false;
+                readingControl.current?.focus({ preventScroll: true });
+                readingControl.current?.scrollIntoView({ block: "center" });
+              }}
+            >
+              {t("Choose display settings")}
+            </button>
+            <p>{t("Use the controls below. Your current game is kept.")}</p>
+          </>
+        )}
+      </details>
       <fieldset>
         <legend>{t("Reading and display")}</legend>
         <label>
@@ -102,6 +175,7 @@ export default function Settings({
         <label>
           <input
             type="checkbox"
+            ref={readingControl}
             checked={reading}
             onChange={(e) => setReading(e.target.checked)}
           />

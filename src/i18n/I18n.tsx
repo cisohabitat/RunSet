@@ -23,6 +23,7 @@ type I18n = {
   locale: Locale;
   setLocale: (locale: Locale) => void;
   pending: boolean;
+  error: boolean;
   t: <T>(value: T) => T;
 };
 const Context = createContext<I18n | null>(null);
@@ -86,6 +87,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     locale,
     setLocale,
     pending,
+    error,
     t: <T,>(node: T): T =>
       typeof node === "string" ? (translate(node) as T) : node,
   };

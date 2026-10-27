@@ -539,3 +539,13 @@ expanded phone table space; retain the strict reading/board-space checks.
 Production geometry coverage in e2e-compat/comfort-space.spec.ts retains the
 comfortable-phone table floor across browser font metrics. Expanded rack padding
 may shrink while leaving comfortable tiles and control dimensions unchanged.
+
+The optional Settings caregiver guide reuses LanguageSwitch and existing
+preference controls. Mount its language control only when expanded; retain native
+details behavior and focus the real reading checkbox from its display shortcut.
+Guide copy must use the actual translated control names. Never apply presets,
+start a game, play audio or change an absolute deadline from opening the guide.
+Test first offline Settings/Chinese use, selection/save preservation and reload.
+Language-download errors must remain readable inside the open Settings guide;
+expose the existing I18n error state rather than replacing or retrying a game.
+Final release evidence is docs/INDEPENDENT_PLAY_RELEASE.md.

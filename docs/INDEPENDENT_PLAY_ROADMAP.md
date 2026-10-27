@@ -8,8 +8,8 @@ offline assets, tile sizes and default game rules. Multiplayer stays deferred.
 | --- | --- | --- |
 | 1. Simple home | Published; CI passed | Optional main choices with large buttons; secondary actions under More options. |
 | 2. Meld magnifier | Published; CI passed | Read-only inspection of any group/run, including incomplete groups, at a readable size. |
-| 3. Clear touch feedback | Published; exact-commit CI gate | Inspect selected tiles, see the destination and confirm an actual accepted placement clearly. |
-| 4. Caregiver setup guide | Queued | A short English/Chinese walkthrough of language, reading size, contrast, sound and pace. |
+| 3. Clear touch feedback | Published; CI passed | Inspect selected tiles, see the destination and confirm an actual accepted placement clearly. |
+| 4. Caregiver setup guide | Final release; exact-commit CI gate | A short English/Chinese walkthrough of language, reading size, contrast, sound and pace. |
 | 5. Human validation | Paused | Physical iPhone/iPad sessions, older Mandarin-speaking players and native listening review. |
 
 Simple home is runset.simpleHome, a separate optional preference. It neither
@@ -122,3 +122,23 @@ another five pixels on a comfortable Chinese phone. Expanded-rack padding is
 now bounded without changing tiles. Two new permanent compatibility cases
 check >=300 px table space, >=48 px controls, viewport bounds and save/selection
 preservation in both languages across WebKit and Firefox (165 total cases).
+
+Phase 3 final b8508e0 passed full CI 40495430960: 129 unit, 275 Chromium,
+165 production compatibility and 19 offline cases, plus planner benchmark smoke.
+All 12 exact-release live touch/comfortable-phone cases passed before Phase 4.
+The unchanged initial budget passes at 99,986 gzipped bytes.
+
+Phase 4 adds an optional Set up together checklist inside Settings. Its five
+steps cover language, reading/contrast/Simple home, sound, pace and learning
+together with the default Easy untimed setup. The language control is shared
+with the header and mounted only while the guide is open. Choose display
+settings closes the checklist and focuses the existing reading control. No
+presets are applied and no game is started or replaced. Timers keep running.
+
+Phase 4 local checks passed the six bilingual production-browser offline flows,
+14 existing reading/Settings/Simple-home journeys and the Chromium dictionary
+failure regression. Download errors now remain readable inside the modal. The
+build passes at 99,987 initial gzipped bytes. The final gate has 129 unit,
+276 Chromium, 171 production compatibility and 19 offline cases plus benchmark.
+See [release evidence](INDEPENDENT_PLAY_RELEASE.md) for accepted phase CI and
+verification limits. The final exact-commit CI must pass before acceptance.

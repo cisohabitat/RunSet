@@ -446,3 +446,11 @@ shown merely because a move was requested, and no extra toolbar row is added.
 Comfortable phone controls use compact tile-count labels and bounded spacing,
 keeping readable text, 48 px targets and the expanded table space.
 The expanded rack also bounds spare vertical padding across browser font metrics.
+
+Settings → Set up together offers a five-step English/Chinese checklist for
+family or carers. Choose the language there, then jump to display settings and
+choose reading size, contrast, Simple home, sound and opponent pace. Choices
+remain optional; opening the guide keeps the current game and timer deadline.
+
+[Independent-play release evidence](docs/INDEPENDENT_PLAY_RELEASE.md) records
+phase CI, responsive/offline checks and the paused human acceptance work.

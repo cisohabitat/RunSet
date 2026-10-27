@@ -389,3 +389,11 @@ The [final enjoyment-cycle audit](docs/ENJOYMENT_RELEASE.md) covers 118 unit tes
 landmarks, completed rounds focus results, and opponent choices wrap in narrow
 comfortable-reading views. Publication to GitHub and a ready Vercel deployment
 are checked separately; later deployments were queued during this audit.
+
+Cross-browser production coverage is available with `npm run test:compat`: WebKit
+phone/tablet and Firefox desktop checks complement Chromium. See
+[the reliability cycle](docs/RELIABILITY_ROADMAP.md). This is not physical Safari testing.
+
+Install cross-browser dependencies with `npx playwright install --with-deps
+chromium firefox webkit`. Headless Linux audio checks need a virtual PulseAudio
+output; CI starts a null sink so actual MP3 decoding/playback is exercised.

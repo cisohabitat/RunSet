@@ -1,13 +1,17 @@
 import { test, expect } from "@playwright/test";
 import { translator } from "../src/i18n/translate";
 import messages from "../src/i18n/zh-CN";
+// Network-failure cases must reach the route rather than a service-worker cache.
+test.use({serviceWorkers:"block"});
 for (const locale of ["en", "zh-CN"] as const)
   test(`${locale}: recordings play without device speech and stop on source, locale and screen changes`, async ({
     page,
   }) => {
     const t = locale === "en" ? (s: string) => s : translator(messages);
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.emulateMedia({colorScheme: locale === "en" ? "light" : "dark"});
+    await page.emulateMedia({
+      colorScheme: locale === "en" ? "light" : "dark",
+    });
     await page.addInitScript((locale) => {
       localStorage.setItem("runset.language", locale);
       Object.defineProperty(window, "speechSynthesis", {
@@ -51,7 +55,10 @@ for (const locale of ["en", "zh-CN"] as const)
         (window as any).__recordings.every((a: HTMLAudioElement) => a.paused),
       ),
     ).toBe(true);
-    await page.screenshot({path: `/tmp/runset-narration-${locale}.png`,fullPage:true});
+    await page.screenshot({
+      path: `/tmp/runset-narration-${locale}.png`,
+      fullPage: true,
+    });
     await page
       .getByRole("button", { name: t("Replay audio"), exact: true })
       .click();
@@ -110,11 +117,48 @@ test("failed recording offers readable fallback and the device choice remains us
     page.getByText(
       "Audio could not play. Choose Device voice or read the instructions.",
     ),
-  ).toBeVisible();
+  ).toBeVisible({ timeout: 15000 });
   await page
     .getByLabel("Reading voice", { exact: true })
     .selectOption("device");
   await expect(page.getByLabel("Reading voice", { exact: true })).toHaveValue(
     "device",
   );
+});
+
+test("a stalled audio startup times out and remains cancellable", async ({
+  page,
+}) => {
+  await page.clock.install();
+  await page.addInitScript(() => {
+    const Native = Audio;
+    (window as any).__stalled = [];
+    (window as any).Audio = function () {
+      const a = new Native();
+      a.play = () => new Promise(() => {});
+      (window as any).__stalled.push(a);
+      return a;
+    };
+  });
+  await page.goto("/");
+  await page
+    .getByRole("button", { name: "Learn to play", exact: false })
+    .click();
+  await page.getByRole("button", { name: "Listen", exact: true }).click();
+  await page.clock.fastForward(10001);
+  await expect(
+    page.getByText(
+      "Audio could not play. Choose Device voice or read the instructions.",
+      { exact: true },
+    ),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Replay audio", exact: true }).click();
+  await page.getByRole("button", { name: "Stop audio", exact: true }).click();
+  await page.clock.fastForward(10001);
+  await expect(
+    page.getByText(
+      "Audio could not play. Choose Device voice or read the instructions.",
+      { exact: true },
+    ),
+  ).toHaveCount(0);
 });

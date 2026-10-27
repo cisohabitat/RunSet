@@ -233,3 +233,11 @@ journeys (233 configured browser flows). Baseline regressions reproduced missing
 loading landmarks, focus loss on a real round finish and 387 px document width
 in a 320 px comfortable setup. See ENJOYMENT_RELEASE.md for fixes, verification
 and the distinction between passing GitHub CI and queued Vercel deployment.
+
+Reliability Phase 1 adds a production compatibility gate with 24 WebKit/Firefox
+flows (two WebKit touch sizes and Firefox desktop), preserving Chromium coverage.
+Both languages exercise native placement, Undo, view/reload/save invariance, real
+recorded playback and first-use offline audio. A new Chromium narration regression
+brings that suite to 234 flows; unit/offline counts remain 118/19. Local production
+compatibility passed all 24 cases after providing a virtual audio sink and ensuring
+network-abort fixtures bypass service-worker cache. Physical Safari remains paused.

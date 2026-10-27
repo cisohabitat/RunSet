@@ -462,3 +462,13 @@ release evidence and live-deployment limits are in docs/ENJOYMENT_RELEASE.md.
 Playing/results Suspense boundaries have separate keys so a slow results download
 cannot retain a hidden board with a second main-content ID or body-scroll lock.
 Keep App-owned game/save state outside both boundaries.
+
+The active cycle is docs/RELIABILITY_ROADMAP.md. Run test:compat for cross-browser
+player flows; preserve the existing Chromium suite. WebKit Linux emulation is
+not physical iOS. CI installs supported browser dependencies normally. Local
+non-root library overrides stay outside the repo and must not be required in CI.
+
+RecordedGuide has a ten-second startup watchdog, cleared by playing/cancel and
+identity-guarded against stale callbacks. Network-failure media tests block SWs;
+keep separate real offline-playback tests. Headless Firefox needs a virtual sink
+for genuine decoding/playback; this does not verify voice tone or pronunciation.

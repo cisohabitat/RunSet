@@ -26,8 +26,15 @@ jobs:
             fi
           done
           printf '%s\n' 'Acquire::Retries "2";' 'Acquire::http::Timeout "30";' 'Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/99-runset-downloads
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Provide virtual audio output for browser playback
+        run: |
+          sudo apt-get install -y pulseaudio pulseaudio-utils
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=runset
+          pactl set-default-sink runset
       - run: npm run test:e2e
+      - run: npx playwright test --config=playwright.compat.config.ts
       - run: npx playwright test --config=playwright.offline.config.ts
         timeout-minutes: 5
       - run: npm run benchmark -- --seeds=1 --budget=20 --out=test-results/benchmark-smoke.json

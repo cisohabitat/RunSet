@@ -11,16 +11,20 @@ export function RecordedGuide({
 }) {
   const { t } = useI18n();
   const audio = useRef<HTMLAudioElement | null>(null);
+  const startup = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const group = useRef<HTMLDivElement>(null);
   const button = useRef<HTMLButtonElement>(null);
   const [speaking, setSpeaking] = useState(false);
   const [played, setPlayed] = useState(false);
   const [error, setError] = useState(false);
   const cancel = () => {
+    clearTimeout(startup.current);
+    startup.current = undefined;
     const current = audio.current;
     audio.current = null;
     if (current) {
       current.onended = null;
+      current.onplaying = null;
       current.onerror = null;
       current.pause();
       current.removeAttribute("src");
@@ -69,6 +73,13 @@ export function RecordedGuide({
         stop();
       };
       current.onerror = fail;
+      current.onplaying = () => {
+        if (audio.current === current) {
+          clearTimeout(startup.current);
+          startup.current = undefined;
+        }
+      };
+      startup.current = setTimeout(fail, 10000);
       setSpeaking(true);
       setPlayed(true);
       void current.play().catch(fail);

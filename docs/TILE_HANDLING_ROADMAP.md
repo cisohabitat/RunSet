@@ -10,8 +10,8 @@ physical-device and older-player work remains paused.
 | 1. Rack organisation | Published; CI passed | Optional manual display order with touch controls; durable order and automatic colour/number modes. |
 | 2. Crowded-board navigation | Published; CI passed | Find selected tiles and the latest accepted placement without changing play. |
 | 3. Helpful explanations | Published; CI passed | Affected tiles and one clear next action for rejected moves, in both languages. |
-| 4. Complete-turn practice | Published; CI pending | A whole-turn learning path with prompts that can be reduced. |
-| 5. Release hardening | Queued | Combined responsive, keyboard, cross-browser and offline journeys. |
+| 4. Complete-turn practice | Published; CI passed | A whole-turn learning path with prompts that can be reduced. |
+| 5. Release hardening | Published; release gate below | Combined responsive, keyboard, cross-browser and offline journeys. |
 
 Phase 1 stores a validated, bounded per-round rack display preference separately
 from game saves. Manual order preserves physical IDs through temporary removal,
@@ -147,3 +147,23 @@ whole-turn journeys. Light/dark phone, desktop and Chinese comfortable completio
 screenshots were inspected. Final build: 99,526 initial gzip bytes, 58 precached
 assets, unchanged 100,000 budget. The full gate now contains 280 Chromium,
 195 compatibility and 23 offline cases, plus units and benchmark.
+
+Phase 4 commit 6effa7a passed full CI 40527834642, including all 195
+compatibility cases and the aggregate check, before Phase 5. Its matching READY
+live release passed six bilingual WebKit/Firefox whole-turn journeys.
+
+Phase 5 adds ten connected release journeys: six production WebKit/Firefox,
+two offline Chromium touch-phone and two desktop keyboard cases. They combine
+manual order, real incomplete-play help and repair, finders, hidden-rack recovery,
+rotation, language/reading/contrast changes, strict board/tile dimensions,
+practice, backup download, cancelled/confirmed deletion, import and reload.
+All ten passed locally, with unchanged game bytes and retained learning/view
+preferences. Light/dark phone and iPad screenshots were inspected. The neutral
+Chinese move-help label now covers both blocked moves and unfinished drafts.
+
+The complete final gate runs 143 units, 282 Chromium, 201 compatibility and
+25 offline cases, plus benchmark smoke; initial download is 99,523 gzip bytes
+under the unchanged 100,000 budget. Publish first, then require complete exact-
+commit CI and verify the matching live release before final acceptance.
+[Release evidence](TILE_HANDLING_RELEASE.md) records the phase gates, connected
+journeys and paused physical-device/older-player/voice checks.

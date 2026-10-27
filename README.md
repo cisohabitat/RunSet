@@ -424,7 +424,7 @@ Settings → Simple home screen offers large Continue, New game and Learn choice
 More options contains rules, quick exercises, delete and backup tools. It keeps
 saved games and other display choices, works offline after verified preparation,
 and stays enabled after deletion. The full home screen remains the default.
-The active cycle is [easier independent play](docs/INDEPENDENT_PLAY_ROADMAP.md).
+Implementation notes are in [easier independent play](docs/INDEPENDENT_PLAY_ROADMAP.md).
 
 If the optional home view cannot download, Return Home recovers the full home
 screen while keeping the saved game and other preferences.
@@ -455,7 +455,7 @@ remain optional; opening the guide keeps the current game and timer deadline.
 [Independent-play release evidence](docs/INDEPENDENT_PLAY_RELEASE.md) records
 phase CI, responsive/offline checks and the paused human acceptance work.
 
-The next active cycle is [easier tile handling](docs/TILE_HANDLING_ROADMAP.md).
+The completed tile-handling cycle is [easier tile handling](docs/TILE_HANDLING_ROADMAP.md).
 During your turn, More → Arrange rack lets you choose a tile and move it left or
 right, then Keep order. Cancel keeps the previous display. This optional order
 is separate from saved tile positions and survives Undo/Reset and reload for the
@@ -488,3 +488,9 @@ damaged practice record starts a fresh table with a notice; failed writes leave
 the current practice playable with a visible warning. Restart clears only this
 practice. Newly written guidance uses device speech until matching recordings
 are available; Listen remains explicit.
+
+[Tile-handling release evidence](docs/TILE_HANDLING_RELEASE.md) records the
+phase gates and combined keyboard/touch, responsive, cross-browser and offline
+journeys, including backup/delete/restore and preserved learning preferences.
+In Chinese, More → 出牌帮助 explains both blocked moves and unfinished drafts.
+Physical-device and older-player acceptance remains paused.

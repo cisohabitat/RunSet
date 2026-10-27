@@ -610,3 +610,13 @@ reduced prompts voluntary. Reach the full goal and controls through page flow
 on desktop as well as phone/tablet. Error/feedback focus must bring the actual
 message into view without locale/selection-driven refocusing. New captions use
 existing device-speech fallback until exact recordings exist; no autoplay.
+
+Final tile-handling release evidence is docs/TILE_HANDLING_RELEASE.md. Preserve
+the connected handling-release journeys across main, compatibility and offline
+suites. Full screen intentionally hides the header: use View → Standard before
+Settings/language changes and restore Full screen afterward. Development-server
+keyboard tests do not claim SW offline support; production browser journeys
+verify first-use offline tools, Chinese, backup/delete/import/reload. Keep exact
+regular-save comparisons, preference retention, physical IDs and strict visible
+board/tile geometry. The Chinese move-help entry is neutral because accepted
+unfinished drafts can also need explanation.

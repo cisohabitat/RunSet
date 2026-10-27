@@ -39,7 +39,7 @@ const messages: Record<string, string> = {
     "这次练习已达到可保存的操作次数上限。请重新开始完整回合练习。你的正式牌局没有改变。",
   "Choose New group or run for your opening.":
     "开局时，请选择“新建同数组或顺子”来放牌。",
-  "Why this move?": "这步为什么不行？",
+  "Why this move?": "出牌帮助",
   "Move help": "这步的说明",
   "Move explanation": "出牌说明",
   "Last blocked move": "刚才未能执行的操作",

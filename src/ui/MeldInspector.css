@@ -1,0 +1,46 @@
+.meld-actions {
+  /* Footer content must not widen the tile-sized, shrink-wrapped card. */
+  width: 0;
+  min-width: 100%;
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+}
+.meld-actions > .meld-target {
+  flex: 1;
+  min-width: 44px;
+  width: auto;
+  padding-block: 2px;
+}
+.meld-actions .inspect-meld {
+  flex: none;
+  width: 44px;
+  min-height: 44px;
+  padding: 4px;
+  font-size: 12px;
+}
+.app.comfortable-reading .meld-actions .inspect-meld {
+  width: 60px;
+  font-size: 16px;
+}
+.meld-inspector .tile-demo {
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 4px;
+}
+.app.playing > .game .meld-inspector[open] .tile {
+  width: 64px;
+  min-width: 64px;
+  height: 88px;
+  min-height: 88px;
+  font-size: 36px;
+}
+.app.playing > .game .meld-inspector[open] .tile-mark {
+  font-size: 9px;
+}
+.app.playing > .game .meld-inspector[open] .tile-foot {
+  font-size: 10px;
+}
+.meld-inspector .dialog-actions button {
+  font-size: 16px;
+}

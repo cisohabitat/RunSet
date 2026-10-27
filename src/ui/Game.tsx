@@ -14,6 +14,7 @@ import { runPlanner } from "../lib/planner";
 import { suggestedDestinations, turnGuidance } from "../lib/guidance";
 import { Tile } from "./Tile";
 import { MoveReview } from "./MoveReview";
+import { MeldInspector } from "./MeldInspector";
 import { HintPreview } from "./HintPreview";
 import { ReadAloud } from "./ReadAloud";
 import { useTileFeedback } from "./useTileFeedback";
@@ -573,25 +574,34 @@ export function Game({
                 {!info.valid && (
                   <p className="meld-explanation">{t(explainMeld(m.tiles))}</p>
                 )}
-                <button
-                  data-coach-target={coachTarget === m.id || undefined}
-                  data-suggested-destination={
-                    destinations.includes(m.id) || undefined
-                  }
-                  className="meld-target"
-                  disabled={!myTurn || !activeSelected.length}
-                  onClick={() => move(m.id)}
-                  aria-label={t(
-                    `Add selected tiles to meld ${s.table.indexOf(m) + 1}`,
+                <div className="meld-actions">
+                  <button
+                    data-coach-target={coachTarget === m.id || undefined}
+                    data-suggested-destination={
+                      destinations.includes(m.id) || undefined
+                    }
+                    className="meld-target"
+                    disabled={!myTurn || !activeSelected.length}
+                    onClick={() => move(m.id)}
+                    aria-label={t(
+                      `Add selected tiles to meld ${s.table.indexOf(m) + 1}`,
+                    )}
+                  >
+                    {t(
+                      info.valid
+                        ? `${info.kind} · ${info.points} pts`
+                        : "Incomplete group or run",
+                    )}{" "}
+                    <span>＋</span>
+                  </button>
+                  {coaching && (
+                    <MeldInspector
+                      ids={m.tiles}
+                      index={s.table.indexOf(m)}
+                      disabled={!myTurn}
+                    />
                   )}
-                >
-                  {t(
-                    info.valid
-                      ? `${info.kind} · ${info.points} pts`
-                      : "Incomplete group or run",
-                  )}{" "}
-                  <span>＋</span>
-                </button>
+                </div>
               </div>
             );
           })}

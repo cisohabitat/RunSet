@@ -431,3 +431,8 @@ screen while keeping the saved game and other preferences.
 
 CI rewrites both direct Ubuntu sources and runner APT mirror-list files to the
 official HTTPS mirror, retaining signed package checks and browser dependencies.
+
+During your turn, Zoom beside a group/run opens a read-only magnifier with larger
+tiles, joker values and a rule explanation. Long runs scroll inside the panel;
+Back to table and Escape preserve your draft and selection. Timed games keep
+their deadline. The regular board retains its compact tile sizes and row density.

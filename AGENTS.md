@@ -515,3 +515,11 @@ verification, bounded retries and the complete browser/dependency install.
 Native-dialog close may release inertness after effect cleanup in WebKit. Keep
 one guarded next-frame focus retry only while the opener remains connected,
 focus is still on body, and no other dialog is open. Never steal later focus.
+
+MeldInspector is read-only regular-play help on the human turn. Keep its 64×88
+preview tiles separate from compact/coarse main-board rules; joker values come
+from inspectMeld and explanations from explainMeld. Footer content must not widen
+shrink-wrapped tile cards or add a row. Preserve strict phone/iPad row counts,
+>=44 px controls, modal scroll/close bounds, focus, selection and saves. Timed
+turn replacement closes the old inspection. Long-run coverage must reach the
+last tile while the close control remains hit-testable.

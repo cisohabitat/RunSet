@@ -246,3 +246,9 @@ Reliability Phase 2 adds three snapshot/metadata unit regressions (121 units),
 two bilingual review flows (236 Chromium flows), and cross-browser review plus
 first-use offline coverage (36 compatibility flows). It checks a changed live
 draft, preserved selection/save, modal Axe/focus and review after reload.
+
+Reliability Phase 3 adds three factual-suggestion helper regressions (124 units),
+seven bilingual recommendation/draft-preservation flows (243 Chromium flows),
+reused across the three compatibility projects (57 compatibility flows). It
+checks explicit reasons, unchanged regular saves, updated completion suggestions
+and preservation of an existing draft when entering practice from results.

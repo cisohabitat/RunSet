@@ -23,7 +23,8 @@ import {
   type SoloProgress,
 } from "../lib/soloProgress";
 import { dailyPuzzle, validDaily } from "../lib/dailyPuzzle";
-import { validSave } from "../lib/storage";
+import { validSave, SAVE_KEY } from "../lib/storage";
+import { practiceSuggestion } from "../lib/practiceSuggestion";
 import { sound, transitionCue } from "../lib/sound";
 import { useI18n } from "../i18n/I18n";
 import { Game } from "./Game";
@@ -78,6 +79,14 @@ function initialSolo(): { progress: SoloProgress; recovered: boolean } {
   }
   return { progress: emptySolo(), recovered: true };
 }
+function savedRound(): GameState | null {
+  try {
+    const value = JSON.parse(localStorage.getItem(SAVE_KEY) ?? "null");
+    return validSave(value) ? value : null;
+  } catch {
+    return null;
+  }
+}
 export default function Exercises({
   onExit,
   muted,
@@ -93,6 +102,15 @@ export default function Exercises({
     String(session?.game.seed ?? 4321),
   );
   const [solo, setSolo] = useState(initialSolo);
+  const [regular, setRegular] = useState(savedRound);
+  useEffect(() => {
+    const refresh = (e: StorageEvent) => {
+      if (e.key === SAVE_KEY) setRegular(savedRound());
+    };
+    window.addEventListener("storage", refresh);
+    return () => window.removeEventListener("storage", refresh);
+  }, []);
+  const suggestion = practiceSuggestion(regular, solo.progress.kinds);
   const [soloSaveError, setSoloSaveError] = useState(false);
   useEffect(() => {
     const changed = (e: StorageEvent) => {
@@ -253,6 +271,24 @@ export default function Exercises({
           "Practise one move at a time. No timer, no penalties. Your regular game is kept; its timer keeps running.",
         )}
       </p>
+      {!session && suggestion && (
+        <section
+          className="practice-suggestion"
+          aria-label={t("A practice idea")}
+        >
+          <h2>{t("A practice idea")}</h2>
+          <h3>{t(exerciseCopy[suggestion.kind].title)}</h3>
+          <p>{t(suggestion.reason)}</p>
+          <p>
+            {t(
+              "Chosen from your saved round and local exercise record. Starting this practice keeps your regular game.",
+            )}
+          </p>
+          <button className="secondary" onClick={() => start(suggestion.kind)}>
+            {t("Try suggested exercise")}
+          </button>
+        </section>
+      )}
       <section
         className="daily-practice"
         aria-label={t("A little practice for today")}

@@ -477,3 +477,8 @@ MoveReview reads latest IDs from the completed snapshot (turnStart.table while
 playing, final table when over), never the current draft. Do not infer an edit
 order or source choices that were not recorded. Missing placement data produces
 no review. Preserve modal focus, selection, saves and timer semantics.
+
+Practice suggestions use only validated final-rack facts and completed kinds,
+never an inferred skill rating. Prioritize an unopened final rack before joker
+practice. Offer suggestions only without an active exercise draft; starting and
+checking remain explicit. Read regular saves without changing storage write guards.

@@ -401,3 +401,7 @@ output; CI starts a null sink so actual MP3 decoding/playback is exercised.
 More → Review latest play shows each newly played tile in its completed destination
 with a rule explanation. It is read-only and preserves current edits and selection.
 Results can review the final play too; intermediate rearrangement order is not recorded.
+
+Quick exercises can suggest an optional goal from the saved final rack or local
+completion record, explaining why. Existing exercise drafts remain open; results
+now link directly to practice. Suggestions do not change regular saves.

@@ -2,6 +2,17 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Try quick practice": "做个小练习",
+  "Try suggested exercise": "试试这个练习",
+  "Chosen from your saved round and local exercise record. Starting this practice keeps your regular game.":
+    "建议来自保存的牌局和本机练习记录。开始练习不会替换正常牌局。",
+  "This exercise kind has not been completed on this device yet. Try it whenever you like.":
+    "这台设备上还没有完成过这种练习。想试的时候再试就好。",
+  "A joker remained in your saved final rack. Try replacing and reusing one in a short exercise.":
+    "上一局结束时，你的手中还有万能牌。可以做个小练习，试试替换并重新使用万能牌。",
+  "Your saved round ended before you opened. Practise reaching 30 points from your own rack, without a timer.":
+    "上一局结束时，你还没完成开局。可以先练习用自己的手牌凑满 30 分，不用计时。",
+  "A practice idea": "一个小练习建议",
   "Close review": "关闭回看",
   "Next tile": "下一张",
   "Previous tile": "上一张",

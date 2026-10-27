@@ -7,8 +7,8 @@ paused. Multiplayer remains deferred.
 | Phase | Status | Deliverable |
 | --- | --- | --- |
 | 1. Cross-browser coverage | Published; CI passed | Production WebKit phone/tablet and Firefox desktop: touch/mouse moves, Undo, reload, view changes, real narration, offline assets. |
-| 2. Review the last move | Implemented; CI gate pending | Read-only tile destinations from the latest completed play, with explicit limits for older saves. |
-| 3. Targeted practice | Queued | Optional suggestions based on completed exercise kinds and final rack facts. |
+| 2. Review the last move | Published; CI passed | Read-only tile destinations from the latest completed play, with explicit limits for older saves. |
+| 3. Targeted practice | Implemented; CI gate pending | Optional suggestions based on completed exercise kinds and final rack facts. |
 | 4. Display choices | Queued | Optional high-contrast palette and landscape-phone checks. |
 | 5. Longer-session comfort | Queued | Clear break/resume context and opponent pacing, preserving timer semantics. |
 
@@ -43,3 +43,17 @@ Phase 2 local checks passed strict TypeScript, 121 unit tests and the production
 build at 99,474 initial gzipped bytes. Chromium review flows passed in both
 languages; compatibility coverage now includes modal Axe/focus/save checks and
 first-use offline review. No regular save format or game rule changed.
+
+Phase 2 0361d9a passed CI 40462033335 and all 36 live compatibility cases before
+Phase 3 began. Firefox live TLS used the existing session CAs in a temporary NSS
+profile; certificate verification stayed enabled.
+
+Phase 3 offers one explained, optional practice idea when no exercise draft is
+open. A completed unopened rack takes priority, then a retained joker, then the
+first locally uncompleted goal. No rating or missed-move inference is made.
+Results link to practice without replacing an existing exercise draft.
+
+Phase 3 local checks passed strict TypeScript, 124 unit tests, seven Chromium
+flows and production build at 99,491 initial gzipped bytes. Phone screenshots
+were inspected in English/light and Chinese/dark. Compatibility checks reuse
+the same recommendation flows rather than a second implementation.

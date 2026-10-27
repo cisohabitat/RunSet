@@ -118,8 +118,8 @@
   padding: 8px;
 }
 
-.daily-practice { margin-block: 16px; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius-panel); background: var(--soft); }
-.daily-practice h2 { font-size: 22px; }
-.daily-practice p, .exercise-clue p { line-height: 1.6; margin-block: 10px; }
+.daily-practice, .practice-suggestion { margin-block: 16px; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius-panel); background: var(--soft); }
+.daily-practice h2, .practice-suggestion h2 { font-size: 22px; }
+.daily-practice p, .practice-suggestion p, .exercise-clue p { line-height: 1.6; margin-block: 10px; }
 .exercise-clue h3 { font-size: 18px; }
 .daily-session { font-weight: 600; }

@@ -707,6 +707,7 @@ export default function App() {
                 game={game}
                 onNew={() => openSetup(game)}
                 onReplay={replay}
+                onPractice={() => setScreen("exercises")}
                 onHome={() => setScreen("home")}
               />
             </Suspense>

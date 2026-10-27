@@ -10,12 +10,14 @@ export function GameOver({
   onHome,
   onNextRound,
   onReplay,
+  onPractice,
 }: {
   game: GameState;
   onNew: () => void;
   onHome: () => void;
   onNextRound: () => void;
   onReplay: () => void;
+  onPractice: () => void;
 }) {
   const { t } = useI18n();
   const scores = results(game),
@@ -201,6 +203,9 @@ export function GameOver({
         )}
       </p>
       <MoveReview game={game} />
+      <button className="secondary" onClick={onPractice}>
+        {t("Try quick practice")}
+      </button>
       <div className="hero-actions">
         {game.match && champion === null && (
           <button className="primary" onClick={onNextRound}>

@@ -26,6 +26,7 @@ for (const locale of ["en", "zh-CN"] as const) {
     await page
       .getByRole("button", { name: t("Continue game →"), exact: true })
       .click();
+    await expect(page.getByRole("heading", {name:t(`${game.players[1].name} is playing.`),exact:true})).toBeVisible();
     await expect(page.locator(".turn-owner")).toHaveText(
       t(`${game.players[1].name}’s turn`),
     );

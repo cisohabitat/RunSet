@@ -274,7 +274,7 @@ export function Game({
             <span className="eyebrow turn-owner">
               {myTurn ? t("Your turn") : t(`${p.name}’s turn`)}
             </span>
-            <h1>{t(myTurn ? "Your move." : "A little thinking…")}</h1>
+            <h1>{t(myTurn ? "Your move." : `${p.name} is playing.`)}</h1>
           </div>
           <div className="game-heading-actions">
             {saveLabel && tableView === "normal" && (

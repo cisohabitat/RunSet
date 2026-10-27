@@ -2,6 +2,7 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "{name} is playing.": "{name} 正在出牌。",
   "Your turn": "轮到你出牌",
   "{n} opponents will play before you. Watch their moves; your tiles unlock on your turn.":
     "还有 {n} 位电脑出牌后才轮到你。先看看它们怎么出，轮到你时就能选牌。",

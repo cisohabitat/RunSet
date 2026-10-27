@@ -138,3 +138,22 @@ export function turnPracticeOutcome(
       ? "complete"
       : "drawn";
 }
+
+/** Explain only the actual restored snapshot, without inferring a play history. */
+export function practiceResumeMessage(progress: TurnPracticeProgress): string {
+  const lesson = progress.record.lesson ?? "opening",
+    layout = progress.record.layout ?? 0;
+  const outcome = turnPracticeOutcome(progress.game, lesson);
+  if (outcome === "complete")
+    return "Your completed practice was restored. You can try another layout.";
+  if (outcome === "drawn")
+    return "Your previous attempt ended with a draw. Restart to try the lesson goal.";
+  if (turnLessonReady(lesson, progress.game, layout))
+    return "Your saved practice is ready to finish. Choose End turn.";
+  if (
+    JSON.stringify(progress.game.table) !==
+    JSON.stringify(progress.game.turnStart.table)
+  )
+    return "Your unfinished practice tiles were restored. Continue editing, Undo or Reset.";
+  return "Your lesson and layout were restored. Start with the goal below.";
+}

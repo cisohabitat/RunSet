@@ -79,3 +79,23 @@ it("preserves legacy layout zero and rejects malformed layout identifiers", () =
     freshTurnPractice("guided", "You", "opening", 1).game.players[0].rack,
   ).not.toEqual(freshTurnPractice().game.players[0].rack);
 });
+
+it("accepts a legal fourth tile after replacing and reusing the joker in every layout", () => {
+  for (const layout of [0, 1, 2, 3]) {
+    const initial = freshTurnPractice("quiet", "You", "joker", layout);
+    const actions: PracticeAction[] = [
+      { type: "move", ids: [turnLayoutId(4, layout)], target: "practice-wild" },
+      {
+        type: "move",
+        ids: [104, 30, 56, 82].map((id) => turnLayoutId(id, layout)),
+        target: "new",
+      },
+      { type: "endTurn" },
+    ];
+    const completed = replayTurnPractice({ ...initial.record, actions });
+    expect(completed).not.toBeNull();
+    expect(validSave(completed!.game)).toBe(true);
+    expect(turnPracticeOutcome(completed!.game, "joker")).toBe("complete");
+    expect(completed!.game.lastPlaced).toHaveLength(4);
+  }
+});

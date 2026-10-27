@@ -9,8 +9,8 @@ physical-device, older-player and native Mandarin acceptance remains paused.
 | --- | --- | --- |
 | 1. More whole-turn lessons | Published; CI passed | Extension, rearrangement, joker replacement/reuse and choosing Draw. |
 | 2. Varied practice hands | Published; CI passed | Several layouts per skill, optional hints and fewer prompts. |
-| 3. Portable progress | Published; CI gate | Optional profile export/import with learning and display settings, keeping game-only backups. |
-| 4. Clearer recovery | Queued | Review replacement scope and resume interrupted practice with clear context. |
+| 3. Portable progress | Published; CI passed | Optional profile export/import with learning and display settings, keeping game-only backups. |
+| 4. Clearer recovery | Published; final CI acceptance checked after push | Review replacement scope and resume interrupted practice with clear context. |
 
 Phase 1 extends the bounded action transcript with an optional lesson ID; legacy
 records without it remain opening practice. New lesson goals must be satisfied
@@ -76,3 +76,23 @@ receives focus and lies within the scroll region. Light/dark screenshots were
 inspected. Final build: 99,885 initial gzip bytes under 100,000; 63 precached
 assets. Full CI retains 282 Chromium, 219 compatibility and 31 offline cases,
 plus 160 units and benchmark smoke, before Phase 4 starts.
+
+Phase 3 commit 26f3518 passed complete CI 40551666374 before Phase 4. Its matching
+READY live release passed six bilingual profile-transfer journeys.
+
+Phase 4 adds current/incoming game and practice comparisons, explicit opt-in to
+replace an existing game, friendly preference scope, original-deadline context
+and restored-practice messages. Backup confirmation says Restore backup; fresh
+deals retain Start new game. A legal extra fourth tile no longer prevents the
+joker lesson goal. The profile reader now enforces the practice reader size cap.
+
+Final local verification passed 164 units, typecheck/build, all 31 production
+offline cases, six bilingual production WebKit/Firefox profile journeys and
+fourteen backup/result/replay regressions. The profile journeys transfer between
+opposite UI languages, cancel previews, check exact quota-failure rollback and
+finish imported interrupted joker practice. Light/dark phone/tablet screenshots
+were inspected. Initial gzip: 99,903 bytes under the unchanged 100,000-byte
+budget; 63 precached assets. The full final workflow retains 284 Chromium,
+219 compatibility and 31 offline cases, plus units and benchmark smoke.
+Exact-commit CI and matching READY live acceptance are checked after publication;
+see [release evidence](LEARNING_PORTABILITY_RELEASE.md) and main workflow history.

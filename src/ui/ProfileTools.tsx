@@ -10,6 +10,7 @@ import {
 import { persistGame } from "../lib/storage";
 import { MAX_BACKUP_BYTES } from "../lib/backup";
 import "./ProfileTools.css";
+import { ProfileReview } from "./ProfileReview";
 export default function ProfileTools({
   game,
   onClose,
@@ -33,7 +34,7 @@ export default function ProfileTools({
       const target = messageRef.current;
       if (target?.isConnected && modal.current?.open) {
         target.focus({ preventScroll: true });
-        target.scrollIntoView({ block: "nearest" });
+        target.scrollIntoView({ block: "center" });
       }
     });
     return () => cancelAnimationFrame(frame);
@@ -148,7 +149,7 @@ export default function ProfileTools({
                   );
                 const next = importProfile(await file.text());
                 setProfile(next);
-                setIncludeGame(!!next.game);
+                setIncludeGame(!!next.game && !game);
               } catch (error) {
                 setMessage(
                   error instanceof Error &&
@@ -167,6 +168,7 @@ export default function ProfileTools({
         {profile && (
           <section className="profile-review" aria-label={t("Profile review")}>
             <h3>{t("Review before restoring")}</h3>
+            <ProfileReview profile={profile} currentGame={game} />
             <p>
               {t(
                 `Learning records in file: ${Object.keys(profile.values).filter((key) => (profileLearningKeys as readonly string[]).includes(key)).length}`,

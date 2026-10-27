@@ -53,7 +53,8 @@ export function validProfileValue(key: string, raw: unknown): raw is string {
   if (!(profileLearningKeys as readonly string[]).includes(key)) return false;
   try {
     const p = JSON.parse(raw);
-    if (key === "runset.turnPractice.v1") return !!replayTurnPractice(p);
+    if (key === "runset.turnPractice.v1")
+      return raw.length <= 65536 && !!replayTurnPractice(p);
     if (key === "runset.solo.v1") return validSolo(p);
     if (
       !p ||

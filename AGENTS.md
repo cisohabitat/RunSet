@@ -650,3 +650,18 @@ failure, surface incomplete restoration honestly and reload only after success.
 The Home-only import owns its cancellation controller; do not reload after
 unmount. The explicit reload applies initial-read preferences/I18n without
 synthetic storage events or stale App state. Retain actual timed deadlines.
+
+Recovery comparisons are read-only and use actual validated state. Keep literal
+player names literal even when they match dictionary keys. Describe unfinished
+turn edits, original deadlines and practice lesson/layout/mode without inventing
+history or skill ratings. Invalid display timestamps must show Unavailable, never
+crash. Match profile practice-size validation to the real 65,536-character reader
+limit. Distinguish unreadable device preferences from absent ones.
+
+An existing game is excluded from profile restoration by default; replacement is
+explicit. Game-only imports use Restore backup labels when preserveDeadline is
+true; fresh-deal confirmations keep Start new game and fresh timer semantics.
+Practice-restored context comes from the initial snapshot, never clears selection
+or refocuses for locale/step-visibility changes, and clears on user play/restart.
+Joker whole-turn goals allow valid extra group tiles once required replacement/
+reuse is met; keep the full engine turn validator and required physical IDs.

@@ -520,3 +520,18 @@ progress, language, reading, contrast, tile size, Simple home, pace, sound/voice
 choice, expanded view and rack order. Installed device voices are not transferred.
 Files are validated before changes; failed writes attempt to restore prior raw
 values and never trigger a success reload. No account or server is introduced.
+
+Import review now compares the device's game and whole-turn practice with the
+file, including unfinished edits, lesson/layout, guidance mode and original timed
+deadline. Expand the learning or display/sound lists to see replacement scope.
+An existing game is kept by default; select “Also restore the game” to replace it.
+Game-only backup confirmations say Restore backup, while fresh deals still say
+Start new game.
+
+Returning to whole-turn practice shows what was restored and whether to continue
+editing, End turn or restart an attempt that ended by drawing. Reading the summary
+or toggling steps preserves the draft and selection. The joker goal also accepts
+a legal fourth tile after the required replacement and reuse.
+
+[Learning and portability release evidence](docs/LEARNING_PORTABILITY_RELEASE.md)
+records the phase gates, profile transfer/recovery checks and paused human work.

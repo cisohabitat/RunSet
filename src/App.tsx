@@ -482,7 +482,9 @@ export default function App() {
                 ? "This turn would draw penalty tiles"
                 : confirmation.kind === "delete"
                   ? "Delete this saved game?"
-                  : "Replace your saved game?",
+                  : confirmation.preserveDeadline
+                    ? "Restore this backup?"
+                    : "Replace your saved game?",
             )}
             cancelLabel={
               confirmation.kind === "penalty" ? "Keep editing" : "Keep game"
@@ -492,7 +494,9 @@ export default function App() {
                 ? "End turn +3 tiles"
                 : confirmation.kind === "delete"
                   ? "Delete game"
-                  : "Start new game"
+                  : confirmation.preserveDeadline
+                    ? "Restore backup"
+                    : "Start new game"
             }
             onCancel={() => {
               setConfirmation(null);

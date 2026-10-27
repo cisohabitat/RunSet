@@ -4,6 +4,7 @@ import { inspectMeld } from "../engine/meld";
 import { useI18n } from "../i18n/I18n";
 import {
   freshTurnPractice,
+  practiceResumeMessage,
   maxPracticeActions,
   practiceAction,
   practiceCanApply,
@@ -31,21 +32,31 @@ const saveWarning =
 function readPractice(name: string): {
   progress: TurnPracticeProgress;
   notice: string;
+  restored: boolean;
 } {
   try {
     const raw = localStorage.getItem(turnPracticeKey);
     if (!raw)
-      return { progress: freshTurnPractice("guided", name), notice: "" };
+      return {
+        progress: freshTurnPractice("guided", name),
+        notice: "",
+        restored: false,
+      };
     const progress =
       raw.length <= 65536 ? replayTurnPractice(JSON.parse(raw), name) : null;
-    if (progress) return { progress, notice: "" };
+    if (progress) return { progress, notice: "", restored: true };
     return {
       progress: freshTurnPractice("guided", name),
+      restored: false,
       notice:
         "The saved whole-turn practice could not be restored. A fresh practice table is ready; your other games and lessons are unchanged.",
     };
   } catch {
-    return { progress: freshTurnPractice("guided", name), notice: saveWarning };
+    return {
+      progress: freshTurnPractice("guided", name),
+      notice: saveWarning,
+      restored: false,
+    };
   }
 }
 export function TurnPractice({
@@ -64,6 +75,7 @@ export function TurnPractice({
   const [initial] = useState(() => readPractice(practiceName));
   const [progress, setProgress] = useState(initial.progress),
     [notice, setNotice] = useState(initial.notice),
+    [resumed, setResumed] = useState(initial.restored),
     [feedback, setFeedback] = useState(""),
     [attempt, setAttempt] = useState(0),
     [lessonChoice, setLessonChoice] = useState<TurnLesson>(
@@ -149,12 +161,14 @@ export function TurnPractice({
   ) => {
     setAttempt((value) => value + 1);
     setLessonChoice(nextLesson);
+    setResumed(false);
     setFeedback("");
     update(freshTurnPractice(mode, practiceName, nextLesson, nextLayout));
   };
   const dispatch = (value: Action) => {
     const action = practiceAction(value);
     if (!action || finished) return;
+    setResumed(false);
     if (record.actions.length >= maxPracticeActions) {
       setNotice(
         "This practice has reached its saved move limit. Restart whole-turn practice to continue. Your regular game is unchanged.",
@@ -237,6 +251,12 @@ export function TurnPractice({
           )}
         </div>
         <div className="practice-copy">
+          {resumed && (
+            <p className="practice-restored" role="status">
+              <strong>{t("Practice restored")}</strong>{" "}
+              {t(practiceResumeMessage(initial.progress))}
+            </p>
+          )}
           <p id="practice-instructions">{t(goal)}</p>
           <ReadAloud text={`${t(title)}。${t(goal)}`} />
           {!finished && record.showSteps && (

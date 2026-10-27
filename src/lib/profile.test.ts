@@ -93,6 +93,15 @@ it("rejects arbitrary, unsupported and damaged nested data before writing anythi
   ).toThrow("The profile could not be exported.");
   expect(validProfileValue("runset.audioVoice", "device")).toBe(true);
   expect(validProfileValue("runset.audioVoice", "unknown")).toBe(false);
+  expect(
+    validProfileValue(
+      "runset.turnPractice.v1",
+      JSON.stringify({
+        ...freshTurnPractice().record,
+        padding: " ".repeat(65536),
+      }),
+    ),
+  ).toBe(false);
 });
 it("restores a profile through the existing save guard and preserves original timers", async () => {
   const current = practiceGame(),

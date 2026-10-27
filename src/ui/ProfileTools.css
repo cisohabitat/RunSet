@@ -36,3 +36,25 @@
 .profile-dialog .dialog-actions > button {
   flex: 1 1 220px;
 }
+.profile-comparison h4 {
+  margin-block: 14px 4px;
+}
+.profile-compare-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.profile-comparison :is(section, li) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.profile-comparison summary {
+  min-height: 48px;
+  padding-block: 12px;
+  cursor: pointer;
+}
+@media (max-width: 600px) {
+  .profile-compare-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

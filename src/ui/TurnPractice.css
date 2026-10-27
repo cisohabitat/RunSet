@@ -31,3 +31,7 @@
   min-width: 0;
   max-width: 100%;
 }
+.practice-restored {
+  border-left: 3px solid var(--accent);
+  padding-left: 12px;
+}

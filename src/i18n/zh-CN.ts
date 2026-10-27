@@ -2,6 +2,48 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Practice restored": "练习已恢复",
+  "Your completed practice was restored. You can try another layout.":
+    "已恢复完成的练习。你可以试试另一个布局。",
+  "Your previous attempt ended with a draw. Restart to try the lesson goal.":
+    "上一次练习以摸牌结束。重新开始，可以再试试课程目标。",
+  "Your saved practice is ready to finish. Choose End turn.":
+    "已保存的练习已达到目标。点“结束回合”即可完成。",
+  "Your unfinished practice tiles were restored. Continue editing, Undo or Reset.":
+    "已恢复尚未完成的摆牌。可以继续摆牌，也可以点“撤销”或“重置”。",
+  "Your lesson and layout were restored. Start with the goal below.":
+    "已恢复你的课程和布局。请从下方目标开始。",
+  "Restore this backup?": "恢复这个牌局备份？",
+  "Restore backup": "恢复牌局备份",
+  "Game on this device": "此设备上的牌局",
+  "Game in this file": "文件中的牌局",
+  "Profile exported": "文件导出时间",
+  "Whole-turn practice on this device": "此设备上的完整回合练习",
+  "Whole-turn practice in this file": "文件中的完整回合练习",
+  "No whole-turn practice saved": "没有已保存的完整回合练习",
+  "Not in this file. Your current practice is kept.":
+    "文件中不包含这项内容。当前练习会保留。",
+  "Learning progress included": "包含的学习进度",
+  "Display and sound choices included": "包含的显示和声音设置",
+  "Will be replaced from this file": "会使用文件中的内容替换",
+  "Not included; kept on this device": "文件中不包含，保留此设备上的内容",
+  "Finished game": "已结束的牌局",
+  Turn: "回合",
+  "Tiles in your rack": "你的手牌数量",
+  "Unfinished turn edits are included.": "包含尚未结束回合的摆牌。",
+  "Original turn deadline": "原来的回合截止时间",
+  "Timed games keep this deadline after restore.":
+    "恢复后仍使用这个时限，不会重新计时。",
+  Unavailable: "暂不可用",
+  On: "开启",
+  Off: "关闭",
+  "Manual order": "手动顺序",
+  Included: "已包含",
+  "Short lessons": "分步课程",
+  "Solo progress": "个人练习进度",
+  "Opponent move explanations": "电脑出牌说明",
+  Language: "语言",
+  "Rack display order": "手牌显示顺序",
   "Portable progress": "迁移进度",
   "Preparing portable progress…": "正在准备迁移工具…",
   "Export one file with your game, learning progress and supported display and sound choices. No account is needed.":
@@ -25,7 +67,7 @@ const messages: Record<string, string> = {
   "Profile downloaded. Keep this file to move your game, learning and choices to another device.":
     "文件已下载。请保存好，可以用来把牌局、学习进度和设置迁移到另一台设备。",
   "Game-only backup files still use Import game backup on Home. Device voices depend on what is installed on the receiving device.":
-    "只有牌局的备份文件，仍使用首页的“导入牌局备份”。设备朗读声音取决于新设备已安装的声音。",
+    "只有牌局的备份文件，仍使用首页的“导入游戏备份”。设备朗读声音取决于新设备已安装的声音。",
   "Choose a RunSet profile file smaller than 2 MB.":
     "请选择小于 2 MB 的 RunSet 进度与设置文件。",
   "This is not a supported, complete RunSet profile. Nothing has been imported.":

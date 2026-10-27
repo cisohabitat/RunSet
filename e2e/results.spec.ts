@@ -284,7 +284,7 @@ test("changing options and restoring a backup keep replacement promises distinct
     "round 1 with zero match scores",
   );
   await page
-    .getByRole("button", { name: "Start new game", exact: true })
+    .getByRole("button", { name: "Restore backup", exact: true })
     .click();
   await page.getByRole("button", { name: "Home", exact: true }).click();
   current = await page.evaluate(() =>

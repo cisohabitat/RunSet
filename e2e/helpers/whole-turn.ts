@@ -142,6 +142,9 @@ export async function verifyWholeTurn(
   await learn();
   await expect(page.locator(".table .meld .tile")).toHaveCount(3);
   expect(await record()).toEqual(ready);
+  await expect(page.locator(".practice-restored")).toContainText(
+    t("Your saved practice is ready to finish. Choose End turn."),
+  );
   await activate(button("End turn →"));
   const complete = page.getByRole("heading", {
     name: t("Opening turn complete"),
@@ -163,6 +166,7 @@ export async function verifyWholeTurn(
     fullPage: true,
   });
   await activate(button("Try with fewer prompts"));
+  await expect(page.locator(".practice-restored")).toHaveCount(0);
   await expect(page.locator(".whole-turn-prompt")).toHaveCount(0);
   await expect(page.locator("[data-coach-target=true]")).toHaveCount(0);
   expect((await record()).mode).toBe("quiet");

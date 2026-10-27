@@ -89,7 +89,13 @@ export function turnLessonReady(
         ids(values).every((id) => m.tiles.includes(id)),
     );
   if (lesson === "rearrange") return has([0, 1, 2]) && has([3, 4, 5, 6]);
-  if (lesson === "joker") return has([3, 4, 5]) && has([104, 30, 56]);
+  if (lesson === "joker")
+    return [
+      [3, 4, 5],
+      [104, 30, 56],
+    ].every((values) =>
+      game.table.some((m) => ids(values).every((id) => m.tiles.includes(id))),
+    );
   if (lesson === "extend")
     return game.table.some((m) =>
       ids([0, 1, 2, 3, 4, 5]).every((id) => m.tiles.includes(id)),

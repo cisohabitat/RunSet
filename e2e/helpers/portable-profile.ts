@@ -24,12 +24,19 @@ export async function verifyPortableProfile(
   info: TestInfo,
   locale: "en" | "zh-CN",
 ) {
-  const t = locale === "en" ? (s: string) => s : translator(messages),
-    source = landscapePosition(),
+  let uiLocale = locale;
+  const chinese = translator(messages),
+    receivingLocale = locale === "en" ? "zh-CN" : "en";
+  const t = (s: string) => (uiLocale === "en" ? s : chinese(s)),
+    source = reducer(landscapePosition(), {
+      type: "move",
+      ids: [3, 4],
+      target: "new",
+    }),
     recipient = practiceGame("rearrange");
-  delete source.turnSeconds;
-  delete source.deadline;
   delete source.match;
+  source.players[0].name = "Opening";
+  recipient.players[0].name = "Current saved";
   const whole = freshTurnPractice("quiet", "你", "joker", 2).record;
   whole.actions = [
     { type: "move", ids: [turnLayoutId(4, 2)], target: "practice-wild" },
@@ -119,11 +126,8 @@ export async function verifyPortableProfile(
       page.getByRole("dialog", { name: t("Portable progress"), exact: true }),
     ).toBeVisible();
   };
-  const panel = page.getByRole("dialog", {
-    name: t("Portable progress"),
-    exact: true,
-  });
-  const input = panel.getByLabel(t("Open portable profile"), { exact: true });
+  const panel = page.locator(".profile-dialog");
+  const input = panel.locator('input[type="file"]');
   await page.goto("/");
   await expect(
     page.getByRole("status").filter({ hasText: t("Ready offline") }),
@@ -168,8 +172,9 @@ export async function verifyPortableProfile(
       localStorage.setItem("runset.contrast", "false");
       localStorage.setItem("runset.muted", "true");
     },
-    { recipient, locale, keys: [...profileKeys] },
+    { recipient, locale: receivingLocale, keys: [...profileKeys] },
   );
+  uiLocale = receivingLocale;
   await page.reload();
   await open();
   const loadFile = () =>
@@ -179,6 +184,30 @@ export async function verifyPortableProfile(
       buffer: Buffer.from(raw),
     });
   await loadFile();
+  const includeGameControl = () =>
+    panel.getByLabel(t("Also restore the game from this file"), {
+      exact: true,
+    });
+  await expect(includeGameControl()).not.toBeChecked();
+  const fileGame = panel.getByRole("region", {
+    name: t("Game in this file"),
+    exact: true,
+  });
+  await expect(fileGame.locator("strong")).toHaveText("Opening");
+  await expect(fileGame).toContainText(t("Original turn deadline"));
+  await expect(fileGame).toContainText(
+    t("Unfinished turn edits are included."),
+  );
+  await expect(
+    panel.getByRole("region", { name: t("Game on this device"), exact: true }),
+  ).toContainText("Current saved");
+  const beforeCancel = await snapshot();
+  await activate(panel.getByRole("button", { name: t("Done"), exact: true }));
+  expect(await snapshot()).toEqual(beforeCancel);
+  await open();
+  await loadFile();
+  await expect(includeGameControl()).not.toBeChecked();
+  await includeGameControl().check();
   const incoming = await snapshot();
   expect(JSON.parse((await saved())!)).toEqual(recipient);
   await expect(
@@ -252,8 +281,10 @@ export async function verifyPortableProfile(
       exact: true,
     }),
   );
+  uiLocale = locale;
   await expect(button("Portable progress")).toBeVisible();
   await expect(panel).not.toBeVisible();
+  await expect(page.locator("html")).toHaveAttribute("lang", locale);
   expect(JSON.parse((await saved())!)).toEqual(recipient);
   for (const [key, value] of Object.entries(profile.values))
     expect(await page.evaluate((key) => localStorage.getItem(key), key)).toBe(
@@ -262,6 +293,8 @@ export async function verifyPortableProfile(
   await expect(page.locator("html")).toHaveAttribute("data-contrast", "high");
   await open();
   await loadFile();
+  await expect(includeGameControl()).not.toBeChecked();
+  await includeGameControl().check();
   await activate(
     panel.getByRole("button", {
       name: t("Restore profile and reload"),
@@ -284,14 +317,22 @@ export async function verifyPortableProfile(
     page.getByText(t("Practice layout 3 of 4"), { exact: true }),
   ).toBeVisible();
   await expect(page.locator(".whole-turn-prompt")).toHaveCount(0);
+  await expect(page.locator(".practice-restored")).toHaveText(
+    `${t("Practice restored")} ${t("Your unfinished practice tiles were restored. Continue editing, Undo or Reset.")}`,
+  );
+  await activate(button("Show practice steps"));
+  await expect(page.locator(".practice-restored")).toBeVisible();
+  await activate(button("Hide practice steps"));
+
   await expect(
     page.locator(`.table [data-tile-id="${turnLayoutId(4, 2)}"]`),
   ).toBeVisible();
-  for (const id of [104, 30, 56])
+  for (const id of [104, 30, 56, 82])
     await activate(
       page.locator(`.game [data-tile-id="${turnLayoutId(id, 2)}"]`),
     );
   await activate(page.locator(".new-meld"));
+  await expect(page.locator(".practice-restored")).toHaveCount(0);
   await activate(button("End turn →"));
   await expect(
     page.getByRole("heading", {

@@ -25,6 +25,7 @@ export function useTileFeedback(
     root.current
       ?.querySelectorAll<HTMLElement>(".table .tile, .rack .tile")
       .forEach((el) => {
+        if (el.closest("dialog")) return;
         const id = Number(el.dataset.tileId),
           rect = el.getBoundingClientRect();
         const region = el.closest(".table, .rack")!.getBoundingClientRect();

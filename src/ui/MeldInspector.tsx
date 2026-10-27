@@ -1,17 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { useI18n } from "../i18n/I18n";
-import { inspectMeld } from "../engine/meld";
+import { type Meld, inspectMeld } from "../engine/meld";
 import { explainMeld } from "../engine/coaching";
 import { Tile } from "./Tile";
 import "./MeldInspector.css";
 export function MeldInspector({
   ids,
-  index,
+  index = 0,
   disabled,
+  selection = false,
+  source,
 }: {
   ids: number[];
-  index: number;
+  index?: number;
   disabled: boolean;
+  selection?: boolean;
+  source?: Meld[];
 }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
@@ -39,21 +43,34 @@ export function MeldInspector({
       }
     };
   }, [open]);
-  const info = open ? inspectMeld(ids) : null,
-    title = `meld-inspector-${index}`;
+  const info = open && !selection ? inspectMeld(ids) : null,
+    title = selection ? "selection-inspector" : `meld-inspector-${index}`,
+    countLabel = t(ids.length ? `${ids.length} selected` : "Select tiles");
   return (
     <>
       <button
         ref={opener}
-        className="text-button inspect-meld"
-        aria-label={`${t("Zoom")} · ${index + 1}`}
-        title={t("Look closer")}
+        className={
+          selection
+            ? "text-button selection-count inspect-selection"
+            : "text-button inspect-meld"
+        }
+        aria-label={
+          selection
+            ? `${t("Preview selected tiles")} · ${countLabel}`
+            : `${t("Zoom")} · ${index + 1}`
+        }
+        aria-haspopup="dialog"
+        aria-live={selection ? "polite" : undefined}
+        aria-atomic={selection || undefined}
+        aria-expanded={open}
+        title={t(selection ? "Preview selected tiles" : "Look closer")}
         disabled={disabled}
         onClick={() => setOpen(true)}
       >
-        {t("Zoom")}
+        {selection ? countLabel : t("Zoom")}
       </button>
-      {open && info && (
+      {open && (
         <dialog
           ref={dialog}
           className="hint-preview meld-inspector"
@@ -64,29 +81,42 @@ export function MeldInspector({
           }}
         >
           <h2 id={title}>
-            {t("Look closer")} · {index + 1}
+            {selection
+              ? t("Selected tiles")
+              : `${t("Look closer")} · ${index + 1}`}
           </h2>
           <div
             className="hint-preview-body"
             role="region"
-            aria-label={t("Table melds")}
+            aria-label={t(selection ? "Selected tiles" : "Table melds")}
             tabIndex={0}
           >
             <div className="tile-demo">
-              {info.ordered.map((id) => (
-                <Tile
-                  key={id}
-                  id={id}
-                  tabIndex={-1}
-                  represents={
-                    info.values[id]
-                      ? `${info.jokerColors[id]} ${info.values[id]}`
-                      : undefined
-                  }
-                />
-              ))}
+              {(info?.ordered ?? ids).map((id) => {
+                const owner = source?.find((m) => m.tiles.includes(id));
+                const detail =
+                  info ?? (owner ? inspectMeld(owner.tiles) : undefined);
+                return (
+                  <Tile
+                    key={id}
+                    id={id}
+                    tabIndex={-1}
+                    represents={
+                      detail?.values[id]
+                        ? `${detail.jokerColors[id]} ${detail.values[id]}`
+                        : undefined
+                    }
+                  />
+                );
+              })}
             </div>
-            <p>{t(explainMeld(ids))}</p>
+            <p>
+              {t(
+                selection
+                  ? "These are your selected tiles. Close this view, then choose where to place them."
+                  : explainMeld(ids),
+              )}
+            </p>
             <p>
               {t(
                 "Preview only. Your tiles and turn are unchanged. Timed games keep running.",

@@ -62,6 +62,17 @@ for (const locale of ["en", "zh-CN"] as const)
       .getByRole("button", { name: t("Continue game →"), exact: true })
       .click();
     await page.locator('.rack [data-tile-id="3"]').click();
+    await page
+      .getByRole("button", { name: new RegExp(t("Preview selected tiles")) })
+      .click();
+    await expect(
+      page
+        .getByRole("dialog", { name: t("Selected tiles"), exact: true })
+        .locator(".tile"),
+    ).toHaveCount(1);
+    await page
+      .getByRole("button", { name: t("Back to table"), exact: true })
+      .click();
     const first = page.getByRole("button", {
       name: `${t("Zoom")} · 1`,
       exact: true,

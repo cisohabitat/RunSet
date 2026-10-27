@@ -10,6 +10,7 @@ export default defineConfig({
     "e2e/session-comfort.spec.ts",
     "e2e/simple-home.spec.ts",
     "e2e/meld-inspector.spec.ts",
+    "e2e/touch-feedback.spec.ts",
   ],
   timeout: 60000,
   workers: 1,

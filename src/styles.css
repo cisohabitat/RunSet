@@ -343,7 +343,6 @@ input {
 .tile.selected {
   transform: translateY(-9px);
   outline: 2px solid #7b9670;
-  outline-offset: 2px;
   box-shadow: 0 8px 0 #d5dac9;
 }
 .tile[draggable="true"]:hover {
@@ -720,7 +719,6 @@ legend {
 .new-meld {
   border: 1px dashed #b0bda1;
   border-radius: var(--radius-control);
-  min-width: 140px;
   min-height: 103px;
   display: flex;
   flex-direction: column;
@@ -1653,9 +1651,6 @@ input {
 @media (max-width: 720px) {
   .site-header {
     height: 76px;
-  }
-  .header-right {
-    gap: var(--space-2);
   }
   .game {
     padding: 12px 12px 25px;
@@ -2709,7 +2704,6 @@ button:not(.tile) {
   }
   .practice-layout.playing > .practice-panel {
     width: calc(100% - 24px);
-    max-height: 29dvh;
     padding: 10px 14px;
     margin: 5px 12px;
   }

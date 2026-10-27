@@ -7,6 +7,7 @@
   gap: 4px;
 }
 .meld-actions > .meld-target {
+  align-items: center;
   flex: 1;
   min-width: 44px;
   width: auto;
@@ -43,4 +44,26 @@
 }
 .meld-inspector .dialog-actions button {
   font-size: 16px;
+}
+.game .turn-tools .inspect-selection {
+  min-height: 44px;
+  padding: 0 3px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.app.comfortable-reading .game .turn-tools .inspect-selection {
+  min-height: 48px;
+}
+.meld[data-placed-destination],
+.rack[data-placed-destination] {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.placement-announcement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

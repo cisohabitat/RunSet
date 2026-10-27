@@ -436,3 +436,9 @@ During your turn, Zoom beside a group/run opens a read-only magnifier with large
 tiles, joker values and a rule explanation. Long runs scroll inside the panel;
 Back to table and Escape preserve your draft and selection. Timed games keep
 their deadline. The regular board retains its compact tile sizes and row density.
+
+Tap the selected-tile count to inspect exactly what is selected before choosing a
+destination. A confirmed relocation briefly marks its destination and announces
+the actual moved count; opening progress and invalid-group warnings remain.
+Rejected regular moves retain selection for another attempt. No confirmation is
+shown merely because a move was requested, and no extra toolbar row is added.

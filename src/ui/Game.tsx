@@ -19,6 +19,7 @@ import { HintPreview } from "./HintPreview";
 import { ReadAloud } from "./ReadAloud";
 import { useTileFeedback } from "./useTileFeedback";
 import { sound } from "../lib/sound";
+import { placementFeedback } from "../lib/placementFeedback";
 export function Game({
   game: s,
   dispatch,
@@ -165,6 +166,43 @@ export function Game({
       });
   };
   const [selected, setSelected] = useState<number[]>([]);
+  const pendingPlacement = useRef<{
+    before: GameState;
+    ids: number[];
+    target: string;
+  } | null>(null);
+  const [placement, setPlacement] =
+    useState<ReturnType<typeof placementFeedback>>(null);
+  useEffect(() => {
+    const pending = pendingPlacement.current;
+    if (!pending) {
+      setPlacement(null);
+      return;
+    }
+    if (pending.before === s) return;
+    pendingPlacement.current = null;
+    const result = placementFeedback(
+      pending.before,
+      s,
+      pending.ids,
+      pending.target,
+    );
+    setPlacement(result);
+    if (
+      !result &&
+      pending.before.seed === s.seed &&
+      pending.before.turn === s.turn &&
+      pending.before.current === s.current
+    ) {
+      setSelected(pending.ids);
+      onSelectionChange?.(pending.ids);
+    }
+  }, [s, onSelectionChange]);
+  const placementMessage = placement
+    ? placement.group
+      ? `Placed ${placement.count} in group/run ${placement.index + 1}.`
+      : `Returned ${placement.count} to rack.`
+    : "";
   const p = s.players[s.current],
     human = s.players.find((x) => !x.bot)!,
     myTurn = !p.bot,
@@ -199,6 +237,8 @@ export function Game({
   const select = useCallback(
     (id: number) => {
       if (myTurn) {
+        pendingPlacement.current = null;
+        setPlacement(null);
         sound("select", muted);
         const next = selected.includes(id)
           ? selected.filter((v) => v !== id)
@@ -210,10 +250,16 @@ export function Game({
     [selected, myTurn, muted, onSelectionChange],
   );
   const dragTile = useCallback((id: number) => {
+    pendingPlacement.current = null;
+    setPlacement(null);
     setSelected((current) => (current.includes(id) ? current : [id]));
   }, []);
   const move = (target: string, ids = activeSelected) => {
     if (!myTurn) return;
+    setPlacement(null);
+    pendingPlacement.current = coaching
+      ? { before: s, ids: [...ids], target }
+      : null;
     dispatch({ type: "move", ids, target });
     setSelected([]);
     onSelectionChange?.([]);
@@ -227,6 +273,8 @@ export function Game({
     move(target, activeSelected.includes(id) ? activeSelected : [id]);
   };
   const act = (a: Action) => {
+    pendingPlacement.current = null;
+    setPlacement(null);
     setSelected([]);
     dispatch(a);
   };
@@ -537,6 +585,7 @@ export function Game({
             return (
               <div
                 key={m.id}
+                data-placed-destination={placement?.group === m.id || undefined}
                 data-invalid-label={t("Needs fixing")}
                 className={`meld ${info.valid ? "" : "invalid"}`}
                 onDragOver={(e) => e.preventDefault()}
@@ -583,16 +632,23 @@ export function Game({
                     className="meld-target"
                     disabled={!myTurn || !activeSelected.length}
                     onClick={() => move(m.id)}
+                    aria-description={
+                      activeSelected.length
+                        ? t(`Place ${activeSelected.length} selected`)
+                        : undefined
+                    }
                     aria-label={t(
                       `Add selected tiles to meld ${s.table.indexOf(m) + 1}`,
                     )}
                   >
                     {t(
-                      info.valid
-                        ? `${info.kind} · ${info.points} pts`
-                        : "Incomplete group or run",
+                      placement?.group === m.id
+                        ? `Placed ${placement.count}`
+                        : info.valid
+                          ? `${info.kind} · ${info.points} pts`
+                          : "Incomplete group or run",
                     )}{" "}
-                    <span>＋</span>
+                    <span>{placement?.group === m.id ? "✓" : "＋"}</span>
                   </button>
                   {coaching && (
                     <MeldInspector
@@ -678,6 +734,7 @@ export function Game({
       <div className="player-dock">
         <section
           id="player-rack"
+          data-placed-destination={placement?.group === null || undefined}
           hidden={tableView === "wide" && rackHidden}
           className={`rack ${expanded ? "expanded-rack" : ""}`}
           aria-label={t("Your rack")}
@@ -921,13 +978,22 @@ export function Game({
                 </details>
               </div>
             </details>
-            <span className="selection-count" role="status">
-              {t(
-                activeSelected.length
-                  ? `${activeSelected.length} selected`
-                  : "Select tiles",
-              )}
-            </span>
+            {coaching ? (
+              <MeldInspector
+                ids={activeSelected}
+                source={s.table}
+                selection
+                disabled={!myTurn || !activeSelected.length}
+              />
+            ) : (
+              <span className="selection-count" role="status">
+                {t(
+                  activeSelected.length
+                    ? `${activeSelected.length} selected`
+                    : "Select tiles",
+                )}
+              </span>
+            )}
           </div>
           <div className="primary-actions">
             {lessonAction ? (
@@ -981,6 +1047,9 @@ export function Game({
           }}
         />
       )}
+      <span className="placement-announcement" role="status">
+        {t(placementMessage)}
+      </span>
       {s.notice && (
         <p className="game-notice" role="status">
           {t(narrate ? narrateMove(s) : s.notice)}

@@ -2,6 +2,13 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Returned {n} to rack.": "已将 {n} 张牌放回手牌。",
+  "Placed {n} in group/run {r}.": "已将 {n} 张牌放到第 {r} 组。",
+  "Placed {n}": "已放置 {n} 张",
+  "These are your selected tiles. Close this view, then choose where to place them.":
+    "这些是已选中的牌。关闭此窗口后，再选择放牌的位置。",
+  "Selected tiles": "已选中的牌",
+  "Preview selected tiles": "查看已选中的牌",
   Zoom: "放大",
   "Look closer": "放大查看",
   "Loading…": "正在加载…",

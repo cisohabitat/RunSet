@@ -7,8 +7,8 @@ offline assets, tile sizes and default game rules. Multiplayer stays deferred.
 | Phase | Status | Deliverable |
 | --- | --- | --- |
 | 1. Simple home | Published; CI passed | Optional main choices with large buttons; secondary actions under More options. |
-| 2. Meld magnifier | Published; exact-commit CI gate | Read-only inspection of any group/run, including incomplete groups, at a readable size. |
-| 3. Clear touch feedback | Queued | Inspect selected tiles, see the destination and confirm an actual accepted placement clearly. |
+| 2. Meld magnifier | Published; CI passed | Read-only inspection of any group/run, including incomplete groups, at a readable size. |
+| 3. Clear touch feedback | Published; exact-commit CI gate | Inspect selected tiles, see the destination and confirm an actual accepted placement clearly. |
 | 4. Caregiver setup guide | Queued | A short English/Chinese walkthrough of language, reading size, contrast, sound and pace. |
 | 5. Human validation | Paused | Physical iPhone/iPad sessions, older Mandarin-speaking players and native listening review. |
 
@@ -77,3 +77,33 @@ padding restored every original row-count assertion. No tile size or geometry
 check was weakened. The initial bundle is 99,995 gzipped bytes under the unchanged
 100,000-byte limit. The complete gate has 273 Chromium, 153 compatibility and
 19 offline cases plus planner benchmark smoke.
+
+Phase 2 f7d4419 passed full CI 40484343132 before Phase 3 began. Its Vercel build
+remained queued at that gate; no live acceptance is claimed for that queued build.
+Detailed deployment status was unavailable to the connection (403); basic listing
+and public-site checks remain available. Do not bypass the scoped API denial.
+
+Phase 3 replaces the selected-count text with an optional read-only tile preview.
+It does not judge mixed selections as complete melds. Accepted relocation is
+confirmed from actual before/after tile locations, with a brief footer mark and
+screen-reader announcement. Opening progress, error text and board space remain.
+Rejected regular moves restore the selection; practice keeps its teaching flow.
+
+Phase 2 subsequently became READY on Vercel; all six exact-release live
+magnifier/offline flows passed before Phase 3 publication. Phase 3 adds four
+observed-placement unit cases and count/destination translation coverage. A
+synchronized remote edit clears stale marks; rejected moves keep selection.
+Four earlier CSS declarations identical to later declarations in the same
+selector/media context were removed to retain the unchanged initial size limit.
+
+Phase 3 local verification passed 129 unit tests, bilingual touch and magnifier
+journeys, all 23 phone/iPad density cases and production WebKit/Firefox coverage.
+The selected preview also works on its first offline visit in the shared
+magnifier journeys. A synchronized remote edit clears feedback before the next
+move. Rejected moves retain selection and show the engine's own explanation.
+
+Final source checks passed the targeted smallest-device geometry cases and all
+six touch-feedback compatibility flows. Screenshots were inspected in both
+languages/themes. Four provably overridden identical CSS declarations were
+removed; initial HTML/CSS/JS remains 99,985 gzipped bytes under 100,000. Full CI
+now has 275 Chromium, 159 compatibility and 19 offline cases plus the benchmark.

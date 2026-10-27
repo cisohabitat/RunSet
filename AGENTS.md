@@ -523,3 +523,11 @@ shrink-wrapped tile cards or add a row. Preserve strict phone/iPad row counts,
 >=44 px controls, modal scroll/close bounds, focus, selection and saves. Timed
 turn replacement closes the old inspection. Long-run coverage must reach the
 last tile while the close control remains hit-testable.
+
+placementFeedback observes actual before/after physical tile locations within the
+same human turn. Never acknowledge a request, no-op, rejected move or expired
+turn as placement. Count newly relocated tiles only, not tiles already in the
+destination. Keep feedback ephemeral and separate from lastPlaced and opening
+progress. Preserve regular selection after rejection and existing teaching flows.
+The selected-count control opens a neutral read-only preview, not a meld-validity
+judgment; retain source joker values. Animation scans exclude dialog clones.

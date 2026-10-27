@@ -2,6 +2,9 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Higher contrast": "加强对比度",
+  "Stronger text, tile colours and borders. Tile sizes and your game stay the same.":
+    "文字、牌色和边框更清晰，牌的大小和牌局都保持原样。",
   "Try quick practice": "做个小练习",
   "Try suggested exercise": "试试这个练习",
   "Chosen from your saved round and local exercise record. Starting this practice keeps your regular game.":

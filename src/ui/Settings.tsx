@@ -3,6 +3,8 @@ import { useI18n } from "../i18n/I18n";
 export default function Settings({
   reading,
   setReading,
+  contrast,
+  setContrast,
   touch,
   setTouch,
   muted,
@@ -18,6 +20,8 @@ export default function Settings({
 }: {
   reading: boolean;
   setReading: (value: boolean) => void;
+  contrast: boolean;
+  setContrast: (value: boolean) => void;
   touch: boolean;
   setTouch: (value: boolean) => void;
   muted: boolean;
@@ -74,6 +78,19 @@ export default function Settings({
         <p>
           {t(
             "Larger text, tiles and buttons. Pages scroll so you can read and play at your own pace.",
+          )}
+        </p>
+        <label>
+          <input
+            type="checkbox"
+            checked={contrast}
+            onChange={(e) => setContrast(e.target.checked)}
+          />
+          {t("Higher contrast")}
+        </label>
+        <p>
+          {t(
+            "Stronger text, tile colours and borders. Tile sizes and your game stay the same.",
           )}
         </p>
         {!reading && (

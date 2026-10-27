@@ -8,8 +8,8 @@ paused. Multiplayer remains deferred.
 | --- | --- | --- |
 | 1. Cross-browser coverage | Published; CI passed | Production WebKit phone/tablet and Firefox desktop: touch/mouse moves, Undo, reload, view changes, real narration, offline assets. |
 | 2. Review the last move | Published; CI passed | Read-only tile destinations from the latest completed play, with explicit limits for older saves. |
-| 3. Targeted practice | Implemented; CI gate pending | Optional suggestions based on completed exercise kinds and final rack facts. |
-| 4. Display choices | Queued | Optional high-contrast palette and landscape-phone checks. |
+| 3. Targeted practice | Published; CI passed | Optional suggestions based on completed exercise kinds and final rack facts. |
+| 4. Display choices | Implemented; CI gate pending | Optional high-contrast palette and landscape-phone checks. |
 | 5. Longer-session comfort | Queued | Clear break/resume context and opponent pacing, preserving timer semantics. |
 
 Phase 1 uses Playwright WebKit on Linux, not physical Safari/iOS. Firefox runs
@@ -57,3 +57,18 @@ Phase 3 local checks passed strict TypeScript, 124 unit tests, seven Chromium
 flows and production build at 99,491 initial gzipped bytes. Phone screenshots
 were inspected in English/light and Chinese/dark. Compatibility checks reuse
 the same recommendation flows rather than a second implementation.
+
+Phase 3 e2d07a5 passed CI 40463428227 and all 21 live suggestion flows before
+Phase 4 began. Phase 4 adds a separate runset.contrast preference with light/dark
+palettes. It changes colours and boundaries, preserving shapes, tile dimensions,
+current selection, saved positions and comfortable reading.
+
+Phase 4 local checks passed strict TypeScript, all 124 unit tests and the
+production bundle at 99,736 initial gzipped bytes. Thirteen new Chromium flows
+measure tile text at >=7:1, check both themes/languages, iPad landscape and short phone landscape,
+scan incomplete melds with Axe, and verify selection, dimensions, reload,
+delete retention and comfortable reading. WebKit/Firefox reuse these flows.
+
+All 39 new production WebKit/Firefox contrast flows passed locally. Phone and
+iPad landscape screenshots were inspected in both themes. The complete CI gate
+now includes 256 Chromium cases, 96 compatibility cases and 19 offline cases.

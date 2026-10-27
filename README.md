@@ -405,3 +405,7 @@ Results can review the final play too; intermediate rearrangement order is not r
 Quick exercises can suggest an optional goal from the saved final rack or local
 completion record, explaining why. Existing exercise drafts remain open; results
 now link directly to practice. Suggestions do not change regular saves.
+
+Settings → Higher contrast strengthens text, tile colours and borders in both
+light and dark themes. It is independent of comfortable reading and tile sizes,
+keeps selections/drafts, and remains enabled after deleting a game.

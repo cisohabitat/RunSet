@@ -482,3 +482,8 @@ Practice suggestions use only validated final-rack facts and completed kinds,
 never an inferred skill rating. Prioritize an unopened final rack before joker
 practice. Offer suggestions only without an active exercise draft; starting and
 checking remain explicit. Read regular saves without changing storage write guards.
+
+runset.contrast is an independent optional preference. Apply its palette at the
+document root so dialogs and recovery inherit it, without remounting play. Keep
+colour families/shape marks, physical tile sizes, focus and saves intact. Verify
+both themes/languages, comfortable reading and short landscape phone targets.

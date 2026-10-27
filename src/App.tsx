@@ -100,6 +100,25 @@ export default function App() {
       /* Optional view preference. */
     }
   }, [reading]);
+  const [contrast, setContrast] = useState(() => {
+    try {
+      return localStorage.getItem("runset.contrast") === "true";
+    } catch {
+      return false;
+    }
+  });
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.contrast = contrast ? "high" : "";
+    try {
+      localStorage.setItem("runset.contrast", String(contrast));
+    } catch {
+      /* Optional view preference. */
+    }
+    return () => {
+      delete root.dataset.contrast;
+    };
+  }, [contrast]);
   const [learning, setLearning] = useState(() => {
     try {
       return localStorage.getItem("runset.learning") !== "false";
@@ -492,6 +511,8 @@ export default function App() {
             <Settings
               reading={reading}
               setReading={setReading}
+              contrast={contrast}
+              setContrast={setContrast}
               touch={touch}
               setTouch={setTouch}
               muted={muted}

@@ -56,3 +56,37 @@
     color-scheme: dark;
   }
 }
+
+/* Optional palette. Keep number/shape cues and device tile dimensions. */
+:root[data-contrast="high"] {
+  --paper: #fff;
+  --ink: #102018;
+  --muted: #344238;
+  --line: #59685d;
+  --control-line: #344238;
+  --green: #285e42;
+  --accent: #153d2b;
+  --soft: #edf3ee;
+  --card: #fff;
+  --red: #8b241c;
+  --focus: #713a00;
+  --tile-red: #9b1f1f;
+  --tile-blue: #164f77;
+  --tile-orange: #7b4300;
+  --tile-black: #101c15;
+  --tile-joker: #374719;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-contrast="high"] {
+    --paper: #08140e;
+    --ink: #fff;
+    --muted: #e0ede4;
+    --line: #a0b5a7;
+    --control-line: #e0ede4;
+    --green: #24452e;
+    --accent: #bfe8cb;
+    --soft: #172a1e;
+    --red: #ffbdac;
+    --focus: #ffda75;
+  }
+}

@@ -94,6 +94,7 @@ export function Setup({
                     type="button"
                     className={difficulty === d ? "choice active" : "choice"}
                     aria-pressed={difficulty === d}
+                    aria-describedby="difficulty-advice"
                     key={d}
                     onClick={() => setDifficulty(d)}
                   >
@@ -106,14 +107,65 @@ export function Setup({
                       {t(
                         [
                           "New melds only. Room to learn.",
-                          "Clever sets and well-timed additions.",
-                          "Rearranges the table. Bring your best.",
+                          "New melds and additions. Practise connecting tiles.",
+                          "Also tries rebuilding the table. Take your time.",
                         ][i],
                       )}
                     </span>
                   </button>
                 ))}
               </div>
+              <p
+                id="difficulty-advice"
+                className="difficulty-advice"
+                role="status"
+              >
+                {t(
+                  difficulty === "easy"
+                    ? "Start here to learn groups and runs. Easy makes new melds and leaves existing table melds alone."
+                    : difficulty === "normal"
+                      ? "Try this when you want to practise adding tiles to existing groups and runs. Normal leaves their structure intact."
+                      : "Try this when table rearrangements feel familiar. Hard also searches for ways to rebuild the table; a move is not guaranteed every turn.",
+                )}
+              </p>
+              <details className="difficulty-guide">
+                <summary>{t("Compare the opponents")}</summary>
+                <table>
+                  <caption>{t("Moves after the 30-point opening")}</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">{t("Opponent")}</th>
+                      <th scope="col">{t("New melds")}</th>
+                      <th scope="col">{t("Add tiles")}</th>
+                      <th scope="col">{t("Rebuild table")}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(["easy", "normal", "hard"] as const).map((d) => (
+                      <tr key={d}>
+                        <th scope="row">{t(d)}</th>
+                        {[true, d !== "easy", d === "hard"].map((yes, i) => (
+                          <td key={i}>
+                            <span aria-label={t(yes ? "Yes" : "No")}>
+                              {yes ? "✓" : "—"}
+                            </span>
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p>
+                  {t(
+                    "All opponents follow the same rules and cannot see your rack. Hints can help with table rearrangements on every difficulty.",
+                  )}
+                </p>
+                <p>
+                  {t(
+                    "Normal and Hard can find the same move. Choose the style you enjoy; you can change it when starting a fresh game.",
+                  )}
+                </p>
+              </details>
             </fieldset>
             <fieldset>
               <legend>{t("How long would you like to play?")}</legend>

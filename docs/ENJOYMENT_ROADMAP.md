@@ -8,8 +8,8 @@ older-player studies and native Mandarin listening remain paused.
 | Phase | Status | Deliverable |
 | --- | --- | --- |
 | 1. Clearer turn guidance | Published, CI passed | Named turn owner, correct multi-opponent wait guidance, on-demand next action and last completed turn. |
-| 2. More helpful hints | Implemented, CI pending | Non-mutating board preview, destination and rule explanations, explicit placement. |
-| 3. Friendlier difficulty | Queued | Capability comparison and clear learning guidance, preserving audited strategies. |
+| 2. More helpful hints | Published, CI passed | Non-mutating board preview, destination and rule explanations, explicit placement. |
+| 3. Friendlier difficulty | Implemented, CI pending | Capability comparison and clear learning guidance, preserving audited strategies. |
 | 4. Better game endings | Queued | Visual scoring and one evidence-based learning takeaway, clear replay choices. |
 | 5. Daily gentle practice | Queued | Optional date-based puzzle and graduated clues without streak pressure. |
 | 6. Final polish and release audit | Queued | Complete journeys, responsive visuals, audio/loading/recovery and final fixes. |
@@ -33,3 +33,14 @@ checks and inspected phone screenshots. The configured browser total is 208;
 a first-use offline preview brings production-offline coverage to 18 flows.
 The preview scroll region is keyboard-focusable; native modal focus returns to
 the opener. These automated checks do not replace physical Safari testing.
+
+Phase 2 b7552a9 passed CI 40450397253, all 18 offline flows and all five
+production preview checks before Phase 3 began. Phase 3 adds an explicit
+post-opening capability matrix, live selected-style learning advice and honest
+Normal/Hard overlap guidance. Audited bot strategy/budgets and gentle defaults
+remain unchanged; no new strength ranking is inferred.
+
+Phase 3 local verification passed 114 unit tests and eight setup/returning-player
+flows across phone, iPad and desktop. Two new bilingual comparison flows include
+Axe checks, saved-game isolation and explicit gentle-default replacement (210
+configured browser flows). Phone screenshots were inspected in both themes.

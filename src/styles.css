@@ -4350,3 +4350,13 @@ button:not(.tile) {
 .preview-meld .tile-demo { flex-wrap: wrap; padding: 6px; }
 .app.comfortable-reading .hint-preview :is(p, li) { font-size: 18px; }
 @media (max-width: 720px) { .hint-actions button { padding-inline: 8px; } }
+
+.difficulty-advice, .difficulty-guide p { font-size: 16px; line-height: 1.6; margin-top: 12px; }
+.difficulty-guide { margin-top: 16px; }
+.difficulty-guide table { width: 100%; table-layout: fixed; border-collapse: collapse; margin-block: 12px; }
+.difficulty-guide caption { text-align: left; padding-block: 10px; }
+.difficulty-guide th, .difficulty-guide td { padding: 10px 3px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; font-size: 14px; }
+.difficulty-guide td { text-align: center; }
+.app.comfortable-reading .difficulty-guide :is(th,td) { font-size: 16px; }
+
+.difficulty-guide tr > :first-child { width: 32%; }

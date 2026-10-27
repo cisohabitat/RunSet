@@ -2,6 +2,26 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "New melds and additions. Practise connecting tiles.": "会新建牌组，也会接牌。一起练习接牌。",
+  "Also tries rebuilding the table. Take your time.": "还会尝试重组牌桌，慢慢想就好。",
+  "Normal and Hard can find the same move. Choose the style you enjoy; you can change it when starting a fresh game.":
+    "普通和高手有时会找到相同出法。选你喜欢的风格就好，开始新牌局时可以更换。",
+  "All opponents follow the same rules and cannot see your rack. Hints can help with table rearrangements on every difficulty.":
+    "所有电脑都遵守相同规则，也看不到你的手牌。无论选哪种难度，提示都能帮你寻找重组牌桌的出法。",
+  No: "不会",
+  Yes: "会",
+  "Rebuild table": "重组牌桌",
+  "Add tiles": "接牌",
+  "New melds": "新建牌组",
+  Opponent: "电脑",
+  "Moves after the 30-point opening": "完成 30 分开局后的出法",
+  "Compare the opponents": "比较电脑的出法",
+  "Try this when table rearrangements feel familiar. Hard also searches for ways to rebuild the table; a move is not guaranteed every turn.":
+    "熟悉重组牌桌后，可以试试高手。高手还会尝试拆开重组牌组，但并非每回合都能找到出法。",
+  "Try this when you want to practise adding tiles to existing groups and runs. Normal leaves their structure intact.":
+    "想练习往已有同数组或顺子接牌时，可以选普通。普通电脑会接牌，但不拆开重组已有牌组。",
+  "Start here to learn groups and runs. Easy makes new melds and leaves existing table melds alone.":
+    "从这里开始，先熟悉同数组和顺子。简单电脑只新建牌组，不改动桌上已有的牌组。",
   "Proposed table": "建议摆法",
   "Back to table": "返回牌桌",
   "This hint no longer fits the current table. Close the preview and request another hint.":

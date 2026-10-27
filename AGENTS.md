@@ -434,3 +434,8 @@ HintPreview must validate a hypothetical applyPlan through the reducer, preserve
 the live draft/save/history on open/close and restore modal opener focus. Never
 reuse live tile DOM IDs in the preview. State/timer changes invalidate previews;
 only explicit Place hint may apply the plan, and End turn stays separate.
+
+Difficulty advice must match audited capabilities after opening: Easy new melds,
+Normal extensions, Hard additional repartition search. Preserve one-Easy/no-timer
+defaults and typed setup options. Changing a setup choice never mutates a saved
+game. Do not imply deterministic wins or hidden-rack access.

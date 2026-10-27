@@ -110,6 +110,7 @@ describe("Simplified Chinese presentation", () => {
 });
 
 it("translates observed placement counts and destinations without losing numbers", () => {
+  expect(t("Tile position 2 of 50.")).toBe("第 2 张，共 50 张。");
   expect(t("1 tile")).toBe("1张牌");
   expect(t("3 tiles")).toBe("3张牌");
   expect(t("Placed 2")).toBe("已放置 2 张");

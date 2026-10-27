@@ -4,7 +4,7 @@ concurrency:
   group: runset-ci-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  check:
+  quality:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -18,6 +18,29 @@ jobs:
       - run: npm test
       - run: npm run build
 
+      - run: npm run benchmark -- --seeds=1 --budget=20 --out=test-results/benchmark-smoke.json
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: quality-failure-details
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+  browsers:
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [chromium, compatibility, offline]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
       - name: Use Ubuntu HTTPS package mirror
         run: |
           for apt_source in /etc/apt/sources.list /etc/apt/sources.list.d/*.list /etc/apt/sources.list.d/*.sources /etc/apt/apt-mirrors.txt /etc/apt/apt-security-mirrors.txt; do
@@ -33,17 +56,30 @@ jobs:
           pulseaudio --start --exit-idle-time=-1
           pactl load-module module-null-sink sink_name=runset
           pactl set-default-sink runset
-      - run: npm run test:e2e
-      - run: npx playwright test --config=playwright.compat.config.ts
-      - run: npx playwright test --config=playwright.offline.config.ts
+      - run: npm run build
+      - if: matrix.suite == 'chromium'
+        run: npm run test:e2e
+      - if: matrix.suite == 'compatibility'
+        run: npx playwright test --config=playwright.compat.config.ts
+      - if: matrix.suite == 'offline'
+        run: npx playwright test --config=playwright.offline.config.ts
         timeout-minutes: 5
-      - run: npm run benchmark -- --seeds=1 --budget=20 --out=test-results/benchmark-smoke.json
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: browser-failure-details
+          name: browser-failure-${{ matrix.suite }}
           path: |
             playwright-report/
             test-results/
           if-no-files-found: ignore
           retention-days: 7
+  check:
+    if: always()
+    needs: [quality, browsers]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Require every quality and browser job
+        run: |
+          test "${{ needs.quality.result }}" = success
+          test "${{ needs.browsers.result }}" = success

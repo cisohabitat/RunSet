@@ -2,6 +2,17 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Arrange rack": "整理手牌",
+  "Rack order preview": "手牌顺序预览",
+  "Choose one tile, then move it left or right. This changes your rack display only.":
+    "先选一张牌，再向左或向右移动。这只会改变手牌的显示顺序。",
+  "Move left": "向左移",
+  "Move right": "向右移",
+  "Keep order": "保留顺序",
+  "Tile position {n} of {r}.": "第 {n} 张，共 {r} 张。",
+  "Rack order remembered.": "已记住手牌顺序。",
+  "Rack order changed for this view, but could not be remembered on this device.":
+    "当前手牌顺序已改变，但无法在此设备上保存。",
   "Set up together": "一起设置",
   "Take a moment together, then choose what feels comfortable. Each choice is optional.":
     "一起花点时间试试，选择用起来舒服的设置。每一项都可以按自己的喜好选择。",

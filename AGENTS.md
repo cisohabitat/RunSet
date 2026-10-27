@@ -549,3 +549,21 @@ Test first offline Settings/Chinese use, selection/save preservation and reload.
 Language-download errors must remain readable inside the open Settings guide;
 expose the existing I18n error state rather than replacing or retrying a game.
 Final release evidence is docs/INDEPENDENT_PLAY_RELEASE.md.
+
+Track the tile-handling cycle in docs/TILE_HANDLING_ROADMAP.md. runset.rackOrder.v1
+is a validated bounded display projection keyed by round seed, separate from game
+saves/snapshots. Preserve all current physical IDs and append new ones. Regular
+manual order survives Undo/Reset; automatic modes include future draws. Practice
+ignores it. Arrangement drafts are keyed by seed/turn/seat/rack membership so a
+stale panel cannot commit an obsolete rack. Keep native modal focus and Cancel.
+
+CI browser suites run as separate matrix jobs after quality/benchmark checks.
+Retain all suites, dependency/audio installation, HTTPS mirror fixes, twenty-minute
+job limits, five-minute offline limit and unique failure artifacts. Acceptance
+requires the complete exact-commit workflow, not only the quality job.
+New-meld touch handling accounts for WebKit scrolling a focused button away before
+its compatibility click. useTouchClick acts only after a completed in-bounds tap,
+filters movement/cancellation and suppresses a duplicate native touch click.
+Retain normal mouse/keyboard behavior and the genuine touch cancellation test.
+The existing CI check job is the aggregate of quality and every browser matrix
+job; keep its name and require all dependencies, including failure/skipped cases.

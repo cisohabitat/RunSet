@@ -20,6 +20,10 @@ import { ReadAloud } from "./ReadAloud";
 import { useTileFeedback } from "./useTileFeedback";
 import { sound } from "../lib/sound";
 import { placementFeedback } from "../lib/placementFeedback";
+import { orderedRack } from "../lib/rackOrder";
+import { useRackOrder } from "./useRackOrder";
+import { RackOrganizer } from "./RackOrganizer";
+import { useTouchClick } from "./useTouchClick";
 export function Game({
   game: s,
   dispatch,
@@ -212,6 +216,22 @@ export function Game({
     (id) =>
       human.rack.includes(id) || s.table.some((m) => m.tiles.includes(id)),
   );
+  const [rackOrder, rememberRackOrder] = useRackOrder();
+  const [orderNotice, setOrderNotice] = useState("");
+  const displayRack = coaching
+    ? orderedRack(human.rack, rackOrder, s.seed)
+    : human.rack;
+  const saveOrder = (
+    mode: "manual" | "color" | "number",
+    ids: number[] = [],
+  ) => {
+    const saved = rememberRackOrder({ seed: s.seed, mode, ids });
+    setOrderNotice(
+      saved
+        ? "Rack order remembered."
+        : "Rack order changed for this view, but could not be remembered on this device.",
+    );
+  };
   const selectionKey = activeSelected.join(",");
   useTileFeedback(
     feedbackRoot,
@@ -264,6 +284,7 @@ export function Game({
     setSelected([]);
     onSelectionChange?.([]);
   };
+  const newMeldTouch = useTouchClick(() => move("new"));
   const drop = (e: React.DragEvent, target: string) => {
     e.preventDefault();
     const raw = e.dataTransfer.getData("text/plain");
@@ -668,7 +689,7 @@ export function Game({
             }
             className="new-meld"
             disabled={!myTurn}
-            onClick={() => move("new")}
+            {...newMeldTouch}
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => drop(e, "new")}
           >
@@ -760,13 +781,19 @@ export function Game({
               <span>{t("Sort")}</span>
               <button
                 disabled={!myTurn}
-                onClick={() => act({ type: "sortRack", by: "color" })}
+                onClick={() => {
+                  if (coaching) saveOrder("color");
+                  act({ type: "sortRack", by: "color" });
+                }}
               >
                 {t("Colour")}
               </button>
               <button
                 disabled={!myTurn}
-                onClick={() => act({ type: "sortRack", by: "number" })}
+                onClick={() => {
+                  if (coaching) saveOrder("number");
+                  act({ type: "sortRack", by: "number" });
+                }}
               >
                 {t("Number")}
               </button>
@@ -778,7 +805,7 @@ export function Game({
             role="group"
             aria-label={t("Your tiles. Use left and right arrows to navigate.")}
           >
-            {human.rack.map((id) => (
+            {displayRack.map((id) => (
               <Tile
                 key={id}
                 id={id}
@@ -787,7 +814,7 @@ export function Game({
                     ? focused === id
                       ? 0
                       : -1
-                    : human.rack[0] === id
+                    : displayRack[0] === id
                       ? 0
                       : -1
                 }
@@ -926,25 +953,47 @@ export function Game({
                   </details>
                 )}
                 <div
-                  className="focused-rack-options"
+                  className={
+                    coaching ? "rack-order-options" : "focused-rack-options"
+                  }
                   role="group"
                   aria-label={t("Sort")}
                 >
                   <button
                     className="text-button"
                     disabled={!myTurn}
-                    onClick={() => act({ type: "sortRack", by: "color" })}
+                    onClick={() => {
+                      if (coaching) saveOrder("color");
+                      act({ type: "sortRack", by: "color" });
+                    }}
                   >
                     {t("Colour")}
                   </button>
                   <button
                     className="text-button"
                     disabled={!myTurn}
-                    onClick={() => act({ type: "sortRack", by: "number" })}
+                    onClick={() => {
+                      if (coaching) saveOrder("number");
+                      act({ type: "sortRack", by: "number" });
+                    }}
                   >
                     {t("Number")}
                   </button>
                 </div>
+                {coaching && (
+                  <RackOrganizer
+                    key={[
+                      s.seed,
+                      s.turn,
+                      s.current,
+                      [...human.rack].sort((a, b) => a - b).join(","),
+                    ].join("|")}
+                    ids={displayRack}
+                    disabled={!myTurn}
+                    onKeep={(ids) => saveOrder("manual", ids)}
+                  />
+                )}
+                {orderNotice && <p>{t(orderNotice)}</p>}
                 <button
                   className="text-button"
                   disabled={!myTurn || !activeSelected.length}
@@ -1047,6 +1096,9 @@ export function Game({
           }}
         />
       )}
+      <span className="placement-announcement" role="status">
+        {t(orderNotice)}
+      </span>
       <span className="placement-announcement" role="status">
         {t(placementMessage)}
       </span>

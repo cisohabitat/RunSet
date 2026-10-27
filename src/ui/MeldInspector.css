@@ -42,7 +42,8 @@
 .app.playing > .game .meld-inspector[open] .tile-foot {
   font-size: 10px;
 }
-.meld-inspector .dialog-actions button {
+.meld-inspector .dialog-actions button,
+.rack-organizer .settings-heading button {
   font-size: 16px;
 }
 .game .turn-tools .inspect-selection {
@@ -86,4 +87,17 @@
   .app.comfortable-reading .game .turn-tools .inspect-selection {
     line-height: 1.25;
   }
+}
+
+.rack-organizer .dialog-actions {
+  flex-wrap: wrap;
+}
+.rack-organizer .dialog-actions button {
+  min-height: 48px;
+}
+
+.rack-order-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }

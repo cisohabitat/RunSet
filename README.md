@@ -454,3 +454,13 @@ remain optional; opening the guide keeps the current game and timer deadline.
 
 [Independent-play release evidence](docs/INDEPENDENT_PLAY_RELEASE.md) records
 phase CI, responsive/offline checks and the paused human acceptance work.
+
+The next active cycle is [easier tile handling](docs/TILE_HANDLING_ROADMAP.md).
+During your turn, More → Arrange rack lets you choose a tile and move it left or
+right, then Keep order. Cancel keeps the previous display. This optional order
+is separate from saved tile positions and survives Undo/Reset and reload for the
+same round. Newly drawn tiles append; Colour/Number return to automatic sorting.
+Practice retains its own order. The panel does not pause timed games.
+
+CI runs its complete browser suites in parallel jobs after quality checks. Wait
+for the whole exact-commit workflow before treating a phase as accepted.

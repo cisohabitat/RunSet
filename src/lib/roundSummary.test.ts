@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import { newGame, reducer, results } from "../engine/game";
 import { fixture } from "../engine/test-helpers";
-import { roundSummary } from "./roundSummary";
+import { roundSummary, learningTakeaway } from "./roundSummary";
 import { settingsForGame } from "./gameSettings";
 import { translator } from "../i18n/translate";
 import messages from "../i18n/zh-CN";
@@ -106,4 +106,24 @@ it("preserves absent coaching and untimed single-round options as disabled", () 
     turnSeconds: 0,
     coach: false,
   });
+});
+
+it("keeps takeaways tied to final rack facts, translated and non-mutating", () => {
+  const t = translator(messages);
+  for (const [rack, opened, expected] of [
+    [[], true, "emptied"],
+    [[104, 12], true, "joker"],
+    [[12], false, "opening"],
+    [[0, 12], true, "13"],
+  ] as const) {
+    const s = fixture([...rack], [], opened),
+      before = JSON.stringify(s);
+    const takeaway = learningTakeaway(s);
+    expect(takeaway.message).toContain(expected);
+    expect(t(takeaway.message)).not.toMatch(/[a-z]/i);
+    expect(
+      takeaway.ids.every((id) => s.players[s.current].rack.includes(id)),
+    ).toBe(true);
+    expect(JSON.stringify(s)).toBe(before);
+  }
 });

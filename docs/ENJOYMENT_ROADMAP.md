@@ -9,8 +9,8 @@ older-player studies and native Mandarin listening remain paused.
 | --- | --- | --- |
 | 1. Clearer turn guidance | Published, CI passed | Named turn owner, correct multi-opponent wait guidance, on-demand next action and last completed turn. |
 | 2. More helpful hints | Published, CI passed | Non-mutating board preview, destination and rule explanations, explicit placement. |
-| 3. Friendlier difficulty | Implemented, CI pending | Capability comparison and clear learning guidance, preserving audited strategies. |
-| 4. Better game endings | Queued | Visual scoring and one evidence-based learning takeaway, clear replay choices. |
+| 3. Friendlier difficulty | Published, CI passed | Capability comparison and clear learning guidance, preserving audited strategies. |
+| 4. Better game endings | Implemented, CI pending | Visual scoring and one evidence-based learning takeaway, clear replay choices. |
 | 5. Daily gentle practice | Queued | Optional date-based puzzle and graduated clues without streak pressure. |
 | 6. Final polish and release audit | Queued | Complete journeys, responsive visuals, audio/loading/recovery and final fixes. |
 
@@ -44,3 +44,17 @@ Phase 3 local verification passed 114 unit tests and eight setup/returning-playe
 flows across phone, iPad and desktop. Two new bilingual comparison flows include
 Axe checks, saved-game isolation and explicit gentle-default replacement (210
 configured browser flows). Phone screenshots were inspected in both themes.
+
+Phase 3 a805467 passed CI 40451414979 before Phase 4 began. Vercel reported its
+production deployment queued; the live domain still served Phase 2. Build-log
+inspection returned a team-scope 403, so no live Phase 3 success is claimed.
+GitHub publication and local checks remain complete.
+
+Phase 4 compares final rack values using labelled meters and explicit rack →
+round-score values. One takeaway uses only final-rack facts, never guessed missed
+moves. Existing engine scoring and replay/settings actions remain authoritative.
+
+Phase 4 local verification: 115 unit tests, thirteen results/replay browser flows,
+four new bilingual score/takeaway Axe flows and inspected light/dark phone views.
+The configured browser total is 214. Tests preserve final saves and match/replay
+semantics, including actual joker arithmetic and blocked-pool ties.

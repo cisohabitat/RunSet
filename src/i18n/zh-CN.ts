@@ -2,8 +2,26 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
-  "New melds and additions. Practise connecting tiles.": "会新建牌组，也会接牌。一起练习接牌。",
-  "Also tries rebuilding the table. Take your time.": "还会尝试重组牌桌，慢慢想就好。",
+  "No need to rush. Choose Change settings for a gentler opponent, or play again when you feel ready.":
+    "不着急。想轻松一点，可以点“更改设置”换个电脑难度；准备好后也可以再玩一局。",
+  "One thing to take with you": "记住一个小窍门",
+  "{name}: remaining rack value": "{name}：剩余牌分",
+  "Bars compare remaining rack values. A shorter bar means fewer points left in that rack.":
+    "横条比较每人剩余的牌分。越短，表示手中剩下的牌分越少。",
+  "Rack total \u2192 round score": "剩余牌分 → 本局得分",
+  "Scoring at a glance": "一眼看懂计分",
+  "Your highest remaining number tile is {n}. Each number counts as its face value. Try a quick exercise to practise finding a place for your tiles.":
+    "你剩下的数字牌中，最大的是 {n}。数字牌按牌面计分。可以做个小练习，练习为手牌找位置。",
+  "Your opening is still ahead of you. Practise making 30 points from your own rack; you can combine more than one group or run.":
+    "你还没有完成开局。可以先练习用自己的手牌凑满 30 分，同数组和顺子可以一起算分。",
+  "A joker remains in your rack. It counts as 30 points at the end. In your next game, look for a legal group or run where it can help.":
+    "你的手中还有万能牌，结束时每张计 30 分。下次可以留意，哪里能把它合法用在同数组或顺子里。",
+  "You emptied your rack. Playing the last tile ends the round as soon as the turn is completed legally.":
+    "你已出完手牌。合法完成回合时，如果手牌已出完，本局就会结束。",
+  "New melds and additions. Practise connecting tiles.":
+    "会新建牌组，也会接牌。一起练习接牌。",
+  "Also tries rebuilding the table. Take your time.":
+    "还会尝试重组牌桌，慢慢想就好。",
   "Normal and Hard can find the same move. Choose the style you enjoy; you can change it when starting a fresh game.":
     "普通和高手有时会找到相同出法。选你喜欢的风格就好，开始新牌局时可以更换。",
   "All opponents follow the same rules and cannot see your rack. Hints can help with table rearrangements on every difficulty.":

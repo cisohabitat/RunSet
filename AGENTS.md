@@ -439,3 +439,8 @@ Difficulty advice must match audited capabilities after opening: Easy new melds,
 Normal extensions, Hard additional repartition search. Preserve one-Easy/no-timer
 defaults and typed setup options. Changing a setup choice never mutates a saved
 game. Do not imply deterministic wins or hidden-rack access.
+
+Result takeaways may use final rack facts (empty rack, retained joker, unopened
+player, highest number), never invent missed moves or a play history. Scoring
+bars show rack totals, not positive/negative score magnitude; visible text and
+accessible meter values must agree with engine results and literal player names.

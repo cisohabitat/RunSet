@@ -374,3 +374,7 @@ Setup includes a bilingual opponent comparison and advice for the selected
 style: Easy creates new melds, Normal also extends them, and Hard also searches
 rearrangements after opening. All use the same rules without seeing your rack;
 hints remain equally available. Change style for a fresh game.
+
+Results compare remaining rack totals visually against each round score and
+show one learning takeaway drawn from your actual final rack. Existing tile
+arithmetic, match totals and replay/settings controls remain available.

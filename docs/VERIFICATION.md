@@ -218,3 +218,7 @@ Enjoyment phases 1–2 add four turn-clarity and five hint-preview flows (208
 configured), including save isolation, modal Axe checks, Escape/focus, Undo and
 timer expiry. First-use offline preview increases the offline suite to 18.
 See ENJOYMENT_ROADMAP.md for per-phase exact-commit release gates.
+
+Enjoyment phases 3–4 add two bilingual setup-capability checks and four final-score
+checks (214 configured browser flows). One unit regression covers translated,
+non-mutating takeaways based on final-rack facts (115 unit tests).

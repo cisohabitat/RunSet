@@ -1,6 +1,6 @@
 import { useI18n } from "../i18n/I18n";
 import { type GameState, results, matchWinner } from "../engine/game";
-import { roundSummary } from "../lib/roundSummary";
+import { roundSummary, learningTakeaway } from "../lib/roundSummary";
 import { tiles } from "../engine/tiles";
 import { TileDemo } from "./Tile";
 export function GameOver({
@@ -21,6 +21,8 @@ export function GameOver({
     winner = scores.find((p) => p.winner)!;
   const champion = matchWinner(game);
   const summary = roundSummary(game);
+  const takeaway = learningTakeaway(game);
+  const maxRack = Math.max(1, ...scores.map((p) => p.total));
   const signed = (value: number) => (value > 0 ? `+${value}` : String(value));
   return (
     <main
@@ -60,6 +62,34 @@ export function GameOver({
             "Other players lose their remaining tile total. The winner gains those totals; their own remaining tiles are not deducted.",
           )}
         </p>
+        <div
+          className="score-transfer"
+          role="group"
+          aria-label={t("Scoring at a glance")}
+        >
+          <p>{t("Rack total → round score")}</p>
+          <p>
+            {t(
+              "Bars compare remaining rack values. A shorter bar means fewer points left in that rack.",
+            )}
+          </p>
+          <ul>
+            {scores.map((player, i) => (
+              <li key={i}>
+                <span>{player.name}</span>
+                <meter
+                  min={0}
+                  max={maxRack}
+                  value={player.total}
+                  aria-label={t(`${player.name}: remaining rack value`)}
+                />
+                <span>
+                  {player.total} → <strong>{signed(player.score)}</strong>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
         <p className="winner-calculation">
           {t("Winner’s round score:")}{" "}
           {scores
@@ -67,6 +97,19 @@ export function GameOver({
             .map((player) => player.total)
             .join(" + ")}{" "}
           = {signed(winner.score)}
+        </p>
+      </section>
+      <section
+        className="round-summary learning-takeaway"
+        aria-label={t("One thing to take with you")}
+      >
+        <h2>{t("One thing to take with you")}</h2>
+        <p>{t(takeaway.message)}</p>
+        {takeaway.ids.length > 0 && <TileDemo ids={takeaway.ids} />}
+        <p>
+          {t(
+            "No need to rush. Choose Change settings for a gentler opponent, or play again when you feel ready.",
+          )}
         </p>
       </section>
       {game.match && (

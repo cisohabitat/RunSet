@@ -116,3 +116,9 @@ expanded-phone table requirement. The failed CI is not an acceptance gate.
 The correction passed all 26 reading/board-space/touch flows, all 12 production
 WebKit/Firefox magnifier/touch flows and all 129 unit tests. The build passes at
 99,986 initial gzipped bytes. Exact-commit CI remains the next phase gate.
+
+Additional production WebKit checks found that native font metrics consumed
+another five pixels on a comfortable Chinese phone. Expanded-rack padding is
+now bounded without changing tiles. Two new permanent compatibility cases
+check >=300 px table space, >=48 px controls, viewport bounds and save/selection
+preservation in both languages across WebKit and Firefox (165 total cases).

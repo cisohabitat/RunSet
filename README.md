@@ -445,3 +445,4 @@ shown merely because a move was requested, and no extra toolbar row is added.
 
 Comfortable phone controls use compact tile-count labels and bounded spacing,
 keeping readable text, 48 px targets and the expanded table space.
+The expanded rack also bounds spare vertical padding across browser font metrics.

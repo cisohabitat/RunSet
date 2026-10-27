@@ -535,3 +535,7 @@ judgment; retain source joker values. Animation scans exclude dialog clones.
 Keep the six comfortable-phone turn controls on one row using concise count
 labels and bounded padding. Preserve >=48 px targets and >=300 px visible
 expanded phone table space; retain the strict reading/board-space checks.
+
+Production geometry coverage in e2e-compat/comfort-space.spec.ts retains the
+comfortable-phone table floor across browser font metrics. Expanded rack padding
+may shrink while leaving comfortable tiles and control dimensions unchanged.

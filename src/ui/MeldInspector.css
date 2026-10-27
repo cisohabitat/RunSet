@@ -69,6 +69,9 @@
 }
 /* Keep the six readable turn controls in one row on comfortable phone views. */
 @media (max-width: 720px) {
+  .app.comfortable-reading .game.table-expanded .rack-tiles {
+    padding-block: 10px;
+  }
   .app.comfortable-reading .game .turn-tools {
     gap: 4px;
   }

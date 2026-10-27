@@ -9,8 +9,8 @@ paused. Multiplayer remains deferred.
 | 1. Cross-browser coverage | Published; CI passed | Production WebKit phone/tablet and Firefox desktop: touch/mouse moves, Undo, reload, view changes, real narration, offline assets. |
 | 2. Review the last move | Published; CI passed | Read-only tile destinations from the latest completed play, with explicit limits for older saves. |
 | 3. Targeted practice | Published; CI passed | Optional suggestions based on completed exercise kinds and final rack facts. |
-| 4. Display choices | Implemented; CI gate pending | Optional high-contrast palette and landscape-phone checks. |
-| 5. Longer-session comfort | Queued | Clear break/resume context and opponent pacing, preserving timer semantics. |
+| 4. Display choices | Published; CI passed | Optional high-contrast palette and landscape-phone checks. |
+| 5. Longer-session comfort | Published; exact-commit CI gate | Clear break/resume context and opponent pacing, preserving timer semantics. |
 
 Phase 1 uses Playwright WebKit on Linux, not physical Safari/iOS. Firefox runs
 mouse input; WebKit uses actual touchscreen taps in coarse-pointer contexts.
@@ -70,10 +70,26 @@ scan incomplete melds with Axe, and verify selection, dimensions, reload,
 delete retention and comfortable reading. WebKit/Firefox reuse these flows.
 
 All 39 new production WebKit/Firefox contrast flows passed locally. Phone and
-iPad landscape screenshots were inspected in both themes. The complete CI gate
-now includes 256 Chromium cases, 96 compatibility cases and 19 offline cases.
+iPad landscape screenshots were inspected in both themes. The Phase 4 CI gate
+included 256 Chromium cases, 96 compatibility cases and 19 offline cases.
 
 Phase 4 initial CI 40466218769 caught five premature delete assertions: the
 checks read storage before the asynchronous lock-backed operation completed.
 The regression now awaits removal and verifies Continue stays absent after
 reload. No application behaviour or geometry assertion was weakened.
+
+Phase 4 follow-up 8e3cf2a passed full CI 40467118608 before Phase 5 began;
+all 39 live contrast flows passed. Phase 5 saves before a break, retains drafts
+and explains the deadline on timed games. Optional five-second opponent pace
+changes only the delay before planning, never difficulty or the turn limit.
+
+Phase 5 local checks passed strict TypeScript, 124 unit tests, all nine new
+Chromium flows and all 27 production WebKit/Firefox flows. Both languages and
+phone/iPad layouts preserve actual unfinished moves through a one-hour rest,
+reload and Undo. Quota failures remain visible on phones and retry successfully;
+held-lock cancellation prevents stale navigation. Timed expiry applies once on
+return. Five-second scheduling is checked with a paused clock after view loading.
+The production initial bundle is 99,877 gzipped bytes under the unchanged limit.
+The final gate runs 265 Chromium, 123 compatibility and 19 offline cases plus
+benchmark smoke. All 19 production offline flows also passed locally. See
+[release evidence](RELIABILITY_RELEASE.md) for phase gates and acceptance limits.

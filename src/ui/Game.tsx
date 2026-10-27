@@ -22,6 +22,7 @@ export function Game({
   game: s,
   dispatch,
   onHelp,
+  onBreak,
   suggested = [],
   coaching = true,
   coachTarget,
@@ -37,6 +38,7 @@ export function Game({
   game: GameState;
   dispatch: (a: Action) => void;
   onHelp: () => void;
+  onBreak?: (signal: AbortSignal) => Promise<void>;
   suggested?: number[];
   coaching?: boolean;
   coachTarget?: string;
@@ -51,6 +53,9 @@ export function Game({
 }) {
   const { t, locale } = useI18n();
   const feedbackRoot = useRef<HTMLElement>(null);
+  const [breaking, setBreaking] = useState(false);
+  const breakRequest = useRef<AbortController | null>(null);
+  useEffect(() => () => breakRequest.current?.abort(), []);
   const [focused, setFocused] = useState<number | null>(null);
   const rackRef = useRef<HTMLDivElement>(null);
   const focusRack = () =>
@@ -787,6 +792,33 @@ export function Game({
             <details className="more-actions">
               <summary>{t("More")}</summary>
               <div>
+                {onBreak && (
+                  <>
+                    <button
+                      className="text-button"
+                      disabled={breaking}
+                      onClick={async () => {
+                        const controller = new AbortController();
+                        breakRequest.current = controller;
+                        setBreaking(true);
+                        try {
+                          await onBreak(controller.signal);
+                        } finally {
+                          if (!controller.signal.aborted) setBreaking(false);
+                        }
+                      }}
+                    >
+                      {t(breaking ? "Saving…" : "Take a break")}
+                    </button>
+                    <p>
+                      {t(
+                        s.turnSeconds
+                          ? "Timed game: the turn deadline still applies."
+                          : "No timer. Resume whenever you like.",
+                      )}
+                    </p>
+                  </>
+                )}
                 {coaching && (
                   <ReadAloud
                     reminder

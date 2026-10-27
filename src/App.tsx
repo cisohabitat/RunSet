@@ -136,7 +136,7 @@ export default function App() {
   const [pace, setPace] = useState(() => {
     try {
       const n = Number(localStorage.getItem("runset.pace"));
-      return [700, 1400, 2400].includes(n) ? n : 1400;
+      return [700, 1400, 2400, 5000].includes(n) ? n : 1400;
     } catch {
       return 1400;
     }
@@ -746,6 +746,18 @@ export default function App() {
                 game={game}
                 dispatch={dispatch}
                 onHelp={help}
+                onBreak={async (signal) => {
+                  const saved = await saveLatestGame();
+                  if (signal.aborted) return;
+                  if (saved) {
+                    setSaveStatus("Saved");
+                    setNotice("");
+                    setScreen("home");
+                  } else
+                    setNotice(
+                      "Could not save yet. Keep this tab open and try again.",
+                    );
+                }}
               />
             </Suspense>
           ))}

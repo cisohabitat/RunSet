@@ -2,6 +2,17 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Take a break": "休息一下",
+  "No timer. Resume whenever you like.": "不限时，想回来时再继续。",
+  "Timed game: the turn deadline still applies.":
+    "这是限时牌局，离开后回合时限仍然有效。",
+  "Unfinished moves kept. Check the table before ending your turn.":
+    "尚未完成的出牌已保留。结束回合前，请先检查牌桌。",
+  "Could not save yet. Keep this tab open and try again.":
+    "暂时无法保存。请保持此页面打开，然后重试。",
+  "Unhurried · 5 seconds": "慢慢来 · 5 秒",
+  "Pace changes the wait before an opponent plays. Timed turns keep the same limit.":
+    "节奏只改变电脑出牌前的等待时间，限时回合的时限不变。",
   "Higher contrast": "加强对比度",
   "Stronger text, tile colours and borders. Tile sizes and your game stay the same.":
     "文字、牌色和边框更清晰，牌的大小和牌局都保持原样。",

@@ -409,3 +409,13 @@ now link directly to practice. Suggestions do not change regular saves.
 Settings → Higher contrast strengthens text, tile colours and borders in both
 light and dark themes. It is independent of comfortable reading and tile sizes,
 keeps selections/drafts, and remains enabled after deleting a game.
+
+More → Take a break saves the latest position before returning Home. Unfinished
+moves are kept and explained on the saved-game card. A failed save leaves the
+table open for retry. Untimed games can wait; timed games retain their deadline
+and draw/pass on returning after expiry. Settings → Opponent pace also offers
+Unhurried (five seconds before planning), independently of difficulty and timers.
+
+The completed implementation and per-phase verification gates are recorded in
+[reliability release evidence](docs/RELIABILITY_RELEASE.md). Physical Apple,
+older-player and native Mandarin acceptance checks remain paused.

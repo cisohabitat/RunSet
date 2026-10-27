@@ -127,8 +127,14 @@ export default function Settings({
             <option value={700}>{t("Quick")}</option>
             <option value={1400}>{t("Comfortable")}</option>
             <option value={2400}>{t("Take my time")}</option>
+            <option value={5000}>{t("Unhurried · 5 seconds")}</option>
           </select>
         </label>
+        <p>
+          {t(
+            "Pace changes the wait before an opponent plays. Timed turns keep the same limit.",
+          )}
+        </p>
       </fieldset>
       <fieldset>
         <legend>{t("Learning help")}</legend>

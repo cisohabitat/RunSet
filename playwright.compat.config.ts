@@ -7,6 +7,7 @@ export default defineConfig({
     "e2e/move-review.spec.ts",
     "e2e/practice-suggestion.spec.ts",
     "e2e/contrast.spec.ts",
+    "e2e/session-comfort.spec.ts",
   ],
   timeout: 60000,
   workers: 1,

@@ -83,6 +83,24 @@ export function Home({
                   : `${game.players[game.current].name}’s turn`,
               )}
             </p>
+            {game.phase === "playing" && (
+              <p className="resume-context">
+                {JSON.stringify(game.table) !==
+                  JSON.stringify(game.turnStart.table) && (
+                  <>
+                    {t(
+                      "Unfinished moves kept. Check the table before ending your turn.",
+                    )}
+                    <br />
+                  </>
+                )}
+                {t(
+                  game.turnSeconds
+                    ? "Timed game: the turn deadline still applies."
+                    : "No timer. Resume whenever you like.",
+                )}
+              </p>
+            )}
             <button className="text-button danger-text" onClick={onDelete}>
               {t("Delete saved game")}
             </button>

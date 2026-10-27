@@ -487,3 +487,9 @@ runset.contrast is an independent optional preference. Apply its palette at the
 document root so dialogs and recovery inherit it, without remounting play. Keep
 colour families/shape marks, physical tile sizes, focus and saves intact. Verify
 both themes/languages, comfortable reading and short landscape phone targets.
+
+Break navigation must await saveLatestGame and leave the table usable on failure.
+Game owns and aborts the pending navigation signal on unmount: a late save must
+not pull players out of another screen. Preserve draft/history and existing
+absolute-deadline semantics; Home does not claim timed play is paused. The 5000 ms
+pace is an independent preference, retained on delete, never an engine rule.

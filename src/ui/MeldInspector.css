@@ -67,3 +67,20 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
+/* Keep the six readable turn controls in one row on comfortable phone views. */
+@media (max-width: 720px) {
+  .app.comfortable-reading .game .turn-tools {
+    gap: 4px;
+  }
+  .app.comfortable-reading .game .turn-tools > .text-button {
+    min-width: 48px;
+    padding-inline: 2px;
+  }
+  .app.comfortable-reading .game .more-actions > summary {
+    min-width: 48px;
+    padding: 8px 4px;
+  }
+  .app.comfortable-reading .game .turn-tools .inspect-selection {
+    line-height: 1.25;
+  }
+}

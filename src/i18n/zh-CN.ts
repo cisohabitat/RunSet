@@ -2,6 +2,7 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "{n} tile{s}": "{n}张牌",
   "Returned {n} to rack.": "已将 {n} 张牌放回手牌。",
   "Placed {n} in group/run {r}.": "已将 {n} 张牌放到第 {r} 组。",
   "Placed {n}": "已放置 {n} 张",
@@ -388,7 +389,7 @@ const messages: Record<string, string> = {
     "开始新游戏会替换已保存的结果，从第 1 局重新发牌，比赛积分清零。显示和声音设置会保留。",
   "{n} tiles remaining · rack value {value}":
     "{n} 张剩余手牌 · 手牌分数：{value}",
-  Clear: "取消选择",
+  Clear: "取消",
   "Preparing game table…": "正在准备牌桌…",
   s: "秒",
   "Game menu": "游戏菜单",

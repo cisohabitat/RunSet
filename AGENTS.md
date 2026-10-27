@@ -531,3 +531,7 @@ destination. Keep feedback ephemeral and separate from lastPlaced and opening
 progress. Preserve regular selection after rejection and existing teaching flows.
 The selected-count control opens a neutral read-only preview, not a meld-validity
 judgment; retain source joker values. Animation scans exclude dialog clones.
+
+Keep the six comfortable-phone turn controls on one row using concise count
+labels and bounded padding. Preserve >=48 px targets and >=300 px visible
+expanded phone table space; retain the strict reading/board-space checks.

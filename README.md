@@ -442,3 +442,6 @@ destination. A confirmed relocation briefly marks its destination and announces
 the actual moved count; opening progress and invalid-group warnings remain.
 Rejected regular moves retain selection for another attempt. No confirmation is
 shown merely because a move was requested, and no extra toolbar row is added.
+
+Comfortable phone controls use compact tile-count labels and bounded spacing,
+keeping readable text, 48 px targets and the expanded table space.

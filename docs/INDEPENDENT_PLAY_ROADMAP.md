@@ -107,3 +107,12 @@ six touch-feedback compatibility flows. Screenshots were inspected in both
 languages/themes. Four provably overridden identical CSS declarations were
 removed; initial HTML/CSS/JS remains 99,985 gzipped bytes under 100,000. Full CI
 now has 275 Chromium, 159 compatibility and 19 offline cases plus the benchmark.
+
+Phase 3 CI 40490688332 caught comfortable-phone toolbar overflow and lost table
+height. The follow-up uses concise count/Clear labels and bounded toolbar
+padding while preserving font sizes, >=48 px controls and the strict >=300 px
+expanded-phone table requirement. The failed CI is not an acceptance gate.
+
+The correction passed all 26 reading/board-space/touch flows, all 12 production
+WebKit/Firefox magnifier/touch flows and all 129 unit tests. The build passes at
+99,986 initial gzipped bytes. Exact-commit CI remains the next phase gate.

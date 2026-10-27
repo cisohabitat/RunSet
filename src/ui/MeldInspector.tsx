@@ -45,7 +45,11 @@ export function MeldInspector({
   }, [open]);
   const info = open && !selection ? inspectMeld(ids) : null,
     title = selection ? "selection-inspector" : `meld-inspector-${index}`,
-    countLabel = t(ids.length ? `${ids.length} selected` : "Select tiles");
+    countLabel = t(
+      ids.length
+        ? `${ids.length} tile${ids.length === 1 ? "" : "s"}`
+        : "Select tiles",
+    );
   return (
     <>
       <button

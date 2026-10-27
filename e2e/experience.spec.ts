@@ -6,6 +6,7 @@ test("learn, preserve, delete and resize a round", async ({ page: p }) => {
   await p.goto("/");
   await p.getByRole("button", { name: "New game", exact: false }).click();
   await p.getByRole("button", { name: "Deal the tiles" }).click();
+  await p.waitForFunction(() => localStorage.getItem("runset.save.v1") !== null);
   await p.getByRole("button", { name: "Home", exact: true }).click();
   const saved = await p.evaluate(() => localStorage.getItem("runset.save.v1"));
   if (
@@ -65,7 +66,7 @@ test("learn, preserve, delete and resize a round", async ({ page: p }) => {
   await p.getByRole("button", { name: "Deal the tiles" }).click();
   await p.waitForFunction(() => {
     const s = JSON.parse(localStorage.getItem("runset.save.v1"));
-    return !s.players[s.current].bot;
+    return !!s && !s.players[s.current].bot;
   });
   for (const [width, height] of [
     [360, 800],

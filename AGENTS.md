@@ -569,3 +569,5 @@ The existing CI check job is the aggregate of quality and every browser matrix
 job; keep its name and require all dependencies, including failure/skipped cases.
 Create the benchmark report directory explicitly in the quality job; it cannot
 rely on a browser job having created test-results on a different runner.
+Keep rack-order and placement announcement selectors distinct. UI tests that
+read newly started games must await async persistence before dereferencing saves.

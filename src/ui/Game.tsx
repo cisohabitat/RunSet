@@ -1096,7 +1096,7 @@ export function Game({
           }}
         />
       )}
-      <span className="placement-announcement" role="status">
+      <span className="rack-order-announcement" role="status">
         {t(orderNotice)}
       </span>
       <span className="placement-announcement" role="status">

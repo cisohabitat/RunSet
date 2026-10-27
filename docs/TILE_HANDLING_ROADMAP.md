@@ -50,3 +50,9 @@ The first split CI run (40506462470) passed units/build but found the benchmark
 report directory had implicitly come from browser tests. Quality now creates
 that output directory explicitly. The benchmark itself completed; no test or
 benchmark gate was removed. The aggregate correctly failed when quality failed.
+
+Follow-up CI 40506796676 passed quality/offline but exposed a duplicate
+placement-announcement selector and a legacy test dereferencing a save before
+its async write. Rack-order status now has its own semantic selector; the
+experience journey awaits persistence. All nine targeted experience/touch cases
+pass without weakening placement or tile-conservation checks.

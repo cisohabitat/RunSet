@@ -27,6 +27,7 @@ import { useTouchClick } from "./useTouchClick";
 import { BoardFinder } from "./BoardFinder";
 import { moveHelp } from "../lib/moveHelp";
 import { MoveHelp } from "./MoveHelp";
+import { OpponentGuide } from "./OpponentGuide";
 export function Game({
   game: s,
   dispatch,
@@ -1084,6 +1085,7 @@ export function Game({
                     )}
                   </p>
                 </details>
+                {coaching && <OpponentGuide game={s} />}
                 <details className="move-history">
                   <summary>{t("Move history")}</summary>
                   {s.log.map((line, i) => (

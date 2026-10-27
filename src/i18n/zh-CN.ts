@@ -2,6 +2,20 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Opponent styles and fair play": "对手的玩法与公平规则",
+  "After opening, Easy makes new groups and runs. It leaves existing table melds alone.":
+    "开局后，简单对手会组成新的同数组和顺子，不改动桌上原有的牌组。",
+  "After opening, Normal also adds tiles to existing groups and runs. It leaves their structure intact.":
+    "开局后，普通对手也会给已有的同数组和顺子添牌，但不拆分或重组。",
+  "After opening, Hard also searches for ways to split and rebuild table melds. It may find the same move as Normal.":
+    "开局后，困难对手还会尝试拆分和重组桌上的牌。有时找到的出法与普通对手相同。",
+  "Before opening, every opponent needs at least 30 points using only its own rack.":
+    "每位对手开局时，都必须只用自己的手牌凑够至少 30 分。",
+  "An opponent drawing does not prove that no legal move exists. Its search may not find every move.":
+    "对手摸牌，不代表一定没有合法出法。它不一定能找到所有出法。",
+  "Opponent pace changes waiting time, not tile choices. Change the playing style when starting a fresh game.":
+    "对手节奏只改变等待时间，不改变出牌选择。开始新牌局时，可以更换对手的玩法。",
+
   "Affected group/run {n}": "需要处理的第 {n} 组牌",
   "Find affected tiles": "找到这些牌",
   "Move help tiles": "需要处理的牌",

@@ -1,0 +1,6 @@
+.opponent-guide > summary { min-height: 44px; padding: 12px 0; cursor: pointer; }
+.opponent-guide :is(p, li) { font-size: 16px; line-height: 1.6; overflow-wrap: anywhere; }
+.opponent-guide p { margin-block: 10px; }
+.opponent-guide ul { padding-inline-start: 20px; }
+.app.comfortable-reading .opponent-guide :is(p, li) { font-size: 18px; }
+.app.comfortable-reading .opponent-guide > summary { min-height: 48px; }

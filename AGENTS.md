@@ -671,3 +671,11 @@ fully CI-gate each phase. MoveHelp find actions close the modal before using the
 existing board finder. Preserve selection, save and deadlines, exclude preview
 clones and use real tile focus as the highlight. Candidate additions must pass
 the hypothetical reducer; explain local repair separately from full-turn validity.
+
+OpponentGuide reads actual bot levels from validated state, including mixed-level
+imports. Keep player names literal, use audited current-turn capabilities, never
+infer no legal move from a draw and distinguish pace from strategy. Its native
+details live in More, with readable text and >=44/48 px summary targets; do not
+add a permanent board row. Preserve worker redaction of other racks/log/history.
+Fresh bot audits retain complete raw reports, source fingerprints and correlated
+seed-block interpretation; no beginner difficulty changes without evidence.

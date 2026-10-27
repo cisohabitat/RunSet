@@ -540,3 +540,10 @@ Move help identifies the affected group/run and offers Find affected tiles,
 returning to the actual board tile without changing selection. A suggested tile
 explains whether it repairs just that meld or leaves the turn ready for End turn.
 The current improvement cycle is [confident and comfortable play](docs/PLAYER_COMFORT_ROADMAP.md).
+
+During a game, More → Opponent styles and fair play explains each named
+opponent's actual level, the shared opening rule, hidden-rack limits and why a
+draw does not establish that no move exists. Pace changes waiting time only.
+
+The [fresh bot recheck](docs/PLAYER_COMFORT_BOTS.md) records 60 production-budget
+rounds without changing strategy or claiming a human difficulty rating.

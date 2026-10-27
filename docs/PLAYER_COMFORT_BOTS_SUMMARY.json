@@ -1,0 +1,304 @@
+{
+  "sources": [
+    "docs/PLAYER_COMFORT_BOTS_MIXED.json",
+    "docs/PLAYER_COMFORT_BOTS_PAIRS.json"
+  ],
+  "method": {
+    "firstSeed": 2001,
+    "seedsPerFormat": 5,
+    "planningBudgetMs": 380,
+    "effectiveWorkBudgetMs": 240,
+    "independentUnit": "Deal seed; seat-swapped rounds and formats sharing a seed are correlated."
+  },
+  "mixed": {
+    "rounds": 30,
+    "distinctDeals": 5,
+    "turns": 2948,
+    "endings": {
+      "blocked": 30,
+      "rack-empty": 0
+    },
+    "lowestRackTies": 1,
+    "difficulties": {
+      "easy": {
+        "gamesPlayed": 30,
+        "wins": 0,
+        "winRate": 0,
+        "moves": 980,
+        "plays": 192,
+        "draws": 748,
+        "passes": 40,
+        "tilesPlayed": 677,
+        "rejectedPlans": 0,
+        "rejectionReasons": {},
+        "tilesPerPlay": 3.53,
+        "openingPersonalTurns": {
+          "count": 30,
+          "p50": 2,
+          "p95": 11
+        },
+        "meanRemainingPoints": 112.9,
+        "latencyMs": {
+          "p50": 0.49,
+          "p95": 0.94,
+          "p99": 2.15,
+          "max": 5.75
+        },
+        "plansOver400Ms": 0
+      },
+      "normal": {
+        "gamesPlayed": 30,
+        "wins": 12,
+        "winRate": 0.4,
+        "moves": 984,
+        "plays": 367,
+        "draws": 583,
+        "passes": 34,
+        "tilesPlayed": 783,
+        "rejectedPlans": 0,
+        "rejectionReasons": {},
+        "tilesPerPlay": 2.13,
+        "openingPersonalTurns": {
+          "count": 30,
+          "p50": 2,
+          "p95": 11
+        },
+        "meanRemainingPoints": 47.13,
+        "latencyMs": {
+          "p50": 0.53,
+          "p95": 1.01,
+          "p99": 2.06,
+          "max": 3
+        },
+        "plansOver400Ms": 0
+      },
+      "hard": {
+        "gamesPlayed": 30,
+        "wins": 18,
+        "winRate": 0.6,
+        "moves": 984,
+        "plays": 357,
+        "draws": 589,
+        "passes": 38,
+        "tilesPlayed": 796,
+        "rejectedPlans": 0,
+        "rejectionReasons": {},
+        "tilesPerPlay": 2.23,
+        "openingPersonalTurns": {
+          "count": 30,
+          "p50": 2,
+          "p95": 11
+        },
+        "meanRemainingPoints": 44.23,
+        "latencyMs": {
+          "p50": 240.01,
+          "p95": 240.06,
+          "p99": 240.69,
+          "max": 242.19
+        },
+        "plansOver400Ms": 0
+      }
+    },
+    "hardVsNormalSeedBlocks": {
+      "hardLed": 3,
+      "normalLed": 0,
+      "tied": 2,
+      "blocks": [
+        {
+          "seed": 2001,
+          "hard": 4,
+          "normal": 2
+        },
+        {
+          "seed": 2002,
+          "hard": 4,
+          "normal": 2
+        },
+        {
+          "seed": 2003,
+          "hard": 3,
+          "normal": 3
+        },
+        {
+          "seed": 2004,
+          "hard": 3,
+          "normal": 3
+        },
+        {
+          "seed": 2005,
+          "hard": 4,
+          "normal": 2
+        }
+      ]
+    },
+    "samePositionComparison": {
+      "compared": 877,
+      "normalBaselineRejected": 0,
+      "moreTiles": 59,
+      "sameTiles": 818,
+      "fewerTiles": 0,
+      "baselineCouldEmptyRack": 0,
+      "latencyWhenBaselineCouldEmptyRackMs": {
+        "p50": null,
+        "p95": null,
+        "p99": null,
+        "max": null
+      }
+    },
+    "checks": {
+      "completedRounds": 30,
+      "all106TilesConserved": true,
+      "allCompletedTablesLegal": true,
+      "allSubmittedPlansLegal": true,
+      "allPlanningInputsUnchanged": true
+    }
+  },
+  "pairs": {
+    "rounds": 30,
+    "distinctDeals": 5,
+    "turns": 3577,
+    "endings": {
+      "blocked": 28,
+      "rack-empty": 2
+    },
+    "lowestRackTies": 4,
+    "difficulties": {
+      "easy": {
+        "gamesPlayed": 20,
+        "wins": 0,
+        "winRate": 0,
+        "moves": 1142,
+        "plays": 261,
+        "draws": 855,
+        "passes": 26,
+        "tilesPlayed": 869,
+        "rejectedPlans": 0,
+        "rejectionReasons": {},
+        "tilesPerPlay": 3.33,
+        "openingPersonalTurns": {
+          "count": 20,
+          "p50": 2,
+          "p95": 10
+        },
+        "meanRemainingPoints": 89.8,
+        "latencyMs": {
+          "p50": 0.51,
+          "p95": 0.87,
+          "p99": 1.58,
+          "max": 12.14
+        },
+        "plansOver400Ms": 0
+      },
+      "normal": {
+        "gamesPlayed": 20,
+        "wins": 12,
+        "winRate": 0.6,
+        "moves": 1216,
+        "plays": 447,
+        "draws": 747,
+        "passes": 22,
+        "tilesPlayed": 940,
+        "rejectedPlans": 0,
+        "rejectionReasons": {},
+        "tilesPerPlay": 2.1,
+        "openingPersonalTurns": {
+          "count": 20,
+          "p50": 2,
+          "p95": 10
+        },
+        "meanRemainingPoints": 30.7,
+        "latencyMs": {
+          "p50": 0.55,
+          "p95": 1.06,
+          "p99": 2.12,
+          "max": 3.16
+        },
+        "plansOver400Ms": 0
+      },
+      "hard": {
+        "gamesPlayed": 20,
+        "wins": 18,
+        "winRate": 0.9,
+        "moves": 1219,
+        "plays": 468,
+        "draws": 729,
+        "passes": 22,
+        "tilesPlayed": 922,
+        "rejectedPlans": 0,
+        "rejectionReasons": {},
+        "tilesPerPlay": 1.97,
+        "openingPersonalTurns": {
+          "count": 20,
+          "p50": 2,
+          "p95": 10
+        },
+        "meanRemainingPoints": 28.35,
+        "latencyMs": {
+          "p50": 102.17,
+          "p95": 240.07,
+          "p99": 240.75,
+          "max": 261.43
+        },
+        "plansOver400Ms": 0
+      }
+    },
+    "hardVsNormalSeedBlocks": {
+      "hardLed": 3,
+      "normalLed": 0,
+      "tied": 2,
+      "blocks": [
+        {
+          "seed": 2001,
+          "hard": 2,
+          "normal": 0
+        },
+        {
+          "seed": 2002,
+          "hard": 1,
+          "normal": 1
+        },
+        {
+          "seed": 2003,
+          "hard": 2,
+          "normal": 0
+        },
+        {
+          "seed": 2004,
+          "hard": 1,
+          "normal": 1
+        },
+        {
+          "seed": 2005,
+          "hard": 2,
+          "normal": 0
+        }
+      ]
+    },
+    "samePositionComparison": {
+      "compared": 1143,
+      "normalBaselineRejected": 0,
+      "moreTiles": 53,
+      "sameTiles": 1090,
+      "fewerTiles": 0,
+      "baselineCouldEmptyRack": 2,
+      "latencyWhenBaselineCouldEmptyRackMs": {
+        "p50": 0.39,
+        "p95": 0.39,
+        "p99": 0.39,
+        "max": 0.39
+      }
+    },
+    "checks": {
+      "completedRounds": 30,
+      "all106TilesConserved": true,
+      "allCompletedTablesLegal": true,
+      "allSubmittedPlansLegal": true,
+      "allPlanningInputsUnchanged": true
+    }
+  },
+  "limitations": [
+    "Bot-only Node experiment; not human enjoyment, accessibility or physical-device timing.",
+    "Time-bounded search varies with runtime load; no universal win-rate ordering is established.",
+    "Seed-block lead counts include only rounds where Hard and Normal both participate."
+  ]
+}

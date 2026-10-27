@@ -72,3 +72,8 @@ delete retention and comfortable reading. WebKit/Firefox reuse these flows.
 All 39 new production WebKit/Firefox contrast flows passed locally. Phone and
 iPad landscape screenshots were inspected in both themes. The complete CI gate
 now includes 256 Chromium cases, 96 compatibility cases and 19 offline cases.
+
+Phase 4 initial CI 40466218769 caught five premature delete assertions: the
+checks read storage before the asynchronous lock-backed operation completed.
+The regression now awaits removal and verifies Continue stays absent after
+reload. No application behaviour or geometry assertion was weakened.

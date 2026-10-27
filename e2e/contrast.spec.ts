@@ -167,10 +167,18 @@ for (const locale of ["en", "zh-CN"] as const)
         await page
           .getByRole("button", { name: t("Delete game"), exact: true })
           .click();
-        expect(
-          await page.evaluate(() => localStorage.getItem("runset.save.v1")),
-        ).toBeNull();
+        await expect
+          .poll(() =>
+            page.evaluate(() => localStorage.getItem("runset.save.v1")),
+          )
+          .toBeNull();
+        await expect(
+          page.getByRole("button", { name: t("Continue game →"), exact: true }),
+        ).toHaveCount(0);
         await page.reload();
+        await expect(
+          page.getByRole("button", { name: t("Continue game →"), exact: true }),
+        ).toHaveCount(0);
         await expect(page.locator("html")).toHaveAttribute(
           "data-contrast",
           "high",

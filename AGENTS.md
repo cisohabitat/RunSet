@@ -665,3 +665,9 @@ Practice-restored context comes from the initial snapshot, never clears selectio
 or refocuses for locale/step-visibility changes, and clears on user play/restart.
 Joker whole-turn goals allow valid extra group tiles once required replacement/
 reuse is met; keep the full engine turn validator and required physical IDs.
+
+Track the player-comfort cycle in docs/PLAYER_COMFORT_ROADMAP.md; publish and
+fully CI-gate each phase. MoveHelp find actions close the modal before using the
+existing board finder. Preserve selection, save and deadlines, exclude preview
+clones and use real tile focus as the highlight. Candidate additions must pass
+the hypothetical reducer; explain local repair separately from full-turn validity.

@@ -9,16 +9,26 @@ export function MoveHelp({
   game,
   data,
   disabled,
+  onFind,
 }: {
   game: GameState;
   data: MoveHelpData | null;
   disabled: boolean;
+  onFind: (id: number) => void;
 }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null),
     opener = useRef<HTMLButtonElement>(null),
     close = useRef<HTMLButtonElement>(null);
+  const pendingFind = useRef<number | null>(null);
+  useEffect(() => {
+    if (!open && pendingFind.current !== null) {
+      const id = pendingFind.current;
+      pendingFind.current = null;
+      onFind(id);
+    }
+  }, [open, onFind]);
   const touch = useTouchClick(() => setOpen(true));
   useEffect(() => setOpen(false), [data]);
   useEffect(() => {
@@ -74,6 +84,11 @@ export function MoveHelp({
                 data.kind === "blocked" ? "Last blocked move" : "Current draft",
               )}
             </p>
+            {data.meldIndex !== undefined && (
+              <p>
+                <strong>{t(`Affected group/run ${data.meldIndex}`)}</strong>
+              </p>
+            )}
             <p>{t(data.reason)}</p>
             {data.ids.length > 0 && (
               <section aria-label={t("Tiles in this move")}>
@@ -105,6 +120,7 @@ export function MoveHelp({
                 </div>
               </section>
             )}
+            {data.followUp && <p>{t(data.followUp)}</p>}
             <p>
               {t(
                 "Preview only. Your tiles and turn are unchanged. Timed games keep running.",
@@ -112,6 +128,16 @@ export function MoveHelp({
             </p>
           </div>
           <div className="dialog-actions">
+            {data.ids.length > 0 && (
+              <button
+                onClick={() => {
+                  pendingFind.current = data.ids[0];
+                  setOpen(false);
+                }}
+              >
+                {t("Find affected tiles")}
+              </button>
+            )}
             <button
               ref={close}
               className="primary"

@@ -197,6 +197,11 @@ export async function verifyMoveHelp(
     .getByRole("region", { name: t("One tile you can add") })
     .locator('[data-tile-id="5"]');
   await expect(candidate).toBeVisible();
+  await expect(panel).toContainText(t("Affected group/run 7"));
+  await expect(panel).toContainText(
+    t("After this change, choose End turn to check and keep the whole turn."),
+  );
+
   const size = (await candidate.boundingBox())!;
   expect(size.width).toBe(64);
   expect(size.height).toBeCloseTo(88, 4);
@@ -217,6 +222,23 @@ export async function verifyMoveHelp(
   await page.screenshot({
     path: `/tmp/runset-move-help-${info.project.name}-${locale}.png`,
   });
+  if (locale === "zh-CN") {
+    await activate(
+      panel.getByRole("button", {
+        name: t("Find affected tiles"),
+        exact: true,
+      }),
+    );
+    await expect(panel).not.toBeVisible();
+    await expect(page.locator('.table [data-tile-id="3"]')).toBeFocused();
+    await expect(page.locator('.table [data-tile-id="3"]')).not.toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    expect(await save()).toBe(before);
+    await menu();
+    await activate(opener);
+  }
   if (locale === "en") {
     await page.clock.fastForward(120001);
     await expect(panel).not.toBeVisible();

@@ -535,3 +535,8 @@ a legal fourth tile after the required replacement and reuse.
 
 [Learning and portability release evidence](docs/LEARNING_PORTABILITY_RELEASE.md)
 records the phase gates, profile transfer/recovery checks and paused human work.
+
+Move help identifies the affected group/run and offers Find affected tiles,
+returning to the actual board tile without changing selection. A suggested tile
+explains whether it repairs just that meld or leaves the turn ready for End turn.
+The current improvement cycle is [confident and comfortable play](docs/PLAYER_COMFORT_ROADMAP.md).

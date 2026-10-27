@@ -2,6 +2,14 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Affected group/run {n}": "需要处理的第 {n} 组牌",
+  "Find affected tiles": "找到这些牌",
+  "Move help tiles": "需要处理的牌",
+  "After this change, choose End turn to check and keep the whole turn.":
+    "补好后，点“结束回合”检查并保留本回合的摆牌。",
+  "This repairs this group or run only. Other turn requirements still need attention.":
+    "这一步只补好这组牌。结束回合前，还需要完成其他要求。",
+
   "Practice restored": "练习已恢复",
   "Your completed practice was restored. You can try another layout.":
     "已恢复完成的练习。你可以试试另一个布局。",

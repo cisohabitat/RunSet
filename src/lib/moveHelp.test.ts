@@ -70,3 +70,20 @@ it("says Pass when no tiles remain rather than suggesting an unavailable draw", 
     next: "Choose Pass to restore unfinished edits and end your turn.",
   });
 });
+
+it("distinguishes repairing one meld from finishing the full turn", () => {
+  const s = reducer(practiceGame(), {
+    type: "move",
+    ids: [0, 1],
+    target: "new",
+  });
+  expect(moveHelp(s)).toMatchObject({
+    meldIndex: 1,
+    followUp:
+      "This repairs this group or run only. Other turn requirements still need attention.",
+  });
+  const opened = practiceGame("rearrange");
+  const partial = reducer(opened, { type: "move", ids: [5, 6], target: "new" });
+  // No single rack tile repairs this pile: do not invent a successful addition.
+  expect(moveHelp(partial)?.candidate).toBeUndefined();
+});

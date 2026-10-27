@@ -235,7 +235,7 @@ export function Game({
   const [rackOrder, rememberRackOrder] = useRackOrder();
   const [orderNotice, setOrderNotice] = useState("");
   const [findNotice, setFindNotice] = useState<{
-    kind: "selected" | "latest";
+    kind: "selected" | "latest" | "help";
     index: number;
     total: number;
   } | null>(null);
@@ -323,7 +323,7 @@ export function Game({
     id: number,
     index: number,
     total: number,
-    kind: "selected" | "latest",
+    kind: "selected" | "latest" | "help",
   ) => {
     const menu =
       feedbackRoot.current?.querySelector<HTMLDetailsElement>(".more-actions");
@@ -1050,7 +1050,14 @@ export function Game({
                 )}
                 {orderNotice && <p>{t(orderNotice)}</p>}
                 {coaching && (
-                  <MoveHelp game={s} data={helpData} disabled={!myTurn} />
+                  <MoveHelp
+                    game={s}
+                    data={helpData}
+                    disabled={!myTurn}
+                    onFind={(id) =>
+                      findTile(id, 1, helpData?.ids.length ?? 1, "help")
+                    }
+                  />
                 )}
                 <button
                   className="text-button"
@@ -1158,7 +1165,7 @@ export function Game({
       )}
       <span className="board-find-announcement" role="status">
         {findNotice
-          ? `${t(findNotice.kind === "selected" ? "Selected tiles" : "Latest placements")} · ${t(`Tile ${findNotice.index} of ${findNotice.total}`)}`
+          ? `${t(findNotice.kind === "help" ? "Move help tiles" : findNotice.kind === "selected" ? "Selected tiles" : "Latest placements")} · ${t(`Tile ${findNotice.index} of ${findNotice.total}`)}`
           : ""}
       </span>
       <span className="rack-order-announcement" role="status">

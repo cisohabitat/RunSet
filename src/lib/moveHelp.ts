@@ -8,6 +8,8 @@ export interface MoveHelpData {
   next: string;
   ids: number[];
   candidate?: number;
+  meldIndex?: number;
+  followUp?: string;
 }
 const blockedNext: Record<string, string> = {
   "Table tiles cannot return to your rack.":
@@ -59,10 +61,8 @@ export function moveHelp(
     };
   const invalid = game.table.find((m) => !inspectMeld(m.tiles).valid);
   if (invalid) {
-    const candidate = p.rack.find(
-      (id) => inspectMeld([...invalid.tiles, id]).valid,
-    );
-    if (candidate !== undefined) {
+    for (const candidate of p.rack) {
+      if (!inspectMeld([...invalid.tiles, candidate]).valid) continue;
       const base = { ...game, history: [] },
         trial = reducer(base, {
           type: "move",
@@ -85,6 +85,10 @@ export function moveHelp(
             : `Add ${tile.color} ${tile.num} from your rack to group/run ${number}.`,
           ids: [...invalid.tiles],
           candidate,
+          meldIndex: number,
+          followUp: turnCheck(trial).valid
+            ? "After this change, choose End turn to check and keep the whole turn."
+            : "This repairs this group or run only. Other turn requirements still need attention.",
         };
       }
     }

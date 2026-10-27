@@ -271,7 +271,9 @@ export function Game({
       <div className="game-context">
         <div className="game-heading">
           <div>
-            <span className="eyebrow">{t("THE TABLE")}</span>
+            <span className="eyebrow turn-owner">
+              {myTurn ? t("Your turn") : t(`${p.name}’s turn`)}
+            </span>
             <h1>{t(myTurn ? "Your move." : "A little thinking…")}</h1>
           </div>
           <div className="game-heading-actions">
@@ -781,6 +783,24 @@ export function Game({
                     reminder
                     text={`${t(guidance.message)} ${t(guidance.endHelp)}`}
                   />
+                )}
+                {coaching && (
+                  <details className="current-turn-help">
+                    <summary>{t("What can I do now?")}</summary>
+                    <p>{t(guidance.message)}</p>
+                    <p>{t(guidance.endHelp)}</p>
+                    {s.log.length > 0 && (
+                      <p>
+                        <strong>{t("Last completed turn:")}</strong>{" "}
+                        {t(s.log.at(-1)!)}
+                      </p>
+                    )}
+                    {s.lastPlaced.length > 0 && (
+                      <p>
+                        {t("Marked tiles show the latest play on the table.")}
+                      </p>
+                    )}
+                  </details>
                 )}
                 {s.match && (
                   <details className="compact-match-scores">

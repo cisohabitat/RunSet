@@ -37,6 +37,12 @@ export function turnGuidance(
   const p = s.players[s.current],
     check = turnCheck(s);
   const dirty = JSON.stringify(s.table) !== JSON.stringify(s.turnStart.table);
+  const human = s.players.findIndex((player) => !player.bot);
+  const waiting = (human - s.current + s.players.length) % s.players.length;
+  const waitMessage =
+    waiting === 1
+      ? "Watch the opponent. Your turn comes next."
+      : `${waiting} opponents will play before you. Watch their moves; your tiles unlock on your turn.`;
   const action = s.pool.length ? "draw a tile" : "pass";
   const endHelp = p.bot
     ? "Wait for your turn before playing tiles."
@@ -48,7 +54,7 @@ export function turnGuidance(
           ? `Rearranging alone does not end a turn. Play a rack tile, or ${action}; unfinished edits will be reset.`
           : "Ready to end: every group and run is valid, and you played from your rack.";
   const message = p.bot
-    ? "Watch the opponent. Your turn comes next."
+    ? waitMessage
     : s.table.some((m) => !inspectMeld(m.tiles).valid)
       ? "Complete the red-outlined group or run, or use Reset to undo this turn without a penalty."
       : !p.melded && check.played.length && check.points < 30
@@ -65,7 +71,7 @@ export function turnGuidance(
                 : `Select tiles → New group or run. Your first play needs 30 points. Place a rack tile before End turn, or ${action}.`
               : `Add tiles to a group or run, or make a new one. Play a rack tile before End turn, or ${action}.`;
   const compactMessage = p.bot
-    ? "Watch the opponent; your turn is next."
+    ? waitMessage
     : s.table.some((m) => !inspectMeld(m.tiles).valid)
       ? "Complete the red-outlined group or run, or Reset."
       : !p.melded && check.played.length && check.points < 30

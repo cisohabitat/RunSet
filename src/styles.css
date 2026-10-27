@@ -3534,7 +3534,8 @@ button:not(.tile) {
   outline-offset: 2px;
   background: var(--soft);
 }
-.turn-actions-help p {
+.turn-actions-help p,
+.current-turn-help p {
   margin: 8px 0;
   line-height: 1.6;
 }

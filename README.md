@@ -361,3 +361,7 @@ recovery screen, save-before-reload protection, safer offline-update retries and
 retention of the previous working cache. Crowded boards avoid redundant tile
 renders; a 1000-turn soak checks saves and backup round trips. Regression coverage
 now includes 114 unit tests, 199 browser flows and 17 production-offline flows.
+
+The [confidence and enjoyment cycle](docs/ENJOYMENT_ROADMAP.md) adds clearer turn
+ownership and a More → What can I do now? reminder with the last completed turn.
+Multi-opponent guidance now counts how many opponents play before you.

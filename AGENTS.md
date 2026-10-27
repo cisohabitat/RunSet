@@ -423,3 +423,9 @@ from coarse-pointer verification; do not describe them as physical Apple results
 Keep memoized Tile callbacks stable while preserving context-driven translations.
 The recovery report is docs/QUALITY_RECOVERY.md; long-session coverage is the
 1000-turn engine soak with ten validated backup round trips.
+
+The active confidence/enjoyment cycle is docs/ENJOYMENT_ROADMAP.md, with six
+separately published CI-gated phases. Turn reminders must count seats before the
+human, preserve literal names and read completed actions from public engine logs.
+Keep on-demand help accessible after coaching is dismissed, without reducing
+the meld area or introducing automatic narration.

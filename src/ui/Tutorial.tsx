@@ -217,6 +217,33 @@ export default function Tutorial({
               "You split red 1–5 and added your red 6 and 7. Red 1–3 and red 4–7 are both valid runs. Here is your finished table.",
             ]
         : advanced;
+  const instructionKey = `${lesson}-${step}-${attempt}-${instructions[1]}`;
+  const previousInstruction = useRef(instructionKey);
+  useEffect(() => {
+    if (previousInstruction.current === instructionKey) return;
+    previousInstruction.current = instructionKey;
+    // Follow a changed objective after the board's keyboard-focus work settles.
+    const frame = requestAnimationFrame(() => {
+      const heading = panelRef.current?.querySelector<HTMLElement>("h1");
+      if (
+        !heading ||
+        document.querySelector("dialog[open]") ||
+        document.activeElement?.closest("input,select")
+      )
+        return;
+      const continuation =
+        lesson === "basics" && (step === 2 || step === 4)
+          ? panelRef.current?.parentElement?.querySelector<HTMLElement>(
+              ".game .primary-actions button",
+            )
+          : null;
+      const target = continuation ?? heading;
+      if (target === heading) heading.tabIndex = -1;
+      target.focus({ preventScroll: true });
+      target.scrollIntoView({ block: "nearest" });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [instructionKey, lesson, step]);
   const dispatch = (action: Action) => {
     setFeedback("");
     if (
@@ -293,7 +320,9 @@ export default function Tutorial({
     update({ lesson, step: nextStep, game: next });
   };
   return (
-    <div
+    <main
+      id="main-content"
+      tabIndex={-1}
       data-lesson={lesson}
       className={`practice-layout ${finished ? "" : "playing"}`}
     >
@@ -391,6 +420,7 @@ export default function Tutorial({
       </section>
       {!finished && (
         <Game
+          embedded
           muted={muted}
           key={`${lesson}-${attempt}-${game.turn}`}
           coaching={false}
@@ -422,6 +452,6 @@ export default function Tutorial({
           suggested={objective.ids}
         />
       )}
-    </div>
+    </main>
   );
 }

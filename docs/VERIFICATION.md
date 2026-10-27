@@ -199,3 +199,9 @@ Quality follow-up Phase 1: 360 fresh production-budget rounds on seeds 501–530
 planner inputs. No call exceeded 400 ms on the recorded Node host. The benchmark
 smoke now validates original plans, actual placement and pass/draw distinction.
 See QUALITY_BOTS.md for raw data and correlated-seed limitations.
+
+Quality Phase 2 adds ten browser flows (185 configured): 40 Axe screen scans
+across English/Chinese and light/dark, route/skip/rack keyboard handling, full
+keyboard basics lessons and 320 CSS px comfortable-reading reflow. It fixes
+main landmarks, warning/rules contrast and lost focus between learning steps.
+Physical VoiceOver/Apple zoom and beginner/native-listening checks remain paused.

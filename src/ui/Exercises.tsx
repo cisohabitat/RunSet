@@ -123,6 +123,31 @@ export default function Exercises({
   const [feedback, setFeedback] = useState("");
   const [saveError, setSaveError] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const pageRef = useRef<HTMLElement>(null);
+  const focusKey = session
+    ? `${session.kind}-${attempt}-${session.checked}`
+    : "choose";
+  const previousFocus = useRef(focusKey);
+  useEffect(() => {
+    if (previousFocus.current === focusKey) return;
+    previousFocus.current = focusKey;
+    const frame = requestAnimationFrame(() => {
+      if (document.querySelector("dialog[open]")) return;
+      const selector =
+        focusKey === "choose"
+          ? "h1"
+          : focusKey.endsWith("-true")
+            ? ".exercise-goal h2[aria-live]"
+            : ".exercise-goal h2";
+      const heading = pageRef.current?.querySelector<HTMLElement>(selector);
+      if (heading) {
+        heading.tabIndex = -1;
+        heading.focus({ preventScroll: true });
+        heading.scrollIntoView({ block: "nearest" });
+      }
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [focusKey]);
   const previous = useRef(session);
   useEffect(() => {
     const before = previous.current;
@@ -191,7 +216,12 @@ export default function Exercises({
   };
   const copy = session && exerciseDescription(session.kind, session.game.seed);
   return (
-    <div className="exercises page">
+    <main
+      ref={pageRef}
+      id="main-content"
+      tabIndex={-1}
+      className="exercises page"
+    >
       <button className="text-button" onClick={onExit}>
         {t("← Home")}
       </button>
@@ -320,6 +350,7 @@ export default function Exercises({
           {!session.checked && (
             <Game
               key={`${session.kind}-${attempt}`}
+              embedded
               game={session.game}
               dispatch={dispatch}
               onHelp={() => setClue(true)}
@@ -392,6 +423,6 @@ export default function Exercises({
           )}
         </p>
       )}
-    </div>
+    </main>
   );
 }

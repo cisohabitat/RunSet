@@ -22,7 +22,7 @@ export function Home({
 }) {
   const { t } = useI18n();
   return (
-    <main className="home">
+    <main id="main-content" tabIndex={-1} className="home">
       <div className="hero-copy">
         <div className="eyebrow">
           <span />

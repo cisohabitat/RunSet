@@ -23,6 +23,7 @@ export function Game({
   lessonAction,
   autoScrollLessonAction = true,
   muted = true,
+  embedded = false,
 }: {
   game: GameState;
   dispatch: (a: Action) => void;
@@ -37,6 +38,7 @@ export function Game({
   lessonAction?: { label: string; onClick: () => void };
   autoScrollLessonAction?: boolean;
   muted?: boolean;
+  embedded?: boolean;
 }) {
   const { t, locale } = useI18n();
   const feedbackRoot = useRef<HTMLElement>(null);
@@ -175,8 +177,8 @@ export function Game({
   );
   const guidance = turnGuidance(s, activeSelected, destinations);
   useEffect(() => {
-    if (myTurn) focusRack();
-  }, [s.turn, myTurn]);
+    if (myTurn && !embedded) focusRack();
+  }, [s.turn, myTurn, embedded]);
   const select = (id: number) => {
     if (myTurn) {
       sound("select", muted);
@@ -205,8 +207,12 @@ export function Game({
     setSelected([]);
     dispatch(a);
   };
+  const Workspace = embedded ? "section" : "main";
   return (
-    <main
+    <Workspace
+      id={embedded ? undefined : "main-content"}
+      tabIndex={embedded ? undefined : -1}
+      aria-label={embedded ? t("Practice table") : undefined}
       ref={feedbackRoot}
       aria-describedby={coachTarget ? "practice-instructions" : undefined}
       className={`game ${touch ? "touch-friendly" : ""} ${tableView === "wide" ? "table-expanded" : ""}`}
@@ -847,6 +853,9 @@ export function Game({
               <button
                 ref={lessonButton}
                 className="primary"
+                aria-describedby={
+                  coachTarget ? "practice-instructions" : undefined
+                }
                 onClick={lessonAction.onClick}
               >
                 {t(lessonAction.label)}
@@ -884,6 +893,6 @@ export function Game({
           {t(narrate ? narrateMove(s) : s.notice)}
         </p>
       )}
-    </main>
+    </Workspace>
   );
 }

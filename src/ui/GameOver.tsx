@@ -23,7 +23,11 @@ export function GameOver({
   const summary = roundSummary(game);
   const signed = (value: number) => (value > 0 ? `+${value}` : String(value));
   return (
-    <main className={`page game-over ${!winner.bot ? "celebrate" : ""}`}>
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className={`page game-over ${!winner.bot ? "celebrate" : ""}`}
+    >
       {!winner.bot && (
         <div className="confetti" aria-hidden="true">
           {Array.from({ length: 24 }, (_, i) => (

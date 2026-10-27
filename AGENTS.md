@@ -395,3 +395,16 @@ rounds, when comparing difficulty; retain raw reports and engine fingerprints.
 CI cancels superseded runs on the same ref, bounds the job to twenty minutes
 and the offline step to five. These limits follow an observed stuck runner;
 keep all browser/offline/benchmark checks and failure artifacts intact.
+
+Accessibility audit coverage lives in `e2e/accessibility.spec.ts`, with dev-only
+Axe scans and actual keyboard/reflow flows. Keep one `main-content` landmark per
+screen and use named sections for embedded Game boards. Route focus must wait
+for lazy content, preserve native-dialog ownership and avoid locale/timer-driven
+refocusing. Teaching steps focus new objectives (or their described continuation action)
+after board keyboard work;
+regular play retains rack focus. Keep invalid/rules text at >=4.5:1 contrast and
+the Skip to content link usable without changing tile sizes or saved state.
+
+Keep phone lesson continuation buttons fully visible when they appear. Heading
+focus must not undo that scrolling. Quick-exercise start, success and chooser
+transitions focus their matching heading; never refocus for locale/selection.

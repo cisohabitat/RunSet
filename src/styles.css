@@ -575,9 +575,9 @@ legend {
   margin-top: 20px;
 }
 .step {
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: #7c8c73;
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  color: var(--muted);
 }
 .game {
   max-width: 1320px;
@@ -4328,3 +4328,7 @@ button:not(.tile) {
 
 .voice-picker { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); font-size: 14px; margin: 8px 0; }
 .voice-picker select { min-height: 44px; max-width: 100%; color: var(--ink); background: var(--paper); border: 1px solid var(--control-line); border-radius: var(--radius-control); padding: 4px 8px; font: inherit; }
+.skip-link { position: fixed; top: max(8px, env(safe-area-inset-top)); left: 12px; z-index: 100; min-height: 44px; padding: 12px 16px; border-radius: var(--radius-control); color: var(--paper); background: var(--ink); transform: translateY(-200%); opacity: 0; pointer-events: none; }
+.skip-link:focus { transform: none; opacity: 1; pointer-events: auto; }
+
+.practice-layout :is(.primary-actions button, .practice-panel h1) { scroll-margin-block: 8px; }

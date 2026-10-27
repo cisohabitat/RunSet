@@ -35,7 +35,7 @@ export function Setup({
       initial?.difficulty ?? "easy",
     );
   return (
-    <main className="page setup">
+    <main id="main-content" tabIndex={-1} className="page setup">
       <button className="text-button" onClick={onBack}>
         {t("← Back")}
       </button>

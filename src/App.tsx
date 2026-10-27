@@ -19,6 +19,7 @@ import {
 } from "./lib/storage";
 import { settingsForGame, type GameSettings } from "./lib/gameSettings";
 import { sound, primeAudio, transitionCue } from "./lib/sound";
+import { useScreenFocus } from "./ui/useScreenFocus";
 import { Home } from "./ui/Home";
 const Setup = lazy(() =>
   import("./ui/Setup").then((module) => ({ default: module.Setup })),
@@ -44,6 +45,7 @@ export default function App() {
   const { t, locale } = useI18n();
   const [screen, setScreen] = useState<Screen>("home"),
     [helpBack, setHelpBack] = useState<Screen>("home");
+  useScreenFocus(screen);
   const [game, dispatchBase] = useReducer(
     (
       s: GameState | null,
@@ -402,6 +404,9 @@ export default function App() {
       }}
       className={`app ${reading ? "comfortable-reading" : ""} ${screen === "game" && game?.phase === "playing" ? "playing" : ""}`}
     >
+      <a className="skip-link" href="#main-content">
+        {t("Skip to content")}
+      </a>
       <header className="site-header">
         <button
           className="brand"

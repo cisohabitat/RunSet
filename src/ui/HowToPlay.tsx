@@ -3,7 +3,7 @@ import { TileDemo } from "./Tile";
 export function HowToPlay({ onBack }: { onBack: () => void }) {
   const { t } = useI18n();
   return (
-    <main className="page guide">
+    <main id="main-content" tabIndex={-1} className="page guide">
       <button className="text-button" onClick={onBack}>
         {t("← Back")}
       </button>

@@ -205,3 +205,11 @@ across English/Chinese and light/dark, route/skip/rack keyboard handling, full
 keyboard basics lessons and 320 CSS px comfortable-reading reflow. It fixes
 main landmarks, warning/rules contrast and lost focus between learning steps.
 Physical VoiceOver/Apple zoom and beginner/native-listening checks remain paused.
+
+Quality Phase 3 adds ten recovery and four crowded-board flows (199 configured
+browser flows), rejected-lock and 1000-turn soak regressions (114 unit tests),
+and four production-offline failure/update scenarios (17 offline flows).
+Coverage includes a late move during worker activation and returning Home while
+a reload waits on a save lock. Retained timings and limitations are documented
+in QUALITY_RECOVERY.md. Phase 2 CI 40426493303 and all ten live accessibility
+flows passed before this phase began.

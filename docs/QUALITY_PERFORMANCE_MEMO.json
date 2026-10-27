@@ -1,0 +1,117 @@
+{
+  "stage": "memoized tiles and stable handlers",
+  "uiFingerprint": {
+    "Tile": "726ef6ec8d4b8ed3c46bb727432e48f5ba4258755db13578f155bf601c29fd07",
+    "Game": "62cf5945360f6bdc63af8f567a54367e0947f8149c9e5d6caa91a85780aa4118"
+  },
+  "storageFingerprint": "cefdae167e82000e9a491252cabbe17000b7c044ab2d39058b45f5a2276f3480",
+  "cases": [
+    {
+      "locale": "en",
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        221.90000000596046,
+        293,
+        293.5,
+        274.5,
+        304.09999999403954,
+        297.20000000298023,
+        294.29999999701977,
+        280.70000000298023,
+        240.3999999910593,
+        243.79999999701977
+      ],
+      "maxMs": 304.09999999403954
+    },
+    {
+      "locale": "en",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        255.8999999910593,
+        393.79999999701977,
+        380.1000000089407,
+        289.79999999701977,
+        297.59999999403954,
+        326.79999999701977,
+        311.20000000298023,
+        285,
+        280.40000000596046,
+        329.70000000298023
+      ],
+      "maxMs": 393.79999999701977
+    },
+    {
+      "locale": "zh-CN",
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        316.20000000298023,
+        337.8999999910593,
+        326.1000000089407,
+        323.70000000298023,
+        332.79999999701977,
+        328.3999999910593,
+        328.29999999701977,
+        336,
+        334.5,
+        306
+      ],
+      "maxMs": 337.8999999910593
+    },
+    {
+      "locale": "zh-CN",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        337,
+        320.6000000089407,
+        330.1000000089407,
+        343.6000000089407,
+        357.3999999910593,
+        301.80000001192093,
+        289.1000000089407,
+        389.19999998807907,
+        286.5,
+        281.79999999701977
+      ],
+      "maxMs": 389.19999998807907
+    }
+  ],
+  "limitations": [
+    "Same sequential Chromium workload; small samples and simulated slowdown do not establish device speed."
+  ]
+}

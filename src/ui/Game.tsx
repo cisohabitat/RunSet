@@ -1,5 +1,12 @@
 import { useI18n } from "../i18n/I18n";
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { type GameState, type Action, turnCheck } from "../engine/game";
 import { inspectMeld } from "../engine/meld";
 import { explainMeld, narrateMove, type Hint } from "../engine/coaching";
@@ -179,16 +186,22 @@ export function Game({
   useEffect(() => {
     if (myTurn && !embedded) focusRack();
   }, [s.turn, myTurn, embedded]);
-  const select = (id: number) => {
-    if (myTurn) {
-      sound("select", muted);
-      const next = selected.includes(id)
-        ? selected.filter((v) => v !== id)
-        : [...selected, id];
-      setSelected(next);
-      onSelectionChange?.(next);
-    }
-  };
+  const select = useCallback(
+    (id: number) => {
+      if (myTurn) {
+        sound("select", muted);
+        const next = selected.includes(id)
+          ? selected.filter((v) => v !== id)
+          : [...selected, id];
+        setSelected(next);
+        onSelectionChange?.(next);
+      }
+    },
+    [selected, myTurn, muted, onSelectionChange],
+  );
+  const dragTile = useCallback((id: number) => {
+    setSelected((current) => (current.includes(id) ? current : [id]));
+  }, []);
   const move = (target: string, ids = activeSelected) => {
     if (!myTurn) return;
     dispatch({ type: "move", ids, target });
@@ -526,7 +539,7 @@ export function Game({
                             ? 0
                             : -1
                       }
-                      onFocus={() => setFocused(id)}
+                      onFocus={setFocused}
                       selected={activeSelected.includes(id)}
                       recent={s.lastPlaced.includes(id)}
                       glow={suggested.includes(id) || !!hint?.used.includes(id)}
@@ -537,9 +550,7 @@ export function Game({
                       }
                       onSelect={myTurn ? select : undefined}
                       draggable={myTurn}
-                      onDrag={(id) => {
-                        if (!activeSelected.includes(id)) setSelected([id]);
-                      }}
+                      onDrag={dragTile}
                     />
                   ))}
                 </div>
@@ -697,14 +708,12 @@ export function Game({
                       ? 0
                       : -1
                 }
-                onFocus={() => setFocused(id)}
+                onFocus={setFocused}
                 selected={activeSelected.includes(id)}
                 glow={suggested.includes(id) || !!hint?.used.includes(id)}
                 onSelect={myTurn ? select : undefined}
                 draggable={myTurn}
-                onDrag={(id) => {
-                  if (!activeSelected.includes(id)) setSelected([id]);
-                }}
+                onDrag={dragTile}
               />
             ))}
           </div>

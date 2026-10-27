@@ -349,9 +349,15 @@ learning default; Normal/Hard results overlap, so labels describe strategies.
 CI benchmark smoke now checks submitted plans before safe draw/pass fallback.
 
 CI retains full coverage with bounded job/offline execution and cancellation of
-superseded runs, to limit delays from a stalled runner.
+superseded runs to limit delays from a stalled runner.
 
 The [accessibility audit](docs/QUALITY_ACCESSIBILITY.md) adds keyboard skip
 navigation, clear screen/lesson focus, main landmarks and stronger warning/rule
 contrast. Automated English/Chinese checks cover ten screen states, keyboard
 lesson completion and comfortable-text reflow at 320 CSS pixels.
+
+The [performance and recovery audit](docs/QUALITY_RECOVERY.md) adds a bilingual
+recovery screen, save-before-reload protection, safer offline-update retries and
+retention of the previous working cache. Crowded boards avoid redundant tile
+renders; a 1000-turn soak checks saves and backup round trips. Regression coverage
+now includes 114 unit tests, 199 browser flows and 17 production-offline flows.

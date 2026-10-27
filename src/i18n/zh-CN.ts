@@ -2,6 +2,22 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Offline setup could not finish. Reconnect and reload to try again. Keep this tab open.":
+    "离线准备未能完成。请保持此页面，重新联网后刷新重试。",
+  "Offline setup is unavailable. You can continue playing in this tab.":
+    "暂时无法设置离线功能，你仍可在此页面继续玩。",
+  "The update could not finish. Keep this tab open and try again.":
+    "更新未能完成。请保持此页面，再试一次。",
+  "Updating…": "正在更新…",
+
+  "This screen could not open.": "这个页面暂时无法打开。",
+  "Reconnect, then save and reload. You can return Home meanwhile. Timed games keep running.":
+    "请重新联网，再保存并刷新。你也可以先返回首页。计时牌局仍会继续计时。",
+  "Return Home": "返回首页",
+  "Save and reload": "保存并刷新",
+  "The current position could not be saved. Keep this tab open and return Home to try again. Your previous save is kept.":
+    "当前牌局暂时无法保存。请保留此页面，返回首页后重试。之前保存的牌局仍会保留。",
+
   "Skip to content": "跳到主要内容",
   "Practice table": "练习牌桌",
   "Puzzle number": "练习编号",

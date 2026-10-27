@@ -10,16 +10,11 @@ import {
   turnCheck,
 } from "./engine/game";
 import { runPlanner } from "./lib/planner";
-import {
-  deleteGame,
-  loadGame,
-  persistGame,
-  saveGame,
-  SAVE_KEY,
-} from "./lib/storage";
+import { deleteGame, loadGame, persistGame, SAVE_KEY } from "./lib/storage";
 import { settingsForGame, type GameSettings } from "./lib/gameSettings";
 import { sound, primeAudio, transitionCue } from "./lib/sound";
 import { useScreenFocus } from "./ui/useScreenFocus";
+import { RecoveryBoundary, RecoveryScreen } from "./ui/RecoveryBoundary";
 import { Home } from "./ui/Home";
 const Setup = lazy(() =>
   import("./ui/Setup").then((module) => ({ default: module.Setup })),
@@ -60,6 +55,21 @@ export default function App() {
             : null,
     initial.game,
   );
+  const latestGame = useRef(game);
+  latestGame.current = game;
+  const failedView = useRef(false);
+  const [viewFailed, setViewFailed] = useState(false),
+    [viewAttempt, setViewAttempt] = useState(0);
+  async function saveLatestGame(): Promise<boolean> {
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const snapshot = latestGame.current;
+      if (!snapshot) return true;
+      if (!(await persistGame(snapshot)).ok) return false;
+      if (latestGame.current === snapshot) return true;
+    }
+    return false;
+  }
+
   const [confirmation, setConfirmation] = useState<{
     kind: "delete" | "replace" | "penalty";
     next?: GameState;
@@ -222,6 +232,7 @@ export default function App() {
       screen !== "game" ||
       confirmation ||
       settingsOpen ||
+      viewFailed ||
       !game ||
       game.phase !== "playing" ||
       !game.players[game.current].bot
@@ -231,11 +242,19 @@ export default function App() {
     const timer = setTimeout(() => {
       runPlanner(game, "bot", controller.signal)
         .then((table) => {
-          if (!controller.signal.aborted)
+          if (
+            !controller.signal.aborted &&
+            !failedView.current &&
+            latestGame.current === game
+          )
             dispatchBase({ type: "botTurn", table, at: Date.now() });
         })
         .catch(() => {
-          if (!controller.signal.aborted)
+          if (
+            !controller.signal.aborted &&
+            !failedView.current &&
+            latestGame.current === game
+          )
             dispatchBase({ type: "draw", at: Date.now() });
         });
     }, pace);
@@ -243,13 +262,13 @@ export default function App() {
       clearTimeout(timer);
       controller.abort();
     };
-  }, [game, screen, confirmation, settingsOpen, pace]);
+  }, [game, screen, confirmation, settingsOpen, pace, viewFailed]);
   const audibleGame = useRef(game);
   useEffect(() => {
     const cue = transitionCue(audibleGame.current, game);
     audibleGame.current = game;
-    if (screen === "game" && cue) sound(cue, muted);
-  }, [game, screen, muted]);
+    if (screen === "game" && !viewFailed && cue) sound(cue, muted);
+  }, [game, screen, muted, viewFailed]);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [screen]);
@@ -390,311 +409,333 @@ export default function App() {
             </p>
           </details>
           <SaveTools game={game} onRestore={restore} />
-          <Offline beforeUpdate={() => !game || saveGame(game)} />
+          <Offline beforeUpdate={saveLatestGame} />
         </nav>
       </details>
     ) : null;
   return (
-    <div
-      onPointerDownCapture={() => {
-        if (!muted) primeAudio();
+    <RecoveryBoundary
+      key={viewAttempt}
+      onFailure={() => {
+        failedView.current = true;
+        setViewFailed(true);
       }}
-      onKeyDownCapture={() => {
-        if (!muted) primeAudio();
-      }}
-      className={`app ${reading ? "comfortable-reading" : ""} ${screen === "game" && game?.phase === "playing" ? "playing" : ""}`}
+      fallback={
+        <RecoveryScreen
+          reading={reading}
+          beforeReload={saveLatestGame}
+          onHome={() => {
+            setSettingsOpen(false);
+            setConfirmation(null);
+            setScreen("home");
+            failedView.current = false;
+            setViewFailed(false);
+            setViewAttempt((n) => n + 1);
+          }}
+        />
+      }
     >
-      <a className="skip-link" href="#main-content">
-        {t("Skip to content")}
-      </a>
-      <header className="site-header">
-        <button
-          className="brand"
-          onClick={() => setScreen("home")}
-          aria-label={t("RunSet home")}
-        >
-          <span className="brand-icon">
-            {t("r")}
-            <span>◆</span>
-          </span>
-          {t("runset")}
-          <span className="brand-period">.</span>
-        </button>
-        <div className="header-right">
-          <LanguageSwitch />
-          {gameMenu}
-          <span className="header-tag">{t("A GOOD TIME, WELL PLAYED.")}</span>
+      <div
+        onPointerDownCapture={() => {
+          if (!muted) primeAudio();
+        }}
+        onKeyDownCapture={() => {
+          if (!muted) primeAudio();
+        }}
+        className={`app ${reading ? "comfortable-reading" : ""} ${screen === "game" && game?.phase === "playing" ? "playing" : ""}`}
+      >
+        <a className="skip-link" href="#main-content">
+          {t("Skip to content")}
+        </a>
+        <header className="site-header">
           <button
-            className="sound-button"
-            onClick={() => setSettingsOpen(true)}
-            aria-haspopup="dialog"
+            className="brand"
+            onClick={() => setScreen("home")}
+            aria-label={t("RunSet home")}
           >
-            {t("Settings")}
+            <span className="brand-icon">
+              {t("r")}
+              <span>◆</span>
+            </span>
+            {t("runset")}
+            <span className="brand-period">.</span>
           </button>
-          {screen !== "home" && (
-            <button className="text-button" onClick={() => setScreen("home")}>
-              {t("Home")}
+          <div className="header-right">
+            <LanguageSwitch />
+            {gameMenu}
+            <span className="header-tag">{t("A GOOD TIME, WELL PLAYED.")}</span>
+            <button
+              className="sound-button"
+              onClick={() => setSettingsOpen(true)}
+              aria-haspopup="dialog"
+            >
+              {t("Settings")}
             </button>
-          )}
-        </div>
-      </header>
-      {settingsOpen && (
-        <Suspense
-          fallback={
-            <p role="status" className="notice">
-              {t("Loading settings…")}
-            </p>
-          }
-        >
-          <Settings
-            reading={reading}
-            setReading={setReading}
-            touch={touch}
-            setTouch={setTouch}
-            muted={muted}
-            setMuted={setMuted}
-            learning={learning}
-            setLearning={setLearning}
-            narrate={narrate}
-            setNarrate={setNarrate}
-            pace={pace}
-            setPace={setPace}
-            timed={
-              !!game?.turnSeconds &&
-              screen === "game" &&
-              game.phase === "playing"
+            {screen !== "home" && (
+              <button className="text-button" onClick={() => setScreen("home")}>
+                {t("Home")}
+              </button>
+            )}
+          </div>
+        </header>
+        {settingsOpen && (
+          <Suspense
+            fallback={
+              <p role="status" className="notice">
+                {t("Loading settings…")}
+              </p>
             }
-            onClose={() => setSettingsOpen(false)}
-          />
-        </Suspense>
-      )}
-      {confirmation && (
-        <ConfirmDialog
-          title={t(
-            confirmation.kind === "penalty"
-              ? "This turn would draw penalty tiles"
-              : confirmation.kind === "delete"
-                ? "Delete this saved game?"
-                : "Replace your saved game?",
-          )}
-          cancelLabel={
-            confirmation.kind === "penalty" ? "Keep editing" : "Keep game"
-          }
-          confirmLabel={
-            confirmation.kind === "penalty"
-              ? "End turn +3 tiles"
-              : confirmation.kind === "delete"
-                ? "Delete game"
-                : "Start new game"
-          }
-          onCancel={() => {
-            setConfirmation(null);
-            setNotice("");
-          }}
-          busy={storageBusy}
-          onConfirm={async () => {
-            if (storageBusy) return;
-            if (confirmation.kind === "penalty") {
-              if (
-                !game ||
-                game.turn !== confirmation.expectedTurn ||
-                game.seed !== confirmation.expectedSeed ||
-                game.phase !== "playing"
-              ) {
-                setConfirmation(null);
-                setNotice("That turn has already ended.");
-                return;
+          >
+            <Settings
+              reading={reading}
+              setReading={setReading}
+              touch={touch}
+              setTouch={setTouch}
+              muted={muted}
+              setMuted={setMuted}
+              learning={learning}
+              setLearning={setLearning}
+              narrate={narrate}
+              setNarrate={setNarrate}
+              pace={pace}
+              setPace={setPace}
+              timed={
+                !!game?.turnSeconds &&
+                screen === "game" &&
+                game.phase === "playing"
               }
-              dispatchBase({ type: "endTurn", at: Date.now() });
-            } else if (confirmation.kind === "delete") {
-              setStorageBusy(true);
-              const deleted = await deleteGame();
-              setStorageBusy(false);
-              if (!deleted) {
-                setNotice(
-                  "The saved game could not be deleted. Your progress is still available.",
-                );
-                return;
-              }
-              dispatchBase({ type: "clear" });
-              setScreen("home");
-            } else if (confirmation.next) {
-              const next = confirmation.next;
-              dispatchBase({
-                type: "start",
-                game: {
-                  ...next,
-                  ...(!confirmation.preserveDeadline && next.turnSeconds
-                    ? { deadline: Date.now() + next.turnSeconds * 1000 }
-                    : {}),
-                },
-              });
-              setScreen("game");
+              onClose={() => setSettingsOpen(false)}
+            />
+          </Suspense>
+        )}
+        {confirmation && (
+          <ConfirmDialog
+            title={t(
+              confirmation.kind === "penalty"
+                ? "This turn would draw penalty tiles"
+                : confirmation.kind === "delete"
+                  ? "Delete this saved game?"
+                  : "Replace your saved game?",
+            )}
+            cancelLabel={
+              confirmation.kind === "penalty" ? "Keep editing" : "Keep game"
             }
-            setConfirmation(null);
-            setNotice("");
-          }}
-        >
-          {confirmation.kind === "penalty" && game ? (
-            <>
+            confirmLabel={
+              confirmation.kind === "penalty"
+                ? "End turn +3 tiles"
+                : confirmation.kind === "delete"
+                  ? "Delete game"
+                  : "Start new game"
+            }
+            onCancel={() => {
+              setConfirmation(null);
+              setNotice("");
+            }}
+            busy={storageBusy}
+            onConfirm={async () => {
+              if (storageBusy) return;
+              if (confirmation.kind === "penalty") {
+                if (
+                  !game ||
+                  game.turn !== confirmation.expectedTurn ||
+                  game.seed !== confirmation.expectedSeed ||
+                  game.phase !== "playing"
+                ) {
+                  setConfirmation(null);
+                  setNotice("That turn has already ended.");
+                  return;
+                }
+                dispatchBase({ type: "endTurn", at: Date.now() });
+              } else if (confirmation.kind === "delete") {
+                setStorageBusy(true);
+                const deleted = await deleteGame();
+                setStorageBusy(false);
+                if (!deleted) {
+                  setNotice(
+                    "The saved game could not be deleted. Your progress is still available.",
+                  );
+                  return;
+                }
+                dispatchBase({ type: "clear" });
+                setScreen("home");
+              } else if (confirmation.next) {
+                const next = confirmation.next;
+                dispatchBase({
+                  type: "start",
+                  game: {
+                    ...next,
+                    ...(!confirmation.preserveDeadline && next.turnSeconds
+                      ? { deadline: Date.now() + next.turnSeconds * 1000 }
+                      : {}),
+                  },
+                });
+                setScreen("game");
+              }
+              setConfirmation(null);
+              setNotice("");
+            }}
+          >
+            {confirmation.kind === "penalty" && game ? (
+              <>
+                <p>
+                  {t(turnCheck(game).reason)}
+                  {t(
+                    " Ending now restores your moves and draws up to three penalty tiles.",
+                  )}
+                </p>
+                <button
+                  className="secondary"
+                  onClick={() => {
+                    dispatchBase({ type: "resetTurn" });
+                    setConfirmation(null);
+                  }}
+                >
+                  {t("Reset turn instead")}
+                </button>
+              </>
+            ) : confirmation.kind === "replace" &&
+              game?.phase === "over" &&
+              !confirmation.preserveDeadline ? (
               <p>
-                {t(turnCheck(game).reason)}
                 {t(
-                  " Ending now restores your moves and draws up to three penalty tiles.",
+                  "A fresh game replaces this saved result. The new deal starts at round 1 with zero match scores; your display and sound preferences stay the same.",
                 )}
               </p>
-              <button
-                className="secondary"
-                onClick={() => {
-                  dispatchBase({ type: "resetTurn" });
-                  setConfirmation(null);
-                }}
-              >
-                {t("Reset turn instead")}
-              </button>
-            </>
-          ) : confirmation.kind === "replace" &&
-            game?.phase === "over" &&
-            !confirmation.preserveDeadline ? (
-            <p>
-              {t(
-                "A fresh game replaces this saved result. The new deal starts at round 1 with zero match scores; your display and sound preferences stay the same.",
-              )}
-            </p>
-          ) : (
-            <p>
-              {t("Your progress")}{" "}
-              {t(
-                confirmation.kind === "delete"
-                  ? "will be removed"
-                  : "will be replaced",
-              )}{" "}
-              {t("on this browser. Sound and learning preferences are kept.")}
-            </p>
-          )}
-          {notice && <p role="alert">{t(notice)}</p>}
-        </ConfirmDialog>
-      )}
-      {notice && (
-        <div className="notice" role="status">
-          {t(notice)}
-          <button
-            aria-label={t("Dismiss notice")}
-            onClick={() => setNotice("")}
-          >
-            ×
-          </button>
-        </div>
-      )}
-      {screen === "home" && (
-        <Home
-          onNew={() => openSetup()}
-          onContinue={() => setScreen("game")}
-          onHelp={help}
-          hasSave={!!game}
-          game={game}
-          onDelete={() => setConfirmation({ kind: "delete" })}
-          onLearn={() => setScreen("learn")}
-          onExercises={() => setScreen("exercises")}
-        />
-      )}
-      {screen === "home" && (
-        <>
-          <p className="home-save-status" role="status">
-            {t(saveStatus)}
-          </p>
-          <SaveTools game={game} onRestore={restore} />
-        </>
-      )}
-      {screen === "setup" && (
-        <Suspense
-          fallback={<p className="page">{t("Preparing game setup…")}</p>}
-        >
-          <Setup
-            onStart={start}
-            onBack={() => setScreen("home")}
-            hasSave={!!game && game.phase === "playing"}
-            initial={setupPreset}
+            ) : (
+              <p>
+                {t("Your progress")}{" "}
+                {t(
+                  confirmation.kind === "delete"
+                    ? "will be removed"
+                    : "will be replaced",
+                )}{" "}
+                {t("on this browser. Sound and learning preferences are kept.")}
+              </p>
+            )}
+            {notice && <p role="alert">{t(notice)}</p>}
+          </ConfirmDialog>
+        )}
+        {notice && (
+          <div className="notice" role="status">
+            {t(notice)}
+            <button
+              aria-label={t("Dismiss notice")}
+              onClick={() => setNotice("")}
+            >
+              ×
+            </button>
+          </div>
+        )}
+        {screen === "home" && (
+          <Home
+            onNew={() => openSetup()}
+            onContinue={() => setScreen("game")}
+            onHelp={help}
+            hasSave={!!game}
+            game={game}
+            onDelete={() => setConfirmation({ kind: "delete" })}
+            onLearn={() => setScreen("learn")}
+            onExercises={() => setScreen("exercises")}
           />
-        </Suspense>
-      )}
-      {screen === "learn" && (
-        <Suspense
-          fallback={
-            <p className="page">{t("Preparing your practice table…")}</p>
-          }
-        >
-          <Tutorial
-            muted={muted}
-            onExit={() => setScreen("home")}
-            onPlay={() =>
-              start(locale === "zh-CN" ? "你" : "You", 1, "easy", {
-                coach: true,
-              })
-            }
-          />
-        </Suspense>
-      )}
-
-      {screen === "exercises" && (
-        <Suspense
-          fallback={
-            <p className="page">{t("Preparing your practice table…")}</p>
-          }
-        >
-          <Exercises muted={muted} onExit={() => setScreen("home")} />
-        </Suspense>
-      )}
-      {screen === "help" && (
-        <Suspense fallback={<p className="page">{t("Loading rules…")}</p>}>
-          <HowToPlay onBack={() => setScreen(helpBack)} />
-        </Suspense>
-      )}
-      {screen === "game" &&
-        game &&
-        (game.phase === "over" ? (
-          <Suspense fallback={<p className="page">{t("Loading results…")}</p>}>
-            <GameOver
-              onNextRound={() =>
-                dispatchBase({ type: "nextRound", at: Date.now() })
-              }
-              game={game}
-              onNew={() => openSetup(game)}
-              onReplay={replay}
-              onHome={() => setScreen("home")}
-            />
-          </Suspense>
-        ) : (
+        )}
+        {screen === "home" && (
+          <>
+            <p className="home-save-status" role="status">
+              {t(saveStatus)}
+            </p>
+            <SaveTools game={game} onRestore={restore} />
+          </>
+        )}
+        {screen === "setup" && (
           <Suspense
-            fallback={<p className="page">{t("Preparing game table…")}</p>}
+            fallback={<p className="page">{t("Preparing game setup…")}</p>}
           >
-            <Game
-              muted={muted}
-              saveLabel={saveStatus}
-              narrate={narrate}
-              touch={touch || reading}
-              key={`${game.seed}-${game.turn}`}
-              game={game}
-              dispatch={dispatch}
-              onHelp={help}
+            <Setup
+              onStart={start}
+              onBack={() => setScreen("home")}
+              hasSave={!!game && game.phase === "playing"}
+              initial={setupPreset}
             />
           </Suspense>
-        ))}
-      {screen !== "game" && (
-        <Offline beforeUpdate={() => !game || saveGame(game)} />
-      )}
-      <footer className="site-footer">
-        <span>
-          {t("runset.")}{" "}
-          <span className="footer-note">
-            {t("A classic game. A fresh perspective.")}
+        )}
+        {screen === "learn" && (
+          <Suspense
+            fallback={
+              <p className="page">{t("Preparing your practice table…")}</p>
+            }
+          >
+            <Tutorial
+              muted={muted}
+              onExit={() => setScreen("home")}
+              onPlay={() =>
+                start(locale === "zh-CN" ? "你" : "You", 1, "easy", {
+                  coach: true,
+                })
+              }
+            />
+          </Suspense>
+        )}
+
+        {screen === "exercises" && (
+          <Suspense
+            fallback={
+              <p className="page">{t("Preparing your practice table…")}</p>
+            }
+          >
+            <Exercises muted={muted} onExit={() => setScreen("home")} />
+          </Suspense>
+        )}
+        {screen === "help" && (
+          <Suspense fallback={<p className="page">{t("Loading rules…")}</p>}>
+            <HowToPlay onBack={() => setScreen(helpBack)} />
+          </Suspense>
+        )}
+        {screen === "game" &&
+          game &&
+          (game.phase === "over" ? (
+            <Suspense
+              fallback={<p className="page">{t("Loading results…")}</p>}
+            >
+              <GameOver
+                onNextRound={() =>
+                  dispatchBase({ type: "nextRound", at: Date.now() })
+                }
+                game={game}
+                onNew={() => openSetup(game)}
+                onReplay={replay}
+                onHome={() => setScreen("home")}
+              />
+            </Suspense>
+          ) : (
+            <Suspense
+              fallback={<p className="page">{t("Preparing game table…")}</p>}
+            >
+              <Game
+                muted={muted}
+                saveLabel={saveStatus}
+                narrate={narrate}
+                touch={touch || reading}
+                key={`${game.seed}-${game.turn}`}
+                game={game}
+                dispatch={dispatch}
+                onHelp={help}
+              />
+            </Suspense>
+          ))}
+        {screen !== "game" && <Offline beforeUpdate={saveLatestGame} />}
+        <footer className="site-footer">
+          <span>
+            {t("runset.")}{" "}
+            <span className="footer-note">
+              {t("A classic game. A fresh perspective.")}
+            </span>
           </span>
-        </span>
-        <button className="text-button" onClick={help}>
-          {t("How to play →")}
-        </button>
-        <span>{t("MADE FOR THE LOVE OF THE GAME")}</span>
-      </footer>
-    </div>
+          <button className="text-button" onClick={help}>
+            {t("How to play →")}
+          </button>
+          <span>{t("MADE FOR THE LOVE OF THE GAME")}</span>
+        </footer>
+      </div>
+    </RecoveryBoundary>
   );
 }

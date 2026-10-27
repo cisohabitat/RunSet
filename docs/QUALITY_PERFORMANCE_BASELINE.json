@@ -1,0 +1,119 @@
+{
+  "stage": "before tile memoization",
+  "node": "v24.19.0",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "uiFingerprint": {
+    "Tile": "27224725da4d69619597f09059152ecbb5744af24b64b6a271bb5b4fe56cd604",
+    "Game": "dbb776a04635fb3247d828346fa8625814263ee6f630ada8d53a5bdfc583ff57"
+  },
+  "cases": [
+    {
+      "locale": "en",
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        304.80000001192093,
+        351.70000000298023,
+        356.40000000596046,
+        316.40000000596046,
+        361.6000000089407,
+        323.80000001192093,
+        289,
+        279.59999999403954,
+        328.29999999701977,
+        326.8999999910593
+      ],
+      "maxMs": 361.6000000089407
+    },
+    {
+      "locale": "en",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        308,
+        312,
+        318,
+        382.8999999910593,
+        315.5,
+        305.19999998807907,
+        312.5,
+        303.90000000596046,
+        334.09999999403954,
+        326.79999999701977
+      ],
+      "maxMs": 382.8999999910593
+    },
+    {
+      "locale": "zh-CN",
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        372.29999999701977,
+        372.5,
+        385.5,
+        390.5,
+        398.8999999910593,
+        400.5,
+        315.20000000298023,
+        423.79999999701977,
+        402.09999999403954,
+        396.40000000596046
+      ],
+      "maxMs": 423.79999999701977
+    },
+    {
+      "locale": "zh-CN",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        382.29999999701977,
+        411.5,
+        362.6000000089407,
+        324.5,
+        337.79999999701977,
+        357.8999999910593,
+        395.79999999701977,
+        344.09999999403954,
+        397,
+        401.90000000596046
+      ],
+      "maxMs": 411.5
+    }
+  ],
+  "limitations": [
+    "Sequential Chromium smoke checks under simulated 4x CPU slowdown, not physical iPhone/iPad latency.",
+    "Ten frame samples per case do not establish population percentiles."
+  ]
+}

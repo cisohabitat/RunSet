@@ -1,8 +1,8 @@
 import { useI18n } from "../i18n/I18n";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import { tiles } from "../engine/tiles";
 const marks = { red: "◆", blue: "●", orange: "▲", black: "✦" };
-export function Tile({
+export const Tile = memo(function Tile({
   id,
   selected = false,
   glow = false,
@@ -23,7 +23,7 @@ export function Tile({
   onDrag?: (id: number) => void;
   represents?: string;
   tabIndex?: number;
-  onFocus?: () => void;
+  onFocus?: (id: number) => void;
 }) {
   const { t } = useI18n();
   const tile = tiles[id];
@@ -33,7 +33,7 @@ export function Tile({
       type="button"
       data-tile-id={id}
       tabIndex={tabIndex}
-      onFocus={onFocus}
+      onFocus={() => onFocus?.(id)}
       onKeyDown={(e) => {
         if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) return;
         const group = e.currentTarget.closest(".rack-tiles,.meld-tiles");
@@ -115,7 +115,7 @@ export function Tile({
       </span>
     </button>
   );
-}
+});
 export function TileDemo({ ids }: { ids: number[] }) {
   return (
     <div className="tile-demo">

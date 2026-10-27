@@ -6,7 +6,8 @@ let expectedRaw: string | null | undefined;
 let generation = 0;
 let pending: Promise<unknown> = Promise.resolve();
 export type WriteResult =
-  { ok: true } | { ok: false; reason: "conflict" | "storage" | "invalid" };
+  | { ok: true }
+  | { ok: false; reason: "conflict" | "storage" | "invalid" };
 function lockedWrite(change: () => void): Promise<WriteResult> {
   const scheduled = generation;
   const work = (): WriteResult => {
@@ -26,7 +27,9 @@ function lockedWrite(change: () => void): Promise<WriteResult> {
     typeof navigator !== "undefined" && navigator.locks
       ? navigator.locks.request("runset-game-save", work)
       : Promise.resolve(work());
-  const result = pending.then(run, run);
+  const result: Promise<WriteResult> = pending
+    .then(run, run)
+    .catch(() => ({ ok: false, reason: "storage" }));
   pending = result;
   return result;
 }
@@ -59,9 +62,12 @@ function validateSave(value: unknown): value is GameState {
     !Array.isArray(s.lastPlaced) ||
     !Array.isArray(s.log) ||
     s.log.length > 100 ||
-    !Number.isInteger(s.turn) || s.turn < 1 ||
+    !Number.isInteger(s.turn) ||
+    s.turn < 1 ||
     !Number.isFinite(s.seed) ||
-    !Number.isInteger(s.passes) || s.passes < 0 || s.passes > s.players.length
+    !Number.isInteger(s.passes) ||
+    s.passes < 0 ||
+    s.passes > s.players.length
   )
     return false;
   if (
@@ -98,14 +104,20 @@ function validateSave(value: unknown): value is GameState {
     ...s.players[s.current].rack,
     ...s.table.flatMap((m) => m.tiles),
   ];
+  // Reuse membership across up to 100 Undo snapshots.
+  const activeIds = new Set(active);
   if (
     new Set(snapshot).size !== snapshot.length ||
     snapshot.length !== active.length ||
-    snapshot.some((id) => !active.includes(id))
+    snapshot.some((id) => !activeIds.has(id))
   )
     return false;
   if (new Set(s.table.map((m) => m.id)).size !== s.table.length) return false;
-  if (new Set(s.turnStart.table.map((m) => m.id)).size !== s.turnStart.table.length) return false;
+  if (
+    new Set(s.turnStart.table.map((m) => m.id)).size !==
+    s.turnStart.table.length
+  )
+    return false;
   if (s.turnSeconds !== undefined && ![0, 60, 120].includes(s.turnSeconds))
     return false;
   if (s.turnSeconds && (!Number.isFinite(s.deadline) || s.deadline! < 0))
@@ -159,7 +171,7 @@ function validateSave(value: unknown): value is GameState {
           new Set(h.table.map((m) => m.id)).size !== h.table.length ||
           ids.length !== active.length ||
           new Set(ids).size !== ids.length ||
-          ids.some((id) => !active.includes(id))
+          ids.some((id) => !activeIds.has(id))
         );
       }))
   )
@@ -185,11 +197,19 @@ export function loadGame(): { game: GameState | null; notice: string } {
     let notice = "";
     // Earlier hint placement could damage only the Undo snapshots. Keep the
     // current conserved position when clearing that history makes it valid.
-    if (!validSave(s) && s && typeof s === "object" && "history" in s && Array.isArray(s.history) && s.history.length) {
+    if (
+      !validSave(s) &&
+      s &&
+      typeof s === "object" &&
+      "history" in s &&
+      Array.isArray(s.history) &&
+      s.history.length
+    ) {
       const recovered = { ...s, history: [] };
       if (validSave(recovered)) {
         s = recovered;
-        notice = "Recovered your game by clearing damaged Undo history. Your current tiles and turn are unchanged.";
+        notice =
+          "Recovered your game by clearing damaged Undo history. Your current tiles and turn are unchanged.";
       }
     }
     if (!validSave(s)) {
@@ -230,7 +250,8 @@ export function readRecoveryGame(): GameState | null {
   }
 }
 export function persistGame(game: GameState): Promise<WriteResult> {
-  if (!validSave(game)) return Promise.resolve({ ok: false, reason: "invalid" });
+  if (!validSave(game))
+    return Promise.resolve({ ok: false, reason: "invalid" });
   const raw = JSON.stringify(game);
   return lockedWrite(() => {
     const previous = localStorage.getItem(SAVE_KEY);

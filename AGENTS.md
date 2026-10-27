@@ -211,14 +211,14 @@ from the public repository.
 
 ## Optional read aloud
 
-- `ReadAloud` owns only browser speech, not game state. Every utterance requires
+- `ReadAloud` owns device speech or bundled narration, not game state. Playback requires
   Listen/Replay; never speak automatically after loading, selecting, or advancing.
   Retain written lesson copy and reminder text. Audio is separate from sound cues.
 - Use the current UI language. `readingVoice` selects a matching Mandarin/English
   voice; never substitute Cantonese or the unrelated browser default. Prefer local
   voices, and exclude network voices while offline. Voice quality/availability
-  belongs to the device: do not promise downloaded narration or offline speech
-  without an installed voice. Empty/late voice lists must allow a gesture retry.
+  belongs to the device for device speech; offline device speech requires an
+  installed voice. Bundled recordings work offline after verified precaching. Empty/late voice lists must allow a gesture retry.
 - Keep utterance identity guards: cancellation events can arrive after replay.
   Keep delivery warm and lighthearted: modest pitch (1.06) and unhurried pace
   (0.92). Avoid exaggerated pitch or fast speech for older learners. Browser
@@ -408,3 +408,18 @@ the Skip to content link usable without changing tile sizes or saved state.
 Keep phone lesson continuation buttons fully visible when they appear. Heading
 focus must not undo that scrolling. Quick-exercise start, success and chooser
 transitions focus their matching heading; never refocus for locale/selection.
+
+Recovery keeps App-owned state outside the error boundary. Save the latest game
+before reload and recheck after worker activation; rejected locks and failed
+writes must resolve visibly without losing the old save. Cancel pending recovery
+reloads on unmount, suppress stale bot callbacks and state that timers continue.
+Offline activation retains a previous cache containing index.html, ignoring empty
+failed installs. Clean up owned listeners/watchdogs and preserve explicit update
+consent. Run the full production offline suite after worker changes.
+
+Crowded-board timing coverage uses 50 table/50 rack tiles and 100 Undo snapshots
+under 4× Chromium throttling. Retain raw samples and distinguish mouse baselines
+from coarse-pointer verification; do not describe them as physical Apple results.
+Keep memoized Tile callbacks stable while preserving context-driven translations.
+The recovery report is docs/QUALITY_RECOVERY.md; long-session coverage is the
+1000-turn engine soak with ten validated backup round trips.

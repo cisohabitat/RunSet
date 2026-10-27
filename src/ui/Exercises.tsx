@@ -22,6 +22,7 @@ import {
   validSolo,
   type SoloProgress,
 } from "../lib/soloProgress";
+import { dailyPuzzle, validDaily } from "../lib/dailyPuzzle";
 import { validSave } from "../lib/storage";
 import { sound, transitionCue } from "../lib/sound";
 import { useI18n } from "../i18n/I18n";
@@ -34,6 +35,7 @@ interface Session {
   kind: ExerciseKind;
   game: GameState;
   checked: boolean;
+  dailyDate?: string;
 }
 const key = "runset.exercises.v1";
 function initial(): Session | null {
@@ -56,6 +58,9 @@ function initial(): Session | null {
       return {
         ...p,
         checked: p.checked === true && exerciseComplete(p.kind, p.game),
+        dailyDate: validDaily(p.dailyDate, p.kind, p.game.seed)
+          ? p.dailyDate
+          : undefined,
       };
   } catch {
     /* Optional practice must remain usable without storage. */
@@ -119,7 +124,20 @@ export default function Exercises({
       return false;
     }
   });
-  const [clue, setClue] = useState(false);
+  const [clue, setClue] = useState(0);
+  const [today, setToday] = useState(dailyPuzzle);
+  useEffect(() => {
+    const refresh = () => {
+      const next = dailyPuzzle();
+      setToday((old) => (old.date === next.date ? old : next));
+    };
+    const timer = setInterval(refresh, 60000);
+    document.addEventListener("visibilitychange", refresh);
+    return () => {
+      clearInterval(timer);
+      document.removeEventListener("visibilitychange", refresh);
+    };
+  }, []);
   const [feedback, setFeedback] = useState("");
   const [saveError, setSaveError] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -169,7 +187,11 @@ export default function Exercises({
       setSaveError(true);
     }
   }, [session, muted]);
-  const start = (kind: ExerciseKind, requested?: number) => {
+  const start = (
+    kind: ExerciseKind,
+    requested?: number,
+    dailyDate?: string,
+  ) => {
     const raw =
       requested === undefined ? puzzleNumber.trim() : String(requested);
     const code = Number(raw);
@@ -182,8 +204,8 @@ export default function Exercises({
     const game = exerciseGame(kind, code);
     setPuzzleNumber(String(code));
     if (locale === "zh-CN") game.players[0].name = "你";
-    setSession({ version: 1, kind, game, checked: false });
-    setClue(false);
+    setSession({ version: 1, kind, game, checked: false, dailyDate });
+    setClue(0);
     setFeedback("");
     setAttempt((n) => n + 1);
   };
@@ -231,6 +253,33 @@ export default function Exercises({
           "Practise one move at a time. No timer, no penalties. Your regular game is kept; its timer keeps running.",
         )}
       </p>
+      <section
+        className="daily-practice"
+        aria-label={t("A little practice for today")}
+      >
+        <h2>{t("A little practice for today")}</h2>
+        <p>
+          {today.date} · {t(exerciseCopy[today.kind].title)}
+        </p>
+        <p>
+          {t(
+            "One optional puzzle, chosen by your device date. No streak, no deadline. Starting it replaces only the exercise draft.",
+          )}
+        </p>
+        <button
+          className="secondary"
+          onClick={() => {
+            const next = dailyPuzzle();
+            setToday(next);
+            start(next.kind, next.code, next.date);
+          }}
+        >
+          {t("Play today's puzzle")}
+        </button>
+        {solo.progress.completed.includes(`${today.kind}:${today.code}`) && (
+          <p>{t("Already practised. Replay whenever you like.")}</p>
+        )}
+      </section>
       <details className="puzzle-picker" ref={puzzlePicker}>
         <summary>
           {t("Puzzle number")}: {session?.game.seed ?? puzzleNumber}
@@ -290,6 +339,11 @@ export default function Exercises({
       ) : (
         <>
           <section className="exercise-goal" aria-label={t("Exercise goal")}>
+            {session.dailyDate && (
+              <p className="daily-session">
+                {t(`Daily puzzle: ${session.dailyDate}`)}
+              </p>
+            )}
             <h2>{t(copy!.title)}</h2>
             <p>{t(copy!.goal)}</p>
             <ReadAloud text={t(copy!.goal)} />
@@ -302,15 +356,17 @@ export default function Exercises({
               {!session.checked && (
                 <button
                   className="secondary"
-                  onClick={() => setClue((v) => !v)}
-                  aria-expanded={clue}
+                  onClick={() => setClue((v) => (v ? 0 : 1))}
+                  aria-expanded={clue > 0}
                 >
                   {t(clue ? "Hide clue" : "Show clue")}
                 </button>
               )}
               <button
                 className="text-button"
-                onClick={() => start(session.kind, session.game.seed)}
+                onClick={() =>
+                  start(session.kind, session.game.seed, session.dailyDate)
+                }
               >
                 {t("Restart exercise")}
               </button>
@@ -319,18 +375,47 @@ export default function Exercises({
                 onClick={() => {
                   setSession(null);
                   setFeedback("");
-                  setClue(false);
+                  setClue(0);
                 }}
               >
                 {t("Choose another exercise")}
               </button>
             </div>
-            {clue && !session.checked && (
+            {clue > 0 && !session.checked && (
               <div className="exercise-clue">
-                <p>{t(exerciseClueText(session.kind, session.game))}</p>
-                <div className="exercise-example">
-                  <TileDemo ids={exerciseClue(session.kind, session.game)} />
-                </div>
+                <h3>{t("A gentle clue")}</h3>
+                <p>
+                  {t(
+                    {
+                      opening:
+                        "Look for matching numbers in different colours. Your opening can combine several valid melds to reach 30.",
+                      extend:
+                        "Look at the ends of the run. The next number must use the same colour.",
+                      repair:
+                        "A run needs consecutive numbers. Look for the missing number, keeping the same colour.",
+                      joker:
+                        "A joker needs its exact replacement. Reuse the freed joker in a new valid meld during the same turn.",
+                    }[session.kind],
+                  )}
+                </p>
+                {clue >= 2 && (
+                  <div className="exercise-example">
+                    <TileDemo ids={exerciseClue(session.kind, session.game)} />
+                  </div>
+                )}
+                {clue >= 3 && (
+                  <p className="clue-step">
+                    {t(exerciseClueText(session.kind, session.game))}
+                  </p>
+                )}
+                {clue < 3 && (
+                  <button
+                    className="secondary"
+                    onClick={() => setClue((v) => Math.min(3, v + 1))}
+                  >
+                    {t(clue === 1 ? "Show the tiles" : "Show the next step")}
+                  </button>
+                )}
               </div>
             )}
             <p role="status">{t(feedback)}</p>
@@ -353,9 +438,11 @@ export default function Exercises({
               embedded
               game={session.game}
               dispatch={dispatch}
-              onHelp={() => setClue(true)}
+              onHelp={() => setClue(1)}
               coaching={false}
-              suggested={clue ? exerciseClue(session.kind, session.game) : []}
+              suggested={
+                clue >= 2 ? exerciseClue(session.kind, session.game) : []
+              }
               muted={muted}
               autoScrollLessonAction={false}
               lessonAction={{ label: "Check move", onClick: check }}

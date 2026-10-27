@@ -444,3 +444,9 @@ Result takeaways may use final rack facts (empty rack, retained joker, unopened
 player, highest number), never invent missed moves or a play history. Scoring
 bars show rack totals, not positive/negative score magnitude; visible text and
 accessible meter values must agree with engine results and literal player names.
+
+Daily practice uses the device's local calendar date and deterministic bounded
+puzzle numbers. Refresh the offer on visibility/date changes without replacing
+a session, selection or regular save. Persist the chosen date only when kind/code
+match its generator. Clues reveal rules, tiles, then the current step; all moves
+and completion stay explicit and engine-validated. Do not add streak pressure.

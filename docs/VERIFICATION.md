@@ -222,3 +222,8 @@ See ENJOYMENT_ROADMAP.md for per-phase exact-commit release gates.
 Enjoyment phases 3–4 add two bilingual setup-capability checks and four final-score
 checks (214 configured browser flows). One unit regression covers translated,
 non-mutating takeaways based on final-rack facts (115 unit tests).
+
+Enjoyment Phase 5 adds four bilingual daily-practice flows (218 browser flows),
+three date/solvability regressions (118 unit tests) and first-use Chinese daily
+practice offline (19 offline flows). Clue reveal must not alter an exercise draft;
+midnight and reload preserve a chosen date and regular saves.

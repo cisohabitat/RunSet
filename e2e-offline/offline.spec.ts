@@ -462,3 +462,65 @@ test("first-use hint preview works offline and preserves the draft", async ({
     ),
   ).toEqual(game);
 });
+
+test("first-use Chinese daily practice and staged clues work offline", async ({
+  page,
+  context,
+}) => {
+  const { dailyPuzzle } = await import("../src/lib/dailyPuzzle");
+  const { translator } = await import("../src/i18n/translate");
+  const { default: messages } = await import("../src/i18n/zh-CN");
+  const { reducer } = await import("../src/engine/game");
+  const t = translator(messages),
+    now = new Date(2026, 9, 27, 11),
+    daily = dailyPuzzle(now);
+  await page.clock.install({ time: now });
+  await page.goto("/");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Ready offline" }),
+  ).toBeVisible();
+  await page.evaluate(() => localStorage.setItem("runset.language", "zh-CN"));
+  await context.setOffline(true);
+  await page.reload();
+  await page
+    .getByRole("button", { name: t("Quick exercises") + " →", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: t("Play today's puzzle"), exact: true })
+    .click();
+  await page.getByRole("button", { name: t("Show clue"), exact: true }).click();
+  await page
+    .getByRole("button", { name: t("Show the tiles"), exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: t("Show the next step"), exact: true })
+    .click();
+  await expect(page.locator(".daily-session")).toHaveText(
+    t(`Daily puzzle: ${daily.date}`),
+  );
+  let game = exerciseGame(daily.kind, daily.code);
+  const move = async (target: string) => {
+    const ids = exerciseClue(daily.kind, game);
+    for (const id of ids)
+      await page.locator(`.game [data-tile-id="${id}"]`).click();
+    await page
+      .locator(target === "new" ? ".new-meld" : ".meld-target")
+      .first()
+      .click();
+    game = reducer(game, { type: "move", ids, target });
+  };
+  await move(daily.kind === "opening" ? "new" : game.table[0].id);
+  if (daily.kind === "joker") await move("new");
+  await page
+    .getByRole("button", { name: t("Check move"), exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", {
+      name: t("Well done! Goal complete."),
+      exact: true,
+    }),
+  ).toBeVisible();
+  expect(
+    await page.evaluate(() => localStorage.getItem("runset.save.v1")),
+  ).toBeNull();
+});

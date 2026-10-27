@@ -2,6 +2,24 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "A joker needs its exact replacement. Reuse the freed joker in a new valid meld during the same turn.":
+    "换出万能牌时，必须用它所代表的那张牌替换，并在同一回合把换出的万能牌用在新的合法牌组里。",
+  "A run needs consecutive numbers. Look for the missing number, keeping the same colour.":
+    "顺子的数字必须连续。找出缺少的数字，颜色也要相同。",
+  "Look at the ends of the run. The next number must use the same colour.":
+    "看看顺子的两端，下一个数字要用相同颜色。",
+  "Look for matching numbers in different colours. Your opening can combine several valid melds to reach 30.":
+    "找数字相同、颜色不同的牌。开局可以把几组合法的牌一起算到 30 分。",
+  "Show the next step": "看看下一步",
+  "Show the tiles": "看看可以用哪些牌",
+  "A gentle clue": "先想一想",
+  "Daily puzzle: {date}": "每日练习：{date}",
+  "Already practised. Replay whenever you like.":
+    "已经练过啦，想重玩随时都可以。",
+  "Play today's puzzle": "玩今天的练习",
+  "One optional puzzle, chosen by your device date. No streak, no deadline. Starting it replaces only the exercise draft.":
+    "按设备日期选一个练习，想玩就玩，不用打卡，也不赶时间。开始时只会替换当前练习。",
+  "A little practice for today": "今天来个小练习",
   "No need to rush. Choose Change settings for a gentler opponent, or play again when you feel ready.":
     "不着急。想轻松一点，可以点“更改设置”换个电脑难度；准备好后也可以再玩一局。",
   "One thing to take with you": "记住一个小窍门",

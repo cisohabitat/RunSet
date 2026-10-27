@@ -378,3 +378,8 @@ hints remain equally available. Change style for a fresh game.
 Results compare remaining rack totals visually against each round score and
 show one learning takeaway drawn from your actual final rack. Existing tile
 arithmetic, match totals and replay/settings controls remain available.
+
+Quick exercises offer an optional daily puzzle based on the device's local date.
+An open puzzle keeps its date across midnight/reload; the new daily offer does
+not replace it. Clues progress from a rule reminder to suggested tiles and the
+next step. There are no streaks, deadlines or missed-day penalties.

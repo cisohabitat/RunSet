@@ -419,3 +419,9 @@ Unhurried (five seconds before planning), independently of difficulty and timers
 The completed implementation and per-phase verification gates are recorded in
 [reliability release evidence](docs/RELIABILITY_RELEASE.md). Physical Apple,
 older-player and native Mandarin acceptance checks remain paused.
+
+Settings → Simple home screen offers large Continue, New game and Learn choices.
+More options contains rules, quick exercises, delete and backup tools. It keeps
+saved games and other display choices, works offline after verified preparation,
+and stays enabled after deletion. The full home screen remains the default.
+The active cycle is [easier independent play](docs/INDEPENDENT_PLAY_ROADMAP.md).

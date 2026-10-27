@@ -2,6 +2,12 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Loading…": "正在加载…",
+  "Simple home screen": "简洁首页",
+  "Large main choices. More options stay available when you need them.":
+    "主要按钮更大，需要时仍可打开更多选项。",
+  "Choose where to start.": "请选择从哪里开始。",
+  "More options": "更多选项",
   "Take a break": "休息一下",
   "No timer. Resume whenever you like.": "不限时，想回来时再继续。",
   "Timed game: the turn deadline still applies.":

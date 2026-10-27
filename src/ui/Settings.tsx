@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import { useI18n } from "../i18n/I18n";
 export default function Settings({
   reading,
+  simple,
+  setSimple,
   setReading,
   contrast,
   setContrast,
@@ -18,6 +20,8 @@ export default function Settings({
   timed,
   onClose,
 }: {
+  simple: boolean;
+  setSimple: (value: boolean) => void;
   reading: boolean;
   setReading: (value: boolean) => void;
   contrast: boolean;
@@ -67,6 +71,19 @@ export default function Settings({
       </div>
       <fieldset>
         <legend>{t("Reading and display")}</legend>
+        <label>
+          <input
+            type="checkbox"
+            checked={simple}
+            onChange={(e) => setSimple(e.target.checked)}
+          />
+          {t("Simple home screen")}
+        </label>
+        <p>
+          {t(
+            "Large main choices. More options stay available when you need them.",
+          )}
+        </p>
         <label>
           <input
             type="checkbox"

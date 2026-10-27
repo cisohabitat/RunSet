@@ -254,7 +254,7 @@ from the public repository.
   cannot hide a legal alternative. Stop at a legal rack-empty finish. Reserve
   runtime headroom with the shared 240 ms work cap inside the requested budget;
   measure the full call separately and report the host and sample limitations.
-- Track the active premium cycle in `docs/PREMIUM_ROADMAP.md`. Publish and verify
+- Track the completed premium cycle in `docs/PREMIUM_ROADMAP.md`. Publish and verify
   each phase before starting the next. The physical-device/older-player phase
   remains paused; automated tests cannot substitute for those sessions.
 
@@ -463,7 +463,7 @@ Playing/results Suspense boundaries have separate keys so a slow results downloa
 cannot retain a hidden board with a second main-content ID or body-scroll lock.
 Keep App-owned game/save state outside both boundaries.
 
-The active cycle is docs/RELIABILITY_ROADMAP.md. Run test:compat for cross-browser
+The completed reliability cycle is docs/RELIABILITY_ROADMAP.md. Run test:compat for cross-browser
 player flows; preserve the existing Chromium suite. WebKit Linux emulation is
 not physical iOS. CI installs supported browser dependencies normally. Local
 non-root library overrides stay outside the repo and must not be required in CI.
@@ -493,3 +493,12 @@ Game owns and aborts the pending navigation signal on unmount: a late save must
 not pull players out of another screen. Preserve draft/history and existing
 absolute-deadline semantics; Home does not claim timed play is paused. The 5000 ms
 pace is an independent preference, retained on delete, never an engine rule.
+
+Track the independent-play cycle in docs/INDEPENDENT_PLAY_ROADMAP.md and keep its
+physical/human phase paused. runset.simpleHome is independent of reading, contrast,
+learning and game saves. SimpleHome is optional/lazy/precached; keep main choices
+>=60 px high even under comfortable-reading selectors. More options retains
+rules, practice, deletion and backup tools. Shared SaveSummary must retain draft
+and absolute-deadline context in both home views. Home Suspense keys differ by
+view to avoid duplicate hidden landmarks. usePreference preserves default-on
+learning/narration and the muted=true fallback when storage reads fail.

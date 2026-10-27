@@ -16,6 +16,8 @@ import { sound, primeAudio, transitionCue } from "./lib/sound";
 import { useScreenFocus } from "./ui/useScreenFocus";
 import { RecoveryBoundary, RecoveryScreen } from "./ui/RecoveryBoundary";
 import { Home } from "./ui/Home";
+import { usePreference } from "./ui/usePreference";
+const SimpleHome = lazy(() => import("./ui/SimpleHome"));
 import { LoadingScreen } from "./ui/LoadingScreen";
 const Setup = lazy(() =>
   import("./ui/Setup").then((module) => ({ default: module.Setup })),
@@ -86,53 +88,18 @@ export default function App() {
     setScreen("setup");
   };
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [reading, setReading] = useState(() => {
-    try {
-      return localStorage.getItem("runset.reading") === "true";
-    } catch {
-      return false;
-    }
-  });
-  useEffect(() => {
-    try {
-      localStorage.setItem("runset.reading", String(reading));
-    } catch {
-      /* Optional view preference. */
-    }
-  }, [reading]);
-  const [contrast, setContrast] = useState(() => {
-    try {
-      return localStorage.getItem("runset.contrast") === "true";
-    } catch {
-      return false;
-    }
-  });
+  const [simple, setSimple] = usePreference("runset.simpleHome");
+  const [reading, setReading] = usePreference("runset.reading");
+  const [contrast, setContrast] = usePreference("runset.contrast");
+  const [learning, setLearning] = usePreference("runset.learning", true);
+  const [narrate, setNarrate] = usePreference("runset.narrate", true);
   useEffect(() => {
     const root = document.documentElement;
     root.dataset.contrast = contrast ? "high" : "";
-    try {
-      localStorage.setItem("runset.contrast", String(contrast));
-    } catch {
-      /* Optional view preference. */
-    }
     return () => {
       delete root.dataset.contrast;
     };
   }, [contrast]);
-  const [learning, setLearning] = useState(() => {
-    try {
-      return localStorage.getItem("runset.learning") !== "false";
-    } catch {
-      return true;
-    }
-  });
-  const [narrate, setNarrate] = useState(() => {
-    try {
-      return localStorage.getItem("runset.narrate") !== "false";
-    } catch {
-      return true;
-    }
-  });
   const [pace, setPace] = useState(() => {
     try {
       const n = Number(localStorage.getItem("runset.pace"));
@@ -141,49 +108,21 @@ export default function App() {
       return 1400;
     }
   });
-  const [touch, setTouch] = useState(() => {
-    try {
-      return localStorage.getItem("runset.largeTiles") === "true";
-    } catch {
-      return false;
-    }
-  });
+  const [touch, setTouch] = usePreference("runset.largeTiles");
   useEffect(() => {
     try {
-      localStorage.setItem("runset.largeTiles", String(touch));
-    } catch {
-      /* Optional view preference. */
-    }
-  }, [touch]);
-  useEffect(() => {
-    try {
-      localStorage.setItem("runset.learning", String(learning));
-      localStorage.setItem("runset.narrate", String(narrate));
       localStorage.setItem("runset.pace", String(pace));
     } catch {
-      /* Optional preferences. */
+      /* Optional preference. */
     }
-  }, [learning, narrate, pace]);
+  }, [pace]);
   const skipSave = useRef<GameState | null | undefined>(undefined);
   const [storageBusy, setStorageBusy] = useState(false);
   const [saveStatus, setSaveStatus] = useState(
     initial.game ? "Saved" : "No saved game",
   );
   const [notice, setNotice] = useState(initial.notice);
-  const [muted, setMuted] = useState(() => {
-    try {
-      return localStorage.getItem("runset.muted") === "true";
-    } catch {
-      return true;
-    }
-  });
-  useEffect(() => {
-    try {
-      localStorage.setItem("runset.muted", String(muted));
-    } catch {
-      /* Optional preference. */
-    }
-  }, [muted]);
+  const [muted, setMuted] = usePreference("runset.muted", false, true);
   useEffect(() => {
     if (!game) {
       setSaveStatus("No saved game");
@@ -435,6 +374,7 @@ export default function App() {
         </nav>
       </details>
     ) : null;
+  const HomeView = simple ? SimpleHome : Home;
   return (
     <RecoveryBoundary
       key={viewAttempt}
@@ -511,6 +451,8 @@ export default function App() {
             <Settings
               reading={reading}
               setReading={setReading}
+              simple={simple}
+              setSimple={setSimple}
               contrast={contrast}
               setContrast={setContrast}
               touch={touch}
@@ -651,24 +593,24 @@ export default function App() {
           </div>
         )}
         {screen === "home" && (
-          <Home
-            onNew={() => openSetup()}
-            onContinue={() => setScreen("game")}
-            onHelp={help}
-            hasSave={!!game}
-            game={game}
-            onDelete={() => setConfirmation({ kind: "delete" })}
-            onLearn={() => setScreen("learn")}
-            onExercises={() => setScreen("exercises")}
-          />
-        )}
-        {screen === "home" && (
-          <>
-            <p className="home-save-status" role="status">
-              {t(saveStatus)}
-            </p>
-            <SaveTools game={game} onRestore={restore} />
-          </>
+          <Suspense
+            key={`home-${simple}`}
+            fallback={<LoadingScreen message={t("Loading…")} />}
+          >
+            <HomeView
+              onNew={() => openSetup()}
+              onContinue={() => setScreen("game")}
+              onHelp={help}
+              hasSave={!!game}
+              game={game}
+              onDelete={() => setConfirmation({ kind: "delete" })}
+              onLearn={() => setScreen("learn")}
+              onExercises={() => setScreen("exercises")}
+              status={saveStatus}
+            >
+              <SaveTools game={game} onRestore={restore} />
+            </HomeView>
+          </Suspense>
         )}
         {screen === "setup" && (
           <Suspense

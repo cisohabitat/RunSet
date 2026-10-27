@@ -426,3 +426,39 @@ test("a new numbered puzzle completes offline and saves local progress", async (
     ),
   ).toContain("opening:827");
 });
+
+test("first-use hint preview works offline and preserves the draft", async ({
+  page,
+  context,
+}) => {
+  const { practiceGame } = await import("../src/engine/practice");
+  const game = practiceGame();
+  await page.addInitScript(
+    (game) => localStorage.setItem("runset.save.v1", JSON.stringify(game)),
+    game,
+  );
+  await page.goto("/");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Ready offline" }),
+  ).toBeVisible();
+  await context.setOffline(true);
+  await page.reload();
+  await page
+    .getByRole("button", { name: "Continue game →", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Show a possible move", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Preview", exact: true }).click();
+  await expect(
+    page.getByRole("dialog", { name: "Preview this move" }),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "Back to table", exact: true })
+    .click();
+  expect(
+    await page.evaluate(() =>
+      JSON.parse(localStorage.getItem("runset.save.v1")!),
+    ),
+  ).toEqual(game);
+});

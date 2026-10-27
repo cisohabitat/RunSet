@@ -7,8 +7,8 @@ older-player studies and native Mandarin listening remain paused.
 
 | Phase | Status | Deliverable |
 | --- | --- | --- |
-| 1. Clearer turn guidance | Implemented, CI pending | Named turn owner, correct multi-opponent wait guidance, on-demand next action and last completed turn. |
-| 2. More helpful hints | Queued | Non-mutating board preview, destination and rule explanations, explicit placement. |
+| 1. Clearer turn guidance | Published, CI passed | Named turn owner, correct multi-opponent wait guidance, on-demand next action and last completed turn. |
+| 2. More helpful hints | Implemented, CI pending | Non-mutating board preview, destination and rule explanations, explicit placement. |
 | 3. Friendlier difficulty | Queued | Capability comparison and clear learning guidance, preserving audited strategies. |
 | 4. Better game endings | Queued | Visual scoring and one evidence-based learning takeaway, clear replay choices. |
 | 5. Daily gentle practice | Queued | Optional date-based puzzle and graduated clues without streak pressure. |
@@ -21,3 +21,15 @@ optional detailed narration and latest-tile marks remain available. Bot guidance
 counts seats before the human rather than promising the next turn prematurely.
 
 Previous quality cycle completed at 3da2e6f with CI 40432843482 passing.
+
+Phase 1 correction 0add1fa passed CI 40449251355 and all four production turn
+checks before Phase 2 began. Phase 2 adds a read-only, reducer-validated proposed
+table with labelled destinations, rack outlines and explanations. Escape/back
+preserve the save and restore focus; placement and turn completion remain explicit.
+
+Phase 2 local verification: 114 unit tests, five preview flows (including timer
+expiry), eight existing long-hint geometry cases, bilingual phone/tablet Axe
+checks and inspected phone screenshots. The configured browser total is 208;
+a first-use offline preview brings production-offline coverage to 18 flows.
+The preview scroll region is keyboard-focusable; native modal focus returns to
+the opener. These automated checks do not replace physical Safari testing.

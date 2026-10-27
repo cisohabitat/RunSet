@@ -4336,3 +4336,17 @@ button:not(.tile) {
 .recovery-view { max-width: 760px; }
 .recovery-view h1 { font-size: clamp(26px, 5vw, 40px); margin-bottom: 16px; }
 .recovery-view p { font-size: 18px; line-height: 1.6; margin: 16px 0; }
+
+/* Preview is a read-only modal; its scroll area never replaces the live board. */
+.hint-preview { width: min(720px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); padding: 20px; border: 1px solid var(--muted); border-radius: var(--radius-panel); background: var(--paper); color: var(--ink); }
+.hint-preview[open] { display: flex; flex-direction: column; gap: 12px; }
+.hint-preview::backdrop { background: #0008; }
+.hint-preview-body { min-height: 0; overflow: auto; overscroll-behavior: contain; }
+.hint-preview p, .hint-preview li { font-size: 16px; line-height: 1.6; }
+.hint-preview .dialog-actions { flex: none; flex-wrap: wrap; }
+.hint-preview button { min-height: 44px; }
+.preview-meld { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.preview-meld h3 { font-size: 16px; margin-bottom: 10px; }
+.preview-meld .tile-demo { flex-wrap: wrap; padding: 6px; }
+.app.comfortable-reading .hint-preview :is(p, li) { font-size: 18px; }
+@media (max-width: 720px) { .hint-actions button { padding-inline: 8px; } }

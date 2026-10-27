@@ -213,3 +213,8 @@ Coverage includes a late move during worker activation and returning Home while
 a reload waits on a save lock. Retained timings and limitations are documented
 in QUALITY_RECOVERY.md. Phase 2 CI 40426493303 and all ten live accessibility
 flows passed before this phase began.
+
+Enjoyment phases 1–2 add four turn-clarity and five hint-preview flows (208
+configured), including save isolation, modal Axe checks, Escape/focus, Undo and
+timer expiry. First-use offline preview increases the offline suite to 18.
+See ENJOYMENT_ROADMAP.md for per-phase exact-commit release gates.

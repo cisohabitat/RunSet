@@ -13,6 +13,7 @@ import { explainMeld, narrateMove, type Hint } from "../engine/coaching";
 import { runPlanner } from "../lib/planner";
 import { suggestedDestinations, turnGuidance } from "../lib/guidance";
 import { Tile } from "./Tile";
+import { HintPreview } from "./HintPreview";
 import { ReadAloud } from "./ReadAloud";
 import { useTileFeedback } from "./useTileFeedback";
 import { sound } from "../lib/sound";
@@ -128,12 +129,14 @@ export function Game({
   const hintButton = useRef<HTMLButtonElement>(null);
   const [hint, setHint] = useState<Hint | null>(null),
     [planning, setPlanning] = useState(false);
+  const [preview, setPreview] = useState(false);
   const request = useRef<AbortController | null>(null);
   useEffect(() => {
     if (hint) hintRef.current?.scrollIntoView({ block: "nearest" });
   }, [hint]);
   useEffect(() => {
     setHint(null);
+    setPreview(false);
     setPlanning(false);
     return () => request.current?.abort();
   }, [s]);
@@ -401,6 +404,11 @@ export function Game({
                   }}
                 >
                   {t("Place hint")}
+                </button>
+              )}
+              {hint.table && (
+                <button className="secondary" onClick={() => setPreview(true)}>
+                  {t("Preview")}
                 </button>
               )}
               <button
@@ -917,6 +925,18 @@ export function Game({
           </div>
         </div>
       </div>
+      {preview && hint?.table && myTurn && (
+        <HintPreview
+          game={s}
+          hint={hint}
+          onClose={() => setPreview(false)}
+          onPlace={() => {
+            setPreview(false);
+            setSelected([]);
+            dispatch({ type: "applyPlan", table: hint.table! });
+          }}
+        />
+      )}
       {s.notice && (
         <p className="game-notice" role="status">
           {t(narrate ? narrateMove(s) : s.notice)}

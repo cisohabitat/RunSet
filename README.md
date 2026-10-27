@@ -365,3 +365,7 @@ now includes 114 unit tests, 199 browser flows and 17 production-offline flows.
 The [confidence and enjoyment cycle](docs/ENJOYMENT_ROADMAP.md) adds clearer turn
 ownership and a More → What can I do now? reminder with the last completed turn.
 Multi-opponent guidance now counts how many opponents play before you.
+
+Move hints now offer an optional Preview: a read-only proposed table with
+rack-tile outlines, labelled destinations and rule explanations. Closing it
+preserves the draft; Place hint remains explicit and does not end the turn.

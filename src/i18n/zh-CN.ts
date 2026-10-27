@@ -2,6 +2,22 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Proposed table": "建议摆法",
+  "Back to table": "返回牌桌",
+  "This hint no longer fits the current table. Close the preview and request another hint.":
+    "当前牌桌已不适用这个提示。请关闭预览，再要一个新提示。",
+  "Place hint copies this preview to your table. You can Undo it; choose End turn yourself when ready.":
+    "点“采用提示”才会照此摆牌，之后仍可撤销。准备好后，再由你点“结束回合”。",
+  Updated: "已调整",
+  Unchanged: "保持原样",
+  New: "新建",
+  "Group or run": "同数组或顺子",
+  "Outlined tiles come from your rack. Each labelled row is a destination on the proposed table.":
+    "带边框的是你将从手中出的牌。每个编号行表示摆好后的一组牌。",
+  "Preview only. Your tiles and turn are unchanged. Timed games keep running.":
+    "这里只是预览，不会移动你的牌或结束回合。计时牌局仍会继续计时。",
+  "Preview this move": "预览这个出法",
+  Preview: "预览",
   "{name} is playing.": "{name} 正在出牌。",
   "Your turn": "轮到你出牌",
   "{n} opponents will play before you. Watch their moves; your tiles unlock on your turn.":

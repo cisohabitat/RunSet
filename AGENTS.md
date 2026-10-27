@@ -429,3 +429,8 @@ separately published CI-gated phases. Turn reminders must count seats before the
 human, preserve literal names and read completed actions from public engine logs.
 Keep on-demand help accessible after coaching is dismissed, without reducing
 the meld area or introducing automatic narration.
+
+HintPreview must validate a hypothetical applyPlan through the reducer, preserve
+the live draft/save/history on open/close and restore modal opener focus. Never
+reuse live tile DOM IDs in the preview. State/timer changes invalidate previews;
+only explicit Place hint may apply the plan, and End turn stays separate.

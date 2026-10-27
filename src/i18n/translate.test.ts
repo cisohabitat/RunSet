@@ -111,6 +111,12 @@ describe("Simplified Chinese presentation", () => {
 
 it("translates observed placement counts and destinations without losing numbers", () => {
   expect(t("Tile position 2 of 50.")).toBe("第 2 张，共 50 张。");
+  expect(t("Add red 6 from your rack to group/run 7.")).toBe(
+    "把手牌区的红色 6 放到第 7 组中。",
+  );
+  expect(
+    t("Add at least 24 more opening points using tiles from your rack."),
+  ).toBe("请再用自己的手牌增加至少 24 分，达到开局要求。");
   expect(t("1 tile")).toBe("1张牌");
   expect(t("3 tiles")).toBe("3张牌");
   expect(t("Placed 2")).toBe("已放置 2 张");

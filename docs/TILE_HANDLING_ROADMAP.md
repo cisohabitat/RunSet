@@ -8,8 +8,8 @@ physical-device and older-player work remains paused.
 | Phase | Status | Deliverable |
 | --- | --- | --- |
 | 1. Rack organisation | Published; CI passed | Optional manual display order with touch controls; durable order and automatic colour/number modes. |
-| 2. Crowded-board navigation | Published; exact-commit CI gate | Find selected tiles and the latest accepted placement without changing play. |
-| 3. Helpful explanations | Queued | Affected tiles and one clear next action for rejected moves, in both languages. |
+| 2. Crowded-board navigation | Published; CI passed | Find selected tiles and the latest accepted placement without changing play. |
+| 3. Helpful explanations | Published; CI pending | Affected tiles and one clear next action for rejected moves, in both languages. |
 | 4. Complete-turn practice | Queued | A whole-turn learning path with prompts that can be reduced. |
 | 5. Release hardening | Queued | Combined responsive, keyboard, cross-browser and offline journeys. |
 
@@ -98,3 +98,27 @@ languages, including unchanged decorative tile faces. The build passes at
 99,506 initial gzipped bytes under 100,000. The complete gate now has
 278 Chromium cases, 183 compatibility cases and 19 offline cases, plus units and
 benchmark. Exact-commit CI must pass before Phase 3 implementation.
+
+Phase 2 df0bc55 passed full CI 40515948000, including all matrix jobs and the
+aggregate check, before Phase 3 began. Its Vercel deployment subsequently became
+READY; live finder acceptance is checked against that exact release.
+
+All six exact Phase 2 live finder journeys passed in WebKit/Firefox before
+Phase 3 implementation. Its matching CI and live gates are accepted.
+
+Phase 3 adds More → Why this move? for real rejected attempts and unfinished
+drafts. It shows physical affected tiles, a translated reason and one next
+action, with a reducer-checked candidate tile where available. Preview does not
+place tiles, change selection or pause the deadline. Pool-empty advice says
+Pass. Opening advice distinguishes rack-only play from choosing a new group.
+Joker recovery recommends Reset rather than an unverified replacement.
+
+Bot narration now reads the immutable completed bot snapshot and matching log.
+Human completion, rejected moves and Undo keep their actual plain notices.
+Local checks passed 140 units and the build at 99,508 initial gzipped bytes
+under the unchanged 100,000 budget. Six production WebKit/Firefox cases and two
+Chromium offline touch cases cover both languages, affected IDs, truthful
+narration, unchanged saves/selection, focus, modal bounds, Axe, Reset and timed
+expiry. English/light and Chinese/dark screenshots were inspected. The existing
+16 affected Chromium turn-clarity/feedback/experience cases also passed.
+The full exact-commit workflow remains the phase acceptance gate.

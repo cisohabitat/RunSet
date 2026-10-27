@@ -104,7 +104,8 @@
   gap: 12px;
 }
 
-.game .board-finder {
+.game .board-finder,
+.game .move-help-button {
   min-height: 48px;
   font-size: 16px;
 }

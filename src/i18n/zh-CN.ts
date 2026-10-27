@@ -2,6 +2,34 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Choose New group or run for your opening.":
+    "开局时，请选择“新建同数组或顺子”来放牌。",
+  "Why this move?": "这步为什么不行？",
+  "Move help": "这步的说明",
+  "Move explanation": "出牌说明",
+  "Last blocked move": "刚才未能执行的操作",
+  "Current draft": "当前摆牌",
+  "Tiles in this move": "这步涉及的牌",
+  "Try this next": "下一步试试",
+  "One tile you can add": "可以添加的一张牌",
+  "Choose a group/run on the table as the destination.":
+    "请把牌放到牌桌上的一个同数组或顺子中。",
+  "Choose only tiles from your rack for your opening.":
+    "开局时，请只选择自己手牌区里的牌。",
+  "Use Reset to restore this turn, then build one group or run at a time.":
+    "点“重置”恢复本回合，再一次摆好一个同数组或顺子。",
+  "Use Reset to restore the joker, then replace it with the matching rack tile.":
+    "点“重置”恢复万能牌，再用手牌区里对应的牌替换它。",
+  "Choose Draw to restore unfinished edits, take one tile and end your turn.":
+    "点“摸一张牌”恢复未完成的摆牌，摸一张牌后结束回合。",
+  "Choose Pass to restore unfinished edits and end your turn.":
+    "点“跳过”恢复未完成的摆牌并结束回合。",
+  "Add a joker from your rack to group/run {r}.":
+    "把手牌区的一张万能牌放到第 {r} 组中。",
+  "Add {color} {n} from your rack to group/run {r}.":
+    "把手牌区的{color} {n} 放到第 {r} 组中。",
+  "Add at least {n} more opening points using tiles from your rack.":
+    "请再用自己的手牌增加至少 {n} 分，达到开局要求。",
   "Find selected tiles": "找到选中的牌",
   "Find latest placement": "找到刚放置的牌",
   "Each tap finds the next tile. Your selection and game stay the same.":

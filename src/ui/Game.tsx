@@ -25,6 +25,8 @@ import { useRackOrder } from "./useRackOrder";
 import { RackOrganizer } from "./RackOrganizer";
 import { useTouchClick } from "./useTouchClick";
 import { BoardFinder } from "./BoardFinder";
+import { moveHelp } from "../lib/moveHelp";
+import { MoveHelp } from "./MoveHelp";
 export function Game({
   game: s,
   dispatch,
@@ -176,12 +178,17 @@ export function Game({
     ids: number[];
     target: string;
   } | null>(null);
+  const [blockedMove, setBlockedMove] = useState<{
+    state: GameState;
+    ids: number[];
+  } | null>(null);
   const [placement, setPlacement] =
     useState<ReturnType<typeof placementFeedback>>(null);
   useEffect(() => {
     const pending = pendingPlacement.current;
     if (!pending) {
       setPlacement(null);
+      setBlockedMove((old) => (old?.state === s ? old : null));
       return;
     }
     if (pending.before === s) return;
@@ -193,12 +200,14 @@ export function Game({
       pending.target,
     );
     setPlacement(result);
+    if (result) setBlockedMove(null);
     if (
       !result &&
       pending.before.seed === s.seed &&
       pending.before.turn === s.turn &&
       pending.before.current === s.current
     ) {
+      setBlockedMove({ state: s, ids: [...pending.ids] });
       setSelected(pending.ids);
       onSelectionChange?.(pending.ids);
     }
@@ -216,6 +225,10 @@ export function Game({
   const activeSelected = selected.filter(
     (id) =>
       human.rack.includes(id) || s.table.some((m) => m.tiles.includes(id)),
+  );
+  const helpData = useMemo(
+    () => moveHelp(s, blockedMove?.state === s ? blockedMove.ids : undefined),
+    [s, blockedMove],
   );
   const [rackOrder, rememberRackOrder] = useRackOrder();
   const [orderNotice, setOrderNotice] = useState("");
@@ -1034,6 +1047,9 @@ export function Game({
                   />
                 )}
                 {orderNotice && <p>{t(orderNotice)}</p>}
+                {coaching && (
+                  <MoveHelp game={s} data={helpData} disabled={!myTurn} />
+                )}
                 <button
                   className="text-button"
                   disabled={!myTurn || !activeSelected.length}

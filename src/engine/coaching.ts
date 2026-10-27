@@ -130,8 +130,16 @@ export function planHint(s: GameState): Hint {
   };
 }
 export function narrateMove(s: GameState): string {
-  if (!s.lastPlaced.length) return s.notice;
-  const affected = s.table.filter((m) =>
+  const actor =
+    s.players[
+      s.phase === "over"
+        ? s.current
+        : (s.current + s.players.length - 1) % s.players.length
+    ];
+  if (!s.lastPlaced.length || !actor.bot || s.notice !== s.log.at(-1))
+    return s.notice;
+  const completed = s.phase === "over" ? s.table : s.turnStart.table;
+  const affected = completed.filter((m) =>
     m.tiles.some((id) => s.lastPlaced.includes(id)),
   );
   const detail = affected

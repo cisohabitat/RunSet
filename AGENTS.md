@@ -591,3 +591,10 @@ pagehide or its one-second deadline. Do not let a trailing click place selected
 tiles unintentionally. Desktop drag start must not change selection visibility:
 drop already chooses the dragged physical ID or its existing selection. Retain
 the real selected/unselected drag, single-snapshot and Undo regression.
+
+MoveHelp explains actual rejected attempts or current invalid drafts. Candidate
+additions must pass inspectMeld and a hypothetical reducer move with empty
+history; they are examples, never a claim the whole turn is complete. Preserve
+physical IDs, selection, saves and deadlines. No help is inferred for a no-op.
+Bot narration requires the actual completed bot actor and matching latest log;
+read completed turnStart.table rather than the player's unfinished draft.

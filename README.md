@@ -469,3 +469,9 @@ More → Find selected tiles cycles through your selected rack/table tiles. It
 reveals a hidden rack when needed. Find latest placement locates the last actual
 edit, including a placed hint; after Undo it can locate the latest completed play.
 Both controls preserve selection, saved tiles and timed deadlines.
+
+More → Why this move? explains an observed blocked move or unfinished draft,
+shows its affected tiles and gives one safe next action. Where possible it
+previews one matching rack tile; nothing is placed automatically. The read-only
+panel preserves selection and timed deadlines. Bot narration describes only the
+actual completed bot turn, keeping rejection and Undo notices plain.

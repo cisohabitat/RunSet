@@ -339,7 +339,7 @@ exercise types without accounts or streaks. See [solo puzzles](docs/PREMIUM_SOLO
 The [physical-device and beginner acceptance checklist](docs/PREMIUM_ACCEPTANCE.md)
 is prepared; the user-paused study and native listening review have not run.
 
-The current [quality follow-up](docs/QUALITY_ROADMAP.md) audits bot difficulty,
+The completed [quality follow-up](docs/QUALITY_ROADMAP.md) audited bot difficulty,
 accessibility, and performance/recovery, with a separate published CI gate for
 each phase. Physical-device and beginner studies remain paused.
 
@@ -383,3 +383,9 @@ Quick exercises offer an optional daily puzzle based on the device's local date.
 An open puzzle keeps its date across midnight/reload; the new daily offer does
 not replace it. Clues progress from a rule reminder to suggested tiles and the
 next step. There are no streaks, deadlines or missed-day penalties.
+
+The [final enjoyment-cycle audit](docs/ENJOYMENT_RELEASE.md) covers 118 unit tests,
+233 browser flows and 19 production-offline flows. Loading screens retain keyboard
+landmarks, completed rounds focus results, and opponent choices wrap in narrow
+comfortable-reading views. Publication to GitHub and a ready Vercel deployment
+are checked separately; later deployments were queued during this audit.

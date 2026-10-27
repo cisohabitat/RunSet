@@ -134,10 +134,10 @@ export function Setup({
                   <caption>{t("Moves after the 30-point opening")}</caption>
                   <thead>
                     <tr>
-                      <th scope="col">{t("Opponent")}</th>
+                      <th scope="col">{t("Level")}</th>
                       <th scope="col">{t("New melds")}</th>
                       <th scope="col">{t("Add tiles")}</th>
-                      <th scope="col">{t("Rebuild table")}</th>
+                      <th scope="col">{t("Split / join")}</th>
                     </tr>
                   </thead>
                   <tbody>

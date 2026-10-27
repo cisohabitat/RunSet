@@ -16,6 +16,7 @@ import { sound, primeAudio, transitionCue } from "./lib/sound";
 import { useScreenFocus } from "./ui/useScreenFocus";
 import { RecoveryBoundary, RecoveryScreen } from "./ui/RecoveryBoundary";
 import { Home } from "./ui/Home";
+import { LoadingScreen } from "./ui/LoadingScreen";
 const Setup = lazy(() =>
   import("./ui/Setup").then((module) => ({ default: module.Setup })),
 );
@@ -40,7 +41,6 @@ export default function App() {
   const { t, locale } = useI18n();
   const [screen, setScreen] = useState<Screen>("home"),
     [helpBack, setHelpBack] = useState<Screen>("home");
-  useScreenFocus(screen);
   const [game, dispatchBase] = useReducer(
     (
       s: GameState | null,
@@ -54,6 +54,9 @@ export default function App() {
             ? reducer(s, a)
             : null,
     initial.game,
+  );
+  useScreenFocus(
+    screen === "game" && game?.phase === "over" ? "results" : screen,
   );
   const latestGame = useRef(game);
   latestGame.current = game;
@@ -648,7 +651,7 @@ export default function App() {
         )}
         {screen === "setup" && (
           <Suspense
-            fallback={<p className="page">{t("Preparing game setup…")}</p>}
+            fallback={<LoadingScreen message={t("Preparing game setup…")} />}
           >
             <Setup
               onStart={start}
@@ -661,7 +664,7 @@ export default function App() {
         {screen === "learn" && (
           <Suspense
             fallback={
-              <p className="page">{t("Preparing your practice table…")}</p>
+              <LoadingScreen message={t("Preparing your practice table…")} />
             }
           >
             <Tutorial
@@ -679,14 +682,14 @@ export default function App() {
         {screen === "exercises" && (
           <Suspense
             fallback={
-              <p className="page">{t("Preparing your practice table…")}</p>
+              <LoadingScreen message={t("Preparing your practice table…")} />
             }
           >
             <Exercises muted={muted} onExit={() => setScreen("home")} />
           </Suspense>
         )}
         {screen === "help" && (
-          <Suspense fallback={<p className="page">{t("Loading rules…")}</p>}>
+          <Suspense fallback={<LoadingScreen message={t("Loading rules…")} />}>
             <HowToPlay onBack={() => setScreen(helpBack)} />
           </Suspense>
         )}
@@ -694,7 +697,8 @@ export default function App() {
           game &&
           (game.phase === "over" ? (
             <Suspense
-              fallback={<p className="page">{t("Loading results…")}</p>}
+              key="results"
+              fallback={<LoadingScreen message={t("Loading results…")} />}
             >
               <GameOver
                 onNextRound={() =>
@@ -708,7 +712,8 @@ export default function App() {
             </Suspense>
           ) : (
             <Suspense
-              fallback={<p className="page">{t("Preparing game table…")}</p>}
+              key="playing"
+              fallback={<LoadingScreen message={t("Preparing game table…")} />}
             >
               <Game
                 muted={muted}

@@ -7,7 +7,11 @@ export function useScreenFocus(screen: string) {
     previous.current = screen;
     window.scrollTo(0, 0);
     const focus = () => {
-      const heading = document.querySelector<HTMLElement>("main h1");
+      const heading = Array.from(
+        document.querySelectorAll<HTMLElement>(
+          'main:not([aria-busy="true"]) h1',
+        ),
+      ).find((node) => node.getClientRects().length > 0);
       if (!heading) return false;
       // A native dialog owns focus until it closes.
       if (!document.querySelector("dialog[open]")) {
@@ -29,6 +33,8 @@ export function useScreenFocus(screen: string) {
     observer.observe(document.getElementById("root") ?? document.body, {
       childList: true,
       subtree: true,
+      attributes: true,
+      attributeFilter: ["style", "hidden", "aria-busy"],
     });
     return () => observer.disconnect();
   }, [screen]);

@@ -27,4 +27,5 @@ before Phase 3 began; all ten accessibility flows also passed on production.
 
 [Performance and recovery findings](QUALITY_RECOVERY.md) document interrupted-save,
 lazy-screen and offline-cache fixes, retained crowded-board timings and a
-1000-turn soak. Phase 3 must pass its exact-commit CI before release is complete.
+1000-turn soak. Phase 3 `3da2e6f` passed CI 40432843482 and all 24 final live checks.
+The subsequent confidence/enjoyment cycle is tracked in ENJOYMENT_ROADMAP.md.

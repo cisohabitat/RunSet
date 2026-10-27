@@ -4367,3 +4367,9 @@ button:not(.tile) {
 .score-transfer meter { width: 100%; height: 20px; }
 .score-transfer li > span:last-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .learning-takeaway .tile-demo { margin-top: 12px; }
+
+.loading-screen h1 { font-size: clamp(24px, 4vw, 36px); }
+.loading-screen p { margin-top: 16px; line-height: 1.6; }
+
+.setup fieldset { min-inline-size: 0; }
+.setup .choices { flex-wrap: wrap; }

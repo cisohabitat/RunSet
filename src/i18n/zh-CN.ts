@@ -2,6 +2,9 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Level": "难度",
+  "Split / join": "拆组 / 合组",
+  "Please wait. You can return Home while this loads.": "请稍等。加载时也可以先返回首页。",
   "A joker needs its exact replacement. Reuse the freed joker in a new valid meld during the same turn.":
     "换出万能牌时，必须用它所代表的那张牌替换，并在同一回合把换出的万能牌用在新的合法牌组里。",
   "A run needs consecutive numbers. Look for the missing number, keeping the same colour.":

@@ -227,3 +227,9 @@ Enjoyment Phase 5 adds four bilingual daily-practice flows (218 browser flows),
 three date/solvability regressions (118 unit tests) and first-use Chinese daily
 practice offline (19 offline flows). Clue reveal must not alter an exercise draft;
 midnight and reload preserve a chosen date and regular saves.
+
+Enjoyment Phase 6 adds nine held-lazy-download/skip/focus checks and six returning
+journeys (233 configured browser flows). Baseline regressions reproduced missing
+loading landmarks, focus loss on a real round finish and 387 px document width
+in a 320 px comfortable setup. See ENJOYMENT_RELEASE.md for fixes, verification
+and the distinction between passing GitHub CI and queued Vercel deployment.

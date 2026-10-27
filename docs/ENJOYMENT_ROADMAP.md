@@ -11,8 +11,8 @@ older-player studies and native Mandarin listening remain paused.
 | 2. More helpful hints | Published, CI passed | Non-mutating board preview, destination and rule explanations, explicit placement. |
 | 3. Friendlier difficulty | Published, CI passed | Capability comparison and clear learning guidance, preserving audited strategies. |
 | 4. Better game endings | Published, CI passed | Visual scoring and one evidence-based learning takeaway, clear replay choices. |
-| 5. Daily gentle practice | Implemented, CI pending | Optional date-based puzzle and graduated clues without streak pressure. |
-| 6. Final polish and release audit | Queued | Complete journeys, responsive visuals, audio/loading/recovery and final fixes. |
+| 5. Daily gentle practice | Published, CI passed | Optional date-based puzzle and graduated clues without streak pressure. |
+| 6. Final polish and release audit | Implemented; exact-commit release gate in Actions | Complete journeys, responsive visuals, audio/loading/recovery and final fixes. |
 
 Phase 1 reuses the existing More menu so the meld area loses no screen space.
 What can I do now? remains available after coaching is dismissed. Last completed
@@ -70,3 +70,9 @@ positions and date validation, fourteen exercise/progress flows, four new daily
 flows with Axe checks and midnight/reload/save isolation. Phone screenshots were
 inspected in both themes. Configured coverage is 218 browser flows and 19
 production-offline flows, including first-use Chinese daily practice.
+
+Phase 5 b7c3d30 passed CI 40453723153 before Phase 6 began. The
+[final release audit](ENJOYMENT_RELEASE.md) adds nine held-download/focus checks
+and six complete returning-player journeys (233 browser flows). It fixes missing
+loading landmarks, focus loss on actual round completion and 320 px comfortable
+setup overflow. All phases retain the paused human/device/listening scope.

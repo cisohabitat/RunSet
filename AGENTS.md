@@ -386,7 +386,7 @@ with deterministic cross-tab merging and no streak requirement. Preserve both
 exercise keys when deleting regular games. Keep paused human checks explicitly
 untested in `docs/PREMIUM_ACCEPTANCE.md`; automated playback cannot approve tone.
 
-The active follow-up cycle is `docs/QUALITY_ROADMAP.md`: difficulty audit, then
+The completed quality cycle is `docs/QUALITY_ROADMAP.md`: difficulty audit, then
 accessibility, then performance/recovery. Gate every phase on exact-commit CI.
 Benchmark smoke must validate original proposals before reducer fallback and
 count empty-pool passes separately. Report seed blocks, not independent seat
@@ -424,7 +424,7 @@ Keep memoized Tile callbacks stable while preserving context-driven translations
 The recovery report is docs/QUALITY_RECOVERY.md; long-session coverage is the
 1000-turn engine soak with ten validated backup round trips.
 
-The active confidence/enjoyment cycle is docs/ENJOYMENT_ROADMAP.md, with six
+The confidence/enjoyment cycle is docs/ENJOYMENT_ROADMAP.md, with six
 separately published CI-gated phases. Turn reminders must count seats before the
 human, preserve literal names and read completed actions from public engine logs.
 Keep on-demand help accessible after coaching is dismissed, without reducing
@@ -450,3 +450,15 @@ puzzle numbers. Refresh the offer on visibility/date changes without replacing
 a session, selection or regular save. Persist the chosen date only when kind/code
 match its generator. Clues reveal rules, tiles, then the current step; all moves
 and completion stay explicit and engine-validated. Do not add streak pressure.
+
+LoadingScreen keeps main-content, a heading and an announced status while lazy
+views download. Route focus must skip busy/hidden previous Suspense content and
+wait for a rendered heading; completed rounds use a distinct results focus key.
+Preserve native-dialog focus and the regular-game rack handoff. At 320 CSS px,
+comfortable setup fieldsets must shrink and opponent choices wrap without smaller
+text or hit targets. Final journey coverage lives in e2e/release-journey.spec.ts;
+release evidence and live-deployment limits are in docs/ENJOYMENT_RELEASE.md.
+
+Playing/results Suspense boundaries have separate keys so a slow results download
+cannot retain a hidden board with a second main-content ID or body-scroll lock.
+Keep App-owned game/save state outside both boundaries.

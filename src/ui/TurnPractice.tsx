@@ -17,6 +17,13 @@ import { Game } from "./Game";
 import { Tile } from "./Tile";
 import { ReadAloud } from "./ReadAloud";
 import "./TurnPractice.css";
+import {
+  turnLessons,
+  turnLessonCopy,
+  turnLessonClue,
+  turnLessonReady,
+  type TurnLesson,
+} from "../lib/turnLessons";
 const saveWarning =
   "Latest whole-turn practice changes cannot be saved in this browser. Your regular game is unchanged.";
 function readPractice(name: string): {
@@ -56,7 +63,10 @@ export function TurnPractice({
   const [progress, setProgress] = useState(initial.progress),
     [notice, setNotice] = useState(initial.notice),
     [feedback, setFeedback] = useState(""),
-    [attempt, setAttempt] = useState(0);
+    [attempt, setAttempt] = useState(0),
+    [lessonChoice, setLessonChoice] = useState<TurnLesson>(
+      initial.progress.record.lesson ?? "opening",
+    );
   const panel = useRef<HTMLElement>(null);
   const feedbackRef = useRef<HTMLParagraphElement>(null),
     noticeRef = useRef<HTMLParagraphElement>(null);
@@ -75,14 +85,17 @@ export function TurnPractice({
     return () => cancelAnimationFrame(frame);
   }, [feedback, notice]);
   const { game, record } = progress;
+  const lesson = record.lesson ?? "opening",
+    copy = turnLessonCopy[lesson],
+    clue = turnLessonClue(lesson, game);
   const check = turnCheck(game),
-    outcome = turnPracticeOutcome(game),
+    outcome = turnPracticeOutcome(game, lesson),
     finished = outcome !== "playing",
-    ready = check.valid && check.played.length > 0,
+    ready = turnLessonReady(lesson, game),
     stage = finished ? outcome : ready ? "ready" : "building";
   const title =
     outcome === "complete"
-      ? record.mode === "guided"
+      ? record.mode === "guided" && lesson === "opening"
         ? "Opening turn complete"
         : "Whole-turn practice complete"
       : outcome === "drawn"
@@ -90,15 +103,17 @@ export function TurnPractice({
         : "Practise a whole turn";
   const goal =
     outcome === "complete"
-      ? "You made a valid opening of at least 30 points and chose End turn. Here is your finished table."
+      ? copy.success
       : outcome === "drawn"
-        ? "Drawing is a normal way to end a turn. For this practice goal, restart and try a 30-point opening."
-        : "Make an opening worth at least 30 points, leave every group and run valid, then choose End turn. You decide when to finish.";
+        ? "Drawing is a normal way to end a turn. Restart to try this lesson's goal."
+        : copy.goal;
   const prompt = ready
-    ? "Your opening is ready. Choose End turn to complete this practice."
-    : game.table.length
+    ? lesson === "opening"
+      ? "Your opening is ready. Choose End turn to complete this practice."
+      : "Your lesson goal is ready. Choose End turn to finish this practice."
+    : lesson === "opening" && game.table.length
       ? "Keep every group or run valid and reach 30 opening points. You can Undo or Reset and try again; your turn is still yours."
-      : "Try the red 10, blue 10 and orange 10, then choose New group or run. Three different-colour 10s score 30 points.";
+      : copy.clue;
   const previousStage = useRef("");
   useEffect(() => {
     const key = `${attempt}-${stage}`;
@@ -124,10 +139,10 @@ export function TurnPractice({
       setNotice(saveWarning);
     }
   };
-  const restart = (mode = record.mode) => {
+  const restart = (mode = record.mode, nextLesson = lesson) => {
     setAttempt((value) => value + 1);
     setFeedback("");
-    update(freshTurnPractice(mode, practiceName));
+    update(freshTurnPractice(mode, practiceName, nextLesson));
   };
   const dispatch = (value: Action) => {
     const action = practiceAction(value);
@@ -138,10 +153,12 @@ export function TurnPractice({
       );
       return;
     }
-    if (!practiceCanApply(game, action)) {
+    if (!practiceCanApply(game, action, lesson)) {
       setFeedback(
         action.type === "endTurn"
-          ? "Your turn is not ready. Keep editing or choose Reset. No penalty was applied."
+          ? check.valid
+            ? "Finish this lesson's goal before ending the turn. No penalty was applied."
+            : "Your turn is not ready. Keep editing or choose Reset. No penalty was applied."
           : "Choose tiles on this practice table or in your rack.",
       );
       return;
@@ -178,6 +195,38 @@ export function TurnPractice({
           </button>
         </div>
         <h1 tabIndex={-1}>{t(title)}</h1>
+        <p>{t(copy.title)}</p>
+        <div className="practice-actions">
+          <label>
+            {t("Whole-turn lesson")}
+            <select
+              aria-label={t("Whole-turn lesson")}
+              value={lessonChoice}
+              onChange={(e) => setLessonChoice(e.target.value as TurnLesson)}
+            >
+              {turnLessons.map((value) => (
+                <option key={value} value={value}>
+                  {t(turnLessonCopy[value].title)}
+                </option>
+              ))}
+            </select>
+          </label>
+          {lessonChoice !== lesson && (
+            <>
+              <p>
+                {t(
+                  "Starting this lesson replaces only your current whole-turn practice. Your regular game and short lessons are kept.",
+                )}
+              </p>
+              <button
+                className="secondary"
+                onClick={() => restart("guided", lessonChoice)}
+              >
+                {t("Start selected lesson")}
+              </button>
+            </>
+          )}
+        </div>
         <div className="practice-copy">
           <p id="practice-instructions">{t(goal)}</p>
           <ReadAloud text={`${t(title)}。${t(goal)}`} />
@@ -241,7 +290,7 @@ export function TurnPractice({
             {t("Back to short lessons")}
           </button>
         </div>
-        {outcome === "complete" && (
+        {outcome === "complete" && lesson !== "draw" && (
           <section
             className="practice-result"
             aria-label={t("Completed lesson table")}
@@ -286,15 +335,9 @@ export function TurnPractice({
           game={game}
           dispatch={dispatch}
           onHelp={onLessons}
-          suggested={record.showSteps && !game.table.length ? [9, 35, 61] : []}
+          suggested={record.showSteps && !ready ? clue.ids : []}
           coachTarget={
-            record.showSteps
-              ? ready
-                ? "end"
-                : !game.table.length
-                  ? "new"
-                  : undefined
-              : undefined
+            record.showSteps ? (ready ? "end" : clue.target) : undefined
           }
         />
       )}

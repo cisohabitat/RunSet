@@ -1,5 +1,10 @@
-import { reducer, turnCheck, type GameState } from "../engine/game";
-import { practiceGame } from "../engine/practice";
+import { reducer, type GameState } from "../engine/game";
+import {
+  turnLessons,
+  turnLessonPosition,
+  turnLessonReady,
+  type TurnLesson,
+} from "./turnLessons";
 import { validSave } from "./storage";
 export const turnPracticeKey = "runset.turnPractice.v1";
 export const maxPracticeActions = 256;
@@ -9,6 +14,7 @@ export type PracticeAction =
   | { type: "undo" | "resetTurn" | "draw" | "endTurn" };
 export interface TurnPracticeRecord {
   version: 1;
+  lesson?: TurnLesson;
   mode: "guided" | "quiet";
   showSteps: boolean;
   actions: PracticeAction[];
@@ -17,18 +23,20 @@ export interface TurnPracticeProgress {
   record: TurnPracticeRecord;
   game: GameState;
 }
-function position(name: string): GameState {
-  const game = practiceGame();
-  game.players[0].name = name;
-  return game;
-}
 export function freshTurnPractice(
   mode: "guided" | "quiet" = "guided",
   name = "You",
+  lesson: TurnLesson = "opening",
 ): TurnPracticeProgress {
   return {
-    record: { version: 1, mode, showSteps: mode === "guided", actions: [] },
-    game: position(name),
+    record: {
+      version: 1,
+      lesson,
+      mode,
+      showSteps: mode === "guided",
+      actions: [],
+    },
+    game: turnLessonPosition(lesson, name),
   };
 }
 /** Only teaching actions, without clocks, plans, imported state or bot actions. */
@@ -60,10 +68,10 @@ export function practiceAction(value: unknown): PracticeAction | null {
 export function practiceCanApply(
   game: GameState,
   action: PracticeAction,
+  lesson: TurnLesson = "opening",
 ): boolean {
   if (game.current !== 0 || game.phase !== "playing") return false;
-  if (action.type === "endTurn")
-    return turnCheck(game).valid && turnCheck(game).played.length > 0;
+  if (action.type === "endTurn") return turnLessonReady(lesson, game);
   if (action.type !== "move") return true;
   const available = [
     ...game.players[0].rack,
@@ -91,26 +99,35 @@ export function replayTurnPractice(
     r.actions.length > maxPracticeActions
   )
     return null;
-  let game = position(name);
+  const lesson = r.lesson ?? "opening";
+  if (!turnLessons.includes(lesson)) return null;
+  let game = turnLessonPosition(lesson, name);
   const actions: PracticeAction[] = [];
   for (const value of r.actions) {
     const action = practiceAction(value);
-    if (!action || !practiceCanApply(game, action)) return null;
+    if (!action || !practiceCanApply(game, action, lesson)) return null;
     game = reducer(game, action);
     actions.push(action);
   }
   if (!validSave(game)) return null;
   return {
-    record: { version: 1, mode: r.mode, showSteps: r.showSteps, actions },
+    record: {
+      version: 1,
+      lesson,
+      mode: r.mode,
+      showSteps: r.showSteps,
+      actions,
+    },
     game,
   };
 }
 export function turnPracticeOutcome(
   game: GameState,
+  lesson: TurnLesson = "opening",
 ): "playing" | "complete" | "drawn" {
   return game.current === 0 && game.phase === "playing"
     ? "playing"
-    : game.lastPlaced.length
+    : game.lastPlaced.length || lesson === "draw"
       ? "complete"
       : "drawn";
 }

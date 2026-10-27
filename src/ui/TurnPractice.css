@@ -21,3 +21,13 @@
   min-height: 260px;
   max-height: none;
 }
+.app .practice-layout[data-lesson="whole-turn"] .practice-actions select {
+  min-height: 48px;
+  max-width: 100%;
+  font: inherit;
+  display: block;
+}
+.app .practice-layout[data-lesson="whole-turn"] .practice-actions label {
+  min-width: 0;
+  max-width: 100%;
+}

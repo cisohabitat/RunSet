@@ -2,6 +2,45 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  Opening: "开局",
+  "Add to a run": "延长顺子",
+  "Rearrange a whole turn": "完整回合：重新组合",
+  "A whole turn with a joker": "完整回合：万能牌",
+  "Choose when to draw": "何时摸牌",
+  "Whole-turn lesson": "完整回合课程",
+  "Start selected lesson": "开始所选课程",
+  "Starting this lesson replaces only your current whole-turn practice. Your regular game and short lessons are kept.":
+    "开始这节课只会替换当前完整回合练习。正式牌局和分步课程都会保留。",
+  "You have already opened. Add red 6 to the red 1–5 run, then choose End turn. There is no 30-point minimum after opening.":
+    "你已经开局。把红色 6 接到红色 1–5 的顺子中，再点“结束回合”。开局后不再要求每回合达到 30 分。",
+  "Select red 6 from your rack and choose the existing run as its destination.":
+    "选中手牌区的红色 6，再选择牌桌上已有的顺子作为放牌位置。",
+  "You extended the existing run with your red 6 and ended a valid turn.":
+    "你用手牌区的红色 6 延长了顺子，并正确结束了回合。",
+  "Split red 1–5 and use your red 6 and 7 to make red 1–3 and red 4–7. Then choose End turn with both runs valid.":
+    "拆开红色 1–5，加上手牌区的红色 6 和 7，组成红色 1–3 与红色 4–7。两组顺子都有效后，再点“结束回合”。",
+  "Select the table's red 4 and 5 with your red 6 and 7, then choose New group or run.":
+    "选中牌桌上的红色 4、5，以及手牌区的红色 6、7，再点“新建同数组或顺子”。",
+  "You split the original run, played from your rack and ended with both runs valid.":
+    "你拆开了原来的顺子，加入自己的手牌，两组顺子都有效，并正确结束了回合。",
+  "Replace the table joker's red 5 with your red 5. Reuse that joker with blue 5 and orange 5, then choose End turn.":
+    "用手牌区的红色 5 替换牌桌上代表红色 5 的万能牌。把万能牌与蓝色 5、橙色 5 组成新组，再点“结束回合”。",
+  "Add red 5 to the existing run first. The joker stays on the table until you move it with blue 5 and orange 5 into a new group.":
+    "先把红色 5 放入已有的顺子。万能牌仍在牌桌上，直到你把它与蓝色 5、橙色 5 一起移入新组。",
+  "You replaced the joker, reused it this turn and chose End turn with every group and run valid.":
+    "你替换了万能牌，在同一回合再次使用了它，所有同数组和顺子都有效，并正确结束了回合。",
+  "This rack has no complete group or run for an opening. Choose Draw a tile to take one tile and finish safely.":
+    "这些手牌无法组成完整的开局同数组或顺子。点“摸一张牌”，摸一张后正常结束回合。",
+  "Choose Draw a tile. Drawing restores unfinished edits and ends your turn without a penalty.":
+    "点“摸一张牌”。摸牌会恢复未完成的摆牌，并正常结束回合，不会罚摸。",
+  "You chose Draw, took exactly one tile and ended your turn without a penalty.":
+    "你选择了摸牌，只摸了一张，并正常结束了回合，没有罚摸。",
+  "Drawing is a normal way to end a turn. Restart to try this lesson's goal.":
+    "摸牌也是正常结束回合的方式。重新开始，可以再试试这节课的目标。",
+  "Your lesson goal is ready. Choose End turn to finish this practice.":
+    "这节课的目标已经达成。点“结束回合”完成练习。",
+  "Finish this lesson's goal before ending the turn. No penalty was applied.":
+    "请先完成这节课的目标，再结束回合。这次没有罚摸牌。",
   "Check this turn": "检查本回合",
   "Whole-turn practice": "完整回合练习",
   "Practise a whole turn": "练习完整回合",

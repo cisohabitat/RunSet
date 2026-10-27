@@ -494,3 +494,10 @@ phase gates and combined keyboard/touch, responsive, cross-browser and offline
 journeys, including backup/delete/restore and preserved learning preferences.
 In Chinese, More → 出牌帮助 explains both blocked moves and unfinished drafts.
 Physical-device and older-player acceptance remains paused.
+
+Learn to play → Practise a whole turn now also offers adding to a run,
+rearranging runs, replacing/reusing a joker and choosing when to draw. Pick a
+lesson, then Start selected lesson; changing the selector alone keeps the current
+draft. Finish the stated goal and explicitly End turn (or Draw in its lesson).
+Older whole-turn drafts continue as opening practice. The new cycle is tracked in
+[learning and portability](docs/LEARNING_PORTABILITY_ROADMAP.md).

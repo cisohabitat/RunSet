@@ -620,3 +620,11 @@ verify first-use offline tools, Chinese, backup/delete/import/reload. Keep exact
 regular-save comparisons, preference retention, physical IDs and strict visible
 board/tile geometry. The Chinese move-help entry is neutral because accepted
 unfinished drafts can also need explanation.
+
+Track the learning/portability cycle in docs/LEARNING_PORTABILITY_ROADMAP.md.
+Whole-turn lesson IDs are optional in v1 records for legacy opening compatibility.
+Replay the correct known fixture; require the lesson objective before accepting
+End turn, including exact joker replacement/reuse. Draw completes only its own
+lesson. Selecting a new lesson must preserve the old draft until explicit Start,
+with replacement scope visible. Keep practice independent of regular/short-lesson
+saves, captions explicit and offline, and no automatic opponent/plan callbacks.

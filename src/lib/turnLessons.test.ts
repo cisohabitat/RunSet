@@ -54,6 +54,7 @@ it("keeps legacy opening transcripts and rejects unknown lessons or a skipped jo
   expect(
     replayTurnPractice({ ...initial.record, lesson: "unknown" }),
   ).toBeNull();
+  expect(replayTurnPractice({ ...initial.record, lesson: null })).toBeNull();
   const joker = freshTurnPractice("guided", "You", "joker"),
     unrelated = reducer(joker.game, {
       type: "move",

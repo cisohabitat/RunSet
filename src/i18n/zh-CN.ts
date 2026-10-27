@@ -2,6 +2,42 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Portable progress": "迁移进度",
+  "Preparing portable progress…": "正在准备迁移工具…",
+  "Export one file with your game, learning progress and supported display and sound choices. No account is needed.":
+    "把牌局、学习进度，以及支持的显示和声音设置导出为一个文件。不需要账号。",
+  "Export portable profile": "导出进度与设置",
+  "Open portable profile": "打开进度与设置文件",
+  "Profile review": "迁移内容预览",
+  "Review before restoring": "恢复前请确认",
+  "Learning records in file: {n}": "文件中的学习记录：{n} 项",
+  "Other choices in file: {n}": "文件中的其他设置：{n} 项",
+  "Also restore the game from this file": "同时恢复文件中的牌局",
+  "This file has no game. Your current game will be kept.":
+    "文件中没有牌局。当前牌局会保留。",
+  "The game from this file will replace the game on this device. Its original turn and timer are kept.":
+    "文件中的牌局会替换此设备上的牌局，并保留原来的回合和时限。",
+  "Your current game will be kept.": "当前牌局会保留。",
+  "Only choices and learning records included in this file are replaced. Other progress is kept. The page reloads after a successful restore.":
+    "只替换文件中包含的设置和学习记录，其他进度会保留。恢复成功后，页面会重新加载。",
+  "Restore profile and reload": "恢复并重新加载",
+  "Restoring…": "正在恢复…",
+  "Profile downloaded. Keep this file to move your game, learning and choices to another device.":
+    "文件已下载。请保存好，可以用来把牌局、学习进度和设置迁移到另一台设备。",
+  "Game-only backup files still use Import game backup on Home. Device voices depend on what is installed on the receiving device.":
+    "只有牌局的备份文件，仍使用首页的“导入牌局备份”。设备朗读声音取决于新设备已安装的声音。",
+  "Choose a RunSet profile file smaller than 2 MB.":
+    "请选择小于 2 MB 的 RunSet 进度与设置文件。",
+  "This is not a supported, complete RunSet profile. Nothing has been imported.":
+    "这不是完整、受支持的 RunSet 进度与设置文件。没有导入任何内容。",
+  "Some saved learning or display choices could not be validated. Nothing was exported.":
+    "部分学习进度或显示设置无法验证。没有导出任何内容。",
+  "The profile could not be exported.": "无法导出进度与设置。",
+  "The profile could not be opened.": "无法打开进度与设置文件。",
+  "This game changed in another tab. Close portable progress and review the latest game before importing again.":
+    "牌局已在另一个页面改变。请关闭迁移工具，检查最新牌局后再导入。",
+  "The profile could not be fully restored. The page was not reloaded. Check your saved progress before trying again.":
+    "无法完整恢复进度与设置，页面没有重新加载。请检查已保存的进度后再试。",
   "Try the blue 10, orange 10 and black 10, then choose New group or run. Three different-colour 10s score 30 points.":
     "试着选中蓝色 10、橙色 10 和黑色 10，再点“新建同数组或顺子”。三张不同颜色的 10 合计 30 分。",
   "Try the orange 10, black 10 and red 10, then choose New group or run. Three different-colour 10s score 30 points.":

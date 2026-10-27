@@ -8,8 +8,8 @@ physical-device, older-player and native Mandarin acceptance remains paused.
 | Phase | Status | Deliverable |
 | --- | --- | --- |
 | 1. More whole-turn lessons | Published; CI passed | Extension, rearrangement, joker replacement/reuse and choosing Draw. |
-| 2. Varied practice hands | Published; CI gate | Several layouts per skill, optional hints and fewer prompts. |
-| 3. Portable progress | Queued | Optional profile export/import with learning and display settings, keeping game-only backups. |
+| 2. Varied practice hands | Published; CI passed | Several layouts per skill, optional hints and fewer prompts. |
+| 3. Portable progress | Published; CI gate | Optional profile export/import with learning and display settings, keeping game-only backups. |
 | 4. Clearer recovery | Queued | Review replacement scope and resume interrupted practice with clear context. |
 
 Phase 1 extends the bounded action transcript with an optional lesson ID; legacy
@@ -48,3 +48,31 @@ and benchmark. Phase 1's matching Vercel release subsequently became READY.
 All six Phase 1 live lesson journeys passed on its matching READY release
 before Phase 2 publication. Phase 2 also checked runtime errors on the offline
 Chinese layout journey; none occurred.
+
+Phase 2 commit 69f4c7d passed complete CI 40545701245 before Phase 3. Its matching
+READY Vercel release passed six bilingual live layout journeys.
+
+Phase 3 adds optional Home → Portable progress, a lazy native dialog for one
+validated file containing the game, four learning formats and supported view/
+sound preferences. Opening a file is read-only. The game can be excluded from
+restoration; absent keys remain. Successful restoration reloads to apply initial-
+read preferences/I18n, retaining original turn, deadline and Undo history. Old
+game-only backups remain unchanged. No account, backend or credentials are added.
+
+The profile codec has a strict versioned key/value allowlist, byte-size limit and
+pure nested validators. Imported practice replays its known lesson/layout and
+rejects explicit invalid identifiers; missing legacy fields remain compatible.
+Profile commits share persistGame's lock, generation and expected-value guards.
+They snapshot affected keys, attempt rollback on write failure and never reload
+after failure or owned cancellation. Rollback failures are reported honestly.
+
+Local verification passed 160 units, all 31 production offline cases, six new
+WebKit/Firefox profile journeys, two Chromium phone profile journeys and fourteen
+existing backup/recovery/keyboard regressions. Tests export actual files, reject
+malformed data, inject quota failure, check exact rollback, retain a recipient
+game when excluded and resume an imported quiet joker layout mid-turn. Native
+Restore/Done footer controls stay fully visible at >=48 px; failure feedback
+receives focus and lies within the scroll region. Light/dark screenshots were
+inspected. Final build: 99,885 initial gzip bytes under 100,000; 63 precached
+assets. Full CI retains 282 Chromium, 219 compatibility and 31 offline cases,
+plus 160 units and benchmark smoke, before Phase 4 starts.

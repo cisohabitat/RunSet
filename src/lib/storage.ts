@@ -249,21 +249,60 @@ export function readRecoveryGame(): GameState | null {
     return null;
   }
 }
-export function persistGame(game: GameState): Promise<WriteResult> {
-  if (!validSave(game))
+export function persistGame(
+  game: GameState | null,
+  extras?: Record<string, string>,
+  signal?: AbortSignal,
+): Promise<WriteResult> {
+  if (
+    (game !== null && !validSave(game)) ||
+    (extras &&
+      Object.entries(extras).some(
+        ([key, value]) =>
+          !key.startsWith("runset.") ||
+          key === SAVE_KEY ||
+          key === BACKUP_KEY ||
+          typeof value !== "string",
+      ))
+  )
     return Promise.resolve({ ok: false, reason: "invalid" });
-  const raw = JSON.stringify(game);
+  const raw = game === null ? null : JSON.stringify(game);
   return lockedWrite(() => {
+    if (signal?.aborted) throw Error("Import cancelled");
     const previous = localStorage.getItem(SAVE_KEY);
-    if (previous !== raw) {
-      if (parseSavedGame(previous)) {
-        try {
-          localStorage.setItem(BACKUP_KEY, previous!);
-        } catch {
-          /* A backup must not prevent saving current progress. */
+    const before = extras
+      ? new Map(
+          [SAVE_KEY, BACKUP_KEY, ...Object.keys(extras)].map((key) => [
+            key,
+            localStorage.getItem(key),
+          ]),
+        )
+      : null;
+    try {
+      if (raw !== null && previous !== raw) {
+        if (parseSavedGame(previous)) {
+          try {
+            localStorage.setItem(BACKUP_KEY, previous!);
+          } catch {
+            /* Recovery must not prevent saving. */
+          }
         }
+        localStorage.setItem(SAVE_KEY, raw);
       }
-      localStorage.setItem(SAVE_KEY, raw);
+      if (extras)
+        for (const [key, value] of Object.entries(extras))
+          localStorage.setItem(key, value);
+    } catch (error) {
+      if (before)
+        for (const [key, value] of [...before].reverse()) {
+          try {
+            if (value === null) localStorage.removeItem(key);
+            else localStorage.setItem(key, value);
+          } catch {
+            /* Surface failure; never reload after an incomplete import. */
+          }
+        }
+      throw error;
     }
   });
 }

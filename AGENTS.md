@@ -636,3 +636,17 @@ together; keep known solutions legal for every lesson/layout. Shuffle only fresh
 practice racks deterministically. Next layout is explicit and starts a fresh
 attempt; Restart repeats the current layout. Neither changes regular saves or
 short-lesson progress; step visibility must retain selections and the layout.
+
+Portable profiles use the strict versioned allowlist in src/lib/profile.ts. Never
+import arbitrary localStorage keys, unsupported nested progress or reserved game
+keys through profile values. Preserve the game-only backup contract. Profile
+reads use pure validators, never loadGame. ProfileTools is lazy and precached;
+keep its fixed Restore/Done footer reachable at >=48 px and readable on phones.
+
+persistGame accepts optional validated profile values and an abort signal under
+the existing serialized game lock/generation guard. A null game preserves the
+regular save. Snapshot all affected raw keys before changes, attempt rollback on
+failure, surface incomplete restoration honestly and reload only after success.
+The Home-only import owns its cancellation controller; do not reload after
+unmount. The explicit reload applies initial-read preferences/I18n without
+synthetic storage events or stale App state. Retain actual timed deadlines.

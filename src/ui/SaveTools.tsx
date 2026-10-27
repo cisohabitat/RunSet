@@ -1,5 +1,6 @@
 import { useI18n } from "../i18n/I18n";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
+const ProfileTools = lazy(() => import("./ProfileTools"));
 import type { GameState } from "../engine/game";
 import { exportBackup, importBackup, MAX_BACKUP_BYTES } from "../lib/backup";
 import { readRecoveryGame } from "../lib/storage";
@@ -12,7 +13,8 @@ export function SaveTools({
 }) {
   const { t } = useI18n();
   const [message, setMessage] = useState(""),
-    [busy, setBusy] = useState(false);
+    [busy, setBusy] = useState(false),
+    [profileOpen, setProfileOpen] = useState(false);
   const recovery = readRecoveryGame();
   const download = () => {
     if (!game) return;
@@ -99,6 +101,19 @@ export function SaveTools({
         </p>
       )}
       {message && <p role="status">{t(message)}</p>}
+      <button
+        className="secondary profile-opener"
+        onClick={() => setProfileOpen(true)}
+      >
+        {t("Portable progress")}
+      </button>
+      {profileOpen && (
+        <Suspense
+          fallback={<p role="status">{t("Preparing portable progress…")}</p>}
+        >
+          <ProfileTools game={game} onClose={() => setProfileOpen(false)} />
+        </Suspense>
+      )}
     </section>
   );
 }

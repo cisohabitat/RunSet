@@ -507,3 +507,16 @@ orders. Start next practice layout starts a fresh attempt of the same lesson;
 Restart repeats the current layout. Optional steps and the quieter attempt remain
 available, and toggling steps keeps the current selection. Instructions, tile
 highlights, goal checks and saved progress all follow the selected layout.
+
+Home → Portable progress exports one profile file containing the game, supported
+learning progress and display/sound choices. Open a profile to review it before
+restoring. You can leave “Also restore the game” unchecked to keep the current
+game. Items absent from the file stay on this device. A successful restore reloads
+the page to apply preferences; the imported game's original turn, deadline and
+Undo history remain. Existing game-only export/import still works separately.
+
+Profiles support short lessons, whole-turn lessons/layouts, quick exercises, solo
+progress, language, reading, contrast, tile size, Simple home, pace, sound/voice
+choice, expanded view and rack order. Installed device voices are not transferred.
+Files are validated before changes; failed writes attempt to restore prior raw
+values and never trigger a success reload. No account or server is introduced.

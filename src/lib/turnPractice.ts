@@ -104,7 +104,7 @@ export function replayTurnPractice(
     r.actions.length > maxPracticeActions
   )
     return null;
-  const lesson = r.lesson ?? "opening",
+  const lesson = r.lesson === undefined ? "opening" : r.lesson,
     layout = r.layout === undefined ? 0 : r.layout;
   if (!turnLessons.includes(lesson) || !validTurnLayout(layout)) return null;
   let game = turnLessonPosition(lesson, name, layout);

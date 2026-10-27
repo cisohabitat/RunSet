@@ -502,3 +502,8 @@ rules, practice, deletion and backup tools. Shared SaveSummary must retain draft
 and absolute-deadline context in both home views. Home Suspense keys differ by
 view to avoid duplicate hidden landmarks. usePreference preserves default-on
 learning/narration and the muted=true fallback when storage reads fail.
+
+Settings retains its header opener explicitly: Safari touch clicks may leave
+focus elsewhere. Returning from a failed SimpleHome download must disable only
+that optional view so full Home remains usable; preserve saves and other choices.
+Do not reset the Simple preference for an unrelated Settings failure.

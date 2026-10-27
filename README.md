@@ -425,3 +425,6 @@ More options contains rules, quick exercises, delete and backup tools. It keeps
 saved games and other display choices, works offline after verified preparation,
 and stays enabled after deletion. The full home screen remains the default.
 The active cycle is [easier independent play](docs/INDEPENDENT_PLAY_ROADMAP.md).
+
+If the optional home view cannot download, Return Home recovers the full home
+screen while keeping the saved game and other preferences.

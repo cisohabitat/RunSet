@@ -387,6 +387,7 @@ export default function App() {
           reading={reading}
           beforeReload={saveLatestGame}
           onHome={() => {
+            if (screen === "home" && !settingsOpen) setSimple(false);
             setSettingsOpen(false);
             setConfirmation(null);
             setScreen("home");

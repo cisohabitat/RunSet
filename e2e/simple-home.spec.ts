@@ -186,3 +186,57 @@ for (const locale of ["en", "zh-CN"] as const)
       expect(fresh.coach).toBe(true);
       expect(errors).toEqual([]);
     });
+
+test("a failed simple-home download returns to full home without losing the game", async ({
+  page,
+}) => {
+  const game = landscapePosition();
+  delete game.turnSeconds;
+  delete game.deadline;
+  await page.addInitScript((game) => {
+    localStorage.setItem("runset.simpleHome", "true");
+    localStorage.setItem("runset.save.v1", JSON.stringify(game));
+  }, game);
+  await page.route(
+    /\/(?:src\/ui\/SimpleHome\.tsx|assets\/SimpleHome-[^/]+\.js)(?:\?.*)?$/,
+    (route) => route.abort(),
+  );
+  await page.goto("/");
+  await expect(
+    page.getByRole("heading", {
+      name: "This screen could not open.",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Return Home", exact: true }).click();
+  await expect(page.locator(".home")).toBeVisible();
+  expect(
+    await page.evaluate(() =>
+      JSON.parse(localStorage.getItem("runset.save.v1")!),
+    ),
+  ).toEqual(game);
+  expect(
+    await page.evaluate(() => localStorage.getItem("runset.simpleHome")),
+  ).toBe("false");
+  await page
+    .getByRole("button", { name: "Continue game →", exact: true })
+    .click();
+  await expect(page.locator(".table")).toBeVisible();
+});
+
+test("settings restores its opener when opening did not move browser focus", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const opener = page.getByRole("button", { name: "Settings", exact: true });
+  await page.getByRole("button", { name: "New game →", exact: true }).focus();
+  await opener.evaluate((el: HTMLButtonElement) => el.click());
+  await page.getByLabel("Simple home screen", { exact: true }).check();
+  await page
+    .getByRole("dialog")
+    .getByRole("button", { name: "Done", exact: true })
+    .first()
+    .click();
+  await expect(opener).toBeFocused();
+  await expect(page.locator(".simple-home")).toBeVisible();
+});

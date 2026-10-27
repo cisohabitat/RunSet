@@ -44,7 +44,10 @@ export default function Settings({
   const close = useRef<HTMLButtonElement>(null);
   const opener = useRef<HTMLElement | null>(null);
   useEffect(() => {
-    opener.current ??= document.activeElement as HTMLElement | null;
+    // Safari touch clicks need not move focus to the button that opened a dialog.
+    opener.current ??=
+      document.querySelector<HTMLElement>(".site-header .sound-button") ??
+      (document.activeElement as HTMLElement | null);
     const modal = dialog.current;
     modal?.showModal();
     close.current?.focus();

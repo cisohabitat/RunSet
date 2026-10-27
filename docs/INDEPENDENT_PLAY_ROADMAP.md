@@ -31,6 +31,17 @@ comfortable-mode selectors initially overrode the 60 px targets; the styles
 were fixed without weakening the geometry checks. Initial HTML/CSS/JS totals
 99,981 gzipped bytes under the unchanged 100,000-byte budget.
 
-The complete gate now contains 269 Chromium cases, 141 production compatibility
+The complete gate now contains 271 Chromium cases, 147 production compatibility
 cases, 19 offline cases and the planner benchmark. Physical-device, older-player
 and native Mandarin acceptance remain unverified and paused.
+
+Phase 1 live checks found Settings focus could return to the wrong element on
+phone WebKit. The dialog now retains the actual header opener even when a touch
+click did not focus it. A deterministic regression opens it with focus elsewhere.
+A failed SimpleHome download also offers full Home on Return Home, preserving
+saves and other preferences; unrelated Settings failures keep the view choice.
+The follow-up adds both recovery regressions and keeps the 100 kB size limit.
+
+The follow-up passed six Chromium journeys, all 24 production WebKit/Firefox
+cases and all 124 unit tests. The build/type check passed at 99,986 initial
+gzipped bytes. The exact follow-up CI must pass before Phase 2 begins.

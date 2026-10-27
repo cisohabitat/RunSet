@@ -45,3 +45,8 @@ scoped to the arrangement modal; all main tile sizes and targets stay intact.
 The full gate now includes 131 units, 277 Chromium cases, 177 compatibility
 cases, 19 offline cases and benchmark smoke. The existing check job aggregates
 every matrix result, including failures or skipped dependencies.
+
+The first split CI run (40506462470) passed units/build but found the benchmark
+report directory had implicitly come from browser tests. Quality now creates
+that output directory explicitly. The benchmark itself completed; no test or
+benchmark gate was removed. The aggregate correctly failed when quality failed.

@@ -567,3 +567,5 @@ filters movement/cancellation and suppresses a duplicate native touch click.
 Retain normal mouse/keyboard behavior and the genuine touch cancellation test.
 The existing CI check job is the aggregate of quality and every browser matrix
 job; keep its name and require all dependencies, including failure/skipped cases.
+Create the benchmark report directory explicitly in the quality job; it cannot
+rely on a browser job having created test-results on a different runner.

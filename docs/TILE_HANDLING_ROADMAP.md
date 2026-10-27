@@ -9,8 +9,8 @@ physical-device and older-player work remains paused.
 | --- | --- | --- |
 | 1. Rack organisation | Published; CI passed | Optional manual display order with touch controls; durable order and automatic colour/number modes. |
 | 2. Crowded-board navigation | Published; CI passed | Find selected tiles and the latest accepted placement without changing play. |
-| 3. Helpful explanations | Published; CI pending | Affected tiles and one clear next action for rejected moves, in both languages. |
-| 4. Complete-turn practice | Queued | A whole-turn learning path with prompts that can be reduced. |
+| 3. Helpful explanations | Published; CI passed | Affected tiles and one clear next action for rejected moves, in both languages. |
+| 4. Complete-turn practice | Published; CI pending | A whole-turn learning path with prompts that can be reduced. |
 | 5. Release hardening | Queued | Combined responsive, keyboard, cross-browser and offline journeys. |
 
 Phase 1 stores a validated, bounded per-round rack display preference separately
@@ -122,3 +122,28 @@ narration, unchanged saves/selection, focus, modal bounds, Axe, Reset and timed
 expiry. English/light and Chinese/dark screenshots were inspected. The existing
 16 affected Chromium turn-clarity/feedback/experience cases also passed.
 The full exact-commit workflow remains the phase acceptance gate.
+
+Phase 3 commit 7859bec passed complete CI 40523691882, including all 189
+compatibility cases and the aggregate check, before Phase 4 implementation.
+Its matching READY Vercel release passed all six live bilingual move-help flows.
+
+Phase 4 adds Learn to play → Practise a whole turn. A guided opening is followed
+by an optional fewer-prompts attempt; Show/Hide steps preserves selection/draft.
+Actual valid End turn completes the goal. Incomplete turns use Check this turn
+without a penalty, and a genuine Draw ends practice with a factual explanation
+and Restart. No bot callback or automatic plan runs. The final table is read-only.
+
+Its independent versioned, bounded action transcript replays the known 106-tile
+fixture and passes validSave. Arbitrary state, clock/bot actions, illegal endings
+and actions after completion are rejected. Existing short-lesson progress and
+regular saves remain byte-identical. Damaged progress and write failures are
+visible; practice remains usable. A write-failure keyboard check caught a warning
+partly above the viewport; feedback now centres its actual focused message.
+Whole-turn goals/controls use page flow on desktop, tablet and phone.
+
+Local checks passed 143 units, the existing lesson/daily/suggested-practice flows,
+two new bilingual keyboard/recovery cases, and eight production offline/browser
+whole-turn journeys. Light/dark phone, desktop and Chinese comfortable completion
+screenshots were inspected. Final build: 99,526 initial gzip bytes, 58 precached
+assets, unchanged 100,000 budget. The full gate now contains 280 Chromium,
+195 compatibility and 23 offline cases, plus units and benchmark.

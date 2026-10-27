@@ -2,6 +2,41 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Check this turn": "检查本回合",
+  "Whole-turn practice": "完整回合练习",
+  "Practise a whole turn": "练习完整回合",
+  "GUIDED TURN": "引导回合",
+  "FEWER PROMPTS": "减少提示",
+  "Opening turn complete": "开局回合完成",
+  "Whole-turn practice complete": "完整回合练习完成",
+  "Drawing ends your turn": "摸牌会结束回合",
+  "You made a valid opening of at least 30 points and chose End turn. Here is your finished table.":
+    "你摆出了有效的开局牌，达到至少 30 分，并点了“结束回合”。这是你完成的牌桌。",
+  "Drawing is a normal way to end a turn. For this practice goal, restart and try a 30-point opening.":
+    "摸牌也是正常的结束回合方式。这次练习的目标是开局，请重新开始，试着摆出至少 30 分。",
+  "Make an opening worth at least 30 points, leave every group and run valid, then choose End turn. You decide when to finish.":
+    "用自己的手牌摆出至少 30 分，确保每个同数组和顺子都有效，再点“结束回合”。由你决定何时结束。",
+  "Your opening is ready. Choose End turn to complete this practice.":
+    "你的开局牌已经摆好了。点“结束回合”完成这次练习。",
+  "Keep every group or run valid and reach 30 opening points. You can Undo or Reset and try again; your turn is still yours.":
+    "确保每个同数组或顺子都有效，开局达到 30 分。可以点“撤销”或“重置”再试；回合仍属于你。",
+  "Try the red 10, blue 10 and orange 10, then choose New group or run. Three different-colour 10s score 30 points.":
+    "试着选中红色 10、蓝色 10 和橙色 10，再点“新建同数组或顺子”。三张不同颜色的 10 合计 30 分。",
+  "Your turn is not ready. Keep editing or choose Reset. No penalty was applied.":
+    "还不能结束这个回合。请继续摆牌，或点“重置”。这次练习没有罚摸牌。",
+  "Choose tiles on this practice table or in your rack.":
+    "请选择这次练习牌桌上或手牌区里的牌。",
+  "Try with fewer prompts": "试试减少提示",
+  "Hide practice steps": "隐藏练习步骤",
+  "Show practice steps": "显示练习步骤",
+  "Restart whole-turn practice": "重新开始完整回合练习",
+  "Back to short lessons": "返回分步课程",
+  "Latest whole-turn practice changes cannot be saved in this browser. Your regular game is unchanged.":
+    "这个浏览器无法保存完整回合练习的最新进度。你的正式牌局没有改变。",
+  "The saved whole-turn practice could not be restored. A fresh practice table is ready; your other games and lessons are unchanged.":
+    "无法恢复已保存的完整回合练习。已准备好新的练习牌桌；其他牌局和课程进度没有改变。",
+  "This practice has reached its saved move limit. Restart whole-turn practice to continue. Your regular game is unchanged.":
+    "这次练习已达到可保存的操作次数上限。请重新开始完整回合练习。你的正式牌局没有改变。",
   "Choose New group or run for your opening.":
     "开局时，请选择“新建同数组或顺子”来放牌。",
   "Why this move?": "这步为什么不行？",

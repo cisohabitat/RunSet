@@ -19,6 +19,7 @@ import { Game } from "./Game";
 import { Tile } from "./Tile";
 import { ReadAloud } from "./ReadAloud";
 import { sound, transitionCue } from "../lib/sound";
+import { TurnPractice } from "./TurnPractice";
 interface Progress {
   lesson: Lesson;
   step: number;
@@ -59,11 +60,26 @@ function initial(locale: Locale): Progress {
     game: practicePosition("basics", locale),
   };
 }
-export default function Tutorial({
+interface TutorialProps {
+  onExit: () => void;
+  onPlay: () => void;
+  muted?: boolean;
+}
+export default function Tutorial(props: TutorialProps) {
+  const [wholeTurn, setWholeTurn] = useState(false);
+  return wholeTurn ? (
+    <TurnPractice {...props} onLessons={() => setWholeTurn(false)} />
+  ) : (
+    <GuidedTutorial {...props} onWholeTurn={() => setWholeTurn(true)} />
+  );
+}
+function GuidedTutorial({
   onExit,
   onPlay,
   muted = true,
+  onWholeTurn,
 }: {
+  onWholeTurn: () => void;
   onExit: () => void;
   onPlay: () => void;
   muted?: boolean;
@@ -399,6 +415,9 @@ export default function Tutorial({
           </section>
         )}
         <div className="practice-actions">
+          <button className="text-button" onClick={onWholeTurn}>
+            {t("Practise a whole turn")}
+          </button>
           {finished && (
             <button className="primary" onClick={onPlay}>
               {t("Play against one Easy opponent →")}

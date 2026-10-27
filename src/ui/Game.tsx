@@ -43,6 +43,7 @@ export function Game({
   autoScrollLessonAction = true,
   muted = true,
   embedded = false,
+  practiceEndCheck = false,
 }: {
   game: GameState;
   dispatch: (a: Action) => void;
@@ -59,6 +60,7 @@ export function Game({
   autoScrollLessonAction?: boolean;
   muted?: boolean;
   embedded?: boolean;
+  practiceEndCheck?: boolean;
 }) {
   const { t, locale } = useI18n();
   const feedbackRoot = useRef<HTMLElement>(null);
@@ -1132,7 +1134,9 @@ export function Game({
                   {t(
                     check.valid || !dirty
                       ? "End turn →"
-                      : "+3 tiles · End turn",
+                      : practiceEndCheck
+                        ? "Check this turn"
+                        : "+3 tiles · End turn",
                   )}
                 </button>
               </>

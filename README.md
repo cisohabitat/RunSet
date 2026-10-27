@@ -475,3 +475,16 @@ shows its affected tiles and gives one safe next action. Where possible it
 previews one matching rack tile; nothing is placed automatically. The read-only
 panel preserves selection and timed deadlines. Bot narration describes only the
 actual completed bot turn, keeping rejection and Undo notices plain.
+
+Learn to play → Practise a whole turn offers a complete opening with steps,
+followed by a voluntary attempt with fewer prompts. You choose the tiles and
+when to End turn. Show/Hide practice steps preserves the current selection and
+draft. Incomplete turns can be checked safely without a penalty; Draw explains
+that it ends the turn and offers a restart. The finished table stays read-only.
+
+Whole-turn progress uses its own bounded `runset.turnPractice.v1` action record
+and resumes offline. Regular saves and short-lesson drafts are preserved. A
+damaged practice record starts a fresh table with a notice; failed writes leave
+the current practice playable with a visible warning. Restart clears only this
+practice. Newly written guidance uses device speech until matching recordings
+are available; Listen remains explicit.

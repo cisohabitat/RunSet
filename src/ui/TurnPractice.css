@@ -1,0 +1,23 @@
+/* A complete turn keeps its goal and optional prompts in normal page flow. */
+.app .practice-layout[data-lesson="whole-turn"].playing {
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+.app .practice-layout[data-lesson="whole-turn"].playing > .practice-panel {
+  max-height: none;
+}
+.app .practice-layout[data-lesson="whole-turn"] .practice-copy {
+  overflow: visible;
+}
+.app .practice-layout[data-lesson="whole-turn"].playing > .game {
+  flex: none;
+  min-height: 0;
+  overflow: visible;
+}
+.app .practice-layout[data-lesson="whole-turn"].playing .table {
+  flex: none;
+  height: clamp(280px, 45dvh, 600px);
+  min-height: 260px;
+  max-height: none;
+}

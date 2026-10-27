@@ -598,3 +598,15 @@ history; they are examples, never a claim the whole turn is complete. Preserve
 physical IDs, selection, saves and deadlines. No help is inferred for a no-op.
 Bot narration requires the actual completed bot actor and matching latest log;
 read completed turnStart.table rather than the player's unfinished draft.
+
+Whole-turn practice uses runset.turnPractice.v1, separate from regular saves,
+short lessons and exercises. Replay a bounded whitelist of actions against the
+known 106-tile practice fixture, then validSave; never hydrate arbitrary game
+state, clocks or bot plans. Invalid End is checked without penalties; Draw is a
+factual non-completion outcome. Gate completion on a real accepted engine turn.
+Do not run an opponent callback or apply an automatic plan in practice. Preserve
+selection/draft when showing steps, retain a read-only final table, and make
+reduced prompts voluntary. Reach the full goal and controls through page flow
+on desktop as well as phone/tablet. Error/feedback focus must bring the actual
+message into view without locale/selection-driven refocusing. New captions use
+existing device-speech fallback until exact recordings exist; no autoplay.

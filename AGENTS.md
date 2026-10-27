@@ -507,3 +507,8 @@ Settings retains its header opener explicitly: Safari touch clicks may leave
 focus elsewhere. Returning from a failed SimpleHome download must disable only
 that optional view so full Home remains usable; preserve saves and other choices.
 Do not reset the Simple preference for an unrelated Settings failure.
+
+GitHub runner APT sources can use mirror+file entries. Include apt-mirrors.txt
+and apt-security-mirrors.txt in the Azure-to-official-HTTPS rewrite; changing
+only .list/.sources leaves those downloads on the slow HTTP mirror. Keep signed
+verification, bounded retries and the complete browser/dependency install.

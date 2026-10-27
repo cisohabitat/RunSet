@@ -428,3 +428,6 @@ The active cycle is [easier independent play](docs/INDEPENDENT_PLAY_ROADMAP.md).
 
 If the optional home view cannot download, Return Home recovers the full home
 screen while keeping the saved game and other preferences.
+
+CI rewrites both direct Ubuntu sources and runner APT mirror-list files to the
+official HTTPS mirror, retaining signed package checks and browser dependencies.

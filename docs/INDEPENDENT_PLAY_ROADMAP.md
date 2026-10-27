@@ -45,3 +45,8 @@ The follow-up adds both recovery regressions and keeps the 100 kB size limit.
 The follow-up passed six Chromium journeys, all 24 production WebKit/Firefox
 cases and all 124 unit tests. The build/type check passed at 99,986 initial
 gzipped bytes. The exact follow-up CI must pass before Phase 2 begins.
+
+The initial CI was superseded while dependency installation used an indirect
+APT mirror list still pointing at Azure HTTP. The HTTPS rewrite now covers both
+runner mirror-list files as well as direct sources. All browser installs,
+signed verification, retry bounds and complete checks are retained.

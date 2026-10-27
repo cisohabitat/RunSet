@@ -501,3 +501,9 @@ lesson, then Start selected lesson; changing the selector alone keeps the curren
 draft. Finish the stated goal and explicitly End turn (or Draw in its lesson).
 Older whole-turn drafts continue as opening practice. The new cycle is tracked in
 [learning and portability](docs/LEARNING_PORTABILITY_ROADMAP.md).
+
+Each whole-turn lesson has four layouts with different colour families and rack
+orders. Start next practice layout starts a fresh attempt of the same lesson;
+Restart repeats the current layout. Optional steps and the quieter attempt remain
+available, and toggling steps keeps the current selection. Instructions, tile
+highlights, goal checks and saved progress all follow the selected layout.

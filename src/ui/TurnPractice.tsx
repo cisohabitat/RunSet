@@ -17,9 +17,11 @@ import { Game } from "./Game";
 import { Tile } from "./Tile";
 import { ReadAloud } from "./ReadAloud";
 import "./TurnPractice.css";
+import { turnLayoutCount } from "../lib/turnLayouts";
 import {
   turnLessons,
   turnLessonCopy,
+  turnLessonLayoutCopy,
   turnLessonClue,
   turnLessonReady,
   type TurnLesson,
@@ -86,12 +88,13 @@ export function TurnPractice({
   }, [feedback, notice]);
   const { game, record } = progress;
   const lesson = record.lesson ?? "opening",
-    copy = turnLessonCopy[lesson],
-    clue = turnLessonClue(lesson, game);
+    layout = record.layout ?? 0,
+    copy = turnLessonLayoutCopy(lesson, layout),
+    clue = turnLessonClue(lesson, game, layout);
   const check = turnCheck(game),
     outcome = turnPracticeOutcome(game, lesson),
     finished = outcome !== "playing",
-    ready = turnLessonReady(lesson, game),
+    ready = turnLessonReady(lesson, game, layout),
     stage = finished ? outcome : ready ? "ready" : "building";
   const title =
     outcome === "complete"
@@ -139,10 +142,15 @@ export function TurnPractice({
       setNotice(saveWarning);
     }
   };
-  const restart = (mode = record.mode, nextLesson = lesson) => {
+  const restart = (
+    mode = record.mode,
+    nextLesson = lesson,
+    nextLayout = layout,
+  ) => {
     setAttempt((value) => value + 1);
+    setLessonChoice(nextLesson);
     setFeedback("");
-    update(freshTurnPractice(mode, practiceName, nextLesson));
+    update(freshTurnPractice(mode, practiceName, nextLesson, nextLayout));
   };
   const dispatch = (value: Action) => {
     const action = practiceAction(value);
@@ -153,7 +161,7 @@ export function TurnPractice({
       );
       return;
     }
-    if (!practiceCanApply(game, action, lesson)) {
+    if (!practiceCanApply(game, action, lesson, layout)) {
       setFeedback(
         action.type === "endTurn"
           ? check.valid
@@ -196,6 +204,7 @@ export function TurnPractice({
         </div>
         <h1 tabIndex={-1}>{t(title)}</h1>
         <p>{t(copy.title)}</p>
+        <p>{t(`Practice layout ${layout + 1} of 4`)}</p>
         <div className="practice-actions">
           <label>
             {t("Whole-turn lesson")}
@@ -283,6 +292,19 @@ export function TurnPractice({
               )}
             </button>
           )}
+          <button
+            className="text-button"
+            onClick={() =>
+              restart(record.mode, lesson, (layout + 1) % turnLayoutCount)
+            }
+          >
+            {t("Start next practice layout")}
+          </button>
+          <p>
+            {t(
+              "Next layout starts a fresh whole-turn practice. Your regular game and short lessons are kept.",
+            )}
+          </p>
           <button className="text-button" onClick={() => restart()}>
             {t("Restart whole-turn practice")}
           </button>

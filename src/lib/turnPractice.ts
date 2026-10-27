@@ -5,6 +5,7 @@ import {
   turnLessonReady,
   type TurnLesson,
 } from "./turnLessons";
+import { validTurnLayout } from "./turnLayouts";
 import { validSave } from "./storage";
 export const turnPracticeKey = "runset.turnPractice.v1";
 export const maxPracticeActions = 256;
@@ -15,6 +16,7 @@ export type PracticeAction =
 export interface TurnPracticeRecord {
   version: 1;
   lesson?: TurnLesson;
+  layout?: number;
   mode: "guided" | "quiet";
   showSteps: boolean;
   actions: PracticeAction[];
@@ -27,16 +29,18 @@ export function freshTurnPractice(
   mode: "guided" | "quiet" = "guided",
   name = "You",
   lesson: TurnLesson = "opening",
+  layout = 0,
 ): TurnPracticeProgress {
   return {
     record: {
       version: 1,
       lesson,
+      layout,
       mode,
       showSteps: mode === "guided",
       actions: [],
     },
-    game: turnLessonPosition(lesson, name),
+    game: turnLessonPosition(lesson, name, layout),
   };
 }
 /** Only teaching actions, without clocks, plans, imported state or bot actions. */
@@ -69,9 +73,10 @@ export function practiceCanApply(
   game: GameState,
   action: PracticeAction,
   lesson: TurnLesson = "opening",
+  layout = 0,
 ): boolean {
   if (game.current !== 0 || game.phase !== "playing") return false;
-  if (action.type === "endTurn") return turnLessonReady(lesson, game);
+  if (action.type === "endTurn") return turnLessonReady(lesson, game, layout);
   if (action.type !== "move") return true;
   const available = [
     ...game.players[0].rack,
@@ -99,13 +104,14 @@ export function replayTurnPractice(
     r.actions.length > maxPracticeActions
   )
     return null;
-  const lesson = r.lesson ?? "opening";
-  if (!turnLessons.includes(lesson)) return null;
-  let game = turnLessonPosition(lesson, name);
+  const lesson = r.lesson ?? "opening",
+    layout = r.layout === undefined ? 0 : r.layout;
+  if (!turnLessons.includes(lesson) || !validTurnLayout(layout)) return null;
+  let game = turnLessonPosition(lesson, name, layout);
   const actions: PracticeAction[] = [];
   for (const value of r.actions) {
     const action = practiceAction(value);
-    if (!action || !practiceCanApply(game, action, lesson)) return null;
+    if (!action || !practiceCanApply(game, action, lesson, layout)) return null;
     game = reducer(game, action);
     actions.push(action);
   }
@@ -114,6 +120,7 @@ export function replayTurnPractice(
     record: {
       version: 1,
       lesson,
+      layout,
       mode: r.mode,
       showSteps: r.showSteps,
       actions,

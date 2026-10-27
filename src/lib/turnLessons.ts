@@ -1,6 +1,7 @@
 import { turnCheck, type GameState } from "../engine/game";
-import { practiceGame, lessonComplete } from "../engine/practice";
+import { practiceGame } from "../engine/practice";
 import { tiles } from "../engine/tiles";
+import { applyTurnLayout, turnLayoutId, turnLayoutText } from "./turnLayouts";
 export const turnLessons = [
   "opening",
   "extend",
@@ -52,6 +53,7 @@ export const turnLessonCopy: Record<
 export function turnLessonPosition(
   lesson: TurnLesson,
   name: string,
+  layout = 0,
 ): GameState {
   const game = practiceGame(
     lesson === "joker"
@@ -70,33 +72,57 @@ export function turnLessonPosition(
     game.pool = rest;
     game.turnStart = { table: [], rack: [...game.players[0].rack] };
   }
-  return game;
+  return applyTurnLayout(game, layout);
 }
-export function turnLessonReady(lesson: TurnLesson, game: GameState): boolean {
-  const check = turnCheck(game);
+export function turnLessonReady(
+  lesson: TurnLesson,
+  game: GameState,
+  layout = 0,
+): boolean {
+  const check = turnCheck(game),
+    ids = (values: number[]) => values.map((id) => turnLayoutId(id, layout));
   if (!check.valid || !check.played.length) return false;
-  if (lesson === "rearrange") return lessonComplete("rearrange", game);
-  if (lesson === "joker") return lessonComplete("jokers", game);
+  const has = (values: number[]) =>
+    game.table.some(
+      (m) =>
+        m.tiles.length === values.length &&
+        ids(values).every((id) => m.tiles.includes(id)),
+    );
+  if (lesson === "rearrange") return has([0, 1, 2]) && has([3, 4, 5, 6]);
+  if (lesson === "joker") return has([3, 4, 5]) && has([104, 30, 56]);
   if (lesson === "extend")
     return game.table.some((m) =>
-      [0, 1, 2, 3, 4, 5].every((id) => m.tiles.includes(id)),
+      ids([0, 1, 2, 3, 4, 5]).every((id) => m.tiles.includes(id)),
     );
   return lesson === "opening";
+}
+export function turnLessonLayoutCopy(lesson: TurnLesson, layout = 0) {
+  const copy = turnLessonCopy[lesson];
+  return {
+    title: copy.title,
+    goal: turnLayoutText(copy.goal, layout),
+    clue: turnLayoutText(copy.clue, layout),
+    success: turnLayoutText(copy.success, layout),
+  };
 }
 export function turnLessonClue(
   lesson: TurnLesson,
   game: GameState,
+  layout = 0,
 ): { ids: number[]; target: string } {
-  if (lesson === "extend") return { ids: [5], target: "practice-run" };
-  if (lesson === "rearrange") return { ids: [3, 4, 5, 6], target: "new" };
+  const ids = (values: number[]) =>
+    values.map((id) => turnLayoutId(id, layout));
+  if (lesson === "extend") return { ids: ids([5]), target: "practice-run" };
+  if (lesson === "rearrange") return { ids: ids([3, 4, 5, 6]), target: "new" };
   if (lesson === "joker")
     return game.table.some(
-      (m) => m.id === "practice-wild" && m.tiles.includes(4),
+      (m) =>
+        m.id === "practice-wild" && m.tiles.includes(turnLayoutId(4, layout)),
     )
-      ? { ids: [104, 30, 56], target: "new" }
-      : { ids: [4], target: "practice-wild" };
+      ? { ids: ids([104, 30, 56]), target: "new" }
+      : { ids: ids([4]), target: "practice-wild" };
   return {
-    ids: lesson === "opening" ? [9, 35, 61] : [],
+    ids: lesson === "opening" ? ids([9, 35, 61]) : [],
     target: lesson === "draw" ? "draw" : "new",
   };
 }

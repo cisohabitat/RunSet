@@ -628,3 +628,11 @@ End turn, including exact joker replacement/reuse. Draw completes only its own
 lesson. Selecting a new lesson must preserve the old draft until explicit Start,
 with replacement scope visible. Keep practice independent of regular/short-lesson
 saves, captions explicit and offline, and no automatic opponent/plan callbacks.
+
+Whole-turn layout IDs are bounded 0–3; missing layout means legacy layout zero.
+Rotate physical colour families bijectively across the complete fixture and keep
+106 IDs conserved. Goal sets, clue IDs and translated colour words must transform
+together; keep known solutions legal for every lesson/layout. Shuffle only fresh
+practice racks deterministically. Next layout is explicit and starts a fresh
+attempt; Restart repeats the current layout. Neither changes regular saves or
+short-lesson progress; step visibility must retain selections and the layout.

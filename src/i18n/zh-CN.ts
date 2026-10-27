@@ -2,6 +2,58 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Try the blue 10, orange 10 and black 10, then choose New group or run. Three different-colour 10s score 30 points.":
+    "试着选中蓝色 10、橙色 10 和黑色 10，再点“新建同数组或顺子”。三张不同颜色的 10 合计 30 分。",
+  "Try the orange 10, black 10 and red 10, then choose New group or run. Three different-colour 10s score 30 points.":
+    "试着选中橙色 10、黑色 10 和红色 10，再点“新建同数组或顺子”。三张不同颜色的 10 合计 30 分。",
+  "Try the black 10, red 10 and blue 10, then choose New group or run. Three different-colour 10s score 30 points.":
+    "试着选中黑色 10、红色 10 和蓝色 10，再点“新建同数组或顺子”。三张不同颜色的 10 合计 30 分。",
+  "You have already opened. Add blue 6 to the blue 1–5 run, then choose End turn. There is no 30-point minimum after opening.":
+    "你已经开局。把蓝色 6 接到蓝色 1–5 的顺子中，再点“结束回合”。开局后不再要求每回合达到 30 分。",
+  "You have already opened. Add orange 6 to the orange 1–5 run, then choose End turn. There is no 30-point minimum after opening.":
+    "你已经开局。把橙色 6 接到橙色 1–5 的顺子中，再点“结束回合”。开局后不再要求每回合达到 30 分。",
+  "You have already opened. Add black 6 to the black 1–5 run, then choose End turn. There is no 30-point minimum after opening.":
+    "你已经开局。把黑色 6 接到黑色 1–5 的顺子中，再点“结束回合”。开局后不再要求每回合达到 30 分。",
+  "Select blue 6 from your rack and choose the existing run as its destination.":
+    "选中手牌区的蓝色 6，再选择牌桌上已有的顺子作为放牌位置。",
+  "Select orange 6 from your rack and choose the existing run as its destination.":
+    "选中手牌区的橙色 6，再选择牌桌上已有的顺子作为放牌位置。",
+  "Select black 6 from your rack and choose the existing run as its destination.":
+    "选中手牌区的黑色 6，再选择牌桌上已有的顺子作为放牌位置。",
+  "You extended the existing run with your blue 6 and ended a valid turn.":
+    "你用手牌区的蓝色 6 延长了顺子，并正确结束了回合。",
+  "You extended the existing run with your orange 6 and ended a valid turn.":
+    "你用手牌区的橙色 6 延长了顺子，并正确结束了回合。",
+  "You extended the existing run with your black 6 and ended a valid turn.":
+    "你用手牌区的黑色 6 延长了顺子，并正确结束了回合。",
+  "Split blue 1–5 and use your blue 6 and 7 to make blue 1–3 and blue 4–7. Then choose End turn with both runs valid.":
+    "拆开蓝色 1–5，加上手牌区的蓝色 6 和 7，组成蓝色 1–3 与蓝色 4–7。两组顺子都有效后，再点“结束回合”。",
+  "Split orange 1–5 and use your orange 6 and 7 to make orange 1–3 and orange 4–7. Then choose End turn with both runs valid.":
+    "拆开橙色 1–5，加上手牌区的橙色 6 和 7，组成橙色 1–3 与橙色 4–7。两组顺子都有效后，再点“结束回合”。",
+  "Split black 1–5 and use your black 6 and 7 to make black 1–3 and black 4–7. Then choose End turn with both runs valid.":
+    "拆开黑色 1–5，加上手牌区的黑色 6 和 7，组成黑色 1–3 与黑色 4–7。两组顺子都有效后，再点“结束回合”。",
+  "Select the table's blue 4 and 5 with your blue 6 and 7, then choose New group or run.":
+    "选中牌桌上的蓝色 4、5，以及手牌区的蓝色 6、7，再点“新建同数组或顺子”。",
+  "Select the table's orange 4 and 5 with your orange 6 and 7, then choose New group or run.":
+    "选中牌桌上的橙色 4、5，以及手牌区的橙色 6、7，再点“新建同数组或顺子”。",
+  "Select the table's black 4 and 5 with your black 6 and 7, then choose New group or run.":
+    "选中牌桌上的黑色 4、5，以及手牌区的黑色 6、7，再点“新建同数组或顺子”。",
+  "Replace the table joker's blue 5 with your blue 5. Reuse that joker with orange 5 and black 5, then choose End turn.":
+    "用手牌区的蓝色 5 替换牌桌上代表蓝色 5 的万能牌。把万能牌与橙色 5、黑色 5 组成新组，再点“结束回合”。",
+  "Replace the table joker's orange 5 with your orange 5. Reuse that joker with black 5 and red 5, then choose End turn.":
+    "用手牌区的橙色 5 替换牌桌上代表橙色 5 的万能牌。把万能牌与黑色 5、红色 5 组成新组，再点“结束回合”。",
+  "Replace the table joker's black 5 with your black 5. Reuse that joker with red 5 and blue 5, then choose End turn.":
+    "用手牌区的黑色 5 替换牌桌上代表黑色 5 的万能牌。把万能牌与红色 5、蓝色 5 组成新组，再点“结束回合”。",
+  "Add blue 5 to the existing run first. The joker stays on the table until you move it with orange 5 and black 5 into a new group.":
+    "先把蓝色 5 放入已有的顺子。万能牌仍在牌桌上，直到你把它与橙色 5、黑色 5 一起移入新组。",
+  "Add orange 5 to the existing run first. The joker stays on the table until you move it with black 5 and red 5 into a new group.":
+    "先把橙色 5 放入已有的顺子。万能牌仍在牌桌上，直到你把它与黑色 5、红色 5 一起移入新组。",
+  "Add black 5 to the existing run first. The joker stays on the table until you move it with red 5 and blue 5 into a new group.":
+    "先把黑色 5 放入已有的顺子。万能牌仍在牌桌上，直到你把它与红色 5、蓝色 5 一起移入新组。",
+  "Practice layout {n} of 4": "练习布局 {n} / 4",
+  "Start next practice layout": "开始下一个练习布局",
+  "Next layout starts a fresh whole-turn practice. Your regular game and short lessons are kept.":
+    "下一个布局会重新开始完整回合练习。正式牌局和分步课程都会保留。",
   Opening: "开局",
   "Add to a run": "延长顺子",
   "Rearrange a whole turn": "完整回合：重新组合",

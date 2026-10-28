@@ -10,8 +10,8 @@ multiplayer remains deferred.
 | --- | --- | --- |
 | 1. Smarter in-game help | Published; full CI and live checks passed | Locate affected tiles, identify the meld and distinguish a local repair from a complete turn. |
 | 2. Bot difficulty and fairness | Published; full CI and live checks passed | Reassess production behavior on fresh deals and make capabilities and public move explanations clear. |
-| 3. Crowded-board readability | Published; exact-commit CI required before Phase 4 | Improve long-game meld navigation without shrinking touch targets or the table. |
-| 4. Gentler play | Pending | Clearer turn changes and restrained feedback, with reduced motion and bilingual recovery copy. |
+| 3. Crowded-board readability | Published; complete corrected CI passed | Improve long-game meld navigation without shrinking touch targets or the table. |
+| 4. Gentler play | Implemented; isolated CI review before main | Clearer turn changes and restrained feedback, with reduced motion and bilingual recovery copy. |
 | 5. Release hardening | Pending | Connected complete-game, interrupted-session, update and offline recovery checks. |
 
 ## Phase 1
@@ -88,3 +88,69 @@ two production offline and two Chromium overview journeys. Sixteen existing
 board-space cases also passed. Light/dark phone/tablet screenshots were inspected;
 no untranslated Latin kind/points labels remain in Chinese rows. An interrupted
 local compatibility run had no completed report; its reruns completed and passed.
+
+Phase 3's first release d609d38 passed quality/offline checks but Chromium caught
+an existing immediate-storage assertion after Deal round 2 (round 1 was still
+saved). Correction d11bb05 waits for actual initial persistence, saved completion
+before reload and round 2 persistence. Expected values and timer checks remain;
+no sleeps, gameplay or limits changed. Complete exact-commit CI
+[40607869355](https://github.com/cisohabitat/RunSet/actions/runs/40607869355)
+passed before Phase 4 implementation.
+
+The execution workspace became unavailable during that gate. The small test
+correction used the GitHub connector. Subsequent work uses atomic commits on an
+isolated branch, complete CI and fixture visual review before moving main.
+No local or live checks are claimed while the runtime is unavailable.
+
+## Phase 4
+
+Existing primary buttons identify the opponent's turn without reserving a new
+row or reducing tile sizes. Fresh win feedback is based on an observed engine
+transition, with twelve particles and unchanged reduced-motion/static content.
+Externally started/cleared games suppress cues, including completed imports with
+the same seed. Home/reopen/reload never manufacture a new win event.
+
+SaveTools has its own lazy Home/menu boundary, freeing initial download room
+without moving game state or weakening the 100,000-byte budget. Generated offline
+assets include it. Recovery instructions offer Home or save/reload and retain
+honest failed-save blocking, without assuming every rendering failure is network
+related.
+
+Connected bilingual journeys check same-seed completed import silence, actual
+win cue count and twelve particles, reduced motion, reopen/reload silence and
+real human → bot → human handoff through the worker. They measure visible
+buttons and table floors in full-screen view, validate the final saved state and
+retain Axe/runtime-error checks. Selected fixture JPEGs are emitted for actual
+phone/tablet visual review from CI; these do not establish physical iOS or voice
+acceptance. Complete branch and published-main workflow results gate Phase 5.
+
+The first isolated Phase 4 run found two real barriers: a long opponent notice
+was not keyboard-scrollable, and a populated comfortable-phone turn left only
+277.8 px of table. Notices now accept keyboard focus; expanded comfortable-phone
+status/notice areas retain full text through scrolling. The first spacing fix
+still left 287.8 px; diagnostics identified a 79 px timed toolbar wrapping onto
+two rows. The compact header omits its redundant visible View word only in this
+expanded phone view, retaining the accessible Table view label, full saved/timer/
+expiry text and 48 px selector. The original rack-height cap and full 80 px tiles
+with 10 px padding remain. The >=300 px assertion and diagnostics are unchanged.
+Corrections require a fresh complete gate before publication.
+
+The corrected branch passed all 37 offline cases, including the populated
+comfortable-phone turn and scrollable-notice Axe check. Compatibility workloads
+are now separated by the existing phone WebKit, iPad WebKit and desktop Firefox
+project names, alongside Chromium/offline jobs. This keeps the growing suite
+within the unchanged per-job limit without dropping cases. The aggregate check,
+full signed dependency/audio setup, offline limit and distinct artifacts remain.
+The View text span also inherits its original label font in standard views.
+
+CI fixture images confirmed the compact header and full rack tiles. Visual
+review found disabled waiting labels too faint; they now use normal ink on a
+neutral surface while remaining natively disabled. Connected tests measure
+their >=4.5:1 contrast and full opacity because Axe excludes disabled controls.
+
+The split matrix exposed a further comfortable-view deficit on populated iPad/
+desktop bot turns (434.8/438.8 px against the 450 px floor). The same focusable
+bounded status/notice spacing and 10 px rack padding now apply across comfortable
+expanded views. Tile sizes, original rack-height cap, button targets and the
+450 px assertion remain unchanged. Phone and all 37 offline cases had passed;
+the expanded tablet correction requires a new complete gate.

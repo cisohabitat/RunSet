@@ -561,7 +561,7 @@ export function Game({
       </div>
       <div className="table-tools">
         <label className="view-picker">
-          {t("View")}
+          <span className="view-picker-label">{t("View")}</span>
           <select
             ref={viewButton}
             aria-label={t("Table view")}
@@ -787,7 +787,7 @@ export function Game({
           {t(". Need at least 30.")}
         </p>
       )}
-      <div className="status-line" role="status" aria-live="polite">
+      <div className="status-line" role="status" aria-live="polite" tabIndex={tableView === "wide" ? 0 : undefined}>
         <span className={`status-dot ${myTurn ? "" : "waiting"}`} />
         {t(
           myTurn
@@ -1119,7 +1119,7 @@ export function Game({
               </span>
             )}
           </div>
-          <div className="primary-actions">
+          <div className="primary-actions" data-waiting={!myTurn || undefined}>
             {lessonAction ? (
               <button
                 ref={lessonButton}
@@ -1139,7 +1139,7 @@ export function Game({
                   data-coach-target={coachTarget === "draw" || undefined}
                   onClick={() => act({ type: "draw" })}
                 >
-                  {t(s.pool.length ? "Draw a tile" : "Pass")} ↓
+                  {myTurn ? <>{t(s.pool.length ? "Draw a tile" : "Pass")} ↓</> : t("Opponent turn")}
                 </button>
                 <button
                   className={`primary ${!check.valid && dirty ? "danger" : ""}`}
@@ -1149,7 +1149,7 @@ export function Game({
                   onClick={() => act({ type: "endTurn" })}
                 >
                   {t(
-                    check.valid || !dirty
+                    !myTurn ? "Please wait" : check.valid || !dirty
                       ? "End turn →"
                       : practiceEndCheck
                         ? "Check this turn"
@@ -1185,7 +1185,7 @@ export function Game({
         {t(placementMessage)}
       </span>
       {s.notice && (
-        <p className="game-notice" role="status">
+        <p className="game-notice" role="status" tabIndex={0}>
           {t(narrate ? narrateMove(s) : s.notice)}
         </p>
       )}

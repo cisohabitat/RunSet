@@ -692,3 +692,51 @@ Overview entries use two-line summaries and two columns on wider screens.
 Translate standalone kind and points labels, not only compound board captions.
 An empty imported draft meld has no first tile: keep it non-navigable. Check the
 actual Chinese row for untranslated words and expire an open overview in tests.
+
+Gentle-play feedback uses actual observed transitions. App's stable dispatch
+boundary marks externally started/cleared game objects; suppress their cues even
+when an imported completed game has the same seed as the active position.
+GameOver receives an explicit fresh-celebration flag from App, never infers it
+from a loaded finished state. Clear the flag on leaving game view. Keep static
+winner/scoring content, twelve bounded particles and reduced-motion equivalents;
+do not replay sounds or confetti for reopen/reload/import/cross-tab replacement.
+
+Use the existing disabled primary buttons for concise Opponent turn / Please
+wait labels. Keep human action labels, targets and expanded table floors intact.
+SaveTools is lazy with its own Suspense fallback in both Home and Game menu;
+never let its download suspend the entire header or playing board. Keep it in
+the generated offline cache and preserve all storage guards and cancellation.
+Recovery copy offers actions and honest save-failure handling without assuming
+a network cause. State belongs outside the view recovery boundary.
+
+The test-only ci-visual helper emits chunked JPEGs for selected bilingual
+WebKit fixture views so reviewers can inspect them from CI logs without a local
+workspace. Do not emit real user saves or credentials. Keep normal failure
+artifacts, all browser suites, signed dependency installation, virtual audio,
+twenty-minute job and five-minute offline limits. Audio mocks prove cue
+selection/counts, not native voice quality or older-player comprehension.
+
+Long gameplay notices must be keyboard-scrollable. Expanded comfortable-phone
+status/notice regions retain full text in focusable scroll areas. The timed
+toolbar must avoid a redundant second row: its visible View word may be clipped
+only in expanded comfortable-phone view, retaining the native Table view label,
+full saved/timer/expiry text and >=48 px selector. Keep the original rack-height
+cap, whole 80 px tiles and 10 px top/bottom padding. Real bot notices must leave
+>=300 px visible phone table space; retain the strict assertion and diagnostics.
+
+Compatibility CI is split by the three existing project names, alongside
+Chromium and offline jobs. Keep every project, full dependency/audio setup,
+fail-fast=false, unique artifacts, and the aggregate check across the complete
+matrix. Quoting RUNSET_COMPAT_PROJECT preserves the explicit project selection.
+The View text span must inherit its label font in standard views; older generic
+table-toolbar span rules must not shrink it.
+
+Waiting action labels are information, so do not fade them with disabled-button
+opacity. Keep the native buttons disabled, using neutral surfaces and normal
+ink. Verify >=4.5:1 text contrast, full opacity, size and visible table space in
+both themes; Axe does not enforce contrast on disabled controls.
+
+Use the same 10 px top/bottom rack-tile padding and bounded focusable status/
+notice spacing across comfortable expanded phone, tablet and desktop views.
+Keep full 80 px tiles and the original rack-height cap. A populated timed bot
+turn must retain the >=450 px tablet floor as well as the phone floor.

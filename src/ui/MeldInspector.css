@@ -113,3 +113,48 @@
   outline: 2px solid var(--focus);
   outline-offset: 1px;
 }
+
+/* Compact the timed header without reducing tiles or hiding save/timer text. */
+@media (max-width: 720px) {
+  .app.comfortable-reading > .game.table-expanded .table-tools {
+    margin-bottom: 6px;
+    column-gap: 4px;
+  }
+  .app.comfortable-reading > .game.table-expanded .view-picker-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .app.comfortable-reading > .game.table-expanded .view-picker select {
+    width: clamp(112px, calc(100vw - 212px), 148px);
+  }
+}
+
+.game .view-picker .view-picker-label { font: inherit; }
+
+/* Waiting labels convey turn ownership even though their actions are disabled. */
+.game .primary-actions[data-waiting] > button {
+  opacity: 1;
+  color: var(--ink);
+  background: var(--soft);
+  border-color: var(--control-line);
+  cursor: wait;
+}
+
+/* The populated comfortable tablet view keeps the same complete rack-tile row. */
+.app.comfortable-reading > .game.table-expanded .rack-tiles {
+  padding-block: 10px;
+}
+.app.comfortable-reading > .game.table-expanded .status-line {
+  padding-block: 4px;
+  max-height: 40px;
+  overflow: auto;
+}
+.app.comfortable-reading > .game.table-expanded .game-notice {
+  margin-top: 0;
+  max-height: 31px;
+  overflow: auto;
+}

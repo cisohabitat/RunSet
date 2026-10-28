@@ -769,3 +769,6 @@ never by selection or the display clock. Reducer acceptance remains authoritativ
 Retain crowded-session tests with 50 table/50 rack tiles, 100 initial snapshots,
 Undo/Reset, exact deadline/save comparisons and offline reload. Timing samples
 are browser smoke evidence; never claim battery life or physical Apple latency.
+Contrast journeys that reload an expanded game must choose View → Standard
+before using header Home. Waiting for a briefly rendered header creates a race
+with the expanded-view hide effect. Preserve all contrast/geometry/save assertions.

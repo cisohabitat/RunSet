@@ -63,3 +63,11 @@ maxima remain below the existing 1,000 ms smoke limit. The baseline overlapped
 part of a soak run; no causal percentage-speedup claim is made. The 5,000-turn
 soak observed 59/60 rounds in two runs (bounded planner timing changes choices).
 Battery and physical-device results remain unmeasured. Initial gzip 99,100 bytes.
+
+The first Phase 3 main workflow (40639642030) passed quality, Chromium, both
+WebKit suites and offline; Firefox passed 82/83. The old contrast test raced the
+expanded-view header's hide effect after reload, then attempted Home while the
+header was hidden. It now chooses Standard through the actual visible View
+selector before using Home. The 26 local Chromium/Firefox contrast journeys pass
+with unchanged contrast, geometry, save and deletion assertions. A new complete
+exact-commit main gate is required before Phase 4. No timeout or retry was added.

@@ -158,6 +158,9 @@ for (const locale of ["en", "zh-CN"] as const)
           "high",
         );
         await resume();
+        // Expanded view is persisted and hides the header after Game mounts.
+        // Exit through the visible View selector before using Home.
+        await page.getByRole("combobox", { name: t("Table view"), exact: true }).selectOption("normal");
         await page
           .getByRole("button", { name: t("Home"), exact: true })
           .click();

@@ -75,6 +75,9 @@ export async function verifyMoveHelp(
     if (await more.evaluate((el: HTMLDetailsElement) => el.open))
       await activate(more.locator(":scope > summary"));
   };
+  const helpGroup = page.getByRole("region", { name: t("Help with this turn"), exact: true });
+  const arrangeGroup = page.getByRole("region", { name: t("Find and arrange tiles"), exact: true });
+  const detailsGroup = page.getByRole("region", { name: t("Game details"), exact: true });
   const opener = page.getByRole("button", {
       name: t("Why this move?"),
       exact: true,
@@ -92,6 +95,10 @@ export async function verifyMoveHelp(
       .toBe(reason);
     const before = await save();
     await menu();
+    await expect(helpGroup).toContainText(t("What can I do now?"));
+    await expect(helpGroup.getByRole("button", { name: t("Why this move?"), exact: true })).toBeEnabled();
+    await expect(arrangeGroup.getByRole("button", { name: t("Return selected tiles to rack"), exact: true })).toHaveCount(1);
+    await expect(detailsGroup).toContainText(t("Opponent styles and fair play"));
     await activate(opener);
     await expect(panel).toBeVisible();
     await expect(panel).toContainText(t("Last blocked move"));

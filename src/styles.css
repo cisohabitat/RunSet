@@ -4369,3 +4369,8 @@ button:not(.tile) {
 .setup .choices { flex-wrap: wrap; }
 
 .move-review .dialog-actions button { font-size: 16px; }
+
+.more-actions .more-section + .more-section { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 12px; }
+.more-actions .more-section h3 { font-size: 16px; line-height: 1.5; margin: 0 0 8px; }
+.more-actions .more-section { min-width: 0; }
+.app.comfortable-reading .more-actions .more-section h3 { font-size: 18px; }

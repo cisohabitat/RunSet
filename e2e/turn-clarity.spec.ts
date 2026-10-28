@@ -36,6 +36,7 @@ for (const locale of ["en", "zh-CN"] as const) {
       ),
     );
     await page.getByText(t("More"), { exact: true }).click();
+    await page.screenshot({ path: `/tmp/runset-everyday-menu-${locale}.png` });
     await page.getByText(t("What can I do now?"), { exact: true }).click();
     await expect(page.locator(".current-turn-help")).toContainText(
       t("Wait for your turn before playing tiles."),
@@ -50,6 +51,8 @@ for (const locale of ["en", "zh-CN"] as const) {
     page,
   }) => {
     const t = locale === "en" ? (s: string) => s : translator(messages);
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.emulateMedia({ colorScheme: locale === "en" ? "light" : "dark", reducedMotion: "reduce" });
     const game = newGame("阿明", 1, "easy", 8123, { coach: false });
     game.log = ["Moss drew a tile."];
     await page.addInitScript(
@@ -65,6 +68,7 @@ for (const locale of ["en", "zh-CN"] as const) {
       .click();
     await expect(page.locator(".turn-owner")).toHaveText(t("Your turn"));
     await page.getByText(t("More"), { exact: true }).click();
+    await page.screenshot({ path: `/tmp/runset-everyday-menu-${locale}.png` });
     await page.getByText(t("What can I do now?"), { exact: true }).click();
     await expect(page.locator(".current-turn-help")).toContainText(
       t("Moss drew a tile."),

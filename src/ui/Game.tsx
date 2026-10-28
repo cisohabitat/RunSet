@@ -961,12 +961,8 @@ export function Game({
                     </p>
                   </>
                 )}
-                {coaching && (
-                  <ReadAloud
-                    reminder
-                    text={`${t(guidance.message)} ${t(guidance.endHelp)}`}
-                  />
-                )}
+                <section className="more-section" aria-label={t("Help with this turn")}>
+                  <h3>{t("Help with this turn")}</h3>
                 {coaching && (
                   <details className="current-turn-help">
                     <summary>{t("What can I do now?")}</summary>
@@ -986,20 +982,45 @@ export function Game({
                   </details>
                 )}
                 {coaching && myTurn && <MoveReview game={s} />}
-                {s.match && (
-                  <details className="compact-match-scores">
-                    <summary>{t("Match scores")}</summary>
-                    <p>
-                      {t("Round ")}
-                      {s.match.round} · {t("First to")} {s.match.target}
-                    </p>
-                    {s.players.map((player, i) => (
-                      <p key={i}>
-                        {player.name}: <strong>{s.match!.totals[i]}</strong>
-                      </p>
-                    ))}
-                  </details>
+                {coaching && (
+                  <MoveHelp
+                    game={s}
+                    data={helpData}
+                    disabled={!myTurn}
+                    onFind={(id) =>
+                      findTile(id, 1, helpData?.ids.length ?? 1, "help")
+                    }
+                  />
                 )}
+                <details className="turn-actions-help">
+                  <summary>{t("Reset, Draw and Pass explained")}</summary>
+                  <p>
+                    {t(
+                      "Reset puts this turn back as it was. You keep your turn and draw no penalty tiles.",
+                    )}
+                  </p>
+                  <p>
+                    {t(
+                      "Draw restores unfinished edits, adds one tile to your rack and ends your turn.",
+                    )}
+                  </p>
+                  <p>
+                    {t(
+                      "Pass is available when the pool is empty. It restores unfinished edits and ends your turn without adding a tile.",
+                    )}
+                  </p>
+                </details>
+
+                {coaching && (
+                  <ReadAloud
+                    reminder
+                    text={`${t(guidance.message)} ${t(guidance.endHelp)}`}
+                  />
+                )}
+
+                </section>
+                <section className="more-section" aria-label={t("Find and arrange tiles")}>
+                  <h3>{t("Find and arrange tiles")}</h3>
                 <div
                   className={
                     coaching ? "rack-order-options" : "focused-rack-options"
@@ -1051,16 +1072,6 @@ export function Game({
                   />
                 )}
                 {orderNotice && <p>{t(orderNotice)}</p>}
-                {coaching && (
-                  <MoveHelp
-                    game={s}
-                    data={helpData}
-                    disabled={!myTurn}
-                    onFind={(id) =>
-                      findTile(id, 1, helpData?.ids.length ?? 1, "help")
-                    }
-                  />
-                )}
                 <button
                   className="text-button"
                   disabled={!myTurn || !activeSelected.length}
@@ -1068,24 +1079,6 @@ export function Game({
                 >
                   {t("Return selected tiles to rack")}
                 </button>
-                <details className="turn-actions-help">
-                  <summary>{t("Reset, Draw and Pass explained")}</summary>
-                  <p>
-                    {t(
-                      "Reset puts this turn back as it was. You keep your turn and draw no penalty tiles.",
-                    )}
-                  </p>
-                  <p>
-                    {t(
-                      "Draw restores unfinished edits, adds one tile to your rack and ends your turn.",
-                    )}
-                  </p>
-                  <p>
-                    {t(
-                      "Pass is available when the pool is empty. It restores unfinished edits and ends your turn without adding a tile.",
-                    )}
-                  </p>
-                </details>
                 {coaching && (
                   <TableOverview
                     game={s}
@@ -1093,13 +1086,32 @@ export function Game({
                     onFind={(id) => findTile(id, 1, 1, "overview")}
                   />
                 )}
-                {coaching && <OpponentGuide game={s} />}
-                <details className="move-history">
+
+
+                </section>
+                <section className="more-section" aria-label={t("Game details")}>
+                  <h3>{t("Game details")}</h3>
+                {s.match && (
+                  <details className="compact-match-scores">
+                    <summary>{t("Match scores")}</summary>
+                    <p>
+                      {t("Round ")}
+                      {s.match.round} · {t("First to")} {s.match.target}
+                    </p>
+                    {s.players.map((player, i) => (
+                      <p key={i}>
+                        {player.name}: <strong>{s.match!.totals[i]}</strong>
+                      </p>
+                    ))}
+                  </details>
+                )}
+                {coaching && <OpponentGuide game={s} />}                <details className="move-history">
                   <summary>{t("Move history")}</summary>
                   {s.log.map((line, i) => (
                     <p key={i}>{t(line)}</p>
                   ))}
                 </details>
+                </section>
               </div>
             </details>
             {coaching ? (

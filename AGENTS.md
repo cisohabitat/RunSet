@@ -753,3 +753,9 @@ around a literal player name (You wins / played their last tile). Preserve name
 placeholders literally, keep existing legacy translations and do not infer an
 unrecorded ending. Update the existing dynamic translation and rule-summary
 checks when changing this copy. Release evidence is docs/PLAYER_COMFORT_RELEASE.md.
+
+Track the everyday-play cycle in docs/EVERYDAY_PLAY_ROADMAP.md. More groups
+existing tools into labelled task sections without a new disclosure level or
+permanent board row. Preserve control names, break/save behavior, keyboard/touch
+reachability, read-only tools and all strict visible table floors. Phase gates
+require the complete exact-main-commit workflow before the next phase.

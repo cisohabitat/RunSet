@@ -1201,6 +1201,9 @@ const messages: Record<string, string> = {
     "暂时无法提供出牌提示。你仍然可以{action}。",
   "Planning took too long. Try again or {action}.":
     "寻找出牌方法用时太长。可以重试，或{action}。",
+  "Help with this turn": "这一轮怎么玩",
+  "Find and arrange tiles": "找牌与整理手牌",
+  "Game details": "本局信息",
 };
 export const translateChinese = translator(messages);
 export default messages;

@@ -578,3 +578,7 @@ that also read naturally when the player's name is You.
 
 See [release evidence](docs/PLAYER_COMFORT_RELEASE.md) for the phase gates,
 automated coverage and the limits of emulated-device and voice verification.
+
+The everyday-play cycle is tracked in [docs/EVERYDAY_PLAY_ROADMAP.md](docs/EVERYDAY_PLAY_ROADMAP.md).
+More groups existing tools into help with this turn, finding/arranging tiles,
+and game details, preserving the playing area and existing tool behavior.

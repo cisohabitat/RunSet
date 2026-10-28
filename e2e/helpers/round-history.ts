@@ -77,8 +77,13 @@ export async function verifyRoundHistory(
     else await el.tap();
   };
   const options = async () => {
-    if (locale === "zh-CN")
+    if (locale === "zh-CN") {
+      await expect(page.locator(".simple-home")).toBeVisible();
+      // The optional resume summary can arrive after Home's first layout.
+      if (await b("Continue game →").count())
+        await expect(page.locator(".resume-context")).toBeVisible();
       await activate(page.locator(".simple-options > summary"));
+    }
   };
   await page.goto("/");
   if (offline) {

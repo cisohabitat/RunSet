@@ -41,3 +41,14 @@ Local verification: all 202 units and 31 browsers passed (17 main, 12 compatibil
 2 offline). Reviewed phone Settings/Home/results and iPad setup/populated board
 screenshots. Existing strict comfortable-phone board floor passed in all three
 compatibility projects. Publish and fully CI-gate this phase before Phase 2.
+
+Phase 1 first publication 641d448 / CI 40714340749 stopped at a WebKit-phone
+round-history regression (109 passed, one failed). Trace showed SimpleHome's
+lazy resume summary arriving above More options after the test's initial scroll,
+invalidating its immediate hit test. The helper now awaits the actual SimpleHome
+and, for an unfinished game, visible resume context before measuring/tapping.
+Retain every geometry assertion. Publish this correction and require a fresh full
+workflow before Phase 2; do not treat the original gate as successful.
+
+All six focused WebKit-phone repetitions passed after the readiness correction
+(three in each language). App source/build is unchanged from the reviewed phase.

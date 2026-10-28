@@ -930,3 +930,9 @@ space without stealing metadata width; preserve the existing ellipsis, reading
 sizes, coarse-pointer scope and strict table floors. Count distinct text-line y
 positions, not raw Range rectangles for separate React text nodes. Keep first-use
 offline screen review and exact-save comparisons.
+
+SimpleHome's lazy ResumeGuide can shift More options after its first layout.
+Round-history journeys must await visible SimpleHome and, when Continue game is
+present, the real resume context before scrolling/hit-testing More options.
+Completed games have no resume context. Retain strict target geometry; never
+replace this readiness wait with a sleep or force click.

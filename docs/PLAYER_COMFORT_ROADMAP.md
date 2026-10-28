@@ -123,3 +123,11 @@ buttons and table floors in full-screen view, validate the final saved state and
 retain Axe/runtime-error checks. Selected fixture JPEGs are emitted for actual
 phone/tablet visual review from CI; these do not establish physical iOS or voice
 acceptance. Complete branch and published-main workflow results gate Phase 5.
+
+The first isolated Phase 4 run found two real barriers: a long opponent notice
+was not keyboard-scrollable, and a populated comfortable-phone turn left only
+277.8 px of table. Notices now accept keyboard focus; expanded comfortable-phone
+status/notice areas retain their full text through scrolling. Spare rack height
+and gaps are reduced while retaining an entire 80 px tile with 10 px padding on
+both sides and unchanged 48 px controls. The >=300 px visible-board assertion
+remains, with diagnostic geometry on failure. Corrections require a fresh gate.

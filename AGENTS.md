@@ -715,3 +715,10 @@ workspace. Do not emit real user saves or credentials. Keep normal failure
 artifacts, all browser suites, signed dependency installation, virtual audio,
 twenty-minute job and five-minute offline limits. Audio mocks prove cue
 selection/counts, not native voice quality or older-player comprehension.
+
+Long gameplay notices must be keyboard-scrollable. Expanded comfortable-phone
+status/notice regions retain full text in focusable scroll areas. Keep one whole
+80 px rack tile row with its 10 px top/bottom padding; reduce spare rack height
+and gaps, never the actual tile or 48 px control targets. Real bot notices must
+still leave >=300 px visible phone table space; retain the strict assertion and
+diagnostic geometry instead of weakening it.

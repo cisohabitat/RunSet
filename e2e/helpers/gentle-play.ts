@@ -144,8 +144,15 @@ export async function verifyGentlePlay(
     const r = el.getBoundingClientRect();
     return Math.min(innerHeight, r.bottom) - Math.max(0, r.top);
   });
-  expect(visibleTable).toBeGreaterThanOrEqual(width < 720 ? 300 : 450);
   await emitVisual(page, info, locale, "opponent-turn");
+  const layout = await page.evaluate(() => Object.fromEntries(
+    [".table-tools", ".table", ".status-line", ".player-dock", ".rack", ".rack-tiles", ".turn-tools", ".primary-actions", ".game-notice"].map(selector => {
+      const el = document.querySelector(selector), r = el?.getBoundingClientRect();
+      const style = el ? getComputedStyle(el) : null;
+      return [selector, { rect: r?.toJSON(), font: style?.fontSize, padding: style?.padding, margin: style?.margin, overflow: style?.overflow, text: el?.textContent?.slice(0, 120) }];
+    }),
+  ));
+  expect(visibleTable, JSON.stringify(layout)).toBeGreaterThanOrEqual(width < 720 ? 300 : 450);
   await expect(draw).toBeEnabled({ timeout: 15000 });
   await expect(draw).toContainText(t("Draw a tile"));
   await expect.poll(async () => JSON.parse((await save())!).current).toBe(0);

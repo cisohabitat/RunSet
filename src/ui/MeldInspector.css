@@ -113,3 +113,23 @@
   outline: 2px solid var(--focus);
   outline-offset: 1px;
 }
+
+/* Keep one complete comfortable tile row and room for real turn notices. */
+@media (max-width: 720px) {
+  .app.comfortable-reading > .game.table-expanded .rack-tiles {
+    max-height: 100px;
+  }
+  .app.comfortable-reading > .game.table-expanded .table-tools {
+    margin-bottom: 6px;
+  }
+  .app.comfortable-reading > .game.table-expanded .status-line {
+    padding-block: 4px;
+    max-height: 40px;
+    overflow: auto;
+  }
+  .app.comfortable-reading > .game.table-expanded .game-notice {
+    margin-top: 0;
+    max-height: 31px;
+    overflow: auto;
+  }
+}

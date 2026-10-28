@@ -787,7 +787,7 @@ export function Game({
           {t(". Need at least 30.")}
         </p>
       )}
-      <div className="status-line" role="status" aria-live="polite">
+      <div className="status-line" role="status" aria-live="polite" tabIndex={tableView === "wide" ? 0 : undefined}>
         <span className={`status-dot ${myTurn ? "" : "waiting"}`} />
         {t(
           myTurn
@@ -1185,7 +1185,7 @@ export function Game({
         {t(placementMessage)}
       </span>
       {s.notice && (
-        <p className="game-notice" role="status">
+        <p className="game-notice" role="status" tabIndex={0}>
           {t(narrate ? narrateMove(s) : s.notice)}
         </p>
       )}

@@ -788,3 +788,15 @@ a read-only all-destinations review after a real win before backup/delete/import
 Final everyday-play evidence is docs/EVERYDAY_PLAY_RELEASE.md. Keep the phase
 history, failed-gate correction and measurement limits honest. Review modals must
 set their own reading alignment rather than inherit centered result-screen text.
+
+Track the position-confidence cycle in docs/POSITION_CONFIDENCE_ROADMAP.md and
+CI-gate each published phase. Phase 4 physical/human checks remain paused.
+PositionPractice is a temporary lazy modal, not a new stored game or profile key.
+Copy only the current human's rack/public table and original opening/joker
+snapshot. Never copy or reveal hidden allocations, clocks, scores, logs or Undo
+history. Preserve all 106 IDs in a non-rendered holder; no artificial pool/counts,
+draws or bot actions may appear as real. The reducer validates independent edits;
+invalid Check has no penalty and accepted moves are never copied back.
+Keep the original Game mounted, exact save/preferences/selection/deadline intact,
+and close practice on real state replacement/expiry. Use distinct embedded IDs,
+no duplicate main-content, explicit opener focus and a guarded WebKit retry.

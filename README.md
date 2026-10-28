@@ -592,3 +592,9 @@ Queued or unseen writes are refused until a successful read reestablishes the sa
 Recovery notices use larger text and touch targets in both languages. The bilingual
 copy audit checks conditional messages and preserves names, numbers and values.
 Final everyday-play release evidence is in docs/EVERYDAY_PLAY_RELEASE.md.
+
+The [position-confidence roadmap](docs/POSITION_CONFIDENCE_ROADMAP.md) adds
+**Practise this position** in More → Help with this turn. Try your current rack
+and public table in a temporary copy, including unfinished edits. Undo, Reset
+and Check affect only that copy. Return leaves your real game and selection
+unchanged; timed real games keep running. Practice edits disappear on close/reload.

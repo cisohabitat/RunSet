@@ -1,5 +1,7 @@
 import { useI18n } from "../i18n/I18n";
 import {
+  lazy,
+  Suspense,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -29,6 +31,9 @@ import { moveHelp } from "../lib/moveHelp";
 import { MoveHelp } from "./MoveHelp";
 import { OpponentGuide } from "./OpponentGuide";
 import { TableOverview } from "./TableOverview";
+const PositionPractice = lazy(() =>
+  import("./PositionPractice").then((m) => ({ default: m.PositionPractice })),
+);
 export function Game({
   game: s,
   dispatch,
@@ -46,6 +51,7 @@ export function Game({
   muted = true,
   embedded = false,
   practiceEndCheck = false,
+  positionCopy = false,
 }: {
   game: GameState;
   dispatch: (a: Action) => void;
@@ -63,9 +69,13 @@ export function Game({
   muted?: boolean;
   embedded?: boolean;
   practiceEndCheck?: boolean;
+  positionCopy?: boolean;
 }) {
   const { t, locale } = useI18n();
   const feedbackRoot = useRef<HTMLElement>(null);
+  const [practiceSource, setPracticeSource] = useState<GameState | null>(null);
+  const practiceOpener = useRef<HTMLButtonElement>(null);
+  useEffect(() => setPracticeSource(null), [s]);
   const [breaking, setBreaking] = useState(false);
   const breakRequest = useRef<AbortController | null>(null);
   useEffect(() => () => breakRequest.current?.abort(), []);
@@ -225,7 +235,10 @@ export function Game({
     human = s.players.find((x) => !x.bot)!,
     myTurn = !p.bot,
     check = useMemo(() => turnCheck(s), [s]),
-    dirty = useMemo(() => JSON.stringify(s.table) !== JSON.stringify(s.turnStart.table), [s]);
+    dirty = useMemo(
+      () => JSON.stringify(s.table) !== JSON.stringify(s.turnStart.table),
+      [s],
+    );
   const activeSelected = selected.filter(
     (id) =>
       human.rack.includes(id) || s.table.some((m) => m.tiles.includes(id)),
@@ -357,7 +370,10 @@ export function Game({
       aria-describedby={coachTarget ? "practice-instructions" : undefined}
       className={`game ${touch ? "touch-friendly" : ""} ${tableView === "wide" ? "table-expanded" : ""}`}
       onKeyDown={(e) => {
-        if ((e.target as HTMLElement).closest("input,textarea,select,dialog"))
+        if (
+          (e.target as HTMLElement).closest("input,textarea,select") ||
+          (!positionCopy && (e.target as HTMLElement).closest("dialog"))
+        )
           return;
         if (e.key === "Escape" && tableView === "wide") {
           e.preventDefault();
@@ -395,240 +411,251 @@ export function Game({
         }
       }}
     >
-      <div className="game-context">
-        <div className="game-heading">
-          <div>
-            <span className="eyebrow turn-owner">
-              {myTurn ? t("Your turn") : t(`${p.name}’s turn`)}
-            </span>
-            <h1>{t(myTurn ? "Your move." : `${p.name} is playing.`)}</h1>
-          </div>
-          <div className="game-heading-actions">
-            {saveLabel && tableView === "normal" && (
-              <span
-                className={`save-indicator ${saveLabel === "Not saved" ? "save-error" : ""}`}
-                role="status"
-              >
-                {t(saveLabel)}
+      {!positionCopy && (
+        <div className="game-context">
+          <div className="game-heading">
+            <div>
+              <span className="eyebrow turn-owner">
+                {myTurn ? t("Your turn") : t(`${p.name}’s turn`)}
               </span>
-            )}
-            <button className="text-button" onClick={onHelp}>
-              {t("Rules →")}
-            </button>
-          </div>
-        </div>
-        {s.match && (
-          <div className="match-bar" aria-label={t("Match scores")}>
-            <span>
-              {t("First to")} {s.match.target}
-            </span>
-            {s.players.map((player, i) => (
-              <span key={i}>
-                {player.name}: <strong>{s.match!.totals[i]}</strong>
-              </span>
-            ))}
-          </div>
-        )}
-        {s.turnSeconds && tableView === "normal" ? (
-          <p
-            className={`turn-clock ${Math.max(0, (s.deadline ?? clock) - clock) < 15000 ? "urgent" : ""}`}
-            role="timer"
-            aria-label={t("Time left this turn")}
-          >
-            {t("Time left:")}{" "}
-            {Math.max(0, Math.ceil(((s.deadline ?? clock) - clock) / 1000))}
-            {t("s · on expiry: reset unfinished edits and ")}
-            {t(s.pool.length ? "draw one" : "pass")}
-          </p>
-        ) : null}
-        <div className="opponents">
-          {s.players
-            .filter((x) => x.bot)
-            .map((x, i) => (
-              <div
-                className={`opponent ${x === p ? "is-turn" : ""}`}
-                key={x.name}
-              >
-                <span className="avatar">{t(["✳", "◈", "✦"][i])}</span>
-                <div>
-                  <strong>{x.name}</strong>
-                  <span>
-                    {t(x.bot)} · {x.rack.length}
-                    {t(" tiles")}
-                    {t(x.melded ? "· opened" : "")}
-                  </span>
-                </div>
-                {x === p && (
-                  <span className="thinking" aria-label={t("Taking a turn")}>
-                    •••
-                  </span>
-                )}
-              </div>
-            ))}
-          <div className="pool-count">
-            <strong>{s.pool.length}</strong>
-            <span>{t("in the pool")}</span>
-          </div>
-        </div>
-        {coaching && (
-          <p
-            id="end-turn-help"
-            className="turn-help"
-            hidden={!!hint || !!s.coach}
-          >
-            {t(guidance.endHelp)}
-          </p>
-        )}
-        {s.coach && !hint && (
-          <aside
-            className="first-game-guide"
-            aria-label={t("First real game guidance")}
-          >
-            <strong>{t("Your first real game")}</strong>
-            <p>
-              <span className="guide-full">{t(guidance.message)}</span>
-              <span className="guide-compact">
-                {t(guidance.compactMessage)}
-              </span>
-            </p>
-            <button
-              className="text-button"
-              aria-label={t("Got it — hide coaching")}
-              onClick={() => dispatch({ type: "dismissCoach" })}
-            >
-              <span className="coach-dismiss-copy">
-                {t("Got it — hide coaching")}
-              </span>
-              <span className="coach-dismiss-icon" aria-hidden="true">
-                ×
-              </span>
-            </button>
-          </aside>
-        )}
-        {hint && (
-          <aside
-            ref={hintRef}
-            className={`coach-card ${hint.table ? "" : "hint-summary"}`}
-            aria-label={t("Move hint")}
-          >
-            <p role="status">
-              {t(
-                hint.table
-                  ? `Possible move: ${hint.used.length} highlighted tiles.`
-                  : hint.message,
-              )}
-            </p>
-            <div className="hint-actions">
-              {hint.table && (
-                <button
-                  className="primary"
-                  onClick={() => {
-                    dispatch({ type: "applyPlan", table: hint.table! });
-                    setSelected([]);
-                  }}
+              <h1>{t(myTurn ? "Your move." : `${p.name} is playing.`)}</h1>
+            </div>
+            <div className="game-heading-actions">
+              {saveLabel && tableView === "normal" && (
+                <span
+                  className={`save-indicator ${saveLabel === "Not saved" ? "save-error" : ""}`}
+                  role="status"
                 >
-                  {t("Place hint")}
-                </button>
+                  {t(saveLabel)}
+                </span>
               )}
-              {hint.table && (
-                <button className="secondary" onClick={() => setPreview(true)}>
-                  {t("Preview")}
-                </button>
-              )}
-              <button
-                className="text-button"
-                onClick={() => {
-                  setHint(null);
-                  hintButton.current?.focus({ preventScroll: true });
-                }}
-              >
-                {t("Dismiss hint")}
+              <button className="text-button" onClick={onHelp}>
+                {t("Rules →")}
               </button>
             </div>
-            {hint.explanations && (
-              <details className="hint-reasons">
-                <summary>{t("Why this works")}</summary>
-                <p>{t(hint.message)}</p>
-                <ul>
-                  {hint.explanations.map((reason, i) => (
-                    <li key={i}>{t(reason)}</li>
-                  ))}
-                </ul>
-              </details>
-            )}
-          </aside>
-        )}
-      </div>
-      <div className="table-tools">
-        <label className="view-picker">
-          <span className="view-picker-label">{t("View")}</span>
-          <select
-            ref={viewButton}
-            aria-label={t("Table view")}
-            aria-controls="meld-table player-rack"
-            value={
-              tableView === "normal" ? "normal" : rackHidden ? "table" : "wide"
+          </div>
+          {s.match && (
+            <div className="match-bar" aria-label={t("Match scores")}>
+              <span>
+                {t("First to")} {s.match.target}
+              </span>
+              {s.players.map((player, i) => (
+                <span key={i}>
+                  {player.name}: <strong>{s.match!.totals[i]}</strong>
+                </span>
+              ))}
+            </div>
+          )}
+          {s.turnSeconds && tableView === "normal" ? (
+            <p
+              className={`turn-clock ${Math.max(0, (s.deadline ?? clock) - clock) < 15000 ? "urgent" : ""}`}
+              role="timer"
+              aria-label={t("Time left this turn")}
+            >
+              {t("Time left:")}{" "}
+              {Math.max(0, Math.ceil(((s.deadline ?? clock) - clock) / 1000))}
+              {t("s · on expiry: reset unfinished edits and ")}
+              {t(s.pool.length ? "draw one" : "pass")}
+            </p>
+          ) : null}
+          <div className="opponents">
+            {s.players
+              .filter((x) => x.bot)
+              .map((x, i) => (
+                <div
+                  className={`opponent ${x === p ? "is-turn" : ""}`}
+                  key={x.name}
+                >
+                  <span className="avatar">{t(["✳", "◈", "✦"][i])}</span>
+                  <div>
+                    <strong>{x.name}</strong>
+                    <span>
+                      {t(x.bot)} · {x.rack.length}
+                      {t(" tiles")}
+                      {t(x.melded ? "· opened" : "")}
+                    </span>
+                  </div>
+                  {x === p && (
+                    <span className="thinking" aria-label={t("Taking a turn")}>
+                      •••
+                    </span>
+                  )}
+                </div>
+              ))}
+            <div className="pool-count">
+              <strong>{s.pool.length}</strong>
+              <span>{t("in the pool")}</span>
+            </div>
+          </div>
+          {coaching && (
+            <p
+              id="end-turn-help"
+              className="turn-help"
+              hidden={!!hint || !!s.coach}
+            >
+              {t(guidance.endHelp)}
+            </p>
+          )}
+          {s.coach && !hint && (
+            <aside
+              className="first-game-guide"
+              aria-label={t("First real game guidance")}
+            >
+              <strong>{t("Your first real game")}</strong>
+              <p>
+                <span className="guide-full">{t(guidance.message)}</span>
+                <span className="guide-compact">
+                  {t(guidance.compactMessage)}
+                </span>
+              </p>
+              <button
+                className="text-button"
+                aria-label={t("Got it — hide coaching")}
+                onClick={() => dispatch({ type: "dismissCoach" })}
+              >
+                <span className="coach-dismiss-copy">
+                  {t("Got it — hide coaching")}
+                </span>
+                <span className="coach-dismiss-icon" aria-hidden="true">
+                  ×
+                </span>
+              </button>
+            </aside>
+          )}
+          {hint && (
+            <aside
+              ref={hintRef}
+              className={`coach-card ${hint.table ? "" : "hint-summary"}`}
+              aria-label={t("Move hint")}
+            >
+              <p role="status">
+                {t(
+                  hint.table
+                    ? `Possible move: ${hint.used.length} highlighted tiles.`
+                    : hint.message,
+                )}
+              </p>
+              <div className="hint-actions">
+                {hint.table && (
+                  <button
+                    className="primary"
+                    onClick={() => {
+                      dispatch({ type: "applyPlan", table: hint.table! });
+                      setSelected([]);
+                    }}
+                  >
+                    {t("Place hint")}
+                  </button>
+                )}
+                {hint.table && (
+                  <button
+                    className="secondary"
+                    onClick={() => setPreview(true)}
+                  >
+                    {t("Preview")}
+                  </button>
+                )}
+                <button
+                  className="text-button"
+                  onClick={() => {
+                    setHint(null);
+                    hintButton.current?.focus({ preventScroll: true });
+                  }}
+                >
+                  {t("Dismiss hint")}
+                </button>
+              </div>
+              {hint.explanations && (
+                <details className="hint-reasons">
+                  <summary>{t("Why this works")}</summary>
+                  <p>{t(hint.message)}</p>
+                  <ul>
+                    {hint.explanations.map((reason, i) => (
+                      <li key={i}>{t(reason)}</li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+            </aside>
+          )}
+        </div>
+      )}
+      {!positionCopy && (
+        <div className="table-tools">
+          <label className="view-picker">
+            <span className="view-picker-label">{t("View")}</span>
+            <select
+              ref={viewButton}
+              aria-label={t("Table view")}
+              aria-controls="meld-table player-rack"
+              value={
+                tableView === "normal"
+                  ? "normal"
+                  : rackHidden
+                    ? "table"
+                    : "wide"
+              }
+              onChange={(event) => {
+                const value = event.target.value;
+                setTableView(value === "normal" ? "normal" : "wide");
+                setRackHidden(value === "table");
+              }}
+            >
+              <option value="normal">{t("Standard")}</option>
+              <option value="wide">{t("Full screen")}</option>
+              {coaching && <option value="table">{t("Table only")}</option>}
+            </select>
+          </label>
+          <button
+            className="text-button"
+            onClick={() =>
+              tableRef.current?.scrollTo({ top: 0, behavior: "auto" })
             }
-            onChange={(event) => {
-              const value = event.target.value;
-              setTableView(value === "normal" ? "normal" : "wide");
-              setRackHidden(value === "table");
-            }}
           >
-            <option value="normal">{t("Standard")}</option>
-            <option value="wide">{t("Full screen")}</option>
-            {coaching && <option value="table">{t("Table only")}</option>}
-          </select>
-        </label>
-        <button
-          className="text-button"
-          onClick={() =>
-            tableRef.current?.scrollTo({ top: 0, behavior: "auto" })
-          }
-        >
-          {t("Table start ↑")}
-        </button>
-        <button
-          className="text-button"
-          onClick={() =>
-            tableRef.current?.scrollTo({
-              top: tableRef.current.scrollHeight,
-              behavior: "auto",
-            })
-          }
-        >
-          {t("Table end ↓")}
-        </button>
-        <span>{t("Scroll the table to see more groups and runs.")}</span>
-        {tableView === "wide" && (
-          <span className="board-save" role="status">
-            {t(saveLabel ?? "")}
-          </span>
-        )}
-        {s.turnSeconds ? (
-          <span
-            className="board-clock"
-            role="timer"
-            aria-label={t("Time left this turn")}
-            aria-description={t(
-              s.pool.length
-                ? "On expiry: unfinished edits reset, then draw one."
-                : "On expiry: unfinished edits reset, then pass.",
-            )}
+            {t("Table start ↑")}
+          </button>
+          <button
+            className="text-button"
+            onClick={() =>
+              tableRef.current?.scrollTo({
+                top: tableRef.current.scrollHeight,
+                behavior: "auto",
+              })
+            }
           >
-            <span className="board-clock-label">{t("Time left:")} </span>
-            {Math.max(0, Math.ceil(((s.deadline ?? clock) - clock) / 1000))}
-            {t("s")}
-            <span className="board-expiry">
-              {" "}
-              → {t(s.pool.length ? "draw one" : "pass")}
+            {t("Table end ↓")}
+          </button>
+          <span>{t("Scroll the table to see more groups and runs.")}</span>
+          {tableView === "wide" && (
+            <span className="board-save" role="status">
+              {t(saveLabel ?? "")}
             </span>
-          </span>
-        ) : null}
-      </div>
+          )}
+          {s.turnSeconds ? (
+            <span
+              className="board-clock"
+              role="timer"
+              aria-label={t("Time left this turn")}
+              aria-description={t(
+                s.pool.length
+                  ? "On expiry: unfinished edits reset, then draw one."
+                  : "On expiry: unfinished edits reset, then pass.",
+              )}
+            >
+              <span className="board-clock-label">{t("Time left:")} </span>
+              {Math.max(0, Math.ceil(((s.deadline ?? clock) - clock) / 1000))}
+              {t("s")}
+              <span className="board-expiry">
+                {" "}
+                → {t(s.pool.length ? "draw one" : "pass")}
+              </span>
+            </span>
+          ) : null}
+        </div>
+      )}
       <section
         ref={tableRef}
-        id="meld-table"
+        id={positionCopy ? "copy-meld-table" : "meld-table"}
         className={`table ${tableView === "wide" ? "expanded-table" : ""}`}
         aria-label={t("Table melds")}
         tabIndex={0}
@@ -787,7 +814,12 @@ export function Game({
           {t(". Need at least 30.")}
         </p>
       )}
-      <div className="status-line" role="status" aria-live="polite" tabIndex={tableView === "wide" ? 0 : undefined}>
+      <div
+        className="status-line"
+        role="status"
+        aria-live="polite"
+        tabIndex={tableView === "wide" ? 0 : undefined}
+      >
         <span className={`status-dot ${myTurn ? "" : "waiting"}`} />
         {t(
           myTurn
@@ -802,7 +834,7 @@ export function Game({
       </div>
       <div className="player-dock">
         <section
-          id="player-rack"
+          id={positionCopy ? "copy-player-rack" : "player-rack"}
           data-placed-destination={placement?.group === null || undefined}
           hidden={tableView === "wide" && rackHidden}
           className={`rack ${expanded ? "expanded-rack" : ""}`}
@@ -931,189 +963,220 @@ export function Game({
                 {t("Clear")}
               </button>
             )}
-            <details className="more-actions">
-              <summary>{t("More")}</summary>
-              <div>
-                {onBreak && (
-                  <>
+            {positionCopy ? (
+              <button
+                className="text-button"
+                aria-label={t("Return selected tiles to rack")}
+                disabled={!activeSelected.length}
+                onClick={() => move("rack")}
+              >
+                {t("Return to rack")}
+              </button>
+            ) : (
+              <details className="more-actions">
+                <summary>{t("More")}</summary>
+                <div>
+                  {onBreak && (
+                    <>
+                      <button
+                        className="text-button"
+                        disabled={breaking}
+                        onClick={async () => {
+                          const controller = new AbortController();
+                          breakRequest.current = controller;
+                          setBreaking(true);
+                          try {
+                            await onBreak(controller.signal);
+                          } finally {
+                            if (!controller.signal.aborted) setBreaking(false);
+                          }
+                        }}
+                      >
+                        {t(breaking ? "Saving…" : "Take a break")}
+                      </button>
+                      <p>
+                        {t(
+                          s.turnSeconds
+                            ? "Timed game: the turn deadline still applies."
+                            : "No timer. Resume whenever you like.",
+                        )}
+                      </p>
+                    </>
+                  )}
+                  <section
+                    className="more-section"
+                    aria-label={t("Help with this turn")}
+                  >
+                    <h3>{t("Help with this turn")}</h3>
+                    {coaching && (
+                      <button
+                        ref={practiceOpener}
+                        className="text-button"
+                        disabled={!myTurn}
+                        aria-haspopup="dialog"
+                        onClick={() => setPracticeSource(s)}
+                      >
+                        {t("Practise this position")}
+                      </button>
+                    )}
+                    {coaching && (
+                      <details className="current-turn-help">
+                        <summary>{t("What can I do now?")}</summary>
+                        <p>{t(guidance.message)}</p>
+                        <p>{t(guidance.endHelp)}</p>
+                        {s.log.length > 0 && (
+                          <p>
+                            <strong>{t("Last completed turn:")}</strong>{" "}
+                            {t(s.log.at(-1)!)}
+                          </p>
+                        )}
+                        {s.lastPlaced.length > 0 && (
+                          <p>
+                            {t(
+                              "Marked tiles show the latest play on the table.",
+                            )}
+                          </p>
+                        )}
+                      </details>
+                    )}
+                    {coaching && myTurn && <MoveReview game={s} />}
+                    {coaching && (
+                      <MoveHelp
+                        game={s}
+                        data={helpData}
+                        disabled={!myTurn}
+                        onFind={(id) =>
+                          findTile(id, 1, helpData?.ids.length ?? 1, "help")
+                        }
+                      />
+                    )}
+                    <details className="turn-actions-help">
+                      <summary>{t("Reset, Draw and Pass explained")}</summary>
+                      <p>
+                        {t(
+                          "Reset puts this turn back as it was. You keep your turn and draw no penalty tiles.",
+                        )}
+                      </p>
+                      <p>
+                        {t(
+                          "Draw restores unfinished edits, adds one tile to your rack and ends your turn.",
+                        )}
+                      </p>
+                      <p>
+                        {t(
+                          "Pass is available when the pool is empty. It restores unfinished edits and ends your turn without adding a tile.",
+                        )}
+                      </p>
+                    </details>
+
+                    {coaching && (
+                      <ReadAloud
+                        reminder
+                        text={`${t(guidance.message)} ${t(guidance.endHelp)}`}
+                      />
+                    )}
+                  </section>
+                  <section
+                    className="more-section"
+                    aria-label={t("Find and arrange tiles")}
+                  >
+                    <h3>{t("Find and arrange tiles")}</h3>
+                    <div
+                      className={
+                        coaching ? "rack-order-options" : "focused-rack-options"
+                      }
+                      role="group"
+                      aria-label={t("Sort")}
+                    >
+                      <button
+                        className="text-button"
+                        disabled={!myTurn}
+                        onClick={() => {
+                          if (coaching) saveOrder("color");
+                          act({ type: "sortRack", by: "color" });
+                        }}
+                      >
+                        {t("Colour")}
+                      </button>
+                      <button
+                        className="text-button"
+                        disabled={!myTurn}
+                        onClick={() => {
+                          if (coaching) saveOrder("number");
+                          act({ type: "sortRack", by: "number" });
+                        }}
+                      >
+                        {t("Number")}
+                      </button>
+                    </div>
+                    {coaching && (
+                      <BoardFinder
+                        key={`${s.seed}|${s.turn}|${s.current}`}
+                        game={s}
+                        selected={activeSelected}
+                        disabled={!myTurn}
+                        onFind={findTile}
+                      />
+                    )}
+                    {coaching && (
+                      <RackOrganizer
+                        key={[
+                          s.seed,
+                          s.turn,
+                          s.current,
+                          [...human.rack].sort((a, b) => a - b).join(","),
+                        ].join("|")}
+                        ids={displayRack}
+                        disabled={!myTurn}
+                        onKeep={(ids) => saveOrder("manual", ids)}
+                      />
+                    )}
+                    {orderNotice && <p>{t(orderNotice)}</p>}
                     <button
                       className="text-button"
-                      disabled={breaking}
-                      onClick={async () => {
-                        const controller = new AbortController();
-                        breakRequest.current = controller;
-                        setBreaking(true);
-                        try {
-                          await onBreak(controller.signal);
-                        } finally {
-                          if (!controller.signal.aborted) setBreaking(false);
-                        }
-                      }}
+                      disabled={!myTurn || !activeSelected.length}
+                      onClick={() => move("rack")}
                     >
-                      {t(breaking ? "Saving…" : "Take a break")}
+                      {t("Return selected tiles to rack")}
                     </button>
-                    <p>
-                      {t(
-                        s.turnSeconds
-                          ? "Timed game: the turn deadline still applies."
-                          : "No timer. Resume whenever you like.",
-                      )}
-                    </p>
-                  </>
-                )}
-                <section className="more-section" aria-label={t("Help with this turn")}>
-                  <h3>{t("Help with this turn")}</h3>
-                {coaching && (
-                  <details className="current-turn-help">
-                    <summary>{t("What can I do now?")}</summary>
-                    <p>{t(guidance.message)}</p>
-                    <p>{t(guidance.endHelp)}</p>
-                    {s.log.length > 0 && (
-                      <p>
-                        <strong>{t("Last completed turn:")}</strong>{" "}
-                        {t(s.log.at(-1)!)}
-                      </p>
+                    {coaching && (
+                      <TableOverview
+                        game={s}
+                        disabled={!myTurn}
+                        onFind={(id) => findTile(id, 1, 1, "overview")}
+                      />
                     )}
-                    {s.lastPlaced.length > 0 && (
-                      <p>
-                        {t("Marked tiles show the latest play on the table.")}
-                      </p>
-                    )}
-                  </details>
-                )}
-                {coaching && myTurn && <MoveReview game={s} />}
-                {coaching && (
-                  <MoveHelp
-                    game={s}
-                    data={helpData}
-                    disabled={!myTurn}
-                    onFind={(id) =>
-                      findTile(id, 1, helpData?.ids.length ?? 1, "help")
-                    }
-                  />
-                )}
-                <details className="turn-actions-help">
-                  <summary>{t("Reset, Draw and Pass explained")}</summary>
-                  <p>
-                    {t(
-                      "Reset puts this turn back as it was. You keep your turn and draw no penalty tiles.",
-                    )}
-                  </p>
-                  <p>
-                    {t(
-                      "Draw restores unfinished edits, adds one tile to your rack and ends your turn.",
-                    )}
-                  </p>
-                  <p>
-                    {t(
-                      "Pass is available when the pool is empty. It restores unfinished edits and ends your turn without adding a tile.",
-                    )}
-                  </p>
-                </details>
-
-                {coaching && (
-                  <ReadAloud
-                    reminder
-                    text={`${t(guidance.message)} ${t(guidance.endHelp)}`}
-                  />
-                )}
-
-                </section>
-                <section className="more-section" aria-label={t("Find and arrange tiles")}>
-                  <h3>{t("Find and arrange tiles")}</h3>
-                <div
-                  className={
-                    coaching ? "rack-order-options" : "focused-rack-options"
-                  }
-                  role="group"
-                  aria-label={t("Sort")}
-                >
-                  <button
-                    className="text-button"
-                    disabled={!myTurn}
-                    onClick={() => {
-                      if (coaching) saveOrder("color");
-                      act({ type: "sortRack", by: "color" });
-                    }}
+                  </section>
+                  <section
+                    className="more-section"
+                    aria-label={t("Game details")}
                   >
-                    {t("Colour")}
-                  </button>
-                  <button
-                    className="text-button"
-                    disabled={!myTurn}
-                    onClick={() => {
-                      if (coaching) saveOrder("number");
-                      act({ type: "sortRack", by: "number" });
-                    }}
-                  >
-                    {t("Number")}
-                  </button>
+                    <h3>{t("Game details")}</h3>
+                    {s.match && (
+                      <details className="compact-match-scores">
+                        <summary>{t("Match scores")}</summary>
+                        <p>
+                          {t("Round ")}
+                          {s.match.round} · {t("First to")} {s.match.target}
+                        </p>
+                        {s.players.map((player, i) => (
+                          <p key={i}>
+                            {player.name}: <strong>{s.match!.totals[i]}</strong>
+                          </p>
+                        ))}
+                      </details>
+                    )}
+                    {coaching && <OpponentGuide game={s} />}{" "}
+                    <details className="move-history">
+                      <summary>{t("Move history")}</summary>
+                      {s.log.map((line, i) => (
+                        <p key={i}>{t(line)}</p>
+                      ))}
+                    </details>
+                  </section>
                 </div>
-                {coaching && (
-                  <BoardFinder
-                    key={`${s.seed}|${s.turn}|${s.current}`}
-                    game={s}
-                    selected={activeSelected}
-                    disabled={!myTurn}
-                    onFind={findTile}
-                  />
-                )}
-                {coaching && (
-                  <RackOrganizer
-                    key={[
-                      s.seed,
-                      s.turn,
-                      s.current,
-                      [...human.rack].sort((a, b) => a - b).join(","),
-                    ].join("|")}
-                    ids={displayRack}
-                    disabled={!myTurn}
-                    onKeep={(ids) => saveOrder("manual", ids)}
-                  />
-                )}
-                {orderNotice && <p>{t(orderNotice)}</p>}
-                <button
-                  className="text-button"
-                  disabled={!myTurn || !activeSelected.length}
-                  onClick={() => move("rack")}
-                >
-                  {t("Return selected tiles to rack")}
-                </button>
-                {coaching && (
-                  <TableOverview
-                    game={s}
-                    disabled={!myTurn}
-                    onFind={(id) => findTile(id, 1, 1, "overview")}
-                  />
-                )}
-
-
-                </section>
-                <section className="more-section" aria-label={t("Game details")}>
-                  <h3>{t("Game details")}</h3>
-                {s.match && (
-                  <details className="compact-match-scores">
-                    <summary>{t("Match scores")}</summary>
-                    <p>
-                      {t("Round ")}
-                      {s.match.round} · {t("First to")} {s.match.target}
-                    </p>
-                    {s.players.map((player, i) => (
-                      <p key={i}>
-                        {player.name}: <strong>{s.match!.totals[i]}</strong>
-                      </p>
-                    ))}
-                  </details>
-                )}
-                {coaching && <OpponentGuide game={s} />}                <details className="move-history">
-                  <summary>{t("Move history")}</summary>
-                  {s.log.map((line, i) => (
-                    <p key={i}>{t(line)}</p>
-                  ))}
-                </details>
-                </section>
-              </div>
-            </details>
+              </details>
+            )}
             {coaching ? (
               <MeldInspector
                 ids={activeSelected}
@@ -1145,14 +1208,20 @@ export function Game({
               </button>
             ) : (
               <>
-                <button
-                  className="secondary"
-                  disabled={!myTurn}
-                  data-coach-target={coachTarget === "draw" || undefined}
-                  onClick={() => act({ type: "draw" })}
-                >
-                  {myTurn ? <>{t(s.pool.length ? "Draw a tile" : "Pass")} ↓</> : t("Opponent turn")}
-                </button>
+                {!positionCopy && (
+                  <button
+                    className="secondary"
+                    disabled={!myTurn}
+                    data-coach-target={coachTarget === "draw" || undefined}
+                    onClick={() => act({ type: "draw" })}
+                  >
+                    {myTurn ? (
+                      <>{t(s.pool.length ? "Draw a tile" : "Pass")} ↓</>
+                    ) : (
+                      t("Opponent turn")
+                    )}
+                  </button>
+                )}
                 <button
                   className={`primary ${!check.valid && dirty ? "danger" : ""}`}
                   disabled={!myTurn || (!check.played.length && !dirty)}
@@ -1161,11 +1230,15 @@ export function Game({
                   onClick={() => act({ type: "endTurn" })}
                 >
                   {t(
-                    !myTurn ? "Please wait" : check.valid || !dirty
-                      ? "End turn →"
-                      : practiceEndCheck
+                    !myTurn
+                      ? "Please wait"
+                      : positionCopy
                         ? "Check this turn"
-                        : "+3 tiles · End turn",
+                        : check.valid || !dirty
+                          ? "End turn →"
+                          : practiceEndCheck
+                            ? "Check this turn"
+                            : "+3 tiles · End turn",
                   )}
                 </button>
               </>
@@ -1196,6 +1269,15 @@ export function Game({
       <span className="placement-announcement" role="status">
         {t(placementMessage)}
       </span>
+      {practiceSource && (
+        <Suspense fallback={<p role="status">{t("Loading practice copy…")}</p>}>
+          <PositionPractice
+            source={practiceSource}
+            opener={practiceOpener.current}
+            onClose={() => setPracticeSource(null)}
+          />
+        </Suspense>
+      )}
       {s.notice && (
         <p className="game-notice" role="status" tabIndex={0}>
           {t(narrate ? narrateMove(s) : s.notice)}

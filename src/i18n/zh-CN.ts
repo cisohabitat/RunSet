@@ -1213,6 +1213,23 @@ const messages: Record<string, string> = {
   "A run has at least three consecutive numbers in one colour. A joker can stand for a missing number.": "顺子由至少三张颜色相同、数字连续的牌组成。万能牌可以代替缺少的数字。",
   "This explains the completed tile pattern. Opening points and joker reuse are checked when the turn is accepted.": "这里说明完成后的牌组为什么符合规则。开局分数和万能牌的重新使用，会在结束回合时一并检查。",
   "Your save could not be read. Reload to try again. Your stored data has not been removed.": "暂时无法读取存档。请重新加载再试，原有存档没有删除。",
+  "Practise this position": "练习当前牌局",
+  "Loading practice copy\u2026": "正在准备练习副本…",
+  "Temporary copy. Practise with your rack and the public table. Your saved game and selected tiles stay unchanged.": "这是临时练习副本。用自己的手牌和桌面上的牌试着出牌，原牌局和已选的牌保持不变。",
+  "Your real game timer keeps running. This copy closes if the real turn changes.": "原牌局仍在计时。如果原回合发生变化，练习副本会关闭。",
+  "This copy has no timer. Close or reload to discard its practice edits.": "练习副本不计时。关闭或重新加载后，练习中的改动会丢弃。",
+  "Unfinished moves are included. Undo affects only new practice moves; Reset returns to the start of the original turn. Unseen tiles and opponents are not played here.": "副本包括尚未完成的出牌。撤销只退回新的练习操作；重置会回到原回合开始时。这里不摸未知的牌，也没有对手自动出牌。",
+  "Restart this practice copy to try another turn.": "请重新开始这个练习副本，再试一种出牌方法。",
+  "This copy does not draw unseen tiles or play opponents. Try a move or return to your game.": "这个副本不摸未知的牌，也没有对手出牌。可以试着出牌，或返回原牌局。",
+  "Make matching-number groups or consecutive same-colour runs. Keep every table meld valid, then check your turn.": "把数字相同、颜色不同的牌组成同数组，或把同色连续数字组成顺子。确保桌面上的每组牌都符合规则，再检查回合。",
+  "Checked practice table": "已检查的练习桌面",
+  "This practice turn is valid": "这次练习出牌符合规则",
+  "Return to your game to play the move there. Practice changes are never copied back.": "请返回原牌局，亲手完成出牌。练习中的改动不会带回原牌局。",
+  "A practice copy is available only during your turn in a valid saved game.": "只有在有效牌局中轮到你出牌时，才能创建练习副本。",
+  "Restart practice copy": "重新练习副本",
+  "Return to saved game": "返回原牌局",
+  "Practice copy content": "练习副本内容",
+  "Return to rack": "放回手牌区",
 };
 export const translateChinese = translator(messages);
 export default messages;

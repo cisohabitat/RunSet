@@ -893,3 +893,16 @@ Light. Preserve existing selector specificity and optional lazy Settings. Keep
 the theme selector >=48 px, first-use offline coverage, denied-write notice,
 profile allowlist/labels and inherited-key rejection. Theme changes must retain
 real unfinished drafts, selected IDs, saved bytes and absolute deadlines.
+
+Round history is optional local metadata in runset.roundHistory.v1, capped at 30.
+Record only an observed playing→over public-turn transition in the same cohort,
+never initial/reopened/imported completed games or temporary practice. Keep the
+projection literal and factual: date, round, names, difficulty, engine scores;
+no private tiles, game snapshots, inferred skills or lifetime claims. Decoder
+bounds/validates and projects known fields; failed reads preserve unseen bytes.
+Use its own optional Web Lock with reread/deduplication and a clear generation
+guard. Failed optional storage must not block play. Delete game retains records;
+confirmed Clear history touches only that key. Keep metadata explicitly excluded
+from backups/profile restoration. Native lazy history dialogs retain >=48 px
+controls, readable scrolling, Escape/opener and confirmation focus. Preserve the
+connected actual-win/reload/download/delete/import/clear/offline journeys.

@@ -1,6 +1,7 @@
 import "./GameOverFeedback.css";
 import { lazy, Suspense } from "react";
 import { useRecentTurns } from "./useRecentTurns";
+const RoundHistory = lazy(() => import("./RoundHistory"));
 const RecentTurns = lazy(() => import("./RecentTurns"));
 import { useI18n } from "../i18n/I18n";
 import { type GameState, results, matchWinner } from "../engine/game";
@@ -217,6 +218,7 @@ export function GameOver({
       <Suspense fallback={null}>
         <RecentTurns game={game} epoch={replayEpoch} />
       </Suspense>
+      <Suspense fallback={null}><RoundHistory /></Suspense>
       <button className="secondary" onClick={onPractice}>
         {t("Try quick practice")}
       </button>

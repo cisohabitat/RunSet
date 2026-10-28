@@ -1261,6 +1261,22 @@ const messages: Record<string, string> = {
   "Light": "浅色",
   "Dark": "深色",
   "This display choice could not be saved. It still applies for this visit.": "未能保存画面设置，本次打开页面期间仍会使用。",
+  "Round history": "牌局记录",
+  "Recorded rounds": "已记录的牌局",
+  "Player wins": "玩家获胜局数",
+  "Human player": "玩家",
+  "Computer": "电脑",
+  "Last 30 rounds completed on this device since this feature was added. Imported or previously completed games are not added. These records are not included in backups or portable profiles.": "记录此功能推出后，在本设备上完成的最近三十局。导入的牌局和以前已结束的牌局不会补记。备份和可携带进度不包含这些记录。",
+  "These round records could not be read. Your saved game is kept. You can clear only these records below.": "暂时无法读取牌局记录，保存的牌局仍保留。你可以在下方只清除这些记录。",
+  "No rounds recorded yet. Finish a round to add it here.": "还没有牌局记录。完成一局后，会记录在这里。",
+  "A round record could not be saved. Your game and scores are kept.": "有一局未能记入牌局记录，牌局和分数仍保留。",
+  "History could not be cleared. Your saved game is kept.": "暂时无法清除牌局记录，保存的牌局仍保留。",
+  "Clear recorded rounds?": "清除牌局记录？",
+  "This removes only these round records. Your saved game, learning progress and settings are kept.": "只清除牌局记录。保存的牌局、学习进度和设置都会保留。",
+  "Keep history": "保留记录",
+  "Clear history": "确认清除记录",
+  "Clear recorded rounds": "清除牌局记录",
+
 };
 export const translateChinese = translator(messages);
 export default messages;

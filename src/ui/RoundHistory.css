@@ -1,0 +1,37 @@
+.round-history {
+  text-align: start;
+}
+.round-history :is(p, li, button) {
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.round-history button {
+  min-height: 48px;
+  min-width: 48px;
+}
+.round-history .dialog-actions {
+  flex-wrap: wrap;
+}
+.round-records {
+  padding: 0;
+  list-style: none;
+}
+.round-records > li {
+  padding: 12px;
+  border: 1px solid var(--control-line);
+  border-radius: 8px;
+  margin-block: 12px;
+}
+.round-records p {
+  margin-block: 8px;
+}
+.round-records ul {
+  padding-inline-start: 20px;
+}
+.round-history section button {
+  margin: 4px;
+}
+.app.comfortable-reading .round-history :is(p, li, button) {
+  font-size: 18px;
+}

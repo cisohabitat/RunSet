@@ -645,3 +645,10 @@ Display colours: Settings → Reading and display → Display theme offers Light
 Dark or Follow device (the default). The choice works with Higher contrast,
 updates without restarting play, is remembered separately on this device and is
 included in portable profiles. Deleting a game keeps this display choice.
+
+Round history is available from Home (More options on Simple home) and results.
+It keeps up to 30 rounds finished on this device since the feature was added,
+with actual round scores, recorded-round count and player-win count. Imported
+or already completed games are not added. These optional local records stay
+separate from game backups and portable profiles. Deleting a game keeps them;
+Clear recorded rounds asks for confirmation and keeps your game and settings.

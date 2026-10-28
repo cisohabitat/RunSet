@@ -61,6 +61,7 @@ export function observeTurns(game: GameState, epoch: number) {
   if (frame) frames = [...frames, frame].slice(-6);
   else if (game.turn !== previous.game.turn) frames = [];
   previous = { game, epoch };
+  return frame;
 }
 export function recentTurns(game: GameState, epoch: number): PublicTurn[] {
   return previous?.epoch === epoch && previous.game.seed === game.seed

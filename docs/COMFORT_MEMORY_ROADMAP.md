@@ -7,8 +7,8 @@ check) to pass before the next phase. Use existing Git/Vercel integration.
 | Phase | Outcome | Status |
 |---|---|---|
 | 1 | Recent public-turn replay | Complete: e0da620, CI 40692437516 passed |
-| 2 | Light / Dark / Follow device display choice | Published; exact-commit CI pending |
-| 3 | Local completed-round history and factual statistics | Pending |
+| 2 | Light / Dark / Follow device display choice | Complete: 19572bd, CI 40695653069 passed |
+| 3 | Local completed-round history and factual statistics | Published; exact-commit CI pending |
 | 4 | Chinese-first fresh opponent names and plain wording | Pending |
 
 Physical older-player/device study stays paused. Native Mandarin listening and
@@ -64,3 +64,35 @@ Final local Phase 2 browser verification: ten theme journeys plus all 39 existin
 compatibility contrast journeys passed. Reviewed phone English and iPad Chinese
 settings screenshots. All exact draft/save/deadline checks, reload/delete retention,
 failed optional writes, native target/focus and first-use offline checks passed.
+
+Phase 2 exact commit 19572bd568d7d7acb15a221e48d63004f36a5b2b passed
+workflow 40695653069: 195 units and 677 browsers (310 Chromium, 104 per
+compatibility project, 55 offline), including aggregate check. Matching Vercel
+production READY and six live theme journeys passed before Phase 3 began.
+
+## Phase 3
+
+Home (More options on Simple home) and results offer Round history. The optional
+local runset.roundHistory.v1 store keeps the latest 30 observed real finishes,
+recorded date, round number, literal names, actual computer difficulty and engine
+round scores. Displayed counts/wins describe retained records only, not lifetime
+or skill. No racks, pools, logs, deadlines or unfinished games are retained.
+Previously completed loads/imports and replacements never trigger a record;
+StrictMode/reopens are deduplicated. Records are deliberately local-only and
+excluded from game backups and portable profiles, as stated in the panel.
+
+History uses its own optional Web Lock and rereads within it; a generation guard
+prevents a pre-clear queued finish from resurrecting cleared records. Failed
+reads preserve unseen bytes and fail closed against writes; optional failures
+never block or alter play. Clear history requires explicit in-panel confirmation
+and touches only the history key. Game deletion keeps history separately.
+
+Five regressions cover score conservation/projection, actual finish boundaries,
+deduplication/cap, denied reads/writes and queued-clear races. Initial build is
+99,567 gzip bytes under the unchanged 100,000-byte budget; 76 precached assets.
+
+Final local Phase 3 verification: all 200 unit tests, ten connected bilingual
+history journeys and two Chromium replay regressions passed. Reviewed Chinese
+phone and English iPad screenshots. Native hit targets/focus, Axe, literal names,
+actual +30/−30 joker scoring, reload deduplication, real downloaded backup plus
+delete/import, independent confirmed clearing and first-use offline all passed.

@@ -18,6 +18,7 @@ import { RecoveryBoundary, RecoveryScreen } from "./ui/RecoveryBoundary";
 import { Home } from "./ui/Home";
 import { useTheme } from "./ui/useTheme";
 import { usePreference } from "./ui/usePreference";
+const RoundHistory = lazy(() => import("./ui/RoundHistory"));
 const SimpleHome = lazy(() => import("./ui/SimpleHome"));
 import { LoadingScreen } from "./ui/LoadingScreen";
 const Setup = lazy(() =>
@@ -651,6 +652,7 @@ export default function App() {
               <Suspense fallback={<p role="status">{t("Preparing save tools…")}</p>}>
                 <SaveTools game={game} onRestore={restore} />
               </Suspense>
+              <Suspense fallback={null}><RoundHistory /></Suspense>
             </HomeView>
           </Suspense>
         )}

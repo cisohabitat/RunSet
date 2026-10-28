@@ -42,3 +42,13 @@
   width: max-content;
   min-width: 44px;
 }
+
+/* A rejected request keeps the selected tiles and written engine explanation. */
+.game .tile.rejected {
+  outline: 3px dashed var(--red);
+  outline-offset: 2px;
+}
+.game .tile.rejected:focus-visible {
+  outline-color: var(--focus);
+  outline-style: solid;
+}

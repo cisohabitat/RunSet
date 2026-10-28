@@ -628,3 +628,9 @@ Normal and Hard prefer more tiles once their opening reaches 30 points, and
 check alternative first extensions to avoid blocking a winning run. Every plan
 still uses the full rules validator and the existing bounded worker budget.
 Easy's forgiving strategy and the one-Easy/no-timer default are preserved.
+
+Resuming a table keeps latest-play markers static. Accepted edits get a brief,
+small directional landing; rejected moves retain their selection with a written
+reason and a distinct outline. Fresh human wins have a short flourish, while
+reopened results stay quiet. Reduced-motion settings preserve the same facts.
+See the [board/play release evidence](docs/BOARD_PLAY_RELEASE.md).

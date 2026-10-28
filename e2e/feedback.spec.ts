@@ -15,13 +15,19 @@ for (const locale of ["en", "zh-CN"] as const)
       });
       await page.addInitScript(() => {
         (window as any).__tileLandings = [];
+        (window as any).__tileLandingDetails = [];
         (window as any).__tileInterrupted = [];
         const original = HTMLElement.prototype.animate;
         HTMLElement.prototype.animate = function (
           ...args: Parameters<typeof original>
         ) {
-          if (this.dataset.tileId)
+          if (this.dataset.tileId) {
             (window as any).__tileLandings.push(Number(this.dataset.tileId));
+            (window as any).__tileLandingDetails.push({
+              frames: args[0],
+              options: args[1],
+            });
+          }
           const animation = original.apply(this, args);
           const cancel = animation.cancel.bind(animation);
           animation.cancel = () => {
@@ -49,6 +55,9 @@ for (const locale of ["en", "zh-CN"] as const)
         .getByRole("button", { name: t("Continue game →"), exact: true })
         .click();
       await expect(page.locator(".table .tile.recent")).toHaveCount(3);
+      expect(await page.evaluate(() => (window as any).__tileLandings)).toEqual(
+        [],
+      );
       await expect(page.locator('.table [data-tile-id="9"]')).toHaveAttribute(
         "aria-description",
         t("Played in the latest turn."),
@@ -68,6 +77,15 @@ for (const locale of ["en", "zh-CN"] as const)
         () => (window as any).__tileLandings,
       );
       expect(animations).toEqual(reduced ? [] : [3]);
+      const landings = await page.evaluate(
+        () => (window as any).__tileLandingDetails,
+      );
+      for (const landing of landings) {
+        expect(landing.options.duration).toBeLessThanOrEqual(180);
+        const [x, y] = landing.frames[0].translate.split(" ").map(parseFloat);
+        expect(Math.hypot(x, y)).toBeLessThanOrEqual(12.02);
+        expect(landing.frames[0].opacity).toBeGreaterThanOrEqual(0.7);
+      }
       await expect(page.locator(".table .tile.recent")).toHaveCount(3);
       expect(
         await page
@@ -91,6 +109,13 @@ for (const locale of ["en", "zh-CN"] as const)
         path: `/tmp/runset-feedback-${locale}-${reduced}.png`,
         animations: "disabled",
       });
+      await page
+        .getByRole("button", { name: t("Undo move"), exact: true })
+        .click();
+      await expect(page.locator('.rack [data-tile-id="3"]')).toBeVisible();
+      expect(await page.evaluate(() => (window as any).__tileLandings)).toEqual(
+        reduced ? [] : [3],
+      );
     });
 
 test("sound unlocks on a gesture and responds to game changes, not view or preference changes", async ({

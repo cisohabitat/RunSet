@@ -8,8 +8,8 @@ starting the next. Continue using Git integration for Vercel; no direct deploy.
 |---|---|---|
 | 1 | Tile-sized draft cards and tighter board gaps | Published; full CI and six live journeys passed |
 | 2 | Distinct, calmer selection/destination/invalid/latest states | Published; full corrected CI and six live journeys passed |
-| 3 | Evidence-based opening and endgame bot decisions | Implemented; audit and verification in progress |
-| 4 | Clearer, brief placement/rejection/ending feedback | Pending |
+| 3 | Evidence-based opening and endgame bot decisions | Published; full CI and six live journeys passed |
+| 4 | Clearer, brief placement/rejection/ending feedback | Implemented; final verification and release gate required |
 
 Physical older-player/device study remains paused. Automated WebKit is not
 physical iOS. Native Mandarin quality and battery use remain unverified.
@@ -140,3 +140,49 @@ All ten actual-worker browser journeys passed (2 Chromium, 6 compatibility,
 2 offline), covering a real five-tile opening and the competing-group/run
 rack-empty finish, literal names, actual save completion, unchanged hidden
 allocations, accessibility and first-use offline worker loading.
+
+Phase 3 accepted main: 17f71c1, complete CI
+[40679394943](https://github.com/cisohabitat/RunSet/actions/runs/40679394943)
+passed (190 unit, 642 browser, all jobs/check), with six matching live bilingual
+worker journeys on READY production. Vercel briefly queued the build; detailed
+inspection was scope-restricted, then normal deployment status became READY.
+No direct deploy or permission bypass was used.
+
+## Phase 4
+
+A new initial-load assertion reproduced stale latest-play arrival animations in
+both languages (duplicated under development StrictMode). Motion now uses the
+existing latestEdit proof: a new matching reducer Undo snapshot and actual
+physical relocation. Saved/latest-play marks stay static on opening, new-turn
+remounts, Undo and Reset. Accepted visible edits land for 160 ms from the source
+direction, capped at 12 px with opacity at least 0.7. Reduced motion keeps the
+same static information. Owned animations/geometry clear on resize, page hiding,
+visibility change, preference change and unmount; dialog clones are excluded.
+
+Rejected moves retain selected tiles with a distinct error outline and translated
+accessible explanation; the existing full engine reason remains visible. New
+selection/drag/attempt clears the old rejection decoration. Keyboard focus keeps
+its separate solid focus ring. These view-only states never write a save or
+acknowledge a failed request as a placement.
+
+Fresh human wins get a small 260 ms decorative mark settle and the existing twelve
+particles finish sooner (1.2 s plus bounded delays). The decorative mark is hidden
+from assistive text. Existing App-owned fresh-win eligibility, static scoring,
+reduced-motion hiding and no celebration/sound replay on completed import/reopen
+remain unchanged. Results styles stay optional and precached; no autoplay or new
+cue is introduced.
+
+The strict comfortable Chinese iPad journey exposed a 446.8125 px table against
+its unchanged 450 px floor. Landscape-tablet status padding is reduced from
+4 to 2 px per side, retaining 18 px text and complete 80 px rack tiles/controls.
+The initial equal-specificity rule was overridden by existing inspector styles;
+the final scoped playing rule wins explicitly. Phone rules stay independent.
+Full motion/sound coverage now also runs in all three compatibility projects;
+all existing browser suites and workflow checks are retained.
+
+Phase 4 final local gate passed: 190 unit tests, type/build and 38 targeted
+browser journeys (9 Chromium scenarios, 27 final compatibility, 2 offline).
+The focused corrected iPad pair also passed. Reviewed English/Chinese rejection
+screenshots and fresh-result captures. Initial HTML plus referenced assets total
+99,269 gzip bytes with 71 precached files, below the unchanged 100,000 budget.
+Complete exact-main CI and matching production/live acceptance follow publication.

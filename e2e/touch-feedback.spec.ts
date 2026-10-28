@@ -192,10 +192,35 @@ for (const locale of ["en", "zh-CN"] as const)
     );
     await expect(page.locator(".placement-announcement")).toBeEmpty();
     await expect(page.locator("[data-placed-destination]")).toHaveCount(0);
+    await expect(page.locator('.table [data-tile-id="0"]')).toHaveClass(
+      /rejected/,
+    );
+    await expect(page.locator('.table [data-tile-id="0"]')).toHaveAttribute(
+      "aria-description",
+      t("Move not placed. These tiles remain selected."),
+    );
     const rejected = await page.evaluate(() =>
       JSON.parse(localStorage.getItem("runset.save.v1")!),
     );
     expect(rejected.table).toEqual(game.table);
     expect(rejected.players[0].rack).toEqual(game.players[0].rack);
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () => JSON.parse(localStorage.getItem("runset.save.v1")!).notice,
+        ),
+      )
+      .toBe("Table tiles cannot return to your rack.");
+    await page.locator(".more-actions > summary").click();
+    await page.locator('.table [data-tile-id="0"]').scrollIntoViewIfNeeded();
+    await page.screenshot({path:`/tmp/runset-rejected-${info.project.name||"chromium"}-${locale}.png`});
+    const beforeReselect = await page.evaluate(() =>
+      localStorage.getItem("runset.save.v1"),
+    );
+    await activate(page.locator('.table [data-tile-id="0"]'));
+    await expect(page.locator(".tile.rejected")).toHaveCount(0);
+    expect(
+      await page.evaluate(() => localStorage.getItem("runset.save.v1")),
+    ).toBe(beforeReselect);
     expect(errors).toEqual([]);
   });

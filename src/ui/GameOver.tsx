@@ -1,3 +1,4 @@
+import "./GameOverFeedback.css";
 import { useI18n } from "../i18n/I18n";
 import { type GameState, results, matchWinner } from "../engine/game";
 import { roundSummary, learningTakeaway } from "../lib/roundSummary";
@@ -42,7 +43,9 @@ export function GameOver({
           ))}
         </div>
       )}
-      <span className="victory-mark">✳</span>
+      <span className="victory-mark" aria-hidden="true">
+        ✳
+      </span>
       <div className="eyebrow">
         {t(game.match ? `ROUND ${game.match.round} COMPLETE` : "THAT’S A WRAP")}
       </div>

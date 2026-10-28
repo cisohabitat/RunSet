@@ -96,6 +96,8 @@ export async function verifyGentlePlay(
   await finished();
   expect(await notes()).toBe(beforeEnd + 4);
   await expect(page.locator(".confetti i")).toHaveCount(12);
+  await expect(page.locator(".victory-mark")).toHaveAttribute("aria-hidden","true");
+  expect(await page.locator(".victory-mark").evaluate(el=>getComputedStyle(el).animationName)).toBe(locale==="en"?"victory-settle":"none");
   if (locale === "zh-CN") await expect(page.locator(".confetti")).toBeHidden();
   expect(await notes()).toBeGreaterThan(0);
   await emitVisual(page, info, locale, "fresh-result");
@@ -106,6 +108,7 @@ export async function verifyGentlePlay(
   await finished();
   await expect(page.locator(".confetti")).toHaveCount(0);
   expect(await notes()).toBe(afterWin);
+  expect(await page.locator(".victory-mark").evaluate(el=>getComputedStyle(el).animationName)).toBe("none");
   await page.reload();
   await activate(page.getByRole("button", { name: t("View results →"), exact: true }));
   await finished();

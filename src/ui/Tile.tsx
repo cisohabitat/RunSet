@@ -8,6 +8,7 @@ export const Tile = memo(function Tile({
   selected = false,
   glow = false,
   recent = false,
+  rejected = false,
   onSelect,
   draggable = false,
   onDrag,
@@ -19,6 +20,7 @@ export const Tile = memo(function Tile({
   selected?: boolean;
   glow?: boolean;
   recent?: boolean;
+  rejected?: boolean;
   onSelect?: (id: number) => void;
   draggable?: boolean;
   onDrag?: (id: number) => void;
@@ -57,8 +59,15 @@ export const Tile = memo(function Tile({
         buttons[next]?.focus({ preventScroll: true });
         buttons[next]?.scrollIntoView({ block: "nearest", inline: "nearest" });
       }}
-      className={`tile ${tile.color ?? "joker"} ${selected ? "selected" : ""} ${glow ? "glow" : ""} ${recent ? "recent" : ""}`}
-      aria-description={recent ? t("Played in the latest turn.") : undefined}
+      className={`tile ${tile.color ?? "joker"} ${selected ? "selected" : ""} ${glow ? "glow" : ""} ${recent ? "recent" : ""} ${rejected ? "rejected" : ""}`}
+      aria-description={
+        rejected
+          ? t("Move not placed. These tiles remain selected.") +
+            (recent ? " " + t("Played in the latest turn.") : "")
+          : recent
+            ? t("Played in the latest turn.")
+            : undefined
+      }
       title={t(
         tile.joker && represents ? `Joker represents ${represents}` : undefined,
       )}

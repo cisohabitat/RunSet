@@ -860,3 +860,16 @@ Keep the competing-group/run finish, five-versus-three opening, below-30,
 zero-budget and hidden-allocation regressions. Benchmark balanced held-out
 mixed/pair seatings before/after at the production budget, retaining raw reports
 and fingerprints; never turn two correlated deals into a difficulty ranking.
+
+Tile landing motion requires latestEdit's matching reducer snapshot and actual
+physical relocation; do not animate initial lastPlaced values, Undo or Reset.
+Keep the 160 ms/12 px bound, >=0.7 opacity, reduced-motion static equivalent,
+dialog exclusion and owned resize/visibility/pagehide/preference/unmount cleanup.
+Rejection decoration follows actual blockedMove plus active selection, retains
+selection/checks/full engine reason and translates its accessible description.
+Clear stale decoration on a new selection/drag/attempt; keep native focus distinct.
+Fresh-only result motion retains App's eligibility, twelve particles and no
+completed-import/reopen sound/celebration replay; its decorative mark is aria-hidden.
+Keep the full motion/sound file in compatibility coverage. Preserve the strict
+450 px tablet and 300 px phone board floors: the landscape-tablet status-padding
+rule must beat existing inspector specificity without smaller text/tiles/targets.

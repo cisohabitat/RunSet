@@ -1,0 +1,20 @@
+.game-over.celebrate .victory-mark {
+  animation: victory-settle 260ms ease-out;
+}
+.game-over .confetti i {
+  animation-duration: 1200ms;
+  animation-delay: calc(var(--i) * 20ms);
+}
+@keyframes victory-settle {
+  from {
+    transform: scale(0.92);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .game-over.celebrate .victory-mark {
+    animation: none;
+  }
+}

@@ -2,6 +2,7 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Move not placed. These tiles remain selected.": "这次没有放成功，选中的牌仍保持选中。",
   "Next when you continue": "继续牌局后的下一步",
   "Timed game: the original deadline still applies. If it has passed, continuing processes the expired turn.": "限时牌局仍按原来的截止时间计时。如果已经超时，继续牌局时会处理已到期的回合。",
   "The round ended because a rack is empty.": "有人的手牌已出完，本局因此结束。",

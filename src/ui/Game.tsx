@@ -309,6 +309,7 @@ export function Game({
       if (myTurn) {
         pendingPlacement.current = null;
         setPlacement(null);
+        setBlockedMove(null);
         sound("select", muted);
         const next = selected.includes(id)
           ? selected.filter((v) => v !== id)
@@ -322,10 +323,12 @@ export function Game({
   const dragTile = useCallback(() => {
     pendingPlacement.current = null;
     setPlacement(null);
+    setBlockedMove(null);
   }, []);
   const move = (target: string, ids = activeSelected) => {
     if (!myTurn) return;
     setPlacement(null);
+    setBlockedMove(null);
     pendingPlacement.current = coaching
       ? { before: s, ids: [...ids], target }
       : null;
@@ -726,6 +729,11 @@ export function Game({
                       }
                       onFocus={setFocused}
                       selected={activeSelected.includes(id)}
+                      rejected={
+                        blockedMove?.state === s &&
+                        activeSelected.includes(id) &&
+                        blockedMove.ids.includes(id)
+                      }
                       recent={s.lastPlaced.includes(id)}
                       glow={suggested.includes(id) || !!hint?.used.includes(id)}
                       represents={
@@ -927,6 +935,11 @@ export function Game({
                 }
                 onFocus={setFocused}
                 selected={activeSelected.includes(id)}
+                rejected={
+                  blockedMove?.state === s &&
+                  activeSelected.includes(id) &&
+                  blockedMove.ids.includes(id)
+                }
                 glow={suggested.includes(id) || !!hint?.used.includes(id)}
                 onSelect={myTurn ? select : undefined}
                 draggable={myTurn}

@@ -197,7 +197,7 @@ test("a timed break retains its deadline and applies one expiry when returning",
   ).toBeVisible();
   await page.getByRole("button", { name: "Take a break", exact: true }).click();
   await expect(page.locator(".resume-context")).toContainText(
-    "Timed game: the turn deadline still applies.",
+    "Timed game: the original deadline still applies. If it has passed, continuing processes the expired turn.",
   );
   expect((await read(page)).deadline).toBe(game.deadline);
   await page.clock.fastForward(65000);

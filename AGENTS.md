@@ -825,3 +825,6 @@ MeldTarget uses the same useTouchClick guard as tiles/new-meld creation. Preserv
 normal-view Chinese comfortable-phone placement coverage: native focus scrolling
 must not swallow the completed tap, duplicate it or retarget it to another meld.
 Keyboard and mouse keep their native click path; never force browser test taps.
+Home resume expiry copy differs from the short More/Take-a-break timer note.
+Keep timed-break assertions scoped to the intended surface, preserving exact
+deadline, single-expiry, restored-table and one-drawn-tile checks after copy edits.

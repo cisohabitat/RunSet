@@ -40,3 +40,13 @@ uses the existing tile/new-meld useTouchClick binding rather than changing game
 rules or forcing test input. The regression stays in the original normal view.
 An initial local concurrent run also collided in nested Playwright artifact
 folders; subsequent suites use distinct output directories.
+
+The first Phase 3 gate, [40657680301](https://github.com/cisohabitat/RunSet/actions/runs/40657680301)
+on f5cf6b5, is not accepted: the older timed-break Home assertion expected the
+previous timer sentence. The separate More-panel expectation remains unchanged.
+The correction updates only that Home copy assertion and retains the exact
+deadline, one-turn expiry, restored table and one-drawn-tile checks. The app
+runtime is unchanged. A fresh full exact-main CI gate is required.
+
+The corrected timed-break case passed locally in Chromium, WebKit phone/iPad
+and Firefox (four journeys), including all original expiry invariants.

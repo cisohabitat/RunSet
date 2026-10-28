@@ -2,6 +2,17 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  run: "顺子",
+  group: "同数组",
+  "{n} pts": "{n} 分",
+  "Table overview": "牌桌总览",
+  "Groups and runs on the table": "桌上的同数组和顺子",
+  "Choose a group or run to find its first tile. Your selection stays the same.":
+    "选择一组牌，即可找到它的第一张牌。已选中的牌不会改变。",
+  "This overview does not move tiles. Timed games keep running.":
+    "总览不会移动牌。限时牌局仍会继续计时。",
+  "Find group/run {n}": "找到第 {n} 组牌",
+
   "Opponent styles and fair play": "对手的玩法与公平规则",
   "After opening, Easy makes new groups and runs. It leaves existing table melds alone.":
     "开局后，简单对手会组成新的同数组和顺子，不改动桌上原有的牌组。",

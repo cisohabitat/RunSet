@@ -679,3 +679,16 @@ details live in More, with readable text and >=44/48 px summary targets; do not
 add a permanent board row. Preserve worker redaction of other racks/log/history.
 Fresh bot audits retain complete raw reports, source fingerprints and correlated
 seed-block interpretation; no beginner difficulty changes without evidence.
+
+TableOverview is a read-only optional native dialog in More. Derive summaries
+from inspectMeld and public table tiles; use its represented joker numbers and
+never invent values for an invalid meld. Choosing an entry closes the modal,
+then uses the existing actual-tile finder without changing selection, hidden
+rack state or saved bytes. Preserve >=48 px list/footer controls, scrolling,
+Escape/opener focus, literal state and timer-driven stale-view cleanup. Keep
+its CSS optional and retain strict expanded table floors on crowded fixtures.
+
+Overview entries use two-line summaries and two columns on wider screens.
+Translate standalone kind and points labels, not only compound board captions.
+An empty imported draft meld has no first tile: keep it non-navigable. Check the
+actual Chinese row for untranslated words and expire an open overview in tests.

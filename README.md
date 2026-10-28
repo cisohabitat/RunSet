@@ -547,3 +547,7 @@ draw does not establish that no move exists. Pace changes waiting time only.
 
 The [fresh bot recheck](docs/PLAYER_COMFORT_BOTS.md) records 60 production-budget
 rounds without changing strategy or claiming a human difficulty rating.
+
+More → Table overview helps navigate crowded games. Review numbered melds and
+choose one to find its first tile. It preserves selections, the hidden-rack view,
+Undo history and the current deadline; unfinished melds say Needs fixing.

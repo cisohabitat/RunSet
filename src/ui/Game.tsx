@@ -28,6 +28,7 @@ import { BoardFinder } from "./BoardFinder";
 import { moveHelp } from "../lib/moveHelp";
 import { MoveHelp } from "./MoveHelp";
 import { OpponentGuide } from "./OpponentGuide";
+import { TableOverview } from "./TableOverview";
 export function Game({
   game: s,
   dispatch,
@@ -236,7 +237,7 @@ export function Game({
   const [rackOrder, rememberRackOrder] = useRackOrder();
   const [orderNotice, setOrderNotice] = useState("");
   const [findNotice, setFindNotice] = useState<{
-    kind: "selected" | "latest" | "help";
+    kind: "selected" | "latest" | "help" | "overview";
     index: number;
     total: number;
   } | null>(null);
@@ -324,7 +325,7 @@ export function Game({
     id: number,
     index: number,
     total: number,
-    kind: "selected" | "latest" | "help",
+    kind: "selected" | "latest" | "help" | "overview",
   ) => {
     const menu =
       feedbackRoot.current?.querySelector<HTMLDetailsElement>(".more-actions");
@@ -1085,6 +1086,13 @@ export function Game({
                     )}
                   </p>
                 </details>
+                {coaching && (
+                  <TableOverview
+                    game={s}
+                    disabled={!myTurn}
+                    onFind={(id) => findTile(id, 1, 1, "overview")}
+                  />
+                )}
                 {coaching && <OpponentGuide game={s} />}
                 <details className="move-history">
                   <summary>{t("Move history")}</summary>
@@ -1167,7 +1175,7 @@ export function Game({
       )}
       <span className="board-find-announcement" role="status">
         {findNotice
-          ? `${t(findNotice.kind === "help" ? "Move help tiles" : findNotice.kind === "selected" ? "Selected tiles" : "Latest placements")} · ${t(`Tile ${findNotice.index} of ${findNotice.total}`)}`
+          ? `${t(findNotice.kind === "overview" ? "Table overview" : findNotice.kind === "help" ? "Move help tiles" : findNotice.kind === "selected" ? "Selected tiles" : "Latest placements")} · ${t(`Tile ${findNotice.index} of ${findNotice.total}`)}`
           : ""}
       </span>
       <span className="rack-order-announcement" role="status">

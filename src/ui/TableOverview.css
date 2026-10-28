@@ -1,0 +1,8 @@
+.game .table-overview-button { min-height: 48px; font-size: 16px; }
+.table-overview ol { list-style: none; padding: 0; display: grid; gap: 8px; margin-block: 12px; }
+.table-overview li { min-width: 0; }
+.table-overview li button { width: 100%; min-height: 48px; display: grid; gap: 4px; padding: 12px; text-align: start; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
+.table-overview .dialog-actions button { min-height: 48px; font-size: 16px; }
+.app.comfortable-reading .table-overview li button { font-size: 18px; }
+
+@media (min-width: 760px) { .table-overview ol { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

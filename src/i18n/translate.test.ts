@@ -112,6 +112,10 @@ describe("Simplified Chinese presentation", () => {
 it("translates observed placement counts and destinations without losing numbers", () => {
   expect(t("Tile position 2 of 50.")).toBe("第 2 张，共 50 张。");
   expect(t("Affected group/run 7")).toBe("需要处理的第 7 组牌");
+  expect(t("Find group/run 16")).toBe("找到第 16 组牌");
+  expect(t("6 pts")).toBe("6 分");
+  expect(t("run")).toBe("顺子");
+  expect(t("group")).toBe("同数组");
   expect(t("Add red 6 from your rack to group/run 7.")).toBe(
     "把手牌区的红色 6 放到第 7 组中。",
   );

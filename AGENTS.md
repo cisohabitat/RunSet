@@ -740,3 +740,16 @@ Use the same 10 px top/bottom rack-tile padding and bounded focusable status/
 notice spacing across comfortable expanded phone, tablet and desktop views.
 Keep full 80 px tiles and the original rack-height cap. A populated timed bot
 turn must retain the >=450 px tablet floor as well as the phone floor.
+
+The connected player-comfort release journey spans interrupted timed drafts,
+opponent guidance, table overview, move help, hidden-rack placement, an actual
+accepted ending and downloaded-backup/delete/import/reload. Keep exact draft/
+deadline/history comparisons, 106 unique physical IDs, preferences, real file
+contents, native focus/hit targets, Axe and runtime-error checks. Await actual
+persistence and cleared UI state before reloading or importing after deletion.
+
+Result explanations use neutral factual labels rather than third-person prose
+around a literal player name (You wins / played their last tile). Preserve name
+placeholders literally, keep existing legacy translations and do not infer an
+unrecorded ending. Update the existing dynamic translation and rule-summary
+checks when changing this copy. Release evidence is docs/PLAYER_COMFORT_RELEASE.md.

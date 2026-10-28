@@ -2,6 +2,10 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "The round ended because a rack is empty.": "有人的手牌已出完，本局因此结束。",
+  "Winner: {name}. No tiles remain in this rack.": "获胜者：{name}。这位玩家已没有手牌。",
+  "Winner: {name}. Lowest remaining tile total: {n}.": "获胜者：{name}。剩余牌分最低：{n} 分。",
+  "The lowest total is tied at {n}. The player seated first among those tied wins: {name}.": "最低剩余分同为 {n} 分。平分玩家中，座位顺序较前者获胜：{name}。",
   "Opponent turn": "对手回合",
   "Please wait": "请稍候",
   "Preparing save tools…": "正在准备保存工具……",

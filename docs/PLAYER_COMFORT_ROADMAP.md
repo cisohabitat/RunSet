@@ -11,8 +11,8 @@ multiplayer remains deferred.
 | 1. Smarter in-game help | Published; full CI and live checks passed | Locate affected tiles, identify the meld and distinguish a local repair from a complete turn. |
 | 2. Bot difficulty and fairness | Published; full CI and live checks passed | Reassess production behavior on fresh deals and make capabilities and public move explanations clear. |
 | 3. Crowded-board readability | Published; complete corrected CI passed | Improve long-game meld navigation without shrinking touch targets or the table. |
-| 4. Gentler play | Implemented; isolated CI review before main | Clearer turn changes and restrained feedback, with reduced motion and bilingual recovery copy. |
-| 5. Release hardening | Pending | Connected complete-game, interrupted-session, update and offline recovery checks. |
+| 4. Gentler play | Published; full main CI passed | Clearer turn changes and restrained feedback, with reduced motion and bilingual recovery copy. |
+| 5. Release hardening | Implemented; final isolated CI review | Connected complete-game, interrupted-session, update and offline recovery checks. |
 
 ## Phase 1
 
@@ -154,3 +154,39 @@ bounded status/notice spacing and 10 px rack padding now apply across comfortabl
 expanded views. Tile sizes, original rack-height cap, button targets and the
 450 px assertion remain unchanged. Phone and all 37 offline cases had passed;
 the expanded tablet correction requires a new complete gate.
+
+Phase 4's final branch 528839b passed complete CI
+[40615259476](https://github.com/cisohabitat/RunSet/actions/runs/40615259476).
+Six phone/tablet fixture images were inspected, including comfortable Chinese
+iPad landscape. The same runtime tree was published as 91b8e2e; complete main CI
+[40616483766](https://github.com/cisohabitat/RunSet/actions/runs/40616483766)
+passed before Phase 5 began: 170 units, 290 Chromium, 79 per compatibility
+project and 37 offline cases. Initial gzip: 99,035 bytes; 64 precached assets.
+
+## Phase 5
+
+Connected release journeys now cover an interrupted unfinished meld through an
+actual completed game and file recovery. They retain the real timed deadline
+and Undo history across offline reload, use named opponent styles, find the
+unfinished meld through the overview and move help, select a real rack tile,
+place it while the rack is hidden, then explicitly End turn. Completed inventory
+must contain all 106 unique physical IDs.
+
+The journey downloads and parses the actual backup, deletes both game/recovery
+keys while preserving preferences, imports the downloaded bytes and reloads the
+completed game. Restoration/reopening must stay quiet with no new celebration.
+Axe, runtime errors, native targets and fixture screenshots remain part of the
+gate. Existing update-consent, storage-failure/conflict, long-session, geometry,
+voice/playback and learning tests remain enabled.
+
+Visual review also found old English result prose reading You wins / You played
+their last tile. Neutral factual ending/winner/tie labels remove that agreement
+problem, preserve every literal name and avoid inventing play history. Existing
+rule/translation cases cover the new strings while retaining legacy translations.
+No game rule, save schema, default difficulty or recording is changed.
+
+The final gate contains 170 units and 574 browser cases: 292 Chromium, 81 for
+each of phone WebKit/iPad WebKit/desktop Firefox, and 39 offline cases, plus the
+planner benchmark smoke. Initial gzip stays under 100,000; exact final build
+bytes and completed checks are inspected after CI. See
+[release evidence](PLAYER_COMFORT_RELEASE.md).

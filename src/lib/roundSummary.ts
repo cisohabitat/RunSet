@@ -13,18 +13,18 @@ export function roundSummary(game: GameState) {
     reason,
     message:
       reason === "rack-empty"
-        ? `${winner.name} played their last tile. The first empty rack ends the round.`
+        ? "The round ended because a rack is empty."
         : reason === "pool-exhausted"
           ? "The pool is empty and everyone passed in succession. The round has ended."
           : "This saved round is complete. Its exact ending was not recorded.",
     winnerExplanation:
       reason === "rack-empty"
-        ? `${winner.name} wins with no tiles left.`
-        : `${winner.name} wins with the lowest remaining tile total: ${winner.total}.`,
+        ? `Winner: ${winner.name}. No tiles remain in this rack.`
+        : `Winner: ${winner.name}. Lowest remaining tile total: ${winner.total}.`,
     tieBreak:
       reason !== "rack-empty" &&
       scores.filter((player) => player.total === winner.total).length > 1
-        ? `The lowest total is tied at ${winner.total}. ${winner.name} wins because their seat comes first among the tied players.`
+        ? `The lowest total is tied at ${winner.total}. The player seated first among those tied wins: ${winner.name}.`
         : undefined,
   };
 }

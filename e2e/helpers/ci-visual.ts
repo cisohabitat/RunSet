@@ -3,7 +3,7 @@ import type { Page, TestInfo } from "@playwright/test";
 export async function emitVisual(page: Page, info: TestInfo, locale: "en" | "zh-CN", stage: string) {
   if (!process.env.CI || !(
     (info.project.name === "webkit-phone" && locale === "zh-CN") ||
-    (info.project.name === "webkit-ipad" && locale === "en")
+    (info.project.name === "webkit-ipad")
   )) return;
   const id = stage + "-" + info.project.name + "-" + locale;
   const data = (await page.screenshot({ type: "jpeg", quality: 60 })).toString("base64");

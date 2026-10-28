@@ -40,6 +40,7 @@ it("round trips game, all learning formats and display choices without normalisi
       kinds: ["opening"],
     }),
   );
+  data.set("runset.theme", "dark");
   data.set("runset.reading", "true");
   data.set("runset.tableOrder.v1", "kind");
   data.set("runset.language", "zh-CN");
@@ -59,6 +60,7 @@ it("rejects arbitrary, unsupported and damaged nested data before writing anythi
     { values: { [SAVE_KEY]: "raw" } },
     { values: { "runset.reading": "yes" } },
     { values: { "runset.tableOrder.v1": "manual" } },
+    { values: { "runset.theme": "constructor" } },
     {
       values: {
         "runset.turnPractice.v1": JSON.stringify({

@@ -16,6 +16,7 @@ import { sound, primeAudio, transitionCue } from "./lib/sound";
 import { useScreenFocus } from "./ui/useScreenFocus";
 import { RecoveryBoundary, RecoveryScreen } from "./ui/RecoveryBoundary";
 import { Home } from "./ui/Home";
+import { useTheme } from "./ui/useTheme";
 import { usePreference } from "./ui/usePreference";
 const SimpleHome = lazy(() => import("./ui/SimpleHome"));
 import { LoadingScreen } from "./ui/LoadingScreen";
@@ -98,6 +99,7 @@ export default function App() {
     setSetupPreset(source ? settingsForGame(source) : undefined);
     setScreen("setup");
   };
+  const [theme, setTheme] = useTheme();
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [simple, setSimple] = usePreference("runset.simpleHome");
   const [reading, setReading] = usePreference("runset.reading");
@@ -481,6 +483,8 @@ export default function App() {
             }
           >
             <Settings
+              theme={theme}
+              setTheme={setTheme}
               reading={reading}
               setReading={setReading}
               simple={simple}

@@ -38,23 +38,21 @@
   color-scheme: light;
   accent-color: var(--accent);
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #172820;
-    --ink: #e3e6d8;
-    --muted: #b6c3b2;
-    --line: #3a4b3d;
-    --control-line: #82927f;
-    --green: #44694e;
-    --accent: #9fc795;
-    --soft: #2a4030;
-    --card: #f0eddf;
-    --red: #f1a492;
-    --focus: #f2c365;
-    --shadow-menu: 0 12px 40px #0007;
-    --shadow-dialog: 0 20px 70px #0009;
-    color-scheme: dark;
-  }
+:root[data-theme="dark"] {
+  --paper: #172820;
+  --ink: #e3e6d8;
+  --muted: #b6c3b2;
+  --line: #3a4b3d;
+  --control-line: #82927f;
+  --green: #44694e;
+  --accent: #9fc795;
+  --soft: #2a4030;
+  --card: #f0eddf;
+  --red: #f1a492;
+  --focus: #f2c365;
+  --shadow-menu: 0 12px 40px #0007;
+  --shadow-dialog: 0 20px 70px #0009;
+  color-scheme: dark;
 }
 
 /* Optional palette. Keep number/shape cues and device tile dimensions. */
@@ -76,17 +74,15 @@
   --tile-black: #101c15;
   --tile-joker: #374719;
 }
-@media (prefers-color-scheme: dark) {
-  :root[data-contrast="high"] {
-    --paper: #08140e;
-    --ink: #fff;
-    --muted: #e0ede4;
-    --line: #a0b5a7;
-    --control-line: #e0ede4;
-    --green: #24452e;
-    --accent: #bfe8cb;
-    --soft: #172a1e;
-    --red: #ffbdac;
-    --focus: #ffda75;
-  }
+:root[data-theme="dark"][data-contrast="high"] {
+  --paper: #08140e;
+  --ink: #fff;
+  --muted: #e0ede4;
+  --line: #a0b5a7;
+  --control-line: #e0ede4;
+  --green: #24452e;
+  --accent: #bfe8cb;
+  --soft: #172a1e;
+  --red: #ffbdac;
+  --focus: #ffda75;
 }

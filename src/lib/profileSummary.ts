@@ -30,6 +30,7 @@ export function wholePracticeSummary(raw: string | null) {
   }
 }
 export const profileLabels: Record<string, string> = {
+  "runset.theme": "Display theme",
   "runset.reading": "Comfortable reading",
   "runset.contrast": "Higher contrast",
   "runset.largeTiles": "Larger touch controls",
@@ -50,6 +51,15 @@ export const profileLabels: Record<string, string> = {
 };
 export function profileChoice(key: string, raw: string | null): string {
   if (raw === null) return "Not saved";
+  if (key === "runset.theme") {
+    const choice = (
+      { system: "Follow device", light: "Light", dark: "Dark" } as Record<
+        string,
+        unknown
+      >
+    )[raw];
+    return typeof choice === "string" ? choice : "Unavailable";
+  }
   if (key === "runset.language")
     return raw === "zh-CN" ? "简体中文" : "English";
   if (key === "runset.muted") return raw === "true" ? "Off" : "On";

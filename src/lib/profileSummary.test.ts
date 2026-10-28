@@ -68,3 +68,10 @@ it("shows meaningful choice values including muted sound without exposing storag
   expect(profileChoice("runset.reading", null)).toBe("Not saved");
   expect(profileChoice("runset.pace", "5000")).toContain("Unhurried");
 });
+
+it("labels only supported theme choices", () => {
+  expect(profileChoice("runset.theme", "dark")).toBe("Dark");
+  expect(profileChoice("runset.theme", "system")).toBe("Follow device");
+  expect(profileChoice("runset.theme", "constructor")).toBe("Unavailable");
+  expect(profileChoice("runset.theme", "__proto__")).toBe("Unavailable");
+});

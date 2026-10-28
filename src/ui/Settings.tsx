@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import type { Theme } from "./useTheme";
 import { LanguageSwitch, useI18n } from "../i18n/I18n";
 export default function Settings({
+  theme,
+  setTheme,
   reading,
   simple,
   setSimple,
@@ -20,6 +23,8 @@ export default function Settings({
   timed,
   onClose,
 }: {
+  theme: Theme;
+  setTheme: (value: Theme) => void;
   simple: boolean;
   setSimple: (value: boolean) => void;
   reading: boolean;
@@ -40,6 +45,7 @@ export default function Settings({
   onClose: () => void;
 }) {
   const { t, error } = useI18n();
+  const [themeError, setThemeError] = useState(false);
   const [guideOpen, setGuideOpen] = useState(false);
   const guide = useRef<HTMLDetailsElement>(null);
   const readingControl = useRef<HTMLInputElement>(null);
@@ -159,6 +165,36 @@ export default function Settings({
       </details>
       <fieldset>
         <legend>{t("Reading and display")}</legend>
+        <label>
+          {t("Display theme")}
+          <select
+            style={{ minHeight: 48, padding: "8px", font: "inherit" }}
+            aria-label={t("Display theme")}
+            value={theme}
+            onChange={(e) => {
+              const value = e.target.value as Theme;
+              setTheme(value);
+              try {
+                localStorage.setItem("runset.theme", value);
+                setThemeError(false);
+              } catch {
+                setThemeError(true);
+              }
+            }}
+          >
+            <option value="system">{t("Follow device")}</option>
+            <option value="light">{t("Light")}</option>
+            <option value="dark">{t("Dark")}</option>
+          </select>
+        </label>
+        {themeError && (
+          <p role="status">
+            {t(
+              "This display choice could not be saved. It still applies for this visit.",
+            )}
+          </p>
+        )}
+
         <label>
           <input
             type="checkbox"

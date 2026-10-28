@@ -640,3 +640,8 @@ turns** in More → Help with this turn and on results. Compare the public board
 before and after the last six completed turns from this visit. Hidden racks and
 intermediate rearrangement steps are excluded. Reloading or replacing a game
 clears the replay; opening it preserves play and the original timer deadline.
+
+Display colours: Settings → Reading and display → Display theme offers Light,
+Dark or Follow device (the default). The choice works with Higher contrast,
+updates without restarting play, is remembered separately on this device and is
+included in portable profiles. Deleting a game keeps this display choice.

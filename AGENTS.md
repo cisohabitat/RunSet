@@ -883,3 +883,13 @@ App replayEpoch increments on explicit start/clear replacements without remounti
 ordinary play. Observe regular Game/results only, deduplicate StrictMode and clear
 on cohort/visit replacement. Modal navigation never edits state or pauses clocks;
 close stale dialogs and retain explicit opener/native focus with guarded retry.
+
+Display theme uses the bounded runset.theme enum (system/light/dark), independent
+of game saves and retained on deletion. useTheme resolves the device preference
+before paint and subscribes to live changes with cleanup. CSS follows the
+resolved root data-theme, including dark native controls/surfaces/high contrast;
+do not reintroduce unconditional OS-only dark selectors that override explicit
+Light. Preserve existing selector specificity and optional lazy Settings. Keep
+the theme selector >=48 px, first-use offline coverage, denied-write notice,
+profile allowlist/labels and inherited-key rejection. Theme changes must retain
+real unfinished drafts, selected IDs, saved bytes and absolute deadlines.

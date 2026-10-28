@@ -1365,70 +1365,69 @@ legend {
     margin-left: 0;
   }
 }
-@media (prefers-color-scheme: dark) {
-  input {
-    background: #20382b;
-  }
-  .choice {
-    background: #20382b;
-  }
-  .secondary {
-    background: #263d2d;
-  }
-  .table {
-    background-color: #223a29;
-    border-color: #465a3d;
-  }
-  .meld {
-    background: #30432c;
-    border-color: #506244;
-  }
-  .meld.invalid {
-    background: #51382e;
-    border-color: #c07e5d;
-  }
-  .rack {
-    background: #344331;
-    box-shadow: inset 0 -5px 0 #2b3928;
-  }
-  .sort button {
-    background: #40523b;
-    border-color: #526348;
-  }
-  .guide article,
-  .scoreboard article {
-    background: #213829;
-  }
-  .tile {
-    border-color: #d6d5c8;
-  }
-  .avatar {
-    background: #33472e;
-  }
-  .hero-art {
-    background: radial-gradient(ellipse at center, #7b8e4d20, transparent 70%);
-  }
-  .art-orbit {
-    border-color: #5c705150;
-  }
-  .hero-art .tile {
-    box-shadow:
-      1px 5px 0 #bcbfa6,
-      3px 11px 14px #0003;
-  }
-  .brand-icon {
-    color: #203b32;
-  }
-  .empty-table {
-    color: #8da37b;
-  }
-  .hand-note {
-    color: #99ab8a;
-  }
-  .primary {
-    box-shadow: 0 3px 0 #122719;
-  }
+:where(:root[data-theme="dark"]) input {
+  background: #20382b;
 }
+:where(:root[data-theme="dark"]) .choice {
+  background: #20382b;
+}
+:where(:root[data-theme="dark"]) .secondary {
+  background: #263d2d;
+}
+:where(:root[data-theme="dark"]) .table {
+  background-color: #223a29;
+  border-color: #465a3d;
+}
+:where(:root[data-theme="dark"]) .meld {
+  background: #30432c;
+  border-color: #506244;
+}
+:where(:root[data-theme="dark"]) .meld.invalid {
+  background: #51382e;
+  border-color: #c07e5d;
+}
+:where(:root[data-theme="dark"]) .rack {
+  background: #344331;
+  box-shadow: inset 0 -5px 0 #2b3928;
+}
+:where(:root[data-theme="dark"]) .sort button {
+  background: #40523b;
+  border-color: #526348;
+}
+:where(:root[data-theme="dark"]) .guide article,
+:where(:root[data-theme="dark"]) .scoreboard article {
+  background: #213829;
+}
+:where(:root[data-theme="dark"]) .tile {
+  border-color: #d6d5c8;
+}
+:where(:root[data-theme="dark"]) .avatar {
+  background: #33472e;
+}
+:where(:root[data-theme="dark"]) .hero-art {
+  background: radial-gradient(ellipse at center, #7b8e4d20, transparent 70%);
+}
+:where(:root[data-theme="dark"]) .art-orbit {
+  border-color: #5c705150;
+}
+:where(:root[data-theme="dark"]) .hero-art .tile {
+  box-shadow:
+    1px 5px 0 #bcbfa6,
+    3px 11px 14px #0003;
+}
+:where(:root[data-theme="dark"]) .brand-icon {
+  color: #203b32;
+}
+:where(:root[data-theme="dark"]) .empty-table {
+  color: #8da37b;
+}
+:where(:root[data-theme="dark"]) .hand-note {
+  color: #99ab8a;
+}
+:where(:root[data-theme="dark"]) .primary {
+  box-shadow: 0 3px 0 #122719;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .confetti {
     display: none;
@@ -4322,11 +4321,6 @@ button:not(.tile) {
   }
   .app:not(.comfortable-reading) .game .board-clock-label {
     display: none;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .view-picker select:focus-visible {
-    outline-color: var(--focus);
   }
 }
 

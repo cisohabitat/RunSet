@@ -1256,6 +1256,11 @@ const messages: Record<string, string> = {
   "Display only. Your tiles, selection and turn stay unchanged. Meld numbers keep their original meaning. Incomplete melds stay first in organised views.": "只改变显示顺序，不改变牌、选中的牌或回合。牌组编号保持原样。整理显示时，未完成的牌组会排在前面。",
   "The table view changed, but this browser could not remember the choice.": "桌面显示已改变，但浏览器暂时无法保存这个选择。",
   "Runs use their shared colour. Matching-number groups follow the runs.": "顺子按共同的颜色排列，同数组排在顺子后面。",
+  "Display theme": "画面颜色",
+  "Follow device": "跟随设备",
+  "Light": "浅色",
+  "Dark": "深色",
+  "This display choice could not be saved. It still applies for this visit.": "未能保存画面设置，本次打开页面期间仍会使用。",
 };
 export const translateChinese = translator(messages);
 export default messages;

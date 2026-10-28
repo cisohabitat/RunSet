@@ -29,6 +29,7 @@ export const profileLearningKeys = [
 export const profileKeys = [
   ...profileBooleanKeys,
   ...profileLearningKeys,
+  "runset.theme",
   "runset.language",
   "runset.pace",
   "runset.audioVoice",
@@ -46,6 +47,7 @@ export function validProfileValue(key: string, raw: unknown): raw is string {
   if (typeof raw !== "string" || raw.length > MAX_BACKUP_BYTES) return false;
   if ((profileBooleanKeys as readonly string[]).includes(key))
     return raw === "true" || raw === "false";
+  if (key === "runset.theme") return ["system", "light", "dark"].includes(raw);
   if (key === "runset.language") return raw === "en" || raw === "zh-CN";
   if (key === "runset.pace")
     return ["700", "1400", "2400", "5000"].includes(raw);

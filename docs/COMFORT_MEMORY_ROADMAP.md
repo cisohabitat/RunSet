@@ -6,8 +6,8 @@ check) to pass before the next phase. Use existing Git/Vercel integration.
 
 | Phase | Outcome | Status |
 |---|---|---|
-| 1 | Recent public-turn replay | Published; exact-commit CI pending |
-| 2 | Light / Dark / Follow device display choice | Pending |
+| 1 | Recent public-turn replay | Complete: e0da620, CI 40692437516 passed |
+| 2 | Light / Dark / Follow device display choice | Published; exact-commit CI pending |
 | 3 | Local completed-round history and factual statistics | Pending |
 | 4 | Chinese-first fresh opponent names and plain wording | Pending |
 
@@ -40,3 +40,27 @@ across Chromium, WebKit phone/iPad, Firefox and offline production. Phone Chines
 and iPad English screenshots reviewed: controls and public boards remain legible.
 Publication is gated on the complete exact-commit GitHub Actions workflow before
 Phase 2 begins.
+
+Phase 1 exact commit e0da620e8fb11362d0368687bfc21c2813a313ac passed
+workflow 40692437516 (quality, all five browser jobs and aggregate check).
+Matching Vercel production READY; all six bilingual live compatibility journeys
+passed before Phase 2 started.
+
+## Phase 2
+
+Settings → Reading and display offers Light, Dark and Follow device. The default
+follows the OS and responds to changes while open. Explicit choices override the
+OS, including native controls, gameplay surfaces and the high-contrast palette.
+The independent runset.theme enum is retained through game deletion and included
+in validated portable profiles with meaningful labels. Invalid/unreadable choices
+fall back to Follow device. A denied optional write explains visit-only behavior.
+No game remount, saved bytes, selected tiles, draft or deadlines change.
+
+The initial local test caught a short native selector in standard reading mode;
+its minimum is now 48 px. All 195 unit tests passed. Build initial gzip is 99,489
+bytes under the unchanged 100,000-byte limit; all 73 assets remain precached.
+
+Final local Phase 2 browser verification: ten theme journeys plus all 39 existing
+compatibility contrast journeys passed. Reviewed phone English and iPad Chinese
+settings screenshots. All exact draft/save/deadline checks, reload/delete retention,
+failed optional writes, native target/focus and first-use offline checks passed.

@@ -114,13 +114,22 @@
   outline-offset: 1px;
 }
 
-/* Keep one complete comfortable tile row and room for real turn notices. */
+/* Compact the timed header without reducing tiles or hiding save/timer text. */
 @media (max-width: 720px) {
-  .app.comfortable-reading > .game.table-expanded .rack-tiles {
-    max-height: 100px;
-  }
   .app.comfortable-reading > .game.table-expanded .table-tools {
     margin-bottom: 6px;
+    column-gap: 4px;
+  }
+  .app.comfortable-reading > .game.table-expanded .view-picker-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .app.comfortable-reading > .game.table-expanded .view-picker select {
+    width: clamp(112px, calc(100vw - 212px), 148px);
   }
   .app.comfortable-reading > .game.table-expanded .status-line {
     padding-block: 4px;

@@ -717,8 +717,9 @@ twenty-minute job and five-minute offline limits. Audio mocks prove cue
 selection/counts, not native voice quality or older-player comprehension.
 
 Long gameplay notices must be keyboard-scrollable. Expanded comfortable-phone
-status/notice regions retain full text in focusable scroll areas. Keep one whole
-80 px rack tile row with its 10 px top/bottom padding; reduce spare rack height
-and gaps, never the actual tile or 48 px control targets. Real bot notices must
-still leave >=300 px visible phone table space; retain the strict assertion and
-diagnostic geometry instead of weakening it.
+status/notice regions retain full text in focusable scroll areas. The timed
+toolbar must avoid a redundant second row: its visible View word may be clipped
+only in expanded comfortable-phone view, retaining the native Table view label,
+full saved/timer/expiry text and >=48 px selector. Keep the original rack-height
+cap, whole 80 px tiles and 10 px top/bottom padding. Real bot notices must leave
+>=300 px visible phone table space; retain the strict assertion and diagnostics.

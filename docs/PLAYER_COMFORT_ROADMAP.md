@@ -127,7 +127,10 @@ acceptance. Complete branch and published-main workflow results gate Phase 5.
 The first isolated Phase 4 run found two real barriers: a long opponent notice
 was not keyboard-scrollable, and a populated comfortable-phone turn left only
 277.8 px of table. Notices now accept keyboard focus; expanded comfortable-phone
-status/notice areas retain their full text through scrolling. Spare rack height
-and gaps are reduced while retaining an entire 80 px tile with 10 px padding on
-both sides and unchanged 48 px controls. The >=300 px visible-board assertion
-remains, with diagnostic geometry on failure. Corrections require a fresh gate.
+status/notice areas retain full text through scrolling. The first spacing fix
+still left 287.8 px; diagnostics identified a 79 px timed toolbar wrapping onto
+two rows. The compact header omits its redundant visible View word only in this
+expanded phone view, retaining the accessible Table view label, full saved/timer/
+expiry text and 48 px selector. The original rack-height cap and full 80 px tiles
+with 10 px padding remain. The >=300 px assertion and diagnostics are unchanged.
+Corrections require a fresh complete gate before publication.

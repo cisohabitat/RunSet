@@ -561,7 +561,7 @@ export function Game({
       </div>
       <div className="table-tools">
         <label className="view-picker">
-          {t("View")}
+          <span className="view-picker-label">{t("View")}</span>
           <select
             ref={viewButton}
             aria-label={t("Table view")}

@@ -147,3 +147,10 @@ CI fixture images confirmed the compact header and full rack tiles. Visual
 review found disabled waiting labels too faint; they now use normal ink on a
 neutral surface while remaining natively disabled. Connected tests measure
 their >=4.5:1 contrast and full opacity because Axe excludes disabled controls.
+
+The split matrix exposed a further comfortable-view deficit on populated iPad/
+desktop bot turns (434.8/438.8 px against the 450 px floor). The same focusable
+bounded status/notice spacing and 10 px rack padding now apply across comfortable
+expanded views. Tile sizes, original rack-height cap, button targets and the
+450 px assertion remain unchanged. Phone and all 37 offline cases had passed;
+the expanded tablet correction requires a new complete gate.

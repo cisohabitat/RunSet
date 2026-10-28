@@ -131,16 +131,6 @@
   .app.comfortable-reading > .game.table-expanded .view-picker select {
     width: clamp(112px, calc(100vw - 212px), 148px);
   }
-  .app.comfortable-reading > .game.table-expanded .status-line {
-    padding-block: 4px;
-    max-height: 40px;
-    overflow: auto;
-  }
-  .app.comfortable-reading > .game.table-expanded .game-notice {
-    margin-top: 0;
-    max-height: 31px;
-    overflow: auto;
-  }
 }
 
 .game .view-picker .view-picker-label { font: inherit; }
@@ -152,4 +142,19 @@
   background: var(--soft);
   border-color: var(--control-line);
   cursor: wait;
+}
+
+/* The populated comfortable tablet view keeps the same complete rack-tile row. */
+.app.comfortable-reading > .game.table-expanded .rack-tiles {
+  padding-block: 10px;
+}
+.app.comfortable-reading > .game.table-expanded .status-line {
+  padding-block: 4px;
+  max-height: 40px;
+  overflow: auto;
+}
+.app.comfortable-reading > .game.table-expanded .game-notice {
+  margin-top: 0;
+  max-height: 31px;
+  overflow: auto;
 }

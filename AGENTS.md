@@ -735,3 +735,8 @@ Waiting action labels are information, so do not fade them with disabled-button
 opacity. Keep the native buttons disabled, using neutral surfaces and normal
 ink. Verify >=4.5:1 text contrast, full opacity, size and visible table space in
 both themes; Axe does not enforce contrast on disabled controls.
+
+Use the same 10 px top/bottom rack-tile padding and bounded focusable status/
+notice spacing across comfortable expanded phone, tablet and desktop views.
+Keep full 80 px tiles and the original rack-height cap. A populated timed bot
+turn must retain the >=450 px tablet floor as well as the phone floor.

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { GameState } from "../engine/game";
 import { inspectMeld } from "../engine/meld";
 import { explainMeld } from "../engine/coaching";
@@ -8,8 +8,8 @@ import { Tile } from "./Tile";
 import "./MoveReview.css";
 export function MoveReview({ game }: { game: GameState }) {
   const { t } = useI18n(),
-    steps = lastPlay(game),
-    destinations = lastPlayDestinations(game);
+    steps = useMemo(() => lastPlay(game), [game]),
+    destinations = useMemo(() => lastPlayDestinations(game), [game]);
   const [open, setOpen] = useState(false),
     [index, setIndex] = useState(0);
   const ref = useRef<HTMLDialogElement>(null),

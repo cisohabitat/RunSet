@@ -224,8 +224,8 @@ export function Game({
   const p = s.players[s.current],
     human = s.players.find((x) => !x.bot)!,
     myTurn = !p.bot,
-    check = turnCheck(s),
-    dirty = JSON.stringify(s.table) !== JSON.stringify(s.turnStart.table);
+    check = useMemo(() => turnCheck(s), [s]),
+    dirty = useMemo(() => JSON.stringify(s.table) !== JSON.stringify(s.turnStart.table), [s]);
   const activeSelected = selected.filter(
     (id) =>
       human.rack.includes(id) || s.table.some((m) => m.tiles.includes(id)),

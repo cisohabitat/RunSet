@@ -1,0 +1,260 @@
+{
+  "cycle": "everyday-play",
+  "recordedUTC": "2026-10-28",
+  "host": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "sourceSha256": {
+    "src/ui/Game.tsx": "a59665a7f8b6eaca48419d2417e8d87395ab981f561501f38356d6c05980f88f",
+    "src/ui/MoveReview.tsx": "93180d2984b6b20541c3f3f1b859cf4fe7f2d5fddc8f49cc31dd9c4853fe0960"
+  },
+  "metric": "Click capture to second requestAnimationFrame at 4x Chromium CPU slowdown",
+  "thresholdMs": 1000,
+  "limits": [
+    "10 samples per language/viewport, smoke evidence only",
+    "Baseline overlapped part of engine soak; after run executed alone. Do not infer a causal percentage improvement.",
+    "Synthetic desktop CPU slowdown and viewports do not establish physical Apple latency, battery life, or older-player readability."
+  ],
+  "before": [
+    {
+      "locale": "en",
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "coarsePointer": true,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        359.5,
+        237.7999999821186,
+        285.69999998807907,
+        311.59999999403954,
+        323.7000000178814,
+        272.2000000178814,
+        292.69999998807907,
+        281.09999999403954,
+        312.40000000596046,
+        276.40000000596046
+      ],
+      "maxMs": 359.5
+    },
+    {
+      "locale": "en",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "coarsePointer": true,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        261.39999997615814,
+        258.19999998807907,
+        259.69999998807907,
+        372.59999999403954,
+        283.7000000178814,
+        270.59999999403954,
+        323.19999998807907,
+        247.30000001192093,
+        336.40000000596046,
+        376.5
+      ],
+      "maxMs": 376.5
+    },
+    {
+      "locale": "zh-CN",
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "coarsePointer": true,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        448.19999998807907,
+        348.30000001192093,
+        401.80000001192093,
+        289.59999999403954,
+        325.40000000596046,
+        348.30000001192093,
+        323.7999999821186,
+        300.90000000596046,
+        359.40000000596046,
+        344
+      ],
+      "maxMs": 448.19999998807907
+    },
+    {
+      "locale": "zh-CN",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "coarsePointer": true,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        438.5,
+        382.2000000178814,
+        374.90000000596046,
+        366,
+        274.40000000596046,
+        329.19999998807907,
+        325.90000000596046,
+        310,
+        338.59999999403954,
+        339.69999998807907
+      ],
+      "maxMs": 438.5
+    }
+  ],
+  "after": [
+    {
+      "locale": "en",
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "coarsePointer": true,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        258,
+        249.90000000596046,
+        239.39999997615814,
+        265.09999999403954,
+        297.69999998807907,
+        239.89999997615814,
+        259.19999998807907,
+        297.09999999403954,
+        257.5,
+        246.2999999821186
+      ],
+      "maxMs": 297.69999998807907
+    },
+    {
+      "locale": "en",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "coarsePointer": true,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        291.09999999403954,
+        273.89999997615814,
+        291.09999999403954,
+        297,
+        355.90000000596046,
+        240.30000001192093,
+        294.59999999403954,
+        220.69999998807907,
+        253.2999999821186,
+        265.69999998807907
+      ],
+      "maxMs": 355.90000000596046
+    },
+    {
+      "locale": "zh-CN",
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "coarsePointer": true,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        350.59999999403954,
+        325.40000000596046,
+        337.7000000178814,
+        305,
+        326,
+        380.5,
+        395.59999999403954,
+        343.19999998807907,
+        299.40000000596046,
+        305.7999999821186
+      ],
+      "maxMs": 395.59999999403954
+    },
+    {
+      "locale": "zh-CN",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "browser": "154.0.8037.57",
+      "cpuThrottle": 4,
+      "coarsePointer": true,
+      "tableTiles": 50,
+      "rackTiles": 50,
+      "initialUndoSnapshots": 100,
+      "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+      "samplesMs": [
+        327,
+        324.09999999403954,
+        272,
+        286.09999999403954,
+        281.30000001192093,
+        312.40000000596046,
+        332.7999999821186,
+        300.7000000178814,
+        358.80000001192093,
+        317.69999998807907
+      ],
+      "maxMs": 358.80000001192093
+    }
+  ],
+  "engineSoak": {
+    "additionalTurns": 5000,
+    "backupRoundTrips": 200,
+    "opponents": [
+      1,
+      3
+    ],
+    "strategy": "easy",
+    "searchBudgetMs": 5,
+    "observedRounds": [
+      59,
+      60
+    ],
+    "note": "Bounded planner timing can change the accepted sequence; tests require legal conserved state rather than identical outcomes."
+  },
+  "browserSoak": {
+    "cyclesPerJourney": 16,
+    "journeys": 8,
+    "tableTiles": 50,
+    "rackTiles": 50,
+    "initialHistory": 100,
+    "deadlinesPreserved": true,
+    "offlineReloadInCompatibility": true
+  }
+}

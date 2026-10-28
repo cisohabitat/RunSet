@@ -764,3 +764,8 @@ completed public table, not the current draft. Explain valid patterns separately
 from whole-turn acceptance; never invent bot intentions or intermediate moves.
 Keep tile-by-tile navigation, explicit opener focus with a guarded WebKit retry,
 first-use offline review and timer-driven unmount coverage.
+Cache expensive pure game-derived validation by immutable GameState identity,
+never by selection or the display clock. Reducer acceptance remains authoritative.
+Retain crowded-session tests with 50 table/50 rack tiles, 100 initial snapshots,
+Undo/Reset, exact deadline/save comparisons and offline reload. Timing samples
+are browser smoke evidence; never claim battery life or physical Apple latency.

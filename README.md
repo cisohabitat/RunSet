@@ -584,3 +584,6 @@ More groups existing tools into help with this turn, finding/arranging tiles,
 and game details, preserving the playing area and existing tool behavior.
 Latest-play review includes all completed destinations and plain explanations of
 matching-number groups and consecutive runs, with written limits on recorded history.
+Long-session coverage includes 5,000 additional conserved turns, 200 backup round
+trips and repeated crowded-table editing/reload. Selection and countdown renders
+reuse game-state validation results; rules and deadlines are unchanged.

@@ -66,3 +66,12 @@ checks after caption polish, and ten final browser journeys passed (2 Chromium,
 scrolled More panel. Reviewed bilingual phone/tablet screenshots, including
 inline original meld numbers. Initial gzip 99,257 bytes; 67 precached files.
 Full exact-main CI is inspected after publication before Phase 3 starts.
+
+A final Phase 2 malformed-preference regression exposed inherited object keys
+returning non-text values in the new profile choice summary. The correction
+accepts only string labels, so constructor/__proto__ display Unavailable. The
+regression was observed failing, then all 19 focused projection/profile/i18n
+checks and build passed. The organised Game UI/runtime is unchanged by this
+correction. Final initial gzip is 99,260 bytes; the new exact-main CI gate must
+finish before Phase 3. The first publication was b418044; it is not the accepted
+gate if superseded by this correction.

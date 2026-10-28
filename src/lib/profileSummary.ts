@@ -67,16 +67,16 @@ export function profileChoice(key: string, raw: string | null): string {
     );
   if (key === "runset.audioVoice")
     return raw === "device" ? "Device voice" : "Recorded guide";
-  if (key === "runset.tableOrder.v1")
-    return (
-      (
-        {
-          placed: "Placed order",
-          kind: "Groups then runs",
-          colour: "Colour then number",
-        } as Record<string, string>
-      )[raw] ?? "Unavailable"
-    );
+  if (key === "runset.tableOrder.v1") {
+    const choice = (
+      {
+        placed: "Placed order",
+        kind: "Groups then runs",
+        colour: "Colour then number",
+      } as Record<string, unknown>
+    )[raw];
+    return typeof choice === "string" ? choice : "Unavailable";
+  }
   if (key === "runset.rackOrder.v1") {
     try {
       return (

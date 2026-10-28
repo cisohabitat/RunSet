@@ -810,3 +810,5 @@ Include it in profile validation/labels and preserve it on deletion. Practice
 ignores the regular table-order preference. Failed optional writes keep play
 usable and show a notice; test actual placement, Undo, hidden rack, exact saves,
 real expiry, native focus/targets and offline reload after sorting.
+Profile choice labels for table order must reject inherited object keys as
+Unavailable; never return arbitrary object properties to translated React text.

@@ -56,6 +56,12 @@ it("shows meaningful choice values including muted sound without exposing storag
     "Colour then number",
   );
   expect(profileChoice("runset.tableOrder.v1", "invalid")).toBe("Unavailable");
+  expect(profileChoice("runset.tableOrder.v1", "constructor")).toBe(
+    "Unavailable",
+  );
+  expect(profileChoice("runset.tableOrder.v1", "__proto__")).toBe(
+    "Unavailable",
+  );
   expect(profileChoice("runset.muted", "true")).toBe("Off");
   expect(profileChoice("runset.muted", "false")).toBe("On");
   expect(profileChoice("runset.language", "zh-CN")).toBe("简体中文");

@@ -828,3 +828,11 @@ Keyboard and mouse keep their native click path; never force browser test taps.
 Home resume expiry copy differs from the short More/Take-a-break timer note.
 Keep timed-break assertions scoped to the intended surface, preserving exact
 deadline, single-expiry, restored-table and one-drawn-tile checks after copy edits.
+
+Track the board/play refinement in docs/BOARD_PLAY_ROADMAP.md; fully CI-gate
+all four separately published phases. GameLayout.css is optional gameplay CSS.
+Keep draft explanations inside the tile-sized footprint like the existing footer;
+retain the complete explanation and readable large/comfortable minima. Never
+pack by changing DOM/engine order or shrinking tiles/targets. Check real bounds
+rather than assuming browsers serialize CSS min() to pixels. Preserve long-run
+access, source meld numbers, native placement/Undo, exact saves and offline use.

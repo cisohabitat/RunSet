@@ -609,3 +609,9 @@ or wait for the opponent. The read-only summary uses the existing rule checks;
 it never changes a save or resets its timer. Expired timed turns are processed
 when continuing. Guidance is available in English and Simplified Chinese offline.
 See [position-confidence release evidence](docs/POSITION_CONFIDENCE_RELEASE.md).
+
+The [board and play refinement cycle](docs/BOARD_PLAY_ROADMAP.md) starts with
+more compact unfinished-meld cards: explanations wrap within the tile-sized
+card instead of forcing a wide row. Tiles, magnifier controls, original meld
+numbers, and optional larger/comfortable views retain their sizes and meanings.
+Desktop meld gaps are tighter, with the existing compact touch layouts retained.

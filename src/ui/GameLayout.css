@@ -1,0 +1,19 @@
+/* Tile content sets card width; prose wraps inside instead of widening a draft. */
+.game .melds {
+  gap: 12px;
+}
+.game .meld {
+  min-inline-size: min(100%, 146px);
+}
+.game .meld-explanation {
+  inline-size: 0;
+  min-inline-size: 100%;
+  max-inline-size: none;
+  overflow-wrap: anywhere;
+}
+.game.touch-friendly .meld {
+  min-inline-size: min(100%, 180px);
+}
+.app.comfortable-reading .game .meld {
+  min-inline-size: min(100%, 198px);
+}

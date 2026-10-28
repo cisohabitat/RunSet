@@ -29,19 +29,16 @@ describe("Simplified Chinese presentation", () => {
         ts.ScriptKind.TSX,
       );
       function visit(node: ts.Node) {
-        if (
-          ts.isCallExpression(node) &&
-          node.expression.getText(source) === "t" &&
-          node.arguments.length === 1 &&
-          ts.isStringLiteral(node.arguments[0])
-        ) {
-          const text = node.arguments[0].text;
-          if (
-            /[A-Za-z]/.test(text) &&
-            !/^(runset\.?|r)$/.test(text) &&
-            t(text) === text
-          )
-            missing.push(`${file}: ${text}`);
+        if (ts.isCallExpression(node) && node.expression.getText(source) === "t" && node.arguments.length === 1) {
+          function options(value: ts.Node): string[] {
+            if (ts.isStringLiteral(value) || ts.isNoSubstitutionTemplateLiteral(value)) return [value.text];
+            if (ts.isConditionalExpression(value)) return [...options(value.whenTrue), ...options(value.whenFalse)];
+            if (ts.isParenthesizedExpression(value)) return options(value.expression);
+            return [];
+          }
+          for (const text of options(node.arguments[0])) {
+            if (/[A-Za-z]/.test(text) && !/^(runset\.?|r)$/.test(text) && t(text) === text) missing.push(`${file}: ${text}`);
+          }
         }
         ts.forEachChild(node, visit);
       }
@@ -55,8 +52,10 @@ describe("Simplified Chinese presentation", () => {
       const names = new Set(
         Array.from(key.matchAll(/\{(\w+)\}/g), (m) => m[1]),
       );
-      for (const [, name] of value.matchAll(/\{(\w+)\}/g))
-        expect(names.has(name), key).toBe(true);
+      const translatedNames = new Set(Array.from(value.matchAll(/\{(\w+)\}/g), (m) => m[1]));
+      // English plural suffix {s} has no Chinese equivalent; retain every value/name.
+      expect([...translatedNames].filter(name => name !== "s").sort(), key).toEqual([...names].filter(name => name !== "s").sort());
+      for (const name of translatedNames) expect(names.has(name), key).toBe(true);
     }
   });
   it("translates dynamic hints, both pool states and planner fallbacks", () => {

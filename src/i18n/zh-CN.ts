@@ -1201,7 +1201,7 @@ const messages: Record<string, string> = {
     "暂时无法提供出牌提示。你仍然可以{action}。",
   "Planning took too long. Try again or {action}.":
     "寻找出牌方法用时太长。可以重试，或{action}。",
-  "Help with this turn": "这一轮怎么玩",
+  "Help with this turn": "本回合怎么出牌",
   "Find and arrange tiles": "找牌与整理手牌",
   "Game details": "本局信息",
   "See all destinations": "查看所有出牌位置",
@@ -1212,7 +1212,7 @@ const messages: Record<string, string> = {
   "A group has three or four tiles with the same number in different colours. A joker can stand for a missing colour.": "同数组由三张或四张数字相同、颜色不同的牌组成。万能牌可以代替缺少的颜色。",
   "A run has at least three consecutive numbers in one colour. A joker can stand for a missing number.": "顺子由至少三张颜色相同、数字连续的牌组成。万能牌可以代替缺少的数字。",
   "This explains the completed tile pattern. Opening points and joker reuse are checked when the turn is accepted.": "这里说明完成后的牌组为什么符合规则。开局分数和万能牌的重新使用，会在结束回合时一并检查。",
-  "Your save could not be read. Reload to try again. Your stored data has not been removed.": "暂时无法读取存档，请重新加载后再试。原有的存档没有被删除。",
+  "Your save could not be read. Reload to try again. Your stored data has not been removed.": "暂时无法读取存档。请重新加载再试，原有存档没有删除。",
 };
 export const translateChinese = translator(messages);
 export default messages;

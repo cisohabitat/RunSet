@@ -10,8 +10,8 @@ paused. Multiplayer remains deferred. No game rules or saved-game schema changes
 | 1 | Group existing More tools by player task without another submenu | Published; complete main CI passed |
 | 2 | Extend existing latest-play review with factual bot/validity context | Published; complete main CI passed |
 | 3 | Check crowded long sessions and repeated rounds; record performance limits | Published; corrected complete main CI passed |
-| 4 | Stress interrupted persistence and unusual legal actions; fix evidenced failures | Implemented; verification and main CI pending |
-| 5 | Audit bilingual instructions and control names; connected release verification | Pending |
+| 4 | Stress interrupted persistence and unusual legal actions; fix evidenced failures | Published; complete main CI passed |
+| 5 | Audit bilingual instructions and control names; connected release verification | Published; exact-main release gate checked after publication |
 
 ## Phase 1
 
@@ -107,3 +107,33 @@ Phase 4 local gate: 179 unit tests and 10 affected browser journeys passed
 inspected. The final 8,000-action test checks original state immutability, valid
 saves, 106 unique IDs, bounded history and actual deadline replacement. Initial
 gzip 99,186 bytes; 65 precached files. Full exact-main CI is required next.
+
+Phase 4 accepted main: 74e10fd, complete CI
+[40642737840](https://github.com/cisohabitat/RunSet/actions/runs/40642737840).
+
+## Phase 5
+
+The static-copy audit now checks conditional branches and no-substitution template
+literals passed to t, including accessible names. All audited branches translate.
+Dictionary checks require every name/count/value placeholder to survive translation;
+English plural suffix {s} is deliberately exempt because Chinese has no matching
+plural suffix. Names remain literal. Chinese turn-help heading now says 本回合
+怎么出牌, distinguishing a turn from a whole round.
+
+Global recovery notices increase from 12 px to 16 px (18 px comfortable), with
+44/48 px dismiss targets. Notices align at the top, wrap and remain keyboard
+scrollable; short playing notices leave enough room for the larger close target.
+Expanded-board limits, tile sizes, game state and deadlines are preserved.
+The existing connected release journey additionally checks task-group discovery
+and the all-destinations explanation after an actual accepted win, before real
+download/delete/import/reload. Notice journeys check font sizes, native focus,
+actual hit targets and exact saves. No speech recording or human study is claimed.
+
+Final Phase 5 local acceptance: 179 unit tests, then the strengthened translation
+audit after copy polish; 26 final affected-browser cases passed (4 Chromium,
+18 compatibility, 4 offline). Final phone/tablet screenshots were inspected in
+both languages/themes. Result-opened review keeps start alignment; the Chinese
+recovery notice is concise. Initial gzip 99,256 bytes, 65 precached files.
+Full exact-main CI and matching-production acceptance are checked after this
+publication; the handoff links the exact final run. Final evidence:
+[EVERYDAY_PLAY_RELEASE.md](EVERYDAY_PLAY_RELEASE.md).

@@ -74,6 +74,9 @@ export async function verifyPlayerComfortRelease(
   expect(await save()).toBe(draft);
 
   await menu();
+  await expect(page.getByRole("region", { name: t("Help with this turn"), exact: true })).toContainText(t("What can I do now?"));
+  await expect(page.getByRole("region", { name: t("Find and arrange tiles"), exact: true }).getByRole("button", { name: t("Table overview"), exact: true })).toBeEnabled();
+  await expect(page.getByRole("region", { name: t("Game details"), exact: true })).toContainText(t("Opponent styles and fair play"));
   const guide = page.locator(".opponent-guide");
   await activate(guide.locator(":scope > summary"));
   await expect(guide.locator("li strong")).toHaveText(game.players[1].name);
@@ -122,6 +125,22 @@ export async function verifyPlayerComfortRelease(
   expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
   expect((await new AxeBuilder({ page }).include(".game-over").analyze()).violations).toEqual([]);
   await emitVisual(page, info, locale, "player-release-result");
+  const finishedRaw = await save();
+  const reviewOpener = button("Review latest play");
+  await activate(reviewOpener);
+  const review = page.getByRole("dialog", { name: t("Where the latest tiles landed"), exact: true });
+  await expect(review).toContainText(t("A run has at least three consecutive numbers in one colour. A joker can stand for a missing number."));
+  await activate(review.getByText(t("See all destinations"), { exact: true }));
+  await expect(review.locator(".review-destinations li")).toHaveCount(1);
+  await expect(review.locator(".review-destinations li")).toContainText(`${t("Latest-play tiles here:")} 3`);
+  expect((await new AxeBuilder({ page }).include(".move-review").analyze()).violations).toEqual([]);
+  expect(await save()).toBe(finishedRaw);
+  await page.screenshot({ path: `/tmp/runset-everyday-release-review-${info.project.name || "chromium"}-${locale}.png` });
+  await emitVisual(page, info, locale, "everyday-play-review");
+  await activate(review.getByRole("button", { name: t("Close review"), exact: true }));
+  await expect(review).toHaveCount(0);
+  await expect(reviewOpener).toBeFocused();
+  expect(await save()).toBe(finishedRaw);
 
   await activate(page.locator(".game-over").getByRole("button", { name: t("Home"), exact: true }));
   const [download] = await Promise.all([

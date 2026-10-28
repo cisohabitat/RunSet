@@ -779,3 +779,12 @@ queued-lock, abort, rollback/retry and bilingual first-use offline recovery test
 App must distinguish loadGame.unreadable from an actual missing/deleted game.
 Unreadable cross-tab/conflict results retain the live game and selection, show
 Not saved/recovery guidance and do not claim that a remote position was loaded.
+Bilingual static-copy checks include conditional alternatives and template literals
+without interpolation. Retain all translated value/name placeholders; only the
+English plural suffix {s} is intentionally absent in Chinese. Recovery notices
+use >=16/18 px text and >=44/48 px dismiss targets, top alignment and keyboard
+scrolling without changing tiles/deadlines. The connected release journey checks
+a read-only all-destinations review after a real win before backup/delete/import.
+Final everyday-play evidence is docs/EVERYDAY_PLAY_RELEASE.md. Keep the phase
+history, failed-gate correction and measurement limits honest. Review modals must
+set their own reading alignment rather than inherit centered result-screen text.

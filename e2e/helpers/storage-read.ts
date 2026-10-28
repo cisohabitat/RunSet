@@ -29,6 +29,13 @@ export async function verifyStorageRead(page: Page, context: BrowserContext, loc
   }, { raw, backup, locale });
   await page.goto("/");
   await expect(page.getByRole("status").filter({ hasText: t("Your save could not be read. Reload to try again. Your stored data has not been removed.") })).toBeVisible();
+  const notice = page.getByRole("status").filter({ hasText: t("Your save could not be read. Reload to try again. Your stored data has not been removed.") });
+  expect(await notice.evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(locale === "zh-CN" ? 18 : 16);
+  const dismiss = notice.getByRole("button", { name: t("Dismiss notice"), exact: true });
+  expect(await dismiss.evaluate(el => { const r = el.getBoundingClientRect(); return { width: r.width, height: r.height, hit: el.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)), inside: r.top >= 0 && r.bottom <= innerHeight && r.left >= 0 && r.right <= innerWidth }; })).toEqual(expect.objectContaining({ hit: true, inside: true }));
+  const dismissBounds = await dismiss.boundingBox();
+  expect(dismissBounds!.width).toBeGreaterThanOrEqual(locale === "zh-CN" ? 48 : 44);
+  expect(dismissBounds!.height).toBeGreaterThanOrEqual(locale === "zh-CN" ? 48 : 44);
   await page.screenshot({ path: `/tmp/runset-storage-read-${locale}.png` });
   if (offline) {
     await expect(page.getByRole("status").filter({ hasText: t("Ready offline") })).toBeVisible();
@@ -59,6 +66,8 @@ export async function verifyStorageRead(page: Page, context: BrowserContext, loc
     dispatchEvent(new StorageEvent("storage", { key: "runset.save.v1" }));
   });
   await expect(page.getByRole("status").filter({ hasText: t("Your save could not be read. Reload to try again. Your stored data has not been removed.") })).toBeVisible();
+  await notice.focus();
+  await expect(notice).toBeFocused();
   await expect(page.locator('.rack [data-tile-id="3"]')).toHaveAttribute("aria-pressed", "true");
   expect(await page.evaluate(() => (window as any).__readActualSave())).toBe(beforeEvent);
   await page.evaluate(() => {

@@ -616,7 +616,7 @@ export default function App() {
           </ConfirmDialog>
         )}
         {notice && (
-          <div className="notice" role="status">
+          <div className="notice" role="status" tabIndex={0}>
             {t(notice)}
             <button
               aria-label={t("Dismiss notice")}

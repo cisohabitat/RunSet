@@ -589,3 +589,6 @@ trips and repeated crowded-table editing/reload. Selection and countdown renders
 reuse game-state validation results; rules and deadlines are unchanged.
 A temporary saved-game read failure preserves both saved copies and offers reload.
 Queued or unseen writes are refused until a successful read reestablishes the save guard.
+Recovery notices use larger text and touch targets in both languages. The bilingual
+copy audit checks conditional messages and preserves names, numbers and values.
+Final everyday-play release evidence is in docs/EVERYDAY_PLAY_RELEASE.md.

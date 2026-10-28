@@ -1204,6 +1204,14 @@ const messages: Record<string, string> = {
   "Help with this turn": "这一轮怎么玩",
   "Find and arrange tiles": "找牌与整理手牌",
   "Game details": "本局信息",
+  "See all destinations": "查看所有出牌位置",
+  "Only the completed result is recorded. Earlier tile positions and rearrangement steps are not available.": "这里只记录出牌完成后的结果，不记录之前的牌位或整理步骤。",
+  "Latest-play tiles here:": "上一次新出的牌：",
+  "Why these tiles fit": "这些牌为什么能组成一组",
+  "This saved destination does not form a valid group or run.": "存档中的这组牌不符合顺子或同数组的规则。",
+  "A group has three or four tiles with the same number in different colours. A joker can stand for a missing colour.": "同数组由三张或四张数字相同、颜色不同的牌组成。万能牌可以代替缺少的颜色。",
+  "A run has at least three consecutive numbers in one colour. A joker can stand for a missing number.": "顺子由至少三张颜色相同、数字连续的牌组成。万能牌可以代替缺少的数字。",
+  "This explains the completed tile pattern. Opening points and joker reuse are checked when the turn is accepted.": "这里说明完成后的牌组为什么符合规则。开局分数和万能牌的重新使用，会在结束回合时一并检查。",
 };
 export const translateChinese = translator(messages);
 export default messages;

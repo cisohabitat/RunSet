@@ -759,3 +759,8 @@ existing tools into labelled task sections without a new disclosure level or
 permanent board row. Preserve control names, break/save behavior, keyboard/touch
 reachability, read-only tools and all strict visible table floors. Phase gates
 require the complete exact-main-commit workflow before the next phase.
+Latest-play destination summaries deduplicate recorded physical IDs against the
+completed public table, not the current draft. Explain valid patterns separately
+from whole-turn acceptance; never invent bot intentions or intermediate moves.
+Keep tile-by-tile navigation, explicit opener focus with a guarded WebKit retry,
+first-use offline review and timer-driven unmount coverage.

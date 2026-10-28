@@ -582,3 +582,5 @@ automated coverage and the limits of emulated-device and voice verification.
 The everyday-play cycle is tracked in [docs/EVERYDAY_PLAY_ROADMAP.md](docs/EVERYDAY_PLAY_ROADMAP.md).
 More groups existing tools into help with this turn, finding/arranging tiles,
 and game details, preserving the playing area and existing tool behavior.
+Latest-play review includes all completed destinations and plain explanations of
+matching-number groups and consecutive runs, with written limits on recorded history.

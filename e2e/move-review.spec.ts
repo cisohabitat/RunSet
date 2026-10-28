@@ -7,9 +7,14 @@ import messages from "../src/i18n/zh-CN";
 for (const locale of ["en", "zh-CN"] as const)
   test(`${locale}: latest-play review preserves a changed draft and selection`, async ({
     page,
+    context,
   }, info) => {
     const t = locale === "en" ? (s: string) => s : translator(messages),
       game = reviewPosition();
+    const now = Date.now();
+    game.turnSeconds = 120;
+    game.deadline = now + 120000;
+    await page.clock.install({ time: now });
     expect(validSave(game)).toBe(true);
     if (!info.project.name)
       await page.setViewportSize({ width: 375, height: 667 });
@@ -26,6 +31,10 @@ for (const locale of ["en", "zh-CN"] as const)
       { game, locale },
     );
     await page.goto("/");
+    if (info.project.name) {
+      await expect(page.getByRole("status").filter({ hasText: t("Ready offline") })).toBeVisible();
+      await context.setOffline(true);
+    }
     await page
       .getByRole("button", { name: t("Continue game →"), exact: true })
       .click();
@@ -41,6 +50,12 @@ for (const locale of ["en", "zh-CN"] as const)
       exact: true,
     });
     await expect(dialog).toBeVisible();
+    await expect(dialog).toContainText(t("Why these tiles fit"));
+    await expect(dialog).toContainText(t("A group has three or four tiles with the same number in different colours. A joker can stand for a missing colour."));
+    await dialog.getByText(t("See all destinations"), { exact: true }).click();
+    await expect(dialog.locator(".review-destinations li")).toHaveCount(1);
+    await expect(dialog.locator(".review-destinations li")).toContainText(`${t("Latest-play tiles here:")} 3`);
+    await dialog.getByText(t("See all destinations"), { exact: true }).click();
     await expect(dialog.locator(".tile")).toHaveCount(3);
     await expect(dialog.locator(".tile.glow")).toHaveAttribute(
       "data-tile-id",
@@ -97,4 +112,7 @@ for (const locale of ["en", "zh-CN"] as const)
         JSON.parse(localStorage.getItem("runset.save.v1")!),
       ),
     ).toEqual(game);
+    await page.clock.fastForward(120001);
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+    await expect.poll(async () => page.evaluate(() => JSON.parse(localStorage.getItem("runset.save.v1")!).turn)).toBeGreaterThan(game.turn);
   });

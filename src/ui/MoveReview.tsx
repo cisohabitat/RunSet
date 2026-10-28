@@ -2,25 +2,33 @@ import { useEffect, useRef, useState } from "react";
 import type { GameState } from "../engine/game";
 import { inspectMeld } from "../engine/meld";
 import { explainMeld } from "../engine/coaching";
-import { lastPlay } from "../lib/lastPlay";
+import { lastPlay, lastPlayDestinations } from "../lib/lastPlay";
 import { useI18n } from "../i18n/I18n";
 import { Tile } from "./Tile";
+import "./MoveReview.css";
 export function MoveReview({ game }: { game: GameState }) {
   const { t } = useI18n(),
-    steps = lastPlay(game);
+    steps = lastPlay(game),
+    destinations = lastPlayDestinations(game);
   const [open, setOpen] = useState(false),
     [index, setIndex] = useState(0);
   const ref = useRef<HTMLDialogElement>(null),
-    close = useRef<HTMLButtonElement>(null);
+    close = useRef<HTMLButtonElement>(null),
+    opener = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (!open || !steps.length) return;
     const modal = ref.current,
-      opener = document.activeElement as HTMLElement | null;
+      target = opener.current;
     modal?.showModal();
     close.current?.focus();
     return () => {
       modal?.close();
-      if (opener?.isConnected) opener.focus({ preventScroll: true });
+      if (target?.isConnected) {
+        target.focus({ preventScroll: true });
+        requestAnimationFrame(() => {
+          if (target.isConnected && document.activeElement === document.body && !document.querySelector("dialog[open]")) target.focus({ preventScroll: true });
+        });
+      }
     };
   }, [open, steps.length]);
   if (!steps.length) return null;
@@ -30,6 +38,9 @@ export function MoveReview({ game }: { game: GameState }) {
     <>
       <button
         className="text-button"
+        ref={opener}
+        aria-haspopup="dialog"
+        aria-expanded={open}
         onClick={() => {
           setIndex(0);
           setOpen(true);
@@ -60,6 +71,19 @@ export function MoveReview({ game }: { game: GameState }) {
             tabIndex={0}
           >
             {game.log.length > 0 && <p>{t(game.log.at(-1)!)}</p>}
+            <details className="review-destinations">
+              <summary>{t("See all destinations")}</summary>
+              <p>{t("Only the completed result is recorded. Earlier tile positions and rearrangement steps are not available.")}</p>
+              <ul>
+                {destinations.map((destination) => (
+                  <li key={destination.index}>
+                    <strong>{t(`Destination: group or run ${destination.index + 1}`)}</strong>
+                    <p>{t("Latest-play tiles here:")} {destination.placed.length}</p>
+                    <p>{t(explainMeld(destination.tiles))}</p>
+                  </li>
+                ))}
+              </ul>
+            </details>
             <p role="status">
               {t(
                 `Tile ${Math.min(index + 1, steps.length)} of ${steps.length}`,
@@ -82,7 +106,10 @@ export function MoveReview({ game }: { game: GameState }) {
                   />
                 ))}
               </div>
+              <h3>{t("Why these tiles fit")}</h3>
+              <p>{t(!info.valid ? "This saved destination does not form a valid group or run." : info.kind === "group" ? "A group has three or four tiles with the same number in different colours. A joker can stand for a missing colour." : "A run has at least three consecutive numbers in one colour. A joker can stand for a missing number.")}</p>
               <p>{t(explainMeld(step.tiles))}</p>
+              <p>{t("This explains the completed tile pattern. Opening points and joker reuse are checked when the turn is accepted.")}</p>
             </section>
             <p>
               {t(

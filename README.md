@@ -683,3 +683,12 @@ records; the confirmation states this explicitly and preserves game/settings.
 History summaries show the date, round and winner; expanding a round also shows
 its full recorded time. Footer actions share space according to label width so
 phone views retain readable text and full touch targets with fallback fonts.
+
+Use Check for updates on Home or in the game menu to look for a new version.
+Checking keeps your current turn open; it does not reload or accept an update.
+Offline and failed checks explain how to retry. When a version is ready, choose
+Save and update. Saving is checked before activation and again before reloading;
+if saving fails, keep the tab open and try again. Timed turns keep running.
+
+Offline tools load separately with a local fallback, so a failed tool download
+leaves Home and your game usable. Wait for Ready offline before disconnecting.

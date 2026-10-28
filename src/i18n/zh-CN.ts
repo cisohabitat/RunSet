@@ -1297,6 +1297,14 @@ const messages: Record<string, string> = {
   "Clear all recorded rounds?": "清除全部牌局记录？",
   "This clears all recorded rounds, including records hidden by the filter. Your saved game, learning progress and settings are kept.": "将清除全部牌局记录，包括筛选后未显示的记录。保存的牌局、学习进度和设置都会保留。",
 
+  "Offline tools could not open. You can keep playing in this tab.": "离线工具暂时无法打开。可以留在此页面继续玩。",
+  "Check for updates": "检查更新",
+  "Checking for updates…": "正在检查更新……",
+  "Connect to check for updates. Your current game stays open.": "请联网后再检查更新。当前牌局会保持打开。",
+  "Update checks are not available yet. Keep playing and try again.": "暂时无法检查更新。可以继续玩，稍后再试。",
+  "The update check could not finish. Keep playing and try again.": "未能完成更新检查。可以继续玩，稍后再试。",
+  "Downloading an update… Keep this tab open.": "正在下载更新……请保留此页面。",
+  "No new version found.": "没有发现新版本。",
 };
 export const translateChinese = translator(messages);
 export default messages;

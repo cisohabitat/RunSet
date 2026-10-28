@@ -83,9 +83,9 @@ async function stageUpdate(
   name: string,
 ) {
   await writeFile("dist/sw.js", original.replace(/runset-[a-f0-9]{16}/, name));
-  await page.evaluate(async () => {
-    await (await navigator.serviceWorker.getRegistration())?.update();
-  });
+  await page
+    .getByRole("button", { name: "Check for updates", exact: true })
+    .click();
   await expect(
     page.getByRole("button", { name: "Save and update", exact: true }),
   ).toBeVisible();

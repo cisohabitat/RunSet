@@ -971,3 +971,30 @@ date-only summaries with the complete timestamp in expanded details, and footer
 buttons with max-content flex bases rather than equal narrow columns. Preserve
 the <=80 px fixture summary and <=64 px footer checks, >=48 px controls and the
 fallback-font/letter-spacing stress journey; do not loosen geometry thresholds.
+
+Offline.tsx is an eager wrapper with independent Suspense and RecoveryBoundary;
+OfflinePanel is optional and precached. A failed tools chunk must leave Home and
+the real game usable. Keep Check for updates read-only: use native registration
+update, distinguish offline/unavailable/failure/downloading/no-new-version, and
+never send SKIP_WAITING or reload during checking. Native visible labels remain
+accessible names, >=48 px controls and >=16/18 px copy. The panel is a labelled
+region, not a complementary landmark nested inside game-menu navigation. Keep
+its landmark when outside main on lesson/Home screens; a group alone fails that
+page-level accessibility requirement. Retain both nested-menu and full-page Axe.
+
+Manual checks retain per-mount request identity and ignore completion after
+unmount; prevent concurrent check/accept actions. Preserve explicit acceptance,
+save-before-activation AND save-before-reload, activation watchdog/listener
+cleanup and fail-closed storage. Keep real worker discovery through the Check
+button in recovery tests, quota-failure retry and the move-during-activation
+regression. The connected bilingual update journey checks actual native update,
+zero activation/navigation, failure, pending unmount, exact draft/preferences,
+original deadline, offline reload and real Undo. Seed existing view preferences
+before taking an all-keys baseline; do not hide first-use initialization by
+dropping keys from comparisons. Preserve all browser jobs and offline timeout.
+
+Do not run local native-update compatibility checks alongside offline suites that
+rewrite dist/sw.js. Preview ports share the same build directory: a staged
+recovery worker can correctly appear as a new version in another suite. Run
+those suites sequentially (or use truly separate builds), keep the no-new-version
+assertion, and retain CI's separate checkouts for each browser job.

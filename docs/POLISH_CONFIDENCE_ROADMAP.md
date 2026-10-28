@@ -8,8 +8,8 @@ including every browser job and aggregate check, before beginning the next phase
 |---|---|---|
 | 1 | Visual consistency on phone, landscape iPad and desktop | Complete: 5d1120f, CI 40716966856 passed |
 | 2 | Clearer draft, ready-to-end and completed-turn feedback | Complete: 18b808f, CI 40721443436 passed |
-| 3 | Expandable local round details and difficulty filtering | Published implementation; exact-commit CI gate applies |
-| 4 | Clearer update checks and interrupted-save/offline recovery verification | Pending |
+| 3 | Expandable local round details and difficulty filtering | Complete: c9272ed, CI 40731631070 passed |
+| 4 | Clearer update checks and interrupted-save/offline recovery verification | Implemented; complete exact-commit CI required before release |
 
 Multiplayer remains deferred. Older-player/physical-device study stays paused;
 automated viewport checks do not establish physical Apple or native voice quality.
@@ -167,3 +167,57 @@ and shows the complete timestamp inside expanded details. The same strict
 80/64 px assertions remain, with a fallback-font/letter-spacing stress style.
 Build: 99,673 initial gzip bytes, unchanged 100,000-byte budget; 76 cache files.
 Require the correction's full exact-commit CI before Phase 4.
+
+Phase 3 correction c9272ed passed the complete workflow 40731631070: quality,
+Chromium, WebKit phone/iPad, Firefox, offline and aggregate check. All 204 local
+units, 20 focused browsers, 65 full offline cases and 12 matching-production
+history journeys passed. The environment restart interrupted extra verification;
+those runs were restarted with preserved logs and completed before Phase 4.
+
+## Phase 4
+
+Home and the game menu offer Check for updates using the browser's real service
+worker registration. Checking, no-new-version, downloading, offline, unavailable
+and failed checks have distinct bilingual messages. A check neither saves a
+second game status nor activates/reloads the tab. A waiting version still needs
+explicit Save and update, successful saves before activation and before reload,
+and the original watchdog/listener cleanup. Timers keep their absolute deadlines.
+
+OfflinePanel loads separately inside its own Suspense/recovery boundary. A
+failed optional chunk leaves Home and actual play usable. All optional assets
+remain precached. Update text is 16/18 px and controls >=48 px; a labelled region
+avoids an aside landmark nested in the game-menu navigation. Initial build:
+98,518 gzip bytes against the unchanged 100,000 budget, 77 cache files.
+
+New connected bilingual browser checks call the real native update method,
+require zero activation/reload and exact saved drafts/preferences, inject a
+check failure, resolve a pending check after unmount, then disconnect/reload and
+actually Undo while preserving the deadline. Native focus/hit targets and Axe
+remain asserted. The fallback-chunk test plays and undoes a real move after a
+tool download fails. The development test gives honest unavailable guidance.
+Existing real-worker quota-recovery and move-during-activation journeys now
+discover their staged version through the visible Check for updates button.
+
+The first local run caught fixture-only initialization of tableExpanded; seed
+that existing choice before the all-keys baseline, keeping every exact-key
+assertion. Axe then exposed the nested complementary landmark; replace the
+panel's aside with a labelled region, retaining the full accessibility check.
+The first full offline run caught that an intermediate group left lesson-screen
+tools outside a landmark. The labelled region works both inside navigation and
+outside main; keep both page-level and focused Axe checks.
+One local Firefox check saw a real waiting version while the concurrent offline
+suite staged workers by rewriting the shared dist/sw.js. Native-update suites
+must run sequentially against that build; separate preview ports do not isolate
+the assets. Retain the no-new-version check and CI's separate job checkouts.
+Do not infer physical Apple performance, voice quality or older-player usability
+from automated coverage. Those studies remain paused; multiplayer stays deferred.
+
+Local verification: all 204 units passed; the final complete offline suite passed
+all 68 cases. The isolated compatibility correction passed 18 update/lesson cases
+across WebKit phone/iPad and Firefox, including both full-page and focused Axe.
+Three main-browser and twelve initial visual/update compatibility cases also
+passed. Reviewed readable Chinese phone feedback and iPad tools; exact draft,
+Undo/deadline, native update discovery, failure and recovery checks are retained.
+Release requires the complete workflow for the published main revision, not only
+these local results or a READY deployment. Inspect its exact-SHA Actions run:
+https://github.com/cisohabitat/RunSet/actions/workflows/ci.yml

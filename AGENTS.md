@@ -998,3 +998,10 @@ rewrite dist/sw.js. Preview ports share the same build directory: a staged
 recovery worker can correctly appear as a new version in another suite. Run
 those suites sequentially (or use truly separate builds), keep the no-new-version
 assertion, and retain CI's separate checkouts for each browser job.
+
+Track the everyday-quality cycle in docs/EVERYDAY_QUALITY_ROADMAP.md. Phase 1
+audits the READY production revision through actual update-check, complete lesson,
+interrupted-draft/finish/backup-recovery and visual journeys, in both languages
+across phone/tablet/desktop browsers. Record the deployment SHA and exact CI;
+separate live acceptance from local staged-worker tests and paused human/device
+studies. Publish and fully CI-gate each phase before implementing the next.

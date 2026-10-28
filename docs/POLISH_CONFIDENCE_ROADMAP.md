@@ -9,7 +9,7 @@ including every browser job and aggregate check, before beginning the next phase
 | 1 | Visual consistency on phone, landscape iPad and desktop | Complete: 5d1120f, CI 40716966856 passed |
 | 2 | Clearer draft, ready-to-end and completed-turn feedback | Complete: 18b808f, CI 40721443436 passed |
 | 3 | Expandable local round details and difficulty filtering | Complete: c9272ed, CI 40731631070 passed |
-| 4 | Clearer update checks and interrupted-save/offline recovery verification | Implemented; complete exact-commit CI required before release |
+| 4 | Clearer update checks and interrupted-save/offline recovery verification | Complete: 9f12288, CI 40737157053 passed |
 
 Multiplayer remains deferred. Older-player/physical-device study stays paused;
 automated viewport checks do not establish physical Apple or native voice quality.

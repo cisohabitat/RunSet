@@ -692,3 +692,9 @@ if saving fails, keep the tab open and try again. Timed turns keep running.
 
 Offline tools load separately with a local fallback, so a failed tool download
 leaves Home and your game usable. Wait for Ready offline before disconnecting.
+
+The next improvement cycle is tracked in
+[Everyday quality](docs/EVERYDAY_QUALITY_ROADMAP.md): live release acceptance,
+clearer menus, Mandarin rule examples, a larger bot evaluation and longer browser
+sessions. Each phase is published separately and requires complete CI before
+the next begins. Physical-device and older-player studies remain paused.

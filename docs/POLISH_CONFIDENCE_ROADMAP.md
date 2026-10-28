@@ -113,13 +113,12 @@ Two projection regressions cover mixed-level deduplication, newest-first order,
 literal names, empty filters and counts limited to shown records. All 204 units
 passed. Existing connected history journeys now explicitly expand native details
 and require the actual score list to be visible before checking scores/Axe.
-Final build: 99,670 gzip bytes; unchanged 100,000-byte budget, 76 precached files.
+Final corrected build: 99,676 gzip bytes; unchanged 100,000-byte budget, 76 precached files.
 
 Screenshot review caught wasted phone space from a native disclosure marker on
 its own line and a three-line English clear button. Kept the first summary line
 inline beside the native marker, shortened the scope copy without changing its
-meaning and used Clear records with the full Clear recorded rounds accessible
-name. Footer padding/weights retain >=48 px targets in a <=64 px row. Fixture
+meaning and used the concise Clear records label. Footer padding/weights retain >=48 px targets in a <=64 px row. Fixture
 summary height <=80 px catches an orphan marker row. Retain all independent-clear
 confirmation/scope, read-only snapshot, native hit/focus and actual score checks.
 
@@ -134,3 +133,15 @@ Final Phase 3 verification: 204 unit tests and 20 connected browser cases passed
 eight focused compatibility/offline title/footer checks. Reviewed compact English
 and Chinese phone panels and iPad detail/filter views. Exact game/history/choice
 snapshots, independent clear confirmation and native targets/focus/Axe passed.
+
+Pre-gate accessibility review caught a visible/spoken label mismatch in the first
+Phase 3 publication 6dd676e / CI 40726083999: shortened Clear records still had
+the older accessible name. Remove that redundant aria-label so native button text
+is the accessible name, and update the connected tests to the real new label.
+This correction supersedes the first publication; require its fresh full CI
+workflow before Phase 4. No game, stored metadata or clear-confirmation behavior
+changes. Visible and accessible action names must match for speech navigation.
+
+After the native-label correction, all 20 connected history cases passed again
+across main, compatibility and offline suites. The actual accessible name now
+comes from the same visible Clear records text; clear confirmation is unchanged.

@@ -955,3 +955,8 @@ from saves/profiles and never written to history. Native per-round details retai
 literal names and real signed scores, >=48 px summaries/selectors, scroll/focus
 and independent clearing. Existing history journeys must expand details and await
 the visible score list, not validate text hidden inside a closed disclosure.
+
+The history footer uses native Clear records text as its accessible name. Do not
+retain an aria-label containing different older wording after shortening visible
+copy; preserve label-in-name for speech navigation. Keep confirmation's separate
+Clear history action and existing independent clear scope.

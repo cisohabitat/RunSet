@@ -173,12 +173,12 @@ export async function verifyRoundHistory(
   await activate(b("Round history"));
   await expect(dialog.locator(".round-records > li")).toHaveCount(1);
   expect(await records()).toBe(history);
-  await activate(b("Clear recorded rounds"));
+  await activate(b("Clear records"));
   await expect(b("Clear history")).toBeFocused();
   await activate(b("Keep history"));
-  await expect(b("Clear recorded rounds")).toBeFocused();
+  await expect(b("Clear records")).toBeFocused();
   expect(await records()).toBe(history);
-  await activate(b("Clear recorded rounds"));
+  await activate(b("Clear records"));
   await activate(b("Clear history"));
   await expect.poll(records).toBeNull();
   await expect(dialog).toContainText(

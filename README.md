@@ -651,7 +651,7 @@ It keeps up to 30 rounds finished on this device since the feature was added,
 with actual round scores, recorded-round count and player-win count. Imported
 or already completed games are not added. These optional local records stay
 separate from game backups and portable profiles. Deleting a game keeps them;
-Clear recorded rounds asks for confirmation and keeps your game and settings.
+Clear records asks for confirmation and keeps your game and settings.
 
 Fresh games started in Simplified Chinese use familiar computer names prefixed
 with 电脑 (computer). Changing language preserves existing saved/imported names

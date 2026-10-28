@@ -224,7 +224,6 @@ export default function RoundHistory() {
             <button
               className="secondary"
               ref={clear}
-              aria-label={t("Clear recorded rounds")}
               disabled={busy || confirm}
               onClick={() => setConfirm(true)}
             >

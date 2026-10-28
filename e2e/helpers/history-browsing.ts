@@ -197,7 +197,7 @@ export async function verifyHistoryBrowsing(
   await page.screenshot({
     path: `/tmp/runset-history-browsing-${info.project.name || "chromium"}-${locale}.png`,
   });
-  await activate(b("Clear recorded rounds"));
+  await activate(b("Clear records"));
   await activate(b("Keep history"));
   await expect(filter).toHaveValue("hard");
   expect(await snapshot()).toEqual(before);

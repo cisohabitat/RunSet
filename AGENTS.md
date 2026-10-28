@@ -844,3 +844,6 @@ with local selection or optimistic placement state. Preserve full repair text,
 comfortable sizes, contrast palettes and exact game bytes while styling states.
 Keep meld captions in normal case with normal spacing; decorative tracking
 should not force extra lines. Comfortable error labels retain 16 px text.
+Verify complete magnifier text and footer buttons against their actual card
+bounds; inspect an original-size card close-up before inferring clipping from a
+scaled full-screen screenshot. Preserve the full native Zoom/放大 label.

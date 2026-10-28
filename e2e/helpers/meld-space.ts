@@ -144,12 +144,47 @@ export async function verifyMeldSpace(
         }),
       ),
     ).toBe(true);
+    expect(
+      await cards.locator(".meld-actions button").evaluateAll((els) =>
+        els.every((el) => {
+          const r = el.getBoundingClientRect(),
+            card = el.closest(".meld")!.getBoundingClientRect();
+          return (
+            r.width >= 44 &&
+            r.height >= 44 &&
+            r.left >= card.left &&
+            r.right <= card.right
+          );
+        }),
+      ),
+    ).toBe(true);
+    expect(
+      await cards.locator(".inspect-meld").evaluateAll((els) =>
+        els.every((el) => {
+          const r = el.getBoundingClientRect(),
+            range = document.createRange();
+          range.selectNodeContents(el);
+          const text = range.getBoundingClientRect();
+          return (
+            text.left >= r.left &&
+            text.right <= r.right &&
+            el.scrollWidth <= el.clientWidth
+          );
+        }),
+      ),
+    ).toBe(true);
     expect(await save()).toBe(before);
     expect(
       await cards.evaluateAll((els) =>
         els.map((el) => el.getAttribute("data-meld-id")),
       ),
     ).toEqual(order);
+    if (width === 1180)
+      await cards
+        .nth(1)
+        .screenshot({
+          path: `/tmp/runset-footer-closeup-${info.project.name || "chromium"}-${locale}.png`,
+        });
     await page.screenshot({
       path: `/tmp/runset-meld-space-${info.project.name || "chromium"}-${locale}-${width}.png`,
     });

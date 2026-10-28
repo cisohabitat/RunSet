@@ -72,3 +72,13 @@ comfortable invalid label is 16 px. During the phase, 37 targeted browser checks
 passed; ten final cue/layout journeys passed after caption polish. Type/build
 passed at 99,247 initial gzip bytes and 70 precached files. No rules or storage
 code changes. Complete exact-main CI remains required before Phase 3.
+
+The final scaled full-screen image appeared to clip Zoom, but the original-size
+card close-up and direct DOM range measurements confirmed that the complete
+label is visible. Added footer button/card bounds, complete magnifier-text bounds
+and small card screenshots as regression guards. No app change was needed for
+that concern. The first Phase 2 publication is 5ffa0bf; acceptance uses the final
+exact-main commit including these guards, not a superseded workflow.
+
+All ten final footer/text-bound journeys passed across Chromium, compatibility
+and offline after adding the guards; gameplay/style files remain unchanged.

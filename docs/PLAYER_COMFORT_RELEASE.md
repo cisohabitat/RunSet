@@ -101,3 +101,9 @@ Linux WebKit and desktop viewports do not establish physical iOS behavior.
 Cue mocks and MP3 decoding do not establish audible Mandarin delivery, emotional
 tone or older-player comprehension. Fresh bot timings are host/sample results,
 not hard real-time guarantees. No AAA certification or human acceptance is claimed.
+
+The first Phase 5 branch passed both new offline connected journeys but exposed
+an older results assertion expecting the previous prose. Four visible-copy
+assertions in two retained specs were updated after searching all 98 e2e
+TypeScript files. The result cause and seat-order checks remain explicit;
+legacy translation cases are retained. The corrected source needs a fresh gate.

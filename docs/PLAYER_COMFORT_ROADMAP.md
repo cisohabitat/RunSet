@@ -190,3 +190,10 @@ each of phone WebKit/iPad WebKit/desktop Firefox, and 39 offline cases, plus the
 planner benchmark smoke. Initial gzip stays under 100,000; exact final build
 bytes and completed checks are inspected after CI. See
 [release evidence](PLAYER_COMFORT_RELEASE.md).
+
+The first final branch passed both new offline release journeys. Its retained
+first-use results regression still expected the old wording. A connected-source
+search across all 98 e2e TypeScript files found four old visible-copy assertions
+in two existing specs; they now assert the new ending and the same seat-order
+rule. Legacy dictionary/translation cases remain. No scenario, threshold or
+timeout was removed; the correction requires a new complete gate.

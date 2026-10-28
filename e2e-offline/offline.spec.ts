@@ -239,7 +239,7 @@ test("first-use results, score calculations and replay work offline", async ({
   await page.getByRole("button", { name: /View results/ }).click();
   await expect(
     page.getByLabel("Why the round ended", { exact: true }),
-  ).toContainText("played their last tile");
+  ).toContainText("The round ended because a rack is empty.");
   await page
     .getByText("Show remaining tiles and calculation", { exact: true })
     .click();

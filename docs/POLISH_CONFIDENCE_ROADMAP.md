@@ -6,8 +6,8 @@ including every browser job and aggregate check, before beginning the next phase
 
 | Phase | Outcome | Status |
 |---|---|---|
-| 1 | Visual consistency on phone, landscape iPad and desktop | Published implementation; exact-commit CI gate applies |
-| 2 | Clearer draft, ready-to-end and completed-turn feedback | Pending |
+| 1 | Visual consistency on phone, landscape iPad and desktop | Complete: 5d1120f, CI 40716966856 passed |
+| 2 | Clearer draft, ready-to-end and completed-turn feedback | Published implementation; exact-commit CI gate applies |
 | 3 | Expandable local round details and difficulty filtering | Pending |
 | 4 | Clearer update checks and interrupted-save/offline recovery verification | Pending |
 
@@ -52,3 +52,39 @@ workflow before Phase 2; do not treat the original gate as successful.
 
 All six focused WebKit-phone repetitions passed after the readiness correction
 (three in each language). App source/build is unchanged from the reviewed phase.
+
+The corrected Phase 1 commit 5d1120f4541bb51566980df879b077dd55796624 passed the
+complete CI workflow 40716966856 before Phase 2 began. Matching production READY
+and all 12 bilingual visual/history live journeys passed. Original failed gate
+40714340749 remains recorded above rather than represented as successful.
+
+## Phase 2
+
+The existing regular-game status row now labels Choose tiles or draw/pass,
+Unfinished turn, Play a rack tile (rearrangement without a rack addition),
+Ready to end turn and Opponent turn. Labels derive only from the current cached
+engine check and actual draft comparison, with no new game state or persistence.
+Opening points, played counts, actual actor and full engine repair reason remain
+visible; public-only invalid edits also show their reason. Labels stay inside the
+same bounded focusable status region, never a permanent additional board row.
+
+Ready describes a legal draft, never a committed turn. Explicit End turn still
+runs the same authoritative engine/penalty confirmation. The existing accepted
+turn notice and actual next actor provide completed-turn feedback. No extra
+sounds, automatic commits or timer pauses. Practice retains its lesson labels.
+
+All 202 units and the two Chromium connected turn-state journeys passed. The new
+journey includes actual incomplete placement, penalty cancellation, free Reset,
+legal placement, Undo, unchanged absolute deadline, no premature turn advance,
+accepted handoff and real expiry restoring drafts/drawing exactly one tile.
+
+Expanded connected journeys also passed a real legal split of a six-tile public
+run into two runs with no rack tile played: status asks for a rack tile, and the
+engine refuses End turn without advancing. Screenshot review found the decorative
+status dot could wrap onto a line of its own before a long reason; the copy now
+flexes within remaining width, retaining complete text and the existing row.
+
+Final Phase 2 local verification: 202 units and 22 browsers passed (2 main,
+18 compatibility including the strict phone/tablet meld-space and actual handoff
+regressions, 2 offline). Reviewed Chinese draft/ready phone, English phone and
+Chinese iPad screenshots. Final build: 99,667 gzip bytes; 76 precached files.

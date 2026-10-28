@@ -936,3 +936,13 @@ Round-history journeys must await visible SimpleHome and, when Continue game is
 present, the real resume context before scrolling/hit-testing More options.
 Completed games have no resume context. Retain strict target geometry; never
 replace this readiness wait with a sleep or force click.
+
+Regular turn-stage labels read the existing cached turnCheck plus actual dirty
+comparison; never store a second game status or infer acceptance from placement.
+Keep start/draw-or-pass, invalid draft, valid rearrangement without a rack tile,
+ready draft and waiting distinct. Preserve original opening/played counts and
+show full engine reasons for invalid public-only drafts too. Group the label and
+copy in the existing bounded status row, with reduced-motion/static equivalence;
+no new board row, automatic commit or clock pause. Practice keeps lesson wording.
+Retain real placement/penalty-cancel/Reset/Undo/accepted-handoff/expiry journeys
+and strict 300 px phone / 450 px comfortable-tablet expanded table floors.

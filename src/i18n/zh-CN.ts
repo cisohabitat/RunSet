@@ -1279,6 +1279,12 @@ const messages: Record<string, string> = {
 
   "Your tiles. You can scroll while an opponent plays.": "你的手牌。电脑出牌时，也可以滚动查看。",
 
+  "Unfinished turn": "回合尚未完成",
+  "Ready to end turn": "可以结束回合",
+  "Play a rack tile": "还需出一张手牌",
+  "Choose tiles or draw": "选牌出牌，或摸牌",
+  "Choose tiles or pass": "选牌出牌，或跳过",
+
 };
 export const translateChinese = translator(messages);
 export default messages;

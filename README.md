@@ -666,3 +666,8 @@ Visual polish: Settings display and pace selectors share readable 48 px controls
 wrapping to keep choices inside phone dialogs. Landscape iPad opponent activity
 marks preserve room for difficulty and tile counts. The next published phases
 are tracked in [the polish/confidence roadmap](docs/POLISH_CONFIDENCE_ROADMAP.md).
+
+Turn status distinguishes unfinished edits from a draft ready to end, while
+keeping opening points and tile counts visible. Ready to end turn is a prompt:
+choose End turn to submit it. Completed turns advance play or open results;
+Reset/Undo and penalty cancellation keep the same game rules and deadlines.

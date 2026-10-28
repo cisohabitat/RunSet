@@ -258,6 +258,24 @@ export function Game({
       () => JSON.stringify(s.table) !== JSON.stringify(s.turnStart.table),
       [s],
     );
+  const turnStage = !myTurn
+    ? "waiting"
+    : dirty && !check.valid
+      ? "unfinished"
+      : check.valid && check.played.length
+        ? "ready"
+        : dirty
+          ? "rearranged"
+          : "start";
+  const turnLabel = turnStage === "waiting"
+    ? "Opponent turn"
+    : turnStage === "unfinished"
+      ? "Unfinished turn"
+      : turnStage === "ready"
+        ? "Ready to end turn"
+        : turnStage === "rearranged"
+          ? "Play a rack tile"
+          : s.pool.length ? "Choose tiles or draw" : "Choose tiles or pass";
   const activeSelected = selected.filter(
     (id) =>
       human.rack.includes(id) || s.table.some((m) => m.tiles.includes(id)),
@@ -856,21 +874,25 @@ export function Game({
       )}
       <div
         className="status-line"
+        data-turn-state={coaching && !positionCopy ? turnStage : undefined}
         role="status"
         aria-live="polite"
         tabIndex={tableView === "wide" ? 0 : undefined}
       >
-        <span className={`status-dot ${myTurn ? "" : "waiting"}`} />
-        {t(
-          myTurn
-            ? p.melded
-              ? `${check.played.length} tile${check.played.length === 1 ? "" : "s"} played this turn`
-              : `Opening meld: ${check.points} / 30 points`
-            : `${p.name} is finding a move…`,
-        )}
-        {myTurn && !check.valid && check.played.length > 0 && (
-          <span className="warning">{t(check.reason)}</span>
-        )}
+        <span className={`status-dot ${myTurn ? "" : "waiting"}`} aria-hidden="true" />
+        <span className="turn-status-copy">
+          {coaching && !positionCopy && <strong>{t(turnLabel)} · </strong>}
+          {t(
+            myTurn
+              ? p.melded
+                ? `${check.played.length} tile${check.played.length === 1 ? "" : "s"} played this turn`
+                : `Opening meld: ${check.points} / 30 points`
+              : `${p.name} is finding a move…`,
+          )}
+          {myTurn && !check.valid && (dirty || check.played.length > 0) && (
+            <span className="warning">{t(check.reason)}</span>
+          )}
+        </span>
       </div>
       <div className="player-dock">
         <section

@@ -52,3 +52,18 @@
   outline-color: var(--focus);
   outline-style: solid;
 }
+
+/* One existing status row: labels describe engine validation, never a commit. */
+.game .turn-status-copy {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.game .turn-status-copy > strong {
+  color: var(--ink);
+}
+.game .turn-status-copy .warning {
+  margin-inline-start: 8px;
+  max-width: none;
+  font: inherit;
+}

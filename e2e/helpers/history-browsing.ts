@@ -215,5 +215,19 @@ export async function verifyHistoryBrowsing(
   await activate(b("Round history"));
   await expect(rows).toHaveCount(3);
   expect(await snapshot()).toEqual(before);
+  await filter.selectOption("easy");
+  await expect(rows).toHaveCount(1);
+  await activate(b("Clear records"));
+  await expect(dialog).toContainText(
+    t(
+      "This clears all recorded rounds, including records hidden by the filter. Your saved game, learning progress and settings are kept.",
+    ),
+  );
+  await activate(b("Clear history"));
+  await expect(rows).toHaveCount(0);
+  await expect(filter).toHaveValue("all");
+  const kept = { ...before };
+  delete kept["runset.roundHistory.v1"];
+  await expect.poll(snapshot).toEqual(kept);
   expect(errors).toEqual([]);
 }

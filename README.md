@@ -676,3 +676,6 @@ Round history can be filtered by computer difficulty. Mixed-level rounds match
 once if any computer used that level; displayed win counts apply to shown
 records. Expand a dated round to read every participant's actual score. Filtering
 is read-only and resets to All when the panel is reopened.
+
+Clearing history always removes all recorded rounds, including filtered-out
+records; the confirmation states this explicitly and preserves game/settings.

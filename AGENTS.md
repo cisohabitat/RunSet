@@ -960,3 +960,8 @@ The history footer uses native Clear records text as its accessible name. Do not
 retain an aria-label containing different older wording after shortening visible
 copy; preserve label-in-name for speech navigation. Keep confirmation's separate
 Clear history action and existing independent clear scope.
+
+History Clear confirms all recorded rounds, including those hidden by the active
+filter. Never imply only shown records are removed when deleting the whole key.
+Retain the filtered-clear test proving all history is removed while exact game
+and preference bytes are kept.

@@ -1294,6 +1294,9 @@ const messages: Record<string, string> = {
   "Clear records": "清除记录",
   "Latest 30 finishes recorded here. Completed imports and older finishes are not added. History is excluded from backups and portable profiles.": "只保留本设备最近三十局的新记录。已结束的导入牌局和旧牌局不补记。备份和可携带进度不包含这些记录。",
 
+  "Clear all recorded rounds?": "清除全部牌局记录？",
+  "This clears all recorded rounds, including records hidden by the filter. Your saved game, learning progress and settings are kept.": "将清除全部牌局记录，包括筛选后未显示的记录。保存的牌局、学习进度和设置都会保留。",
+
 };
 export const translateChinese = translator(messages);
 export default messages;

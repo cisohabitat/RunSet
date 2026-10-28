@@ -113,7 +113,7 @@ Two projection regressions cover mixed-level deduplication, newest-first order,
 literal names, empty filters and counts limited to shown records. All 204 units
 passed. Existing connected history journeys now explicitly expand native details
 and require the actual score list to be visible before checking scores/Axe.
-Final corrected build: 99,676 gzip bytes; unchanged 100,000-byte budget, 76 precached files.
+Final corrected build: 99,670 gzip bytes; unchanged 100,000-byte budget, 76 precached files.
 
 Screenshot review caught wasted phone space from a native disclosure marker on
 its own line and a three-line English clear button. Kept the first summary line
@@ -145,3 +145,15 @@ changes. Visible and accessible action names must match for speech navigation.
 After the native-label correction, all 20 connected history cases passed again
 across main, compatibility and offline suites. The actual accessible name now
 comes from the same visible Clear records text; clear confirmation is unchanged.
+
+Final filtered-clear review clarified scope: deleting the history key removes
+all retained records, not only shown records. Confirmation now explicitly names
+all rounds including those hidden by the active filter. The connected journey
+clears while Easy shows one of three records, then requires all history gone and
+exact game/preference bytes retained. This refinement supersedes intermediate
+7a5b823 / CI 40727021784; fully gate the final correction before Phase 4.
+
+The explicit filtered-clear refinement passed all ten connected browsing cases
+across Chromium, WebKit phone/iPad, Firefox and offline. Clearing while Easy
+showed one of three records removed all history and kept exact game/settings.
+The translation/projection checks passed; final build is 99,670 gzip bytes.

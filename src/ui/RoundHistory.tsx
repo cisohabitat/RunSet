@@ -181,11 +181,11 @@ export default function RoundHistory() {
               </p>
             )}
             {confirm && (
-              <section aria-label={t("Clear recorded rounds?")}>
-                <h3>{t("Clear recorded rounds?")}</h3>
+              <section aria-label={t("Clear all recorded rounds?")}>
+                <h3>{t("Clear all recorded rounds?")}</h3>
                 <p>
                   {t(
-                    "This removes only these round records. Your saved game, learning progress and settings are kept.",
+                    "This clears all recorded rounds, including records hidden by the filter. Your saved game, learning progress and settings are kept.",
                   )}
                 </p>
                 <button

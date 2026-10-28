@@ -1,5 +1,5 @@
 import { LanguageSwitch, useI18n } from "./i18n/I18n";
-import { lazy, Suspense, useEffect, useReducer, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useReducer, useRef, useState } from "react";
 import {
   type GameState,
   type Difficulty,
@@ -32,21 +32,24 @@ const GameOver = lazy(() =>
   import("./ui/GameOver").then((module) => ({ default: module.GameOver })),
 );
 const Settings = lazy(() => import("./ui/Settings"));
-import { SaveTools } from "./ui/SaveTools";
+const SaveTools = lazy(() =>
+  import("./ui/SaveTools").then((module) => ({ default: module.SaveTools })),
+);
 import { Offline } from "./ui/Offline";
 import { ConfirmDialog } from "./ui/ConfirmDialog";
 const Tutorial = lazy(() => import("./ui/Tutorial"));
 const Exercises = lazy(() => import("./ui/Exercises"));
+type AppAction = Action | { type: "start"; game: GameState } | { type: "clear" };
 type Screen = "home" | "setup" | "help" | "game" | "learn" | "exercises";
 const initial = loadGame();
 export default function App() {
   const { t, locale } = useI18n();
   const [screen, setScreen] = useState<Screen>("home"),
     [helpBack, setHelpBack] = useState<Screen>("home");
-  const [game, dispatchBase] = useReducer(
+  const [game, dispatchRaw] = useReducer(
     (
       s: GameState | null,
-      a: Action | { type: "start"; game: GameState } | { type: "clear" },
+      a: AppAction,
     ) =>
       a.type === "clear"
         ? null
@@ -57,6 +60,12 @@ export default function App() {
             : null,
     initial.game,
   );
+  const replacement = useRef<GameState | null | undefined>(undefined);
+  const dispatchBase = useCallback((action: AppAction) => {
+    if (action.type === "start") replacement.current = action.game;
+    else if (action.type === "clear") replacement.current = null;
+    dispatchRaw(action);
+  }, [dispatchRaw]);
   useScreenFocus(
     screen === "game" && game?.phase === "over" ? "results" : screen,
   );
@@ -225,10 +234,18 @@ export default function App() {
     };
   }, [game, screen, confirmation, settingsOpen, pace, viewFailed]);
   const audibleGame = useRef(game);
+  const [celebration, setCelebration] = useState<GameState | null>(null);
   useEffect(() => {
-    const cue = transitionCue(audibleGame.current, game);
+    const cue = replacement.current === game
+      ? null
+      : transitionCue(audibleGame.current, game);
+    replacement.current = undefined;
     audibleGame.current = game;
-    if (screen === "game" && !viewFailed && cue) sound(cue, muted);
+    if (screen !== "game") setCelebration(null);
+    else if (!viewFailed && !failedView.current && cue) {
+      sound(cue, muted);
+      if (cue === "win") setCelebration(game);
+    }
   }, [game, screen, muted, viewFailed]);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -369,7 +386,9 @@ export default function App() {
               )}
             </p>
           </details>
-          <SaveTools game={game} onRestore={restore} />
+          <Suspense fallback={<p role="status">{t("Preparing save tools…")}</p>}>
+            <SaveTools game={game} onRestore={restore} />
+          </Suspense>
           <Offline beforeUpdate={saveLatestGame} />
         </nav>
       </details>
@@ -613,7 +632,9 @@ export default function App() {
               onExercises={() => setScreen("exercises")}
               status={saveStatus}
             >
-              <SaveTools game={game} onRestore={restore} />
+              <Suspense fallback={<p role="status">{t("Preparing save tools…")}</p>}>
+                <SaveTools game={game} onRestore={restore} />
+              </Suspense>
             </HomeView>
           </Suspense>
         )}
@@ -669,6 +690,7 @@ export default function App() {
               fallback={<LoadingScreen message={t("Loading results…")} />}
             >
               <GameOver
+                celebrate={celebration === game}
                 onNextRound={() =>
                   dispatchBase({ type: "nextRound", at: Date.now() })
                 }

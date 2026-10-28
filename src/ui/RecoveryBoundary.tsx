@@ -63,7 +63,7 @@ export function RecoveryScreen({
         </h1>
         <p>
           {t(
-            "Reconnect, then save and reload. You can return Home meanwhile. Timed games keep running.",
+            "You can return Home or try Save and reload. Keep this tab open if saving fails. Timed games keep running.",
           )}
         </p>
         <div className="hero-actions">

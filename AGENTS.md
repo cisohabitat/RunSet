@@ -692,3 +692,26 @@ Overview entries use two-line summaries and two columns on wider screens.
 Translate standalone kind and points labels, not only compound board captions.
 An empty imported draft meld has no first tile: keep it non-navigable. Check the
 actual Chinese row for untranslated words and expire an open overview in tests.
+
+Gentle-play feedback uses actual observed transitions. App's stable dispatch
+boundary marks externally started/cleared game objects; suppress their cues even
+when an imported completed game has the same seed as the active position.
+GameOver receives an explicit fresh-celebration flag from App, never infers it
+from a loaded finished state. Clear the flag on leaving game view. Keep static
+winner/scoring content, twelve bounded particles and reduced-motion equivalents;
+do not replay sounds or confetti for reopen/reload/import/cross-tab replacement.
+
+Use the existing disabled primary buttons for concise Opponent turn / Please
+wait labels. Keep human action labels, targets and expanded table floors intact.
+SaveTools is lazy with its own Suspense fallback in both Home and Game menu;
+never let its download suspend the entire header or playing board. Keep it in
+the generated offline cache and preserve all storage guards and cancellation.
+Recovery copy offers actions and honest save-failure handling without assuming
+a network cause. State belongs outside the view recovery boundary.
+
+The test-only ci-visual helper emits chunked JPEGs for selected bilingual
+WebKit fixture views so reviewers can inspect them from CI logs without a local
+workspace. Do not emit real user saves or credentials. Keep normal failure
+artifacts, all browser suites, signed dependency installation, virtual audio,
+twenty-minute job and five-minute offline limits. Audio mocks prove cue
+selection/counts, not native voice quality or older-player comprehension.

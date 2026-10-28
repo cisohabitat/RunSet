@@ -10,8 +10,8 @@ multiplayer remains deferred.
 | --- | --- | --- |
 | 1. Smarter in-game help | Published; full CI and live checks passed | Locate affected tiles, identify the meld and distinguish a local repair from a complete turn. |
 | 2. Bot difficulty and fairness | Published; full CI and live checks passed | Reassess production behavior on fresh deals and make capabilities and public move explanations clear. |
-| 3. Crowded-board readability | Published; exact-commit CI required before Phase 4 | Improve long-game meld navigation without shrinking touch targets or the table. |
-| 4. Gentler play | Pending | Clearer turn changes and restrained feedback, with reduced motion and bilingual recovery copy. |
+| 3. Crowded-board readability | Published; complete corrected CI passed | Improve long-game meld navigation without shrinking touch targets or the table. |
+| 4. Gentler play | Implemented; isolated CI review before main | Clearer turn changes and restrained feedback, with reduced motion and bilingual recovery copy. |
 | 5. Release hardening | Pending | Connected complete-game, interrupted-session, update and offline recovery checks. |
 
 ## Phase 1
@@ -88,3 +88,38 @@ two production offline and two Chromium overview journeys. Sixteen existing
 board-space cases also passed. Light/dark phone/tablet screenshots were inspected;
 no untranslated Latin kind/points labels remain in Chinese rows. An interrupted
 local compatibility run had no completed report; its reruns completed and passed.
+
+Phase 3's first release d609d38 passed quality/offline checks but Chromium caught
+an existing immediate-storage assertion after Deal round 2 (round 1 was still
+saved). Correction d11bb05 waits for actual initial persistence, saved completion
+before reload and round 2 persistence. Expected values and timer checks remain;
+no sleeps, gameplay or limits changed. Complete exact-commit CI
+[40607869355](https://github.com/cisohabitat/RunSet/actions/runs/40607869355)
+passed before Phase 4 implementation.
+
+The execution workspace became unavailable during that gate. The small test
+correction used the GitHub connector. Subsequent work uses atomic commits on an
+isolated branch, complete CI and fixture visual review before moving main.
+No local or live checks are claimed while the runtime is unavailable.
+
+## Phase 4
+
+Existing primary buttons identify the opponent's turn without reserving a new
+row or reducing tile sizes. Fresh win feedback is based on an observed engine
+transition, with twelve particles and unchanged reduced-motion/static content.
+Externally started/cleared games suppress cues, including completed imports with
+the same seed. Home/reopen/reload never manufacture a new win event.
+
+SaveTools has its own lazy Home/menu boundary, freeing initial download room
+without moving game state or weakening the 100,000-byte budget. Generated offline
+assets include it. Recovery instructions offer Home or save/reload and retain
+honest failed-save blocking, without assuming every rendering failure is network
+related.
+
+Connected bilingual journeys check same-seed completed import silence, actual
+win cue count and twelve particles, reduced motion, reopen/reload silence and
+real human → bot → human handoff through the worker. They measure visible
+buttons and table floors in full-screen view, validate the final saved state and
+retain Axe/runtime-error checks. Selected fixture JPEGs are emitted for actual
+phone/tablet visual review from CI; these do not establish physical iOS or voice
+acceptance. Complete branch and published-main workflow results gate Phase 5.

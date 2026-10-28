@@ -2,6 +2,10 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Opponent turn": "对手回合",
+  "Please wait": "请稍候",
+  "Preparing save tools…": "正在准备保存工具……",
+  "You can return Home or try Save and reload. Keep this tab open if saving fails. Timed games keep running.": "你可以返回首页，或尝试“保存并重新载入”。如果保存失败，请保持这个页面打开。限时牌局仍会继续计时。",
   run: "顺子",
   group: "同数组",
   "{n} pts": "{n} 分",

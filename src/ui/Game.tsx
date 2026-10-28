@@ -1139,7 +1139,7 @@ export function Game({
                   data-coach-target={coachTarget === "draw" || undefined}
                   onClick={() => act({ type: "draw" })}
                 >
-                  {t(s.pool.length ? "Draw a tile" : "Pass")} ↓
+                  {myTurn ? <>{t(s.pool.length ? "Draw a tile" : "Pass")} ↓</> : t("Opponent turn")}
                 </button>
                 <button
                   className={`primary ${!check.valid && dirty ? "danger" : ""}`}
@@ -1149,7 +1149,7 @@ export function Game({
                   onClick={() => act({ type: "endTurn" })}
                 >
                   {t(
-                    check.valid || !dirty
+                    !myTurn ? "Please wait" : check.valid || !dirty
                       ? "End turn →"
                       : practiceEndCheck
                         ? "Check this turn"

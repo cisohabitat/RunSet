@@ -6,6 +6,7 @@ import { MoveReview } from "./MoveReview";
 import { TileDemo } from "./Tile";
 export function GameOver({
   game,
+  celebrate = false,
   onNew,
   onHome,
   onNextRound,
@@ -13,6 +14,7 @@ export function GameOver({
   onPractice,
 }: {
   game: GameState;
+  celebrate?: boolean;
   onNew: () => void;
   onHome: () => void;
   onNextRound: () => void;
@@ -31,11 +33,11 @@ export function GameOver({
     <main
       id="main-content"
       tabIndex={-1}
-      className={`page game-over ${!winner.bot ? "celebrate" : ""}`}
+      className={`page game-over ${celebrate && !winner.bot ? "celebrate" : ""}`}
     >
-      {!winner.bot && (
+      {celebrate && !winner.bot && (
         <div className="confetti" aria-hidden="true">
-          {Array.from({ length: 24 }, (_, i) => (
+          {Array.from({ length: 12 }, (_, i) => (
             <i key={i} style={{ "--i": i } as React.CSSProperties} />
           ))}
         </div>

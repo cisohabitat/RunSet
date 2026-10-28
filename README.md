@@ -551,3 +551,15 @@ rounds without changing strategy or claiming a human difficulty rating.
 More → Table overview helps navigate crowded games. Review numbered melds and
 choose one to find its first tile. It preserves selections, the hidden-rack view,
 Undo history and the current deadline; unfinished melds say Needs fixing.
+
+During an opponent's turn, the existing action buttons say Opponent turn and
+Please wait, including full-screen/table-only views. No extra meld-area row is
+added. New wins use a brief twelve-piece celebration; reopening, reloading or
+importing completed results does not replay it or the win sound. Reduced motion
+keeps the same static result information. Recovery text offers Home or save and
+reload without assuming every screen error is a network problem.
+
+Save tools load separately inside their own Home/menu loading boundaries and
+remain in the offline cache. The initial download budget stays at 100,000 gzip
+bytes. Fixture-only CI visual captures support phone/tablet review when the local
+execution workspace is unavailable; these are not physical Apple-device tests.

@@ -9,8 +9,8 @@ paused. Multiplayer remains deferred. No game rules or saved-game schema changes
 |---|---|---|
 | 1 | Group existing More tools by player task without another submenu | Published; complete main CI passed |
 | 2 | Extend existing latest-play review with factual bot/validity context | Published; complete main CI passed |
-| 3 | Check crowded long sessions and repeated rounds; record performance limits | Implemented; verification and main CI pending |
-| 4 | Stress interrupted persistence and unusual legal actions; fix evidenced failures | Pending |
+| 3 | Check crowded long sessions and repeated rounds; record performance limits | Published; corrected complete main CI passed |
+| 4 | Stress interrupted persistence and unusual legal actions; fix evidenced failures | Implemented; verification and main CI pending |
 | 5 | Audit bilingual instructions and control names; connected release verification | Pending |
 
 ## Phase 1
@@ -71,3 +71,39 @@ header was hidden. It now chooses Standard through the actual visible View
 selector before using Home. The 26 local Chromium/Firefox contrast journeys pass
 with unchanged contrast, geometry, save and deletion assertions. A new complete
 exact-commit main gate is required before Phase 4. No timeout or retry was added.
+
+Phase 3 accepted correction: c1420ee, complete main CI
+[40640839844](https://github.com/cisohabitat/RunSet/actions/runs/40640839844).
+All six matching live crowded-session journeys passed on the READY deployment.
+
+## Phase 4
+
+Found and fixed a save-loss risk: loadGame treated a failed storage read like
+malformed JSON and attempted removal of the primary save. Failed reads now keep
+primary/recovery bytes intact, invalidate queued writes and refuse replacement
+of an unseen existing save until a successful read establishes its guard.
+Malformed-data cleanup remains unchanged. A bilingual notice offers reload and
+explains that stored data was kept.
+
+Fault tests cover interrupted queued locks, stale unseen replacements, cancellation
+while waiting, and rollback/retry at the game, reading and language write steps.
+New browser journeys inject a temporary read exception, verify both stored copies,
+then recover the exact timed draft offline and make a real Undo. Additional seeded
+editing coverage exercises deadline boundaries, physical IDs and save validity.
+Existing update/activation recovery tests remain in the full offline suite.
+
+The same audit found App treated an unreadable cross-tab result as a deleted
+save. loadGame now exposes an explicit unreadable result; conflict/event handlers
+keep the live game and selection, show Not saved and the recovery notice, and
+wait for a successful read. Shared browser journeys test failed and recovered
+storage notifications without changing the actual saved bytes.
+
+Unreadable storage also blocks new writes explicitly, including when another tab
+has deleted the key. A dedicated regression proves an old in-memory game cannot
+resurrect that deletion before a successful read clears the blocked state.
+
+Phase 4 local gate: 179 unit tests and 10 affected browser journeys passed
+(2 Chromium, 6 compatibility, 2 offline). Both-language notice screenshots were
+inspected. The final 8,000-action test checks original state immutability, valid
+saves, 106 unique IDs, bounded history and actual deadline replacement. Initial
+gzip 99,186 bytes; 65 precached files. Full exact-main CI is required next.

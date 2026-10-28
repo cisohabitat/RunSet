@@ -1212,6 +1212,7 @@ const messages: Record<string, string> = {
   "A group has three or four tiles with the same number in different colours. A joker can stand for a missing colour.": "同数组由三张或四张数字相同、颜色不同的牌组成。万能牌可以代替缺少的颜色。",
   "A run has at least three consecutive numbers in one colour. A joker can stand for a missing number.": "顺子由至少三张颜色相同、数字连续的牌组成。万能牌可以代替缺少的数字。",
   "This explains the completed tile pattern. Opening points and joker reuse are checked when the turn is accepted.": "这里说明完成后的牌组为什么符合规则。开局分数和万能牌的重新使用，会在结束回合时一并检查。",
+  "Your save could not be read. Reload to try again. Your stored data has not been removed.": "暂时无法读取存档，请重新加载后再试。原有的存档没有被删除。",
 };
 export const translateChinese = translator(messages);
 export default messages;

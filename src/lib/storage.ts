@@ -4,6 +4,7 @@ export const SAVE_KEY = "runset.save.v1";
 export const BACKUP_KEY = "runset.backup.v1";
 let expectedRaw: string | null | undefined;
 let generation = 0;
+let unreadable = false;
 let pending: Promise<unknown> = Promise.resolve();
 export type WriteResult =
   | { ok: true }
@@ -12,7 +13,7 @@ function lockedWrite(change: () => void): Promise<WriteResult> {
   const scheduled = generation;
   const work = (): WriteResult => {
     try {
-      if (scheduled !== generation) return { ok: false, reason: "conflict" };
+      if (unreadable || scheduled !== generation) return { ok: false, reason: "conflict" };
       const actual = localStorage.getItem(SAVE_KEY);
       if (expectedRaw === undefined) expectedRaw = actual;
       if (actual !== expectedRaw) return { ok: false, reason: "conflict" };
@@ -187,9 +188,24 @@ function validateSave(value: unknown): value is GameState {
     ids.every((id) => Number.isInteger(id) && id >= 0 && id < 106)
   );
 }
-export function loadGame(): { game: GameState | null; notice: string } {
+export function loadGame(): { game: GameState | null; notice: string; unreadable?: boolean } {
+  let raw: string | null;
   try {
-    const raw = localStorage.getItem(SAVE_KEY);
+    raw = localStorage.getItem(SAVE_KEY);
+  } catch {
+    // A read failure is not evidence of malformed data. Keep both saved copies
+    // and invalidate queued work; an unseen existing save must not be replaced.
+    expectedRaw = null;
+    unreadable = true;
+    generation++;
+    return {
+      game: null,
+      notice: "Your save could not be read. Reload to try again. Your stored data has not been removed.",
+      unreadable: true,
+    };
+  }
+  try {
+    unreadable = false;
     expectedRaw = raw;
     generation++;
     if (!raw) return { game: null, notice: "" };

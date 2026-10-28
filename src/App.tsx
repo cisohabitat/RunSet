@@ -155,6 +155,11 @@ export default function App() {
       );
       if (result.reason === "conflict") {
         const remote = loadGame();
+        if (remote.unreadable) {
+          setNotice(remote.notice);
+          setSaveStatus("Not saved");
+          return;
+        }
         skipSave.current = remote.game;
         dispatchBase(
           remote.game
@@ -180,6 +185,11 @@ export default function App() {
     const changed = (event: StorageEvent) => {
       if (event.key !== SAVE_KEY && event.key !== null) return;
       const remote = loadGame();
+      if (remote.unreadable) {
+        setNotice(remote.notice);
+        setSaveStatus("Not saved");
+        return;
+      }
       setSaveStatus(remote.game ? "Saved" : "No saved game");
       skipSave.current = remote.game;
       setConfirmation(null);

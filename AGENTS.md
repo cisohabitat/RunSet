@@ -772,3 +772,10 @@ are browser smoke evidence; never claim battery life or physical Apple latency.
 Contrast journeys that reload an expanded game must choose View → Standard
 before using header Home. Waiting for a briefly rendered header creates a race
 with the expanded-view hide effect. Preserve all contrast/geometry/save assertions.
+A storage read exception is not evidence of malformed JSON. Preserve primary and
+recovery bytes, increment the write generation and fail closed against an unseen
+existing save. Reestablish expectedRaw only through a successful read; retain
+queued-lock, abort, rollback/retry and bilingual first-use offline recovery tests.
+App must distinguish loadGame.unreadable from an actual missing/deleted game.
+Unreadable cross-tab/conflict results retain the live game and selection, show
+Not saved/recovery guidance and do not claim that a remote position was loaded.

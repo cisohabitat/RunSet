@@ -587,3 +587,5 @@ matching-number groups and consecutive runs, with written limits on recorded his
 Long-session coverage includes 5,000 additional conserved turns, 200 backup round
 trips and repeated crowded-table editing/reload. Selection and countdown renders
 reuse game-state validation results; rules and deadlines are unchanged.
+A temporary saved-game read failure preserves both saved copies and offers reload.
+Queued or unseen writes are refused until a successful read reestablishes the save guard.

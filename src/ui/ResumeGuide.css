@@ -1,0 +1,7 @@
+.save-summary .resume-context p {
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+.comfortable-reading .save-summary .resume-context p {
+  font-size: 18px;
+}

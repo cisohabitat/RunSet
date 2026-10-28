@@ -1,7 +1,8 @@
-import type { ReactNode } from "react";
+import { lazy, Suspense, type ReactNode } from "react";
 import { useI18n } from "../i18n/I18n";
 import type { GameState } from "../engine/game";
 import { TileArt as TileDemo } from "./TileFace";
+const ResumeGuide = lazy(() => import("./ResumeGuide"));
 export type HomeProps = {
   status: string;
   children: ReactNode;
@@ -150,22 +151,9 @@ export function SaveSummary({
         )}
       </p>
       {game.phase === "playing" && (
-        <p className="resume-context">
-          {JSON.stringify(game.table) !==
-            JSON.stringify(game.turnStart.table) && (
-            <>
-              {t(
-                "Unfinished moves kept. Check the table before ending your turn.",
-              )}
-              <br />
-            </>
-          )}
-          {t(
-            game.turnSeconds
-              ? "Timed game: the turn deadline still applies."
-              : "No timer. Resume whenever you like.",
-          )}
-        </p>
+        <Suspense fallback={null}>
+          <ResumeGuide game={game} />
+        </Suspense>
       )}
       {onDelete && (
         <button className="text-button danger-text" onClick={onDelete}>

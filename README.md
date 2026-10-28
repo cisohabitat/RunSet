@@ -602,3 +602,10 @@ More → Find and arrange tiles → **Table arrangement** offers placed order,
 groups then runs, or colour then number. This changes display only; original
 meld numbers and destinations remain stable. The choice survives reload/deletion
 and is included in portable profiles. Practice keeps its original table order.
+
+Both home views show **Next when you continue** for a saved round: repair an
+unfinished meld, reach the opening threshold, keep a ready play with End turn,
+or wait for the opponent. The read-only summary uses the existing rule checks;
+it never changes a save or resets its timer. Expired timed turns are processed
+when continuing. Guidance is available in English and Simplified Chinese offline.
+See [position-confidence release evidence](docs/POSITION_CONFIDENCE_RELEASE.md).

@@ -7,8 +7,8 @@ pass before starting the next. Phase 4 remains paused. Multiplayer is deferred.
 | Phase | Outcome | Status |
 |---|---|---|
 | 1 | Temporary practice copy of the current human turn | Published; complete main CI passed |
-| 2 | Optional display organisation for public melds | Implemented; final verification and main CI pending |
-| 3 | Clear return-to-game context and next action | Pending |
+| 2 | Optional display organisation for public melds | Published; complete corrected main CI passed |
+| 3 | Clear return-to-game context and next action | Implemented; acceptance requires the release gate below |
 | 4 | Older Chinese-speaking player study on physical Apple devices | Paused |
 
 ## Phase 1: practise this position
@@ -75,3 +75,43 @@ checks and build passed. The organised Game UI/runtime is unchanged by this
 correction. Final initial gzip is 99,260 bytes; the new exact-main CI gate must
 finish before Phase 3. The first publication was b418044; it is not the accepted
 gate if superseded by this correction.
+
+Phase 2 accepted main: 8eecb70, complete CI
+[40654155816](https://github.com/cisohabitat/RunSet/actions/runs/40654155816).
+All six matching live bilingual arrangement journeys passed on READY production
+before Phase 3 started.
+
+## Phase 3: return-to-game guidance
+
+Both home views share a lazy, read-only Next when you continue summary. Existing
+turnGuidance supplies actual invalid-meld, opening-points, ready-play, pool-empty
+and opponent-turn explanations. Unfinished human edits remain explicit. Timed
+copy explains that the original deadline applies and continuing processes an
+expired turn; no new timer, storage operation, auto-play or planner is added.
+Continue stays available independently of loading the optional summary. Guidance
+uses 16 px text, 18 px in comfortable reading, with long-text wrapping.
+
+Bilingual browser journeys check both home views, a real repair of the saved
+draft, exact bytes/history/deadline across Home and reload, first-use offline
+loading, literal names, native action hit targets, accessibility and actual expiry
+when continuing. The connected release journey now also organises the real table,
+practises the repair in a temporary copy, verifies its original draft survives,
+finishes the actual round, reviews it and recovers it through backup deletion and
+import. The table-order preference is checked through recovery too.
+
+Release evidence and final acceptance are tracked in POSITION_CONFIDENCE_RELEASE.md.
+Physical Apple-device, older-player, native Mandarin listening and battery
+acceptance remain unverified; the physical study remains paused.
+
+Phase 3 release gate: publish this implementation to main, wait for the complete
+exact-commit CI workflow (quality, Chromium, WebKit phone/iPad, Firefox, offline
+and aggregate check), then verify matching READY production and live bilingual
+journeys. See the [main CI history](https://github.com/cisohabitat/RunSet/actions/workflows/ci.yml?query=branch%3Amain)
+for the authoritative result of the commit containing this document.
+
+Final Phase 3 local gate: type/build, 186 unit tests and 48 targeted browser
+journeys passed (10 Chromium, 30 compatibility, 8 offline), plus six repeated
+WebKit-phone guidance cases after fixing the reproduced placement tap loss.
+The initial bundle is 99,249 gzip bytes with 70 precached files. Phone/tablet
+English-light and Chinese-dark guidance screenshots were reviewed. Full main
+CI remains the authoritative post-publication gate, not the targeted local count.

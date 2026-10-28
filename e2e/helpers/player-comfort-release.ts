@@ -69,10 +69,23 @@ export async function verifyPlayerComfortRelease(
   const draft = await save();
   expect((await state()).deadline).toBe(game.deadline);
   await page.reload();
+  await expect(page.locator(".resume-context")).toContainText(t("Complete the red-outlined group or run, or Reset."));
   await activate(button("Continue game →"));
   await expect(page.getByRole("button", { name: t("Undo move"), exact: true })).toBeEnabled();
   expect(await save()).toBe(draft);
 
+  await menu();
+  const arrangement = page.locator(".table-arrangement");
+  await activate(arrangement.locator(":scope > summary"));
+  await arrangement.getByRole("combobox").selectOption("kind");
+  await activate(arrangement.locator(":scope > summary"));
+  await activate(button("Practise this position"));
+  const copy = page.locator(".position-practice");
+  await activate(copy.locator('.rack [data-tile-id="5"]'));
+  await activate(copy.getByRole("button", { name: t("Add selected tiles to meld 7"), exact: true }));
+  await activate(copy.getByRole("button", { name: t("Check this turn"), exact: true }));
+  await activate(copy.getByRole("button", { name: t("Return to saved game"), exact: true }));
+  expect(await save()).toBe(draft);
   await menu();
   await expect(page.getByRole("region", { name: t("Help with this turn"), exact: true })).toContainText(t("What can I do now?"));
   await expect(page.getByRole("region", { name: t("Find and arrange tiles"), exact: true }).getByRole("button", { name: t("Table overview"), exact: true })).toBeEnabled();
@@ -151,7 +164,7 @@ export async function verifyPlayerComfortRelease(
   expect(path).not.toBeNull();
   const raw = await readFile(path!, "utf8");
   expect(importBackup(raw)).toEqual(finalState);
-  const preferenceKeys = ["runset.language", "runset.reading", "runset.muted", "runset.tableExpanded"];
+  const preferenceKeys = ["runset.language", "runset.reading", "runset.muted", "runset.tableExpanded", "runset.tableOrder.v1"];
   const preferences = await page.evaluate(keys => Object.fromEntries(keys.map(key => [key, localStorage.getItem(key)])), preferenceKeys);
   await activate(button("Delete saved game"));
   await activate(button("Delete game"));

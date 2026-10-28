@@ -812,3 +812,16 @@ usable and show a notice; test actual placement, Undo, hidden rack, exact saves,
 real expiry, native focus/targets and offline reload after sorting.
 Profile choice labels for table order must reject inherited object keys as
 Unavailable; never return arbitrary object properties to translated React text.
+
+ResumeGuide is lazy and read-only on both Home variants. Reuse turnGuidance
+rather than inventing separate legality or opening-point rules. Do not loadGame,
+write storage, run a planner, expose hidden racks or restart clocks from the
+summary. Home does not process timer ticks; continuing retains the original
+deadline and processes expiry. Keep guidance >=16/18 px and SimpleHome primary
+actions >=60 px. Include the lazy assets in offline precaching. Preserve literal
+player names. Retain exact-save/deadline, first-use offline, both-home, actual
+repair, real expiry and connected practice/arrangement/finish/backup journeys.
+MeldTarget uses the same useTouchClick guard as tiles/new-meld creation. Preserve
+normal-view Chinese comfortable-phone placement coverage: native focus scrolling
+must not swallow the completed tap, duplicate it or retarget it to another meld.
+Keyboard and mouse keep their native click path; never force browser test taps.

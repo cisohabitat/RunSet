@@ -8,6 +8,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type ButtonHTMLAttributes,
 } from "react";
 import { type GameState, type Action, turnCheck } from "../engine/game";
 import { inspectMeld } from "../engine/meld";
@@ -740,14 +741,14 @@ export function Game({
                   <p className="meld-explanation">{t(explainMeld(m.tiles))}</p>
                 )}
                 <div className="meld-actions">
-                  <button
+                  <MeldTarget
                     data-coach-target={coachTarget === m.id || undefined}
                     data-suggested-destination={
                       destinations.includes(m.id) || undefined
                     }
                     className="meld-target"
                     disabled={!myTurn || !activeSelected.length}
-                    onClick={() => move(m.id)}
+                    onActivate={() => move(m.id)}
                     aria-description={
                       activeSelected.length
                         ? t(`Place ${activeSelected.length} selected`)
@@ -769,7 +770,7 @@ export function Game({
                       caption
                     )}{" "}
                     <span>{placement?.group === m.id ? "✓" : "＋"}</span>
-                  </button>
+                  </MeldTarget>
                   {coaching && (
                     <MeldInspector
                       ids={m.tiles}
@@ -1315,4 +1316,15 @@ export function Game({
       )}
     </Workspace>
   );
+}
+
+/** Keep a completed touch bound to its meld if WebKit focus scrolls the board. */
+function MeldTarget({
+  onActivate,
+  ...props
+}: Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> & {
+  onActivate: () => void;
+}) {
+  const touch = useTouchClick(onActivate);
+  return <button {...props} {...touch} />;
 }

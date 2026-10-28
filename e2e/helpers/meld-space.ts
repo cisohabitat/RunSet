@@ -158,21 +158,52 @@ export async function verifyMeldSpace(
         }),
       ),
     ).toBe(true);
-    expect(
-      await cards.locator(".inspect-meld").evaluateAll((els) =>
-        els.every((el) => {
+    // Check native metrics and wider text; keep diagnostics for CI font differences.
+    for (const textSize of [null, "20px"]) {
+      await cards.locator(".inspect-meld").evaluateAll(
+        (els, size) =>
+          els.forEach((el) => {
+            if (size) (el as HTMLElement).style.fontSize = size;
+            else (el as HTMLElement).style.removeProperty("font-size");
+          }),
+        textSize,
+      );
+      const metrics = await cards.locator(".inspect-meld").evaluateAll((els) =>
+        els.map((el) => {
           const r = el.getBoundingClientRect(),
+            card = el.closest(".meld")!.getBoundingClientRect(),
             range = document.createRange();
           range.selectNodeContents(el);
           const text = range.getBoundingClientRect();
-          return (
-            text.left >= r.left &&
-            text.right <= r.right &&
-            el.scrollWidth <= el.clientWidth
-          );
+          return {
+            font: getComputedStyle(el).font,
+            width: r.width,
+            textWidth: text.width,
+            scroll: el.scrollWidth,
+            client: el.clientWidth,
+            fits:
+              r.width >= 44 &&
+              r.height >= 44 &&
+              r.left >= card.left &&
+              r.right <= card.right &&
+              text.left >= r.left &&
+              text.right <= r.right &&
+              el.scrollWidth <= el.clientWidth,
+          };
         }),
-      ),
-    ).toBe(true);
+      );
+      expect(
+        metrics.filter((m) => !m.fits),
+        JSON.stringify({ width, textSize, metrics }),
+      ).toEqual([]);
+    }
+    await cards
+      .locator(".inspect-meld")
+      .evaluateAll((els) =>
+        els.forEach((el) =>
+          (el as HTMLElement).style.removeProperty("font-size"),
+        ),
+      );
     expect(await save()).toBe(before);
     expect(
       await cards.evaluateAll((els) =>
@@ -180,11 +211,9 @@ export async function verifyMeldSpace(
       ),
     ).toEqual(order);
     if (width === 1180)
-      await cards
-        .nth(1)
-        .screenshot({
-          path: `/tmp/runset-footer-closeup-${info.project.name || "chromium"}-${locale}.png`,
-        });
+      await cards.nth(1).screenshot({
+        path: `/tmp/runset-footer-closeup-${info.project.name || "chromium"}-${locale}.png`,
+      });
     await page.screenshot({
       path: `/tmp/runset-meld-space-${info.project.name || "chromium"}-${locale}-${width}.png`,
     });

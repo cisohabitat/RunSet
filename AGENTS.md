@@ -847,3 +847,6 @@ should not force extra lines. Comfortable error labels retain 16 px text.
 Verify complete magnifier text and footer buttons against their actual card
 bounds; inspect an original-size card close-up before inferring clipping from a
 scaled full-screen screenshot. Preserve the full native Zoom/放大 label.
+Magnifier labels use max-content width with a 44 px minimum; preserve the more
+specific comfortable 60 px control. Keep the enlarged-label text-bounds stress
+check: local font success does not establish CI/browser fallback-font fit.

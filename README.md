@@ -621,3 +621,5 @@ Selected tiles retain their check mark and raised outline, while a corner dot
 marks the latest completed play. Unfinished melds keep a written repair message.
 These cues use the existing light, dark and high-contrast palettes.
 Meld captions use normal case and spacing to avoid unnecessary wrapping.
+Magnifier buttons fit their complete label across fonts while keeping a 44 px
+minimum target and the existing larger comfortable-reading control.

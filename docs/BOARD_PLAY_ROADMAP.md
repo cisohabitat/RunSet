@@ -82,3 +82,18 @@ exact-main commit including these guards, not a superseded workflow.
 
 All ten final footer/text-bound journeys passed across Chromium, compatibility
 and offline after adding the guards; gameplay/style files remain unchanged.
+
+Phase 2 gate [40674077693](https://github.com/cisohabitat/RunSet/actions/runs/40674077693)
+on 1f03d3e is not accepted. Quality, Chromium, both WebKit jobs and offline passed,
+but Firefox English failed the new magnifier text/scroll-bounds check (92 other
+Firefox cases passed). Local original-size screenshots did not reproduce those
+CI font metrics. The magnifier now uses intrinsic max-content width with a
+44 px minimum, retaining the more specific comfortable 60 px rule and full
+translated label. Tests also enlarge the label text to 20 px before measuring
+complete glyph/scroll bounds; no assertion is removed or relaxed. A new complete
+exact-main gate is required before Phase 3.
+
+The font-fit correction passed 18 targeted local journeys (4 Chromium, 12
+compatibility, 2 offline), plus the focused Firefox English check with both
+native and enlarged text metrics and diagnostic measurements. Type/build
+passed at 99,247 initial gzip bytes / 70 precached files.

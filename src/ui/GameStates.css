@@ -36,3 +36,9 @@
   letter-spacing: normal;
   line-height: 1.4;
 }
+
+/* Fit the complete label across native fonts without reducing its touch target. */
+.game .meld-actions .inspect-meld {
+  width: max-content;
+  min-width: 44px;
+}

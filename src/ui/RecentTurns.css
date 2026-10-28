@@ -1,0 +1,59 @@
+.recent-turns {
+  text-align: start;
+}
+.recent-turns p,
+.recent-turns figcaption {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-block: 10px;
+}
+.replay-compare {
+  display: flex;
+  gap: 8px;
+}
+.recent-turns button {
+  min-height: 48px;
+  font-size: 16px;
+}
+.replay-compare button {
+  flex: 1;
+  border: 1px solid var(--control-line);
+  border-radius: 8px;
+  padding: 8px;
+  background: var(--paper);
+  color: var(--ink);
+}
+.replay-compare [aria-pressed="true"] {
+  background: var(--soft);
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+}
+.replay-melds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.replay-melds figure {
+  max-width: 100%;
+  margin: 0;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.recent-turns .tile-demo {
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.recent-turns .tile.glow {
+  animation: none;
+}
+.app.comfortable-reading .recent-turns :is(p, button, figcaption) {
+  font-size: 18px;
+}
+.recent-turns .dialog-actions {
+  flex-wrap: wrap;
+}
+.recent-turns .dialog-actions button {
+  flex: 1;
+  min-width: 88px;
+}

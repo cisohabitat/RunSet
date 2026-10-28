@@ -61,7 +61,9 @@ export default function App() {
     initial.game,
   );
   const replacement = useRef<GameState | null | undefined>(undefined);
+  const [replayEpoch, setReplayEpoch] = useState(0);
   const dispatchBase = useCallback((action: AppAction) => {
+    if (action.type === "start" || action.type === "clear") setReplayEpoch(n => n + 1);
     if (action.type === "start") replacement.current = action.game;
     else if (action.type === "clear") replacement.current = null;
     dispatchRaw(action);
@@ -700,6 +702,7 @@ export default function App() {
               fallback={<LoadingScreen message={t("Loading results…")} />}
             >
               <GameOver
+                replayEpoch={replayEpoch}
                 celebrate={celebration === game}
                 onNextRound={() =>
                   dispatchBase({ type: "nextRound", at: Date.now() })
@@ -717,6 +720,7 @@ export default function App() {
               fallback={<LoadingScreen message={t("Preparing game table…")} />}
             >
               <Game
+                replayEpoch={replayEpoch}
                 muted={muted}
                 saveLabel={saveStatus}
                 narrate={narrate}

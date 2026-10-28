@@ -2,6 +2,22 @@ import { translator } from "./translate";
 // Plain Simplified Chinese. Keep game terms consistent: 同数组 / 顺子 / 万能牌.
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
+  "Replay recent turns": "回看最近回合",
+  "Recent public turns": "最近回合的公开牌桌",
+  "Last six completed turns from this visit. Reloading or replacing a game clears this replay. Timed games keep running.": "记录本次打开页面后最近完成的六个回合。重新载入或更换牌局会清空回看记录。限时牌局仍继续计时。",
+  "Recorded public table": "记录中的公开牌桌",
+  "No completed turns recorded yet. Play a turn, then return here.": "还没有已完成回合的记录。完成一个回合后，可以回来看。",
+  "Before turn": "回合前",
+  "After turn": "回合后",
+  "Added tiles:": "新放到桌上的牌：",
+  "Public table unchanged": "公开牌桌没有变化",
+  "Only completed boards are recorded. Intermediate rearrangement steps and hidden racks are not shown.": "只记录回合结束后的牌桌，不显示中间的拆分重组步骤或对手手牌。",
+  "The public table was empty.": "当时的公开牌桌上还没有牌。",
+  "Group/run {n}": "第 {n} 组牌",
+  "Previous turn": "上一回合",
+  "Next turn": "下一回合",
+  "Turn {n}": "第 {n} 回合",
+
   "Move not placed. These tiles remain selected.": "这次没有放成功，选中的牌仍保持选中。",
   "Next when you continue": "继续牌局后的下一步",
   "Timed game: the original deadline still applies. If it has passed, continuing processes the expired turn.": "限时牌局仍按原来的截止时间计时。如果已经超时，继续牌局时会处理已到期的回合。",

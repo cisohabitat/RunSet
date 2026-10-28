@@ -634,3 +634,9 @@ small directional landing; rejected moves retain their selection with a written
 reason and a distinct outline. Fresh human wins have a short flourish, while
 reopened results stay quiet. Reduced-motion settings preserve the same facts.
 See the [board/play release evidence](docs/BOARD_PLAY_RELEASE.md).
+
+The [personal-comfort cycle](docs/COMFORT_MEMORY_ROADMAP.md) adds **Replay recent
+turns** in More → Help with this turn and on results. Compare the public board
+before and after the last six completed turns from this visit. Hidden racks and
+intermediate rearrangement steps are excluded. Reloading or replacing a game
+clears the replay; opening it preserves play and the original timer deadline.

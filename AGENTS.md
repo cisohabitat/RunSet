@@ -873,3 +873,13 @@ completed-import/reopen sound/celebration replay; its decorative mark is aria-hi
 Keep the full motion/sound file in compatibility coverage. Preserve the strict
 450 px tablet and 300 px phone board floors: the landscape-tablet status-padding
 rule must beat existing inspector specificity without smaller text/tiles/targets.
+
+Track the comfort/memory cycle in docs/COMFORT_MEMORY_ROADMAP.md and fully CI-gate
+each phase. Recent-turn replay is a six-frame visit-only public projection, not
+a save key or full-game event log. Copy only turn-start/completed public boards,
+actor/turn and added public IDs; preserve literal names and reject gaps/invalid
+boards. No hidden racks/pool, clocks, scores, inferred edit order or bot intent.
+App replayEpoch increments on explicit start/clear replacements without remounting
+ordinary play. Observe regular Game/results only, deduplicate StrictMode and clear
+on cohort/visit replacement. Modal navigation never edits state or pauses clocks;
+close stale dialogs and retain explicit opener/native focus with guarded retry.

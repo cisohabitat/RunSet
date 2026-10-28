@@ -40,11 +40,14 @@ import {
   type TableOrder,
 } from "../lib/tableOrder";
 import { TableArrangement } from "./TableArrangement";
+import { useRecentTurns } from "./useRecentTurns";
+const RecentTurns = lazy(() => import("./RecentTurns"));
 const PositionPractice = lazy(() =>
   import("./PositionPractice").then((m) => ({ default: m.PositionPractice })),
 );
 export function Game({
   game: s,
+  replayEpoch = 0,
   dispatch,
   onHelp,
   onBreak,
@@ -63,6 +66,7 @@ export function Game({
   positionCopy = false,
 }: {
   game: GameState;
+  replayEpoch?: number;
   dispatch: (a: Action) => void;
   onHelp: () => void;
   onBreak?: (signal: AbortSignal) => Promise<void>;
@@ -81,6 +85,7 @@ export function Game({
   positionCopy?: boolean;
 }) {
   const { t, locale } = useI18n();
+  useRecentTurns(s, replayEpoch, coaching && !positionCopy);
   const feedbackRoot = useRef<HTMLElement>(null);
   const [practiceSource, setPracticeSource] = useState<GameState | null>(null);
   const practiceOpener = useRef<HTMLButtonElement>(null);
@@ -1080,6 +1085,11 @@ export function Game({
                       </details>
                     )}
                     {coaching && myTurn && <MoveReview game={s} />}
+                    {coaching && (
+                      <Suspense fallback={null}>
+                        <RecentTurns game={s} epoch={replayEpoch} />
+                      </Suspense>
+                    )}
                     {coaching && (
                       <MoveHelp
                         game={s}

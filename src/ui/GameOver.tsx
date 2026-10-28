@@ -1,4 +1,7 @@
 import "./GameOverFeedback.css";
+import { lazy, Suspense } from "react";
+import { useRecentTurns } from "./useRecentTurns";
+const RecentTurns = lazy(() => import("./RecentTurns"));
 import { useI18n } from "../i18n/I18n";
 import { type GameState, results, matchWinner } from "../engine/game";
 import { roundSummary, learningTakeaway } from "../lib/roundSummary";
@@ -7,6 +10,7 @@ import { MoveReview } from "./MoveReview";
 import { TileDemo } from "./Tile";
 export function GameOver({
   game,
+  replayEpoch = 0,
   celebrate = false,
   onNew,
   onHome,
@@ -15,6 +19,7 @@ export function GameOver({
   onPractice,
 }: {
   game: GameState;
+  replayEpoch?: number;
   celebrate?: boolean;
   onNew: () => void;
   onHome: () => void;
@@ -23,6 +28,7 @@ export function GameOver({
   onPractice: () => void;
 }) {
   const { t } = useI18n();
+  useRecentTurns(game, replayEpoch);
   const scores = results(game),
     winner = scores.find((p) => p.winner)!;
   const champion = matchWinner(game);
@@ -208,6 +214,9 @@ export function GameOver({
         )}
       </p>
       <MoveReview game={game} />
+      <Suspense fallback={null}>
+        <RecentTurns game={game} epoch={replayEpoch} />
+      </Suspense>
       <button className="secondary" onClick={onPractice}>
         {t("Try quick practice")}
       </button>

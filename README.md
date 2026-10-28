@@ -623,3 +623,8 @@ These cues use the existing light, dark and high-contrast palettes.
 Meld captions use normal case and spacing to avoid unnecessary wrapping.
 Magnifier buttons fit their complete label across fonts while keeping a 44 px
 minimum target and the existing larger comfortable-reading control.
+
+Normal and Hard prefer more tiles once their opening reaches 30 points, and
+check alternative first extensions to avoid blocking a winning run. Every plan
+still uses the full rules validator and the existing bounded worker budget.
+Easy's forgiving strategy and the one-Easy/no-timer default are preserved.

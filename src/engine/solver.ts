@@ -83,7 +83,12 @@ export interface Plan {
   used: number[];
   points: number;
 }
-export function rackPlan(rack: number[], opening: boolean, budget = 90): Plan {
+export function rackPlan(
+  rack: number[],
+  opening: boolean,
+  budget = 90,
+  openingTilesFirst = false,
+): Plan {
   const deadline = performance.now() + budget,
     options = candidates(rack, undefined, deadline),
     memo = new Set<string>();
@@ -96,7 +101,7 @@ export function rackPlan(rack: number[], opening: boolean, budget = 90): Plan {
   ) {
     if (performance.now() > deadline) return;
     if (
-      opening
+      opening && !(openingTilesFirst && points >= 30 && best.points >= 30)
         ? points > best.points ||
           (points === best.points && used.length > best.used.length)
         : used.length > best.used.length ||

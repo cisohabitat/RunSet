@@ -7,8 +7,8 @@ starting the next. Continue using Git integration for Vercel; no direct deploy.
 | Phase | Outcome | Status |
 |---|---|---|
 | 1 | Tile-sized draft cards and tighter board gaps | Published; full CI and six live journeys passed |
-| 2 | Distinct, calmer selection/destination/invalid/latest states | Implemented; local verification in progress |
-| 3 | Evidence-based opening and endgame bot decisions | Pending |
+| 2 | Distinct, calmer selection/destination/invalid/latest states | Published; full corrected CI and six live journeys passed |
+| 3 | Evidence-based opening and endgame bot decisions | Implemented; audit and verification in progress |
 | 4 | Clearer, brief placement/rejection/ending feedback | Pending |
 
 Physical older-player/device study remains paused. Automated WebKit is not
@@ -97,3 +97,46 @@ The font-fit correction passed 18 targeted local journeys (4 Chromium, 12
 compatibility, 2 offline), plus the focused Firefox English check with both
 native and enlarged text metrics and diagnostic measurements. Type/build
 passed at 99,247 initial gzip bytes / 70 precached files.
+
+Phase 2 accepted main: 7703915, complete corrected CI
+[40676274036](https://github.com/cisohabitat/RunSet/actions/runs/40676274036)
+passed (186 unit, 632 browser, all jobs and aggregate check). Matching READY
+production passed all six live bilingual cue/font journeys before Phase 3.
+
+## Phase 3
+
+Two tactical regressions were observed failing before the planner changed.
+With red 4,5,7,8, blue/orange 13 and a joker, Normal/Hard chose a three-tile
+39-point group over a qualifying five-tile 30-point run. Their opening search
+now prefers tile count once both alternatives meet 30; below 30 it still seeks
+points. Easy and default/unrelated rackPlan callers retain point-first opening
+behavior and existing forgiving choices.
+
+With a blue/orange/black group of 4s before a red 1–3 run and red 4,5 in the
+rack, Normal filled the group and missed its rack-empty winning run extension.
+A bounded alternate-first-extension rollout keeps the legal greedy baseline and
+accepts only a higher tile count, with a 20 ms work slice and the same total
+240 ms work cap inside the requested production budget. Hard retains its legal
+Normal baseline and additional partition search. No opponent racks, pool order,
+future draws or minimax tree is used. Each extension passes the complete turn
+validator; Easy, opening threshold and joker rules stay intact.
+
+Four tactical/safety regressions plus existing bot/coaching checks passed (24
+focused tests), including zero-budget fallback and hidden-allocation invariance.
+Balanced before/after production-budget reviews use deals 201 and 202 with all
+six ordered mixed seatings and all six ordered head-to-head pairings per deal.
+The tactical fixtures were designed separately; these held-out seeded reviews
+check legality and timing, not a statistically reliable win-rate ranking.
+Raw reports retain source fingerprints, host, proposals, opening opportunities,
+passes, per-round results and limits. Node/Linux timings do not establish
+physical Apple performance or human enjoyment.
+
+The completed [bot decision review](BOARD_BOT_REVIEW.md) links all four raw
+reports and records unchanged sample win counts, exact tactical improvements,
+latency costs and source fingerprints. All 190 unit tests and the production-
+budget benchmark smoke passed. Build: 99,246 initial gzip bytes, 70 cache files.
+
+All ten actual-worker browser journeys passed (2 Chromium, 6 compatibility,
+2 offline), covering a real five-tile opening and the competing-group/run
+rack-empty finish, literal names, actual save completion, unchanged hidden
+allocations, accessibility and first-use offline worker loading.

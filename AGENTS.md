@@ -850,3 +850,13 @@ scaled full-screen screenshot. Preserve the full native Zoom/放大 label.
 Magnifier labels use max-content width with a 44 px minimum; preserve the more
 specific comfortable 60 px control. Keep the enlarged-label text-bounds stress
 check: local font success does not establish CI/browser fallback-font fit.
+
+Normal/Hard openingTilesFirst applies only once both openings reach 30; retain
+point-seeking below 30, Easy and default rackPlan behavior. Alternate first-
+extension rollouts preserve the legal greedy baseline, only improve tile count
+and keep a <=20 ms slice inside the shared 240 ms work deadline. Validate every
+extension, return a rack-empty finish early and preserve Hard partition search.
+Keep the competing-group/run finish, five-versus-three opening, below-30,
+zero-budget and hidden-allocation regressions. Benchmark balanced held-out
+mixed/pair seatings before/after at the production budget, retaining raw reports
+and fingerprints; never turn two correlated deals into a difficulty ranking.

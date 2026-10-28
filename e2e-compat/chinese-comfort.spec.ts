@@ -1,0 +1,7 @@
+import { test } from "@playwright/test";
+import { verifyChineseComfort } from "../e2e/helpers/chinese-comfort";
+for (const locale of ["en", "zh-CN"] as const)
+  test(`${locale}: fresh computer names stay separate from literal saved names`, ({
+    page,
+    context,
+  }, info) => verifyChineseComfort(page, context, info, locale, true));

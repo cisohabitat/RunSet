@@ -18,3 +18,16 @@ export function settingsForGame(game: GameState): GameSettings {
     coach: game.coach === true,
   };
 }
+/** UI boundary for a newly dealt game only. Saved/imported names stay literal. */
+export function nameFreshComputers(game: GameState, locale: string): GameState {
+  if (locale !== "zh-CN") return game;
+  let seat = 0;
+  return {
+    ...game,
+    players: game.players.map((player) =>
+      player.bot
+        ? { ...player, name: ["电脑阿明", "电脑小兰", "电脑老陈"][seat++] }
+        : player,
+    ),
+  };
+}

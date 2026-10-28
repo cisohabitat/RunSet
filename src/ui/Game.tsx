@@ -923,7 +923,12 @@ export function Game({
             className="rack-tiles"
             ref={rackRef}
             role="group"
-            aria-label={t("Your tiles. Use left and right arrows to navigate.")}
+            tabIndex={myTurn ? undefined : 0}
+            aria-label={t(
+              myTurn
+                ? "Your tiles. Use left and right arrows to navigate."
+                : "Your tiles. You can scroll while an opponent plays.",
+            )}
           >
             {displayRack.map((id) => (
               <Tile

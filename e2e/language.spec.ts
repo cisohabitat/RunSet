@@ -142,7 +142,7 @@ test("Chinese regular game keeps names and save across switches, backup errors a
   await page.goto("/");
   await page.getByLabel("语言 / Language").selectOption("zh-CN");
   await page.getByRole("button", { name: /开始新游戏/ }).click();
-  await page.getByLabel("你的名字或昵称").fill("Pass");
+  await page.getByLabel("怎么称呼你？").fill("Pass");
   await page.getByRole("button", { name: /发牌，开始游戏/ }).click();
   await page.getByRole("button", { name: "首页", exact: true }).click();
   await expect(page.getByText("已保存", { exact: true })).toBeVisible();

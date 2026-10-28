@@ -11,7 +11,11 @@ import {
 } from "./engine/game";
 import { runPlanner } from "./lib/planner";
 import { deleteGame, loadGame, persistGame, SAVE_KEY } from "./lib/storage";
-import { settingsForGame, type GameSettings } from "./lib/gameSettings";
+import {
+  nameFreshComputers,
+  settingsForGame,
+  type GameSettings,
+} from "./lib/gameSettings";
 import { sound, primeAudio, transitionCue } from "./lib/sound";
 import { useScreenFocus } from "./ui/useScreenFocus";
 import { RecoveryBoundary, RecoveryScreen } from "./ui/RecoveryBoundary";
@@ -306,10 +310,13 @@ export default function App() {
     d: Difficulty,
     options: GameOptions = {},
   ) => {
-    const next = newGame(name, bots, d, Date.now(), {
-      ...options,
-      now: Date.now(),
-    });
+    const next = nameFreshComputers(
+      newGame(name, bots, d, Date.now(), {
+        ...options,
+        now: Date.now(),
+      }),
+      locale,
+    );
     if (game) {
       setConfirmation({ kind: "replace", next });
       return;

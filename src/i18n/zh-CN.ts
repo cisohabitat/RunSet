@@ -3,10 +3,10 @@ import { translator } from "./translate";
 // Placeholders named name* preserve player-entered names exactly.
 const messages: Record<string, string> = {
   "Replay recent turns": "回看最近回合",
-  "Recent public turns": "最近回合的公开牌桌",
-  "Last six completed turns from this visit. Reloading or replacing a game clears this replay. Timed games keep running.": "记录本次打开页面后最近完成的六个回合。重新载入或更换牌局会清空回看记录。限时牌局仍继续计时。",
-  "Recorded public table": "记录中的公开牌桌",
-  "No completed turns recorded yet. Play a turn, then return here.": "还没有已完成回合的记录。完成一个回合后，可以回来看。",
+  "Recent public turns": "回看已完成的回合",
+  "Last six completed turns from this visit. Reloading or replacing a game clears this replay. Timed games keep running.": "这次打开页面后，最多回看六个已完成回合。重新载入或更换牌局会清空记录。限时牌局仍会计时。",
+  "Recorded public table": "记录中的牌桌",
+  "No completed turns recorded yet. Play a turn, then return here.": "还没有回合记录。完成一个回合后，再回来看。",
   "Before turn": "回合前",
   "After turn": "回合后",
   "Added tiles:": "新放到桌上的牌：",
@@ -338,7 +338,7 @@ const messages: Record<string, string> = {
   "Simple home screen": "简洁首页",
   "Large main choices. More options stay available when you need them.":
     "主要按钮更大，需要时仍可打开更多选项。",
-  "Choose where to start.": "请选择从哪里开始。",
+  "Choose where to start.": "今天想怎么玩？",
   "More options": "更多选项",
   "Take a break": "休息一下",
   "No timer. Resume whenever you like.": "不限时，想回来时再继续。",
@@ -561,7 +561,7 @@ const messages: Record<string, string> = {
   "Played in the latest turn.": "上一回合刚出的牌。",
   "Corner dot: latest play": "角上的圆点：刚出的牌",
   "Possible move: {n} highlighted tiles.": "可出 {n} 张亮起的牌。",
-  "Take your time. Choose your challenge.": "慢慢玩，挑战由你来选。",
+  "Take your time. Choose your challenge.": "按自己的节奏，选个合适的难度。",
   "On expiry: unfinished edits reset, then draw one.":
     "时间到后会还原未完成的出牌，再摸一张牌。",
   "On expiry: unfinished edits reset, then pass.":
@@ -583,7 +583,7 @@ const messages: Record<string, string> = {
   "Ready to play?": "轻松开一局",
   "One gentle round. Take your time.": "先玩一局，慢慢来。",
   "More game options": "更多游戏设置",
-  "Use gentle defaults": "恢复轻松设置",
+  "Use gentle defaults": "用轻松设置",
   "No timer": "不计时",
   "Guidance on": "开启指导",
   "Guidance off": "关闭指导",
@@ -806,7 +806,7 @@ const messages: Record<string, string> = {
   "A perfect": "轻松玩",
   "run.": "数字牌。",
   "Be the first to play all the tiles from your rack. Match numbers in different colours, or build a sequence in one colour. New to tile-rummy? We’ll teach you, one move at a time.":
-    "先把手牌全部出完的人获胜。可以把数字相同、颜色不同的牌放在一起，也可以把同色的连续数字接起来。第一次玩？点“学习玩法”，一步一步跟着做。",
+    "先出完手牌就赢。同数不同色可组“同数组”，同色连续数字可组“顺子”。不会玩也没关系，点“学习玩法”跟着学。",
   "Learn to play": "学习玩法",
   "New game →": "开始新游戏 →",
   "How to play": "玩法说明",
@@ -824,7 +824,7 @@ const messages: Record<string, string> = {
   "106 TILES. ENDLESS POSSIBILITIES.": "106 张牌，多种组合。",
   "YOUR TABLE IS ALWAYS OPEN": "随时来玩一局",
   "One player. Clever opponents. A whole lot of possibilities.":
-    "一个人也能玩，电脑陪你练。",
+    "一个人也能玩，电脑陪你慢慢练。",
   "← Back": "← 返回",
   "FIVE MINUTES TO YOUR FIRST MOVE": "从认识牌开始",
   "Small tiles.": "小小数字牌，",
@@ -895,7 +895,7 @@ const messages: Record<string, string> = {
   "Your pace.": "按自己的节奏玩。",
   "Settle in for a round or a longer match of tile-rummy.":
     "可以只玩一局，也可以选择多局累计积分。",
-  "What should we call you?": "你的名字或昵称",
+  "What should we call you?": "怎么称呼你？",
   "Computer opponents": "电脑对手人数",
   "A little challenge?": "选择难度",
   "How long would you like to play?": "想玩多久？",
@@ -1266,9 +1266,9 @@ const messages: Record<string, string> = {
   "Player wins": "玩家获胜局数",
   "Human player": "玩家",
   "Computer": "电脑",
-  "Last 30 rounds completed on this device since this feature was added. Imported or previously completed games are not added. These records are not included in backups or portable profiles.": "记录此功能推出后，在本设备上完成的最近三十局。导入的牌局和以前已结束的牌局不会补记。备份和可携带进度不包含这些记录。",
+  "Last 30 rounds completed on this device since this feature was added. Imported or previously completed games are not added. These records are not included in backups or portable profiles.": "只记本设备上新完成的最近三十局。导入或以前已结束的牌局不补记。备份和可携带进度不含这些记录。",
   "These round records could not be read. Your saved game is kept. You can clear only these records below.": "暂时无法读取牌局记录，保存的牌局仍保留。你可以在下方只清除这些记录。",
-  "No rounds recorded yet. Finish a round to add it here.": "还没有牌局记录。完成一局后，会记录在这里。",
+  "No rounds recorded yet. Finish a round to add it here.": "还没有记录。玩完一局，就会记在这里。",
   "A round record could not be saved. Your game and scores are kept.": "有一局未能记入牌局记录，牌局和分数仍保留。",
   "History could not be cleared. Your saved game is kept.": "暂时无法清除牌局记录，保存的牌局仍保留。",
   "Clear recorded rounds?": "清除牌局记录？",
@@ -1276,6 +1276,8 @@ const messages: Record<string, string> = {
   "Keep history": "保留记录",
   "Clear history": "确认清除记录",
   "Clear recorded rounds": "清除牌局记录",
+
+  "Your tiles. You can scroll while an opponent plays.": "你的手牌。电脑出牌时，也可以滚动查看。",
 
 };
 export const translateChinese = translator(messages);

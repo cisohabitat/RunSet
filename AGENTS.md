@@ -906,3 +906,17 @@ confirmed Clear history touches only that key. Keep metadata explicitly excluded
 from backups/profile restoration. Native lazy history dialogs retain >=48 px
 controls, readable scrolling, Escape/opener and confirmation focus. Preserve the
 connected actual-win/reload/download/delete/import/clear/offline journeys.
+
+Fresh computer naming belongs at App.start's UI boundary through
+nameFreshComputers, never a translator or engine migration. Chinese names retain
+an explicit 电脑 prefix. Saved/imported participants and ongoing match rounds stay
+literal on locale changes. Keep English engine defaults, typed humans, practice
+characters and exact recorded lesson captions. Plain-copy changes preserve rule
+terms and scope. Test three computers, actual replacement cancel/accept, restart,
+locale switches, original timed imports/reload and first-use offline behavior.
+Computer-turn rack tiles remain disabled, but their scrolling parent must be
+keyboard-focusable with a translated waiting label. Retain the fixed computer-
+first seed and fixed Date (with browser timers running), native arrow-scroll and complete Axe check;
+never disable the accessibility rule to hide this regression. Final cycle
+evidence is docs/COMFORT_MEMORY_RELEASE.md; verify full exact-commit CI and live
+checks before final handoff, retaining the paused physical/human-study limits.

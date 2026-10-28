@@ -8,8 +8,8 @@ check) to pass before the next phase. Use existing Git/Vercel integration.
 |---|---|---|
 | 1 | Recent public-turn replay | Complete: e0da620, CI 40692437516 passed |
 | 2 | Light / Dark / Follow device display choice | Complete: 19572bd, CI 40695653069 passed |
-| 3 | Local completed-round history and factual statistics | Published; exact-commit CI pending |
-| 4 | Chinese-first fresh opponent names and plain wording | Pending |
+| 3 | Local completed-round history and factual statistics | Complete: 1b607c5, CI 40698781025 passed |
+| 4 | Chinese-first fresh opponent names and plain wording | Implemented; final release gate below |
 
 Physical older-player/device study stays paused. Native Mandarin listening and
 battery acceptance remain unverified. Multiplayer remains deferred.
@@ -96,3 +96,36 @@ history journeys and two Chromium replay regressions passed. Reviewed Chinese
 phone and English iPad screenshots. Native hit targets/focus, Axe, literal names,
 actual +30/−30 joker scoring, reload deduplication, real downloaded backup plus
 delete/import, independent confirmed clearing and first-use offline all passed.
+
+Phase 3 exact commit 1b607c5ddd5c666446ed52ae9796882feae9e40f passed
+workflow 40698781025: all 200 units and 687 browsers (312 Chromium, 106 per
+compatibility project, 57 offline), plus aggregate check. Matching production
+READY and six live history journeys passed before Phase 4 began.
+
+## Phase 4
+
+Only fresh games created at the UI boundary receive Chinese computer names:
+电脑阿明, 电脑小兰, 电脑老陈. Names explicitly identify computers. Engine default
+names and short-lesson characters/recordings remain unchanged. Switching locale
+never renames saved/imported participants; humans named constructor or red 7
+remain literal. Fresh restart uses the current locale, while continuing an
+existing match keeps its participants. No deal, rack, rule, difficulty or clock
+changes accompany naming. Home/setup and new review panels use shorter,
+friendlier Chinese wording with the same rule terms and disclosure scope.
+
+The new full-game Axe check exposed an existing inaccessible scrolling rack on
+computer turns, when its child tiles are disabled. The rack itself is now
+keyboard-focusable only during that wait, with a translated label and native
+scrolling; gameplay remains disabled. Retain the explicit computer-start seed
+and fixed-date regression so both languages exercise real keyboard scrolling.
+
+All 202 units passed; the existing six Chinese language/learning/save journeys
+passed, along with replay/history regressions. Build: 99,663 gzip bytes, unchanged
+100,000-byte limit, 76 precached files. Final focused browser and production
+checks are recorded with the release gate in COMFORT_MEMORY_RELEASE.md.
+
+Final focused Phase 4 rerun: all ten fresh-name/keyboard-scroll journeys passed
+in Chromium, WebKit phone/iPad, Firefox and offline production. Earlier local
+runs also passed all replay/history cases after the Chinese copy changes.
+The final phase must meet the exact-main CI/24-case live handoff gate documented
+in COMFORT_MEMORY_RELEASE.md.

@@ -652,3 +652,12 @@ with actual round scores, recorded-round count and player-win count. Imported
 or already completed games are not added. These optional local records stay
 separate from game backups and portable profiles. Deleting a game keeps them;
 Clear recorded rounds asks for confirmation and keeps your game and settings.
+
+Fresh games started in Simplified Chinese use familiar computer names prefixed
+with 电脑 (computer). Changing language preserves existing saved/imported names
+and the current turn. Home, setup and review text uses plain, friendly Chinese;
+recorded lesson instructions stay consistent with their narration. During a
+computer turn, the rack can still receive keyboard focus for scrolling.
+
+This comfort/memory cycle is tracked in [the roadmap](docs/COMFORT_MEMORY_ROADMAP.md)
+and [release evidence](docs/COMFORT_MEMORY_RELEASE.md).

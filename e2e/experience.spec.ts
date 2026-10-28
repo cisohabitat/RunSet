@@ -154,11 +154,11 @@ test("undo and restart retain safe replacement choices", async ({ page }) => {
   expect(await page.locator(".rack .tile").count()).toBe(14);
   expect(await page.locator(".table .tile").count()).toBe(0);
   await page.getByLabel("Game menu", { exact: true }).click();
-  await page.getByRole("button", { name: "Restart with same players" }).click();
+  await page.getByRole("button", { name: "Restart game" }).click();
   await page.getByRole("button", { name: "Keep game" }).click();
   expect(await page.locator(".rack .tile").count()).toBe(14);
   await page.getByLabel("Game menu", { exact: true }).click();
-  await page.getByRole("button", { name: "Restart with same players" }).click();
+  await page.getByRole("button", { name: "Restart game" }).click();
   await page
     .getByRole("button", { name: "Start new game", exact: true })
     .click();

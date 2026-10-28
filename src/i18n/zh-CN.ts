@@ -946,6 +946,8 @@ const messages: Record<string, string> = {
     "备份已检查通过。恢复后会保留原来的回合和计时。",
   "Rematch with same players": "用相同设置再玩一次",
   "Restart with same players": "用相同设置重新开始",
+  "Restart game": "重新开局",
+  "Practice · keep this game": "去练习 · 保留牌局",
   "Unmute sound": "打开声音",
   "Mute sound": "关闭声音",
   "♪ Off": "♪ 静音",

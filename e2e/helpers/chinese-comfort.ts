@@ -158,7 +158,7 @@ export async function verifyChineseComfort(
   await language.selectOption(locale);
   await page.clock.setFixedTime(now + 100);
   await activate(page.locator(".game-dropdown > summary"));
-  await activate(b("Restart with same players"));
+  await activate(b("Restart game"));
   await activate(
     confirm.getByRole("button", { name: t("Start new game"), exact: true }),
   );

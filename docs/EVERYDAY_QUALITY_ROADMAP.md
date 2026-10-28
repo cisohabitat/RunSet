@@ -9,8 +9,8 @@ remain paused; automated browsers do not establish their results.
 
 | Phase | Outcome | Status |
 |---|---|---|
-| 1 | Audit the live release across updates, unfinished turns, lessons and recovery | 24 live and 4 worker-recovery cases passed; publication CI required |
-| 2 | Remove redundant menu actions and make remaining choices easier to scan | Pending |
+| 1 | Audit the live release across updates, unfinished turns, lessons and recovery | Complete: 2f7abbf, CI 40786907023 passed |
+| 2 | Remove redundant menu actions and make remaining choices easier to scan | Implemented; verification/publication gate applies |
 | 3 | Improve Mandarin rule comprehension with concrete opening/joker examples | Pending |
 | 4 | Evaluate bot quality on a larger balanced unseen set before any tuning | Pending |
 | 5 | Stress real browser sessions, background/resume, rotation and storage recovery | Pending |
@@ -45,6 +45,43 @@ destinations direct, destructive actions explicit/confirmed, and secondary tools
 reachable without adding more disclosure layers. Preserve safe navigation,
 selection, timed drafts, beginner help and minimum physical targets. Measure the
 actual open menu as well as the unchanged populated board; do not shrink tiles.
+
+Full and Simple Home now retain one rules action each. The duplicate Home footer
+action and rules-page self-link are omitted. Clicking the latter previously
+could replace helpBack with help, making Back return to the rules page itself.
+Other screens keep their footer shortcut. Game menu
+offers Practice · keep this game first, shorter Restart game wording with the
+original same-player replacement confirmation, and explicit Delete saved game
+last. The menu Settings shortcut is retained: comfortable phone menus can cover
+the header, so removing it would make that destination harder to reach.
+
+Screenshot review measured tiny 12 px standard menu copy and retained scroll
+after reopening. Menu copy now uses 16 px (18 px comfortable), with >=48 px
+controls. Reopening resets the menu's own scroll to the first choices, without
+focus/state changes; nested disclosures retain their own position. All changes
+are inside existing menus/footer, with no new board row or smaller tiles.
+Build: 98,617 initial gzip bytes, unchanged 100,000 budget; 77 cache files.
+
+The connected bilingual menu journey traverses both Home variants, rules/Back,
+native restart/delete cancellation, menu Settings, independent practice, reload
+and first-use offline assets. Exact timed-draft bytes stay unchanged. It measures
+16/18 px action text and >=48 px targets, requires first choices on reopening,
+and preserves scroll while a nested backup-help disclosure opens. The reset is
+guarded to the root details' own toggle event, not bubbled child toggles.
+
+All 204 units and 15 broader Chromium gameplay/language cases passed. All ten
+final menu cases passed across main, compatibility and offline. The broader
+compatibility/contrast run passed 50 cases; one Firefox process exited with
+Juggler/browser errors (no application assertion failure), so that unchanged
+case is rechecked separately. Require fresh complete exact-commit CI after push.
+
+The unchanged Firefox contrast recheck passed. A final capture exposed the old
+backup-button font override; scoped inheritance now gives those controls the
+same readable menu size. The connected journey measures every accessible menu
+button, not only direct actions, and retains the nested-scroll/rules-Back checks.
+All ten final target/text journeys passed. Native file-upload checks measure the
+visible forwarding label (48 px), rather than the transparent input's 46 px inner
+box or unused font. The original target and readable-text minima remain intact.
 
 ## Phase 3 — Mandarin comprehension
 

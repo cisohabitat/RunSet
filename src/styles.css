@@ -2098,6 +2098,7 @@ button:not(.tile) {
   margin-left: 7px;
 }
 .game-menu-content {
+  font-size: 16px;
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
@@ -2114,6 +2115,8 @@ button:not(.tile) {
   gap: 6px;
 }
 .game-menu-content > .text-button {
+  min-height: 48px;
+  font-size: inherit;
   justify-content: flex-start;
   text-align: left;
   border-bottom: 1px solid var(--line);
@@ -2129,6 +2132,13 @@ button:not(.tile) {
 }
 .keyboard-guide {
   font-size: 12px;
+}
+.game-menu-content .keyboard-guide {
+  font-size: inherit;
+}
+.game-menu-content :is(button, .file-button, summary) {
+  min-height: 48px;
+  font-size: inherit;
 }
 .keyboard-guide summary {
   min-height: 44px;
@@ -2864,7 +2874,14 @@ button:not(.tile) {
   margin: 6px 0;
 }
 .game-menu-content .save-tools h2 {
-  font-size: 15px;
+  font-size: inherit;
+}
+.game-menu-content .save-tools,
+.game-menu-content .save-tools p {
+  font-size: inherit;
+}
+.game-menu-content .backup-actions .secondary {
+  font-size: inherit;
 }
 .game-menu-content .backup-actions {
   gap: 7px;

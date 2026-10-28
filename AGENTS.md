@@ -1005,3 +1005,17 @@ interrupted-draft/finish/backup-recovery and visual journeys, in both languages
 across phone/tablet/desktop browsers. Record the deployment SHA and exact CI;
 separate live acceptance from local staged-worker tests and paused human/device
 studies. Publish and fully CI-gate each phase before implementing the next.
+
+Home's rules entry belongs to its hero (full Home) or existing More options
+(SimpleHome); omit the duplicate footer rules action on Home and the self-link
+on rules itself, which could overwrite helpBack with help. Retain the footer
+shortcut elsewhere. Restart game still uses settingsForGame and explicit
+replacement confirmation; keep legacy translation entries. Practice · keep this
+game routes to independent lessons without replacing the regular save. Menu
+Settings remains necessary when comfortable-phone overlays cover the header.
+Keep safer practice first, explicit Delete saved game last, >=48 px menu controls,
+16/18 px text and menu-only scrolling. Reopening resets the menu's own scroll
+without changing focus or game state; nested disclosure toggles must not reset it.
+For native file controls, measure the visible .file-button label that forwards
+clicks, not the transparent input's smaller border-interior box or unused font.
+Keep the same full target/text assertions and test every accessible menu button.

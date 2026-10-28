@@ -352,6 +352,12 @@ export default function App() {
     screen === "game" && game ? (
       <details
         className="game-dropdown"
+        onToggle={(e) => {
+          if (e.target === e.currentTarget && e.currentTarget.open) {
+            const menu = e.currentTarget.querySelector<HTMLElement>(".game-menu-content");
+            if (menu) menu.scrollTop = 0;
+          }
+        }}
         onKeyDown={(e) => {
           if (e.key === "Escape") {
             e.currentTarget.open = false;
@@ -367,7 +373,13 @@ export default function App() {
           <span className="desktop-word">{t("Game")}</span> {t("Menu")}
         </summary>
         <nav className="game-menu-content" aria-label={t("Game options")}>
-          {" "}
+          <button
+            className="text-button"
+            data-menu-action
+            onClick={() => setScreen("learn")}
+          >
+            {t("Practice · keep this game")}
+          </button>
           <button
             className="text-button"
             data-menu-action
@@ -376,7 +388,7 @@ export default function App() {
             {t(
               game.phase === "over"
                 ? "Rematch with same players"
-                : "Restart with same players",
+                : "Restart game",
             )}
           </button>
           <button
@@ -385,20 +397,6 @@ export default function App() {
             onClick={() => setSettingsOpen(true)}
           >
             {t("Settings")}
-          </button>
-          <button
-            className="text-button danger-text"
-            data-menu-action
-            onClick={() => setConfirmation({ kind: "delete" })}
-          >
-            {t("Delete saved game")}
-          </button>
-          <button
-            className="text-button"
-            data-menu-action
-            onClick={() => setScreen("learn")}
-          >
-            {t("Practice without losing this game")}
           </button>
           <details className="keyboard-guide">
             <summary>{t("Keyboard controls")}</summary>
@@ -412,6 +410,13 @@ export default function App() {
             <SaveTools game={game} onRestore={restore} />
           </Suspense>
           <Offline beforeUpdate={saveLatestGame} />
+          <button
+            className="text-button danger-text"
+            data-menu-action
+            onClick={() => setConfirmation({ kind: "delete" })}
+          >
+            {t("Delete saved game")}
+          </button>
         </nav>
       </details>
     ) : null;
@@ -765,9 +770,11 @@ export default function App() {
               {t("A classic game. A fresh perspective.")}
             </span>
           </span>
-          <button className="text-button" onClick={help}>
-            {t("How to play →")}
-          </button>
+          {screen !== "home" && screen !== "help" && (
+            <button className="text-button" onClick={help}>
+              {t("How to play →")}
+            </button>
+          )}
           <span>{t("MADE FOR THE LOVE OF THE GAME")}</span>
         </footer>
       </div>

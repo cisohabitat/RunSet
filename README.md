@@ -698,3 +698,10 @@ The next improvement cycle is tracked in
 clearer menus, Mandarin rule examples, a larger bot evaluation and longer browser
 sessions. Each phase is published separately and requires complete CI before
 the next begins. Physical-device and older-player studies remain paused.
+
+Home offers one How to play action: directly on full Home, or under More options
+on Simple home. The rules page omits its own rules shortcut so Back keeps its
+original destination. During play, the menu puts Practice · keep this game first and
+Delete saved game last. Restart game still asks before replacing the current
+round with the same players/settings. Menu text uses readable 16/18 px sizes and
+48 px controls, and reopening starts at the first choices.

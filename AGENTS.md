@@ -800,3 +800,13 @@ invalid Check has no penalty and accepted moves are never copied back.
 Keep the original Game mounted, exact save/preferences/selection/deadline intact,
 and close practice on real state replacement/expiry. Use distinct embedded IDs,
 no duplicate main-content, explicit opener focus and a guarded WebKit retry.
+Table arrangement projects public meld references only; never sort GameState.table
+or any tile array in place. Preserve IDs/source numbers and stable ties. Invalid
+and empty drafts stay first in organised views; use inspectMeld for real joker
+values/colours. Keep numbered destination captions inline without new card rows
+or smaller tiles. runset.tableOrder.v1 accepts placed/kind/colour only, defaults
+to placed, changes on explicit selection and is independent of regular saves.
+Include it in profile validation/labels and preserve it on deletion. Practice
+ignores the regular table-order preference. Failed optional writes keep play
+usable and show a notice; test actual placement, Undo, hidden rack, exact saves,
+real expiry, native focus/targets and offline reload after sorting.

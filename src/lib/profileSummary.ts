@@ -42,6 +42,7 @@ export const profileLabels: Record<string, string> = {
   "runset.pace": "Opponent pace",
   "runset.audioVoice": "Reading voice",
   "runset.rackOrder.v1": "Rack display order",
+  "runset.tableOrder.v1": "Table arrangement",
   "runset.practice.v1": "Short lessons",
   "runset.exercises.v1": "Quick exercises",
   "runset.solo.v1": "Solo progress",
@@ -66,6 +67,16 @@ export function profileChoice(key: string, raw: string | null): string {
     );
   if (key === "runset.audioVoice")
     return raw === "device" ? "Device voice" : "Recorded guide";
+  if (key === "runset.tableOrder.v1")
+    return (
+      (
+        {
+          placed: "Placed order",
+          kind: "Groups then runs",
+          colour: "Colour then number",
+        } as Record<string, string>
+      )[raw] ?? "Unavailable"
+    );
   if (key === "runset.rackOrder.v1") {
     try {
       return (

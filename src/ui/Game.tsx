@@ -31,6 +31,12 @@ import { moveHelp } from "../lib/moveHelp";
 import { MoveHelp } from "./MoveHelp";
 import { OpponentGuide } from "./OpponentGuide";
 import { TableOverview } from "./TableOverview";
+import {
+  orderedTable,
+  readTableOrder,
+  type TableOrder,
+} from "../lib/tableOrder";
+import { TableArrangement } from "./TableArrangement";
 const PositionPractice = lazy(() =>
   import("./PositionPractice").then((m) => ({ default: m.PositionPractice })),
 );
@@ -75,6 +81,11 @@ export function Game({
   const feedbackRoot = useRef<HTMLElement>(null);
   const [practiceSource, setPracticeSource] = useState<GameState | null>(null);
   const practiceOpener = useRef<HTMLButtonElement>(null);
+  const [tableOrder, setTableOrder] = useState<TableOrder>(readTableOrder);
+  const displayTable = useMemo(
+    () => orderedTable(s.table, coaching ? tableOrder : "placed"),
+    [s.table, coaching, tableOrder],
+  );
   useEffect(() => setPracticeSource(null), [s]);
   const [breaking, setBreaking] = useState(false);
   const breakRequest = useRef<AbortController | null>(null);
@@ -676,11 +687,20 @@ export function Game({
           </span>
         </div>
         <div className="melds">
-          {s.table.map((m) => {
+          {displayTable.map((m) => {
             const info = inspectMeld(m.tiles);
+            const caption = t(
+              placement?.group === m.id
+                ? `Placed ${placement.count}`
+                : info.valid
+                  ? `${info.kind} · ${info.points} pts`
+                  : "Incomplete group or run",
+            );
             return (
               <div
                 key={m.id}
+                data-meld-id={m.id}
+                data-meld-index={s.table.indexOf(m) + 1}
                 data-placed-destination={placement?.group === m.id || undefined}
                 data-invalid-label={t("Needs fixing")}
                 className={`meld ${info.valid ? "" : "invalid"}`}
@@ -737,12 +757,16 @@ export function Game({
                       `Add selected tiles to meld ${s.table.indexOf(m) + 1}`,
                     )}
                   >
-                    {t(
-                      placement?.group === m.id
-                        ? `Placed ${placement.count}`
-                        : info.valid
-                          ? `${info.kind} · ${info.points} pts`
-                          : "Incomplete group or run",
+                    {coaching && tableOrder !== "placed" ? (
+                      <span className="meld-caption">
+                        <span
+                          className="meld-index"
+                          aria-hidden="true"
+                        >{`${s.table.indexOf(m) + 1}\u00a0·\u00a0`}</span>
+                        {caption}
+                      </span>
+                    ) : (
+                      caption
                     )}{" "}
                     <span>{placement?.group === m.id ? "✓" : "＋"}</span>
                   </button>
@@ -1081,6 +1105,12 @@ export function Game({
                     aria-label={t("Find and arrange tiles")}
                   >
                     <h3>{t("Find and arrange tiles")}</h3>
+                    {coaching && (
+                      <TableArrangement
+                        value={tableOrder}
+                        onChange={setTableOrder}
+                      />
+                    )}
                     <div
                       className={
                         coaching ? "rack-order-options" : "focused-rack-options"

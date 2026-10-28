@@ -52,6 +52,10 @@ it("summarises valid imported layouts and safely handles missing or unreadable c
   expect(profileTime(1700000000000, "zh-CN")).not.toBeNull();
 });
 it("shows meaningful choice values including muted sound without exposing storage details", () => {
+  expect(profileChoice("runset.tableOrder.v1", "colour")).toBe(
+    "Colour then number",
+  );
+  expect(profileChoice("runset.tableOrder.v1", "invalid")).toBe("Unavailable");
   expect(profileChoice("runset.muted", "true")).toBe("Off");
   expect(profileChoice("runset.muted", "false")).toBe("On");
   expect(profileChoice("runset.language", "zh-CN")).toBe("简体中文");

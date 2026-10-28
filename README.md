@@ -598,3 +598,7 @@ The [position-confidence roadmap](docs/POSITION_CONFIDENCE_ROADMAP.md) adds
 and public table in a temporary copy, including unfinished edits. Undo, Reset
 and Check affect only that copy. Return leaves your real game and selection
 unchanged; timed real games keep running. Practice edits disappear on close/reload.
+More → Find and arrange tiles → **Table arrangement** offers placed order,
+groups then runs, or colour then number. This changes display only; original
+meld numbers and destinations remain stable. The choice survives reload/deletion
+and is included in portable profiles. Practice keeps its original table order.

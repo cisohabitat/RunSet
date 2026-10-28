@@ -41,6 +41,7 @@ it("round trips game, all learning formats and display choices without normalisi
     }),
   );
   data.set("runset.reading", "true");
+  data.set("runset.tableOrder.v1", "kind");
   data.set("runset.language", "zh-CN");
   const game = practiceGame(),
     raw = exportProfile(game, localStorage),
@@ -57,6 +58,7 @@ it("rejects arbitrary, unsupported and damaged nested data before writing anythi
     { game: { ...practiceGame(), pool: [] } },
     { values: { [SAVE_KEY]: "raw" } },
     { values: { "runset.reading": "yes" } },
+    { values: { "runset.tableOrder.v1": "manual" } },
     {
       values: {
         "runset.turnPractice.v1": JSON.stringify({

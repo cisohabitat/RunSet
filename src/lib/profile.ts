@@ -33,6 +33,7 @@ export const profileKeys = [
   "runset.pace",
   "runset.audioVoice",
   "runset.rackOrder.v1",
+  "runset.tableOrder.v1",
 ] as const;
 export interface PortableProfile {
   format: "runset-profile";
@@ -49,6 +50,8 @@ export function validProfileValue(key: string, raw: unknown): raw is string {
   if (key === "runset.pace")
     return ["700", "1400", "2400", "5000"].includes(raw);
   if (key === "runset.audioVoice") return ["device", "recorded"].includes(raw);
+  if (key === "runset.tableOrder.v1")
+    return ["placed", "kind", "colour"].includes(raw);
   if (key === "runset.rackOrder.v1") return !!decodeRackOrder(raw);
   if (!(profileLearningKeys as readonly string[]).includes(key)) return false;
   try {

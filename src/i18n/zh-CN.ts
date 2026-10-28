@@ -1230,6 +1230,13 @@ const messages: Record<string, string> = {
   "Return to saved game": "返回原牌局",
   "Practice copy content": "练习副本内容",
   "Return to rack": "放回手牌区",
+  "Table arrangement": "桌面牌组排列",
+  "Placed order": "按原出牌顺序",
+  "Groups then runs": "同数组在前，顺子在后",
+  "Colour then number": "按颜色，再按数字",
+  "Display only. Your tiles, selection and turn stay unchanged. Meld numbers keep their original meaning. Incomplete melds stay first in organised views.": "只改变显示顺序，不改变牌、选中的牌或回合。牌组编号保持原样。整理显示时，未完成的牌组会排在前面。",
+  "The table view changed, but this browser could not remember the choice.": "桌面显示已改变，但浏览器暂时无法保存这个选择。",
+  "Runs use their shared colour. Matching-number groups follow the runs.": "顺子按共同的颜色排列，同数组排在顺子后面。",
 };
 export const translateChinese = translator(messages);
 export default messages;

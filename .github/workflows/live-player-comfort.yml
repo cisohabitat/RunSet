@@ -1,0 +1,48 @@
+name: Live player-comfort acceptance
+on:
+  push:
+    branches: [codex/live-player-comfort-a570e55]
+permissions:
+  contents: read
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: a570e5528aeac17b1a6be135be4421d1da6b5acf
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Use Ubuntu HTTPS package mirror
+        run: |
+          for apt_source in /etc/apt/sources.list /etc/apt/sources.list.d/*.list /etc/apt/sources.list.d/*.sources /etc/apt/apt-mirrors.txt /etc/apt/apt-security-mirrors.txt; do
+            if [ -f "$apt_source" ]; then
+              sudo sed -Ei 's|https?://azure\.archive\.ubuntu\.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' "$apt_source"
+            fi
+          done
+          printf '%s\n' 'Acquire::Retries "2";' 'Acquire::http::Timeout "30";' 'Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/99-runset-downloads
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Provide virtual audio output for browser playback
+        run: |
+          sudo apt-get install -y pulseaudio pulseaudio-utils
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=runset
+          pactl set-default-sink runset
+      - name: Verify published bilingual player-comfort journeys
+        env:
+          RUNSET_BASE_URL: https://run-set.vercel.app
+        run: npx playwright test --config=playwright.compat.config.ts e2e-compat/player-comfort-release.spec.ts
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: live-player-comfort-failure
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7

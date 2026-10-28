@@ -134,3 +134,11 @@ expanded phone view, retaining the accessible Table view label, full saved/timer
 expiry text and 48 px selector. The original rack-height cap and full 80 px tiles
 with 10 px padding remain. The >=300 px assertion and diagnostics are unchanged.
 Corrections require a fresh complete gate before publication.
+
+The corrected branch passed all 37 offline cases, including the populated
+comfortable-phone turn and scrollable-notice Axe check. Compatibility workloads
+are now separated by the existing phone WebKit, iPad WebKit and desktop Firefox
+project names, alongside Chromium/offline jobs. This keeps the growing suite
+within the unchanged per-job limit without dropping cases. The aggregate check,
+full signed dependency/audio setup, offline limit and distinct artifacts remain.
+The View text span also inherits its original label font in standard views.

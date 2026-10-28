@@ -142,3 +142,5 @@
     overflow: auto;
   }
 }
+
+.game .view-picker .view-picker-label { font: inherit; }

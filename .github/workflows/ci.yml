@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [chromium, compatibility, offline]
+        suite: [chromium, webkit-phone, webkit-ipad, firefox-desktop, offline]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -62,8 +62,10 @@ jobs:
       - run: npm run build
       - if: matrix.suite == 'chromium'
         run: npm run test:e2e
-      - if: matrix.suite == 'compatibility'
-        run: npx playwright test --config=playwright.compat.config.ts
+      - if: matrix.suite != 'chromium' && matrix.suite != 'offline'
+        env:
+          RUNSET_COMPAT_PROJECT: ${{ matrix.suite }}
+        run: npx playwright test --config=playwright.compat.config.ts --project="$RUNSET_COMPAT_PROJECT"
       - if: matrix.suite == 'offline'
         run: npx playwright test --config=playwright.offline.config.ts
         timeout-minutes: 5

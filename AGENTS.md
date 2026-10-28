@@ -723,3 +723,10 @@ only in expanded comfortable-phone view, retaining the native Table view label,
 full saved/timer/expiry text and >=48 px selector. Keep the original rack-height
 cap, whole 80 px tiles and 10 px top/bottom padding. Real bot notices must leave
 >=300 px visible phone table space; retain the strict assertion and diagnostics.
+
+Compatibility CI is split by the three existing project names, alongside
+Chromium and offline jobs. Keep every project, full dependency/audio setup,
+fail-fast=false, unique artifacts, and the aggregate check across the complete
+matrix. Quoting RUNSET_COMPAT_PROJECT preserves the explicit project selection.
+The View text span must inherit its label font in standard views; older generic
+table-toolbar span rules must not shrink it.

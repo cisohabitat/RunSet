@@ -563,3 +563,8 @@ Save tools load separately inside their own Home/menu loading boundaries and
 remain in the offline cache. The initial download budget stays at 100,000 gzip
 bytes. Fixture-only CI visual captures support phone/tablet review when the local
 execution workspace is unavailable; these are not physical Apple-device tests.
+
+The CI browser matrix now runs Chromium, phone WebKit, iPad WebKit, desktop
+Firefox and offline checks as separate jobs. Each compatibility project keeps
+all of its cases. The complete aggregate check remains required, with the same
+twenty-minute job and five-minute offline limits.

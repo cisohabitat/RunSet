@@ -144,3 +144,12 @@
 }
 
 .game .view-picker .view-picker-label { font: inherit; }
+
+/* Waiting labels convey turn ownership even though their actions are disabled. */
+.game .primary-actions[data-waiting] > button {
+  opacity: 1;
+  color: var(--ink);
+  background: var(--soft);
+  border-color: var(--control-line);
+  cursor: wait;
+}

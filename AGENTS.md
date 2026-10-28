@@ -730,3 +730,8 @@ fail-fast=false, unique artifacts, and the aggregate check across the complete
 matrix. Quoting RUNSET_COMPAT_PROJECT preserves the explicit project selection.
 The View text span must inherit its label font in standard views; older generic
 table-toolbar span rules must not shrink it.
+
+Waiting action labels are information, so do not fade them with disabled-button
+opacity. Keep the native buttons disabled, using neutral surfaces and normal
+ink. Verify >=4.5:1 text contrast, full opacity, size and visible table space in
+both themes; Axe does not enforce contrast on disabled controls.

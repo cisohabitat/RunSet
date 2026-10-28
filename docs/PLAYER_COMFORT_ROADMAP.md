@@ -142,3 +142,8 @@ project names, alongside Chromium/offline jobs. This keeps the growing suite
 within the unchanged per-job limit without dropping cases. The aggregate check,
 full signed dependency/audio setup, offline limit and distinct artifacts remain.
 The View text span also inherits its original label font in standard views.
+
+CI fixture images confirmed the compact header and full rack tiles. Visual
+review found disabled waiting labels too faint; they now use normal ink on a
+neutral surface while remaining natively disabled. Connected tests measure
+their >=4.5:1 contrast and full opacity because Axe excludes disabled controls.

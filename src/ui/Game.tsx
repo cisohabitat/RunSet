@@ -1119,7 +1119,7 @@ export function Game({
               </span>
             )}
           </div>
-          <div className="primary-actions">
+          <div className="primary-actions" data-waiting={!myTurn || undefined}>
             {lessonAction ? (
               <button
                 ref={lessonButton}

@@ -136,6 +136,18 @@ export async function verifyGentlePlay(
   const width = page.viewportSize()!.width;
   for (const button of [draw, end]) {
     const r = (await button.boundingBox())!;
+    const paint = await button.evaluate(el => {
+      const style = getComputedStyle(el);
+      return { text: style.color, background: style.backgroundColor, opacity: style.opacity };
+    });
+    const light = (value: string) => {
+      const values = value.match(/[0-9.]+/g)!.slice(0, 3).map(Number).map(n => n / 255)
+        .map(n => n <= 0.04045 ? n / 12.92 : ((n + 0.055) / 1.055) ** 2.4);
+      return values[0] * 0.2126 + values[1] * 0.7152 + values[2] * 0.0722;
+    };
+    const a = light(paint.text), b = light(paint.background);
+    expect(paint.opacity).toBe("1");
+    expect((Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)).toBeGreaterThanOrEqual(4.5);
     expect(r.height).toBeGreaterThanOrEqual(locale === "zh-CN" ? 48 : 44);
     expect(r.y).toBeGreaterThanOrEqual(0);
     expect(r.y + r.height).toBeLessThanOrEqual(await page.evaluate(() => innerHeight));

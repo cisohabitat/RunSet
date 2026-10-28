@@ -661,3 +661,8 @@ computer turn, the rack can still receive keyboard focus for scrolling.
 
 This comfort/memory cycle is tracked in [the roadmap](docs/COMFORT_MEMORY_ROADMAP.md)
 and [release evidence](docs/COMFORT_MEMORY_RELEASE.md).
+
+Visual polish: Settings display and pace selectors share readable 48 px controls,
+wrapping to keep choices inside phone dialogs. Landscape iPad opponent activity
+marks preserve room for difficulty and tile counts. The next published phases
+are tracked in [the polish/confidence roadmap](docs/POLISH_CONFIDENCE_ROADMAP.md).

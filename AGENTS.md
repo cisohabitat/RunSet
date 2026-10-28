@@ -920,3 +920,13 @@ first seed and fixed Date (with browser timers running), native arrow-scroll and
 never disable the accessibility rule to hide this regression. Final cycle
 evidence is docs/COMFORT_MEMORY_RELEASE.md; verify full exact-commit CI and live
 checks before final handoff, retaining the paused physical/human-study limits.
+
+Track everyday polish/confidence in docs/POLISH_CONFIDENCE_ROADMAP.md and fully
+CI-gate each phase before beginning the next. Settings selectors share >=48 px
+controls and theme tokens; labels may wrap inside the scrolling dialog rather
+than truncate a long selected choice. Await lazy dialog visibility and exact
+control count before enumeration in tests. Tablet waiting dots reserve title
+space without stealing metadata width; preserve the existing ellipsis, reading
+sizes, coarse-pointer scope and strict table floors. Count distinct text-line y
+positions, not raw Range rectangles for separate React text nodes. Keep first-use
+offline screen review and exact-save comparisons.

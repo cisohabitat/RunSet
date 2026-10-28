@@ -24,3 +24,22 @@
     padding-block: 2px;
   }
 }
+
+/* Keep waiting dots beside the title without stealing metadata width. */
+@media (min-width: 960px) and (min-height: 600px) and (orientation: landscape) and (any-pointer: coarse) {
+  .app.playing:not(.comfortable-reading) > .game .opponent {
+    position: relative;
+  }
+  .app.playing:not(.comfortable-reading) > .game .opponent > div {
+    flex: 1;
+  }
+  .app.playing:not(.comfortable-reading) > .game .opponent.is-turn strong {
+    padding-inline-end: 20px;
+  }
+  .app.playing:not(.comfortable-reading) > .game .opponent .thinking {
+    position: absolute;
+    inset-inline-end: 8px;
+    inset-block-start: 5px;
+    line-height: 1;
+  }
+}

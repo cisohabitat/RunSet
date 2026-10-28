@@ -3314,10 +3314,19 @@ button:not(.tile) {
 .settings-dialog p {
   line-height: 1.7;
 }
+.settings-dialog label:has(select) {
+  flex-wrap: wrap;
+}
 .settings-dialog select {
+  min-height: 48px;
+  padding: 8px;
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius-control);
+  color: var(--ink);
+  background: var(--paper);
   width: auto;
   min-width: 0;
-  max-width: 65%;
+  max-width: 100%;
   margin-left: auto;
 }
 .settings-preview {

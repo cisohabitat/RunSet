@@ -168,7 +168,6 @@ export default function Settings({
         <label>
           {t("Display theme")}
           <select
-            style={{ minHeight: 48, padding: "8px", font: "inherit" }}
             aria-label={t("Display theme")}
             value={theme}
             onChange={(e) => {

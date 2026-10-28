@@ -946,3 +946,12 @@ copy in the existing bounded status row, with reduced-motion/static equivalence;
 no new board row, automatic commit or clock pause. Practice keeps lesson wording.
 Retain real placement/penalty-cancel/Reset/Undo/accepted-handoff/expiry journeys
 and strict 300 px phone / 450 px comfortable-tablet expanded table floors.
+
+History browsing uses roundHistoryView's copied newest-first projection. Match a
+mixed-level round once if any computer has the selected level; explain this and
+separate retained totals from shown-record/win counts. No lifetime or strength
+inference. Filter state is panel-only, reset on open/confirmed clear, excluded
+from saves/profiles and never written to history. Native per-round details retain
+literal names and real signed scores, >=48 px summaries/selectors, scroll/focus
+and independent clearing. Existing history journeys must expand details and await
+the visible score list, not validate text hidden inside a closed disclosure.

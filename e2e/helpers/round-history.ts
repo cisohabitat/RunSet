@@ -123,6 +123,10 @@ export async function verifyRoundHistory(
   ).toEqual([30, -30]);
   await activate(b("Round history"));
   await expect(dialog.locator(".round-records > li")).toHaveCount(1);
+  await activate(dialog.locator(".round-records > li summary"));
+  await expect(
+    dialog.getByRole("list", { name: t("Round scores"), exact: true }),
+  ).toBeVisible();
   await expect(dialog).toContainText("constructor");
   await expect(dialog).toContainText("Pass");
   await expect(dialog).toContainText("+30");

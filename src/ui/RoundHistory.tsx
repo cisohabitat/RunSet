@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { clearRoundHistory, readRoundHistory } from "../lib/roundHistory";
+import { roundHistoryView, type HistoryLevel } from "../lib/roundHistoryView";
 import { useI18n } from "../i18n/I18n";
 import "./RoundHistory.css";
 export default function RoundHistory() {
@@ -7,6 +8,7 @@ export default function RoundHistory() {
     [history, setHistory] = useState<ReturnType<
       typeof readRoundHistory
     > | null>(null),
+    [level, setLevel] = useState<HistoryLevel>("all"),
     [confirm, setConfirm] = useState(false),
     [busy, setBusy] = useState(false),
     [error, setError] = useState(false);
@@ -41,7 +43,7 @@ export default function RoundHistory() {
     if (open) (confirm ? accept : clear).current?.focus();
   }, [confirm]);
   const rounds = history?.rounds,
-    wins = rounds?.filter((r) => !r.players[r.winner].bot).length ?? 0;
+    view = roundHistoryView(rounds ?? [], level);
   return (
     <>
       <button
@@ -51,6 +53,7 @@ export default function RoundHistory() {
         aria-expanded={open}
         onClick={() => {
           setHistory(readRoundHistory());
+          setLevel("all");
           setConfirm(false);
           setError(false);
         }}
@@ -76,7 +79,7 @@ export default function RoundHistory() {
           >
             <p>
               {t(
-                "Last 30 rounds completed on this device since this feature was added. Imported or previously completed games are not added. These records are not included in backups or portable profiles.",
+                "Latest 30 finishes recorded here. Completed imports and older finishes are not added. History is excluded from backups and portable profiles.",
               )}
             </p>
             {rounds === null ? (
@@ -88,9 +91,37 @@ export default function RoundHistory() {
             ) : (
               <>
                 <p>
-                  {t("Recorded rounds")}: <strong>{rounds?.length ?? 0}</strong>{" "}
-                  · {t("Player wins")}: <strong>{wins}</strong>
+                  {t("Recorded rounds")}: <strong>{view.total}</strong>
                 </p>
+                <label className="history-filter">
+                  {t("Opponent difficulty")}
+                  <select
+                    aria-label={t("Opponent difficulty")}
+                    value={level}
+                    onChange={(e) => {
+                      const next = e.target.value;
+                      if (["all", "easy", "normal", "hard"].includes(next))
+                        setLevel(next as HistoryLevel);
+                    }}
+                  >
+                    <option value="all">{t("All difficulties")}</option>
+                    <option value="easy">{t("easy")}</option>
+                    <option value="normal">{t("normal")}</option>
+                    <option value="hard">{t("hard")}</option>
+                  </select>
+                </label>
+                <p>
+                  {t(
+                    "A round matches if any computer used this level. Counts below describe the shown records.",
+                  )}
+                </p>
+                <p role="status" className="history-counts">
+                  {t("Shown rounds")}: <strong>{view.rounds.length}</strong> ·{" "}
+                  {t("Player wins")}: <strong>{view.wins}</strong>
+                </p>
+                {rounds && rounds.length > 0 && view.rounds.length === 0 && (
+                  <p>{t("No rounds match this difficulty.")}</p>
+                )}
                 {!rounds?.length && (
                   <p>
                     {t(
@@ -99,25 +130,25 @@ export default function RoundHistory() {
                   </p>
                 )}
                 <ol className="round-records">
-                  {rounds
-                    ?.slice()
-                    .reverse()
-                    .map((r) => (
-                      <li key={r.id}>
-                        <p>
-                          <time dateTime={new Date(r.at).toISOString()}>
-                            {new Intl.DateTimeFormat(locale, {
-                              dateStyle: "short",
-                              timeStyle: "short",
-                            }).format(r.at)}
-                          </time>{" "}
-                          · {t("Round")} {r.round}
-                        </p>
-                        <p>
-                          {t("Winner")}:{" "}
-                          <strong>{r.players[r.winner].name}</strong>
-                        </p>
-                        <ul>
+                  {view.rounds.map((r) => (
+                    <li key={r.id}>
+                      <details>
+                        <summary>
+                          <span>
+                            <time dateTime={new Date(r.at).toISOString()}>
+                              {new Intl.DateTimeFormat(locale, {
+                                dateStyle: "short",
+                                timeStyle: "short",
+                              }).format(r.at)}
+                            </time>{" "}
+                            · {t("Round")} {r.round}
+                          </span>
+                          <span>
+                            {t("Winner")}:{" "}
+                            <strong>{r.players[r.winner].name}</strong>
+                          </span>
+                        </summary>
+                        <ul aria-label={t("Round scores")}>
                           {r.players.map((p, i) => (
                             <li key={i}>
                               <span>{p.name}</span> ·{" "}
@@ -131,8 +162,9 @@ export default function RoundHistory() {
                             </li>
                           ))}
                         </ul>
-                      </li>
-                    ))}
+                      </details>
+                    </li>
+                  ))}
                 </ol>
               </>
             )}
@@ -177,6 +209,7 @@ export default function RoundHistory() {
                     setError(!ok);
                     if (ok) {
                       setHistory(readRoundHistory());
+                      setLevel("all");
                       setConfirm(false);
                       clear.current?.focus();
                     }
@@ -191,10 +224,11 @@ export default function RoundHistory() {
             <button
               className="secondary"
               ref={clear}
+              aria-label={t("Clear recorded rounds")}
               disabled={busy || confirm}
               onClick={() => setConfirm(true)}
             >
-              {t("Clear recorded rounds")}
+              {t("Clear records")}
             </button>
             <button
               className="primary"

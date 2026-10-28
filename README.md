@@ -671,3 +671,8 @@ Turn status distinguishes unfinished edits from a draft ready to end, while
 keeping opening points and tile counts visible. Ready to end turn is a prompt:
 choose End turn to submit it. Completed turns advance play or open results;
 Reset/Undo and penalty cancellation keep the same game rules and deadlines.
+
+Round history can be filtered by computer difficulty. Mixed-level rounds match
+once if any computer used that level; displayed win counts apply to shown
+records. Expand a dated round to read every participant's actual score. Filtering
+is read-only and resets to All when the panel is reopened.

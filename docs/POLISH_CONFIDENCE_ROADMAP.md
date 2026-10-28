@@ -7,8 +7,8 @@ including every browser job and aggregate check, before beginning the next phase
 | Phase | Outcome | Status |
 |---|---|---|
 | 1 | Visual consistency on phone, landscape iPad and desktop | Complete: 5d1120f, CI 40716966856 passed |
-| 2 | Clearer draft, ready-to-end and completed-turn feedback | Published implementation; exact-commit CI gate applies |
-| 3 | Expandable local round details and difficulty filtering | Pending |
+| 2 | Clearer draft, ready-to-end and completed-turn feedback | Complete: 18b808f, CI 40721443436 passed |
+| 3 | Expandable local round details and difficulty filtering | Published implementation; exact-commit CI gate applies |
 | 4 | Clearer update checks and interrupted-save/offline recovery verification | Pending |
 
 Multiplayer remains deferred. Older-player/physical-device study stays paused;
@@ -88,3 +88,49 @@ Final Phase 2 local verification: 202 units and 22 browsers passed (2 main,
 18 compatibility including the strict phone/tablet meld-space and actual handoff
 regressions, 2 offline). Reviewed Chinese draft/ready phone, English phone and
 Chinese iPad screenshots. Final build: 99,667 gzip bytes; 76 precached files.
+
+Phase 2 exact commit 18b808fa88c1c798ee3e9daa9d73d683a38342ed passed complete
+workflow 40721443436: 202 units and 717 browsers (318 Chromium, 112 per
+compatibility project, 63 offline), including aggregate check. Matching production
+READY and all six bilingual turn-feedback live journeys passed before Phase 3.
+
+## Phase 3
+
+Round history adds an explicit All/Easy/Normal/Hard difficulty filter. A mixed-level
+round matches once when any computer actually used the selected difficulty. The
+panel explains this, shows total retained records separately from shown records,
+and counts player wins only within the shown records. No lifetime/skill claims.
+Entries keep date/round/literal winner visible and expand natively to show all
+actual participant roles, difficulty and signed round scores. Newest-first
+ordering is a copied projection; stored records are never sorted or rewritten.
+
+Filtering is visit-only panel state and resets to All when reopening or clearing.
+It never changes game, deadlines, preferences, history bytes or backup/profile
+scope. Preserve the history key's existing 30-record cap, validation, locks,
+fail-closed reads and explicit independent-clear confirmation.
+
+Two projection regressions cover mixed-level deduplication, newest-first order,
+literal names, empty filters and counts limited to shown records. All 204 units
+passed. Existing connected history journeys now explicitly expand native details
+and require the actual score list to be visible before checking scores/Axe.
+Final build: 99,670 gzip bytes; unchanged 100,000-byte budget, 76 precached files.
+
+Screenshot review caught wasted phone space from a native disclosure marker on
+its own line and a three-line English clear button. Kept the first summary line
+inline beside the native marker, shortened the scope copy without changing its
+meaning and used Clear records with the full Clear recorded rounds accessible
+name. Footer padding/weights retain >=48 px targets in a <=64 px row. Fixture
+summary height <=80 px catches an orphan marker row. Retain all independent-clear
+confirmation/scope, read-only snapshot, native hit/focus and actual score checks.
+
+One phone capture appeared to omit the title after native focus/scroll changes.
+Six measured Chromium repetitions retained title/footer bounds; the explicit
+heading/footer-inside-dialog assertion is now kept in the history journey. Do
+not infer a reproducible application failure or claim a platform-wide fix from
+a single capture. Keep compatibility/offline bounds checks with normal targets.
+
+Final Phase 3 verification: 204 unit tests and 20 connected browser cases passed
+(4 main, 12 compatibility, 4 offline), plus six Chromium bounds repetitions and
+eight focused compatibility/offline title/footer checks. Reviewed compact English
+and Chinese phone panels and iPad detail/filter views. Exact game/history/choice
+snapshots, independent clear confirmation and native targets/focus/Axe passed.

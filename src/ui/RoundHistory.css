@@ -1,7 +1,7 @@
 .round-history {
   text-align: start;
 }
-.round-history :is(p, li, button) {
+.round-history :is(p, li, button, label, select, summary) {
   font-size: 16px;
   line-height: 1.6;
   overflow-wrap: anywhere;
@@ -32,6 +32,37 @@
 .round-history section button {
   margin: 4px;
 }
-.app.comfortable-reading .round-history :is(p, li, button) {
+.app.comfortable-reading
+  .round-history
+  :is(p, li, button, label, select, summary) {
   font-size: 18px;
+}
+
+.history-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.history-filter select {
+  min-height: 48px;
+  max-width: 100%;
+  padding: 8px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius-control);
+}
+.round-records summary {
+  min-height: 48px;
+  padding: 4px;
+  cursor: pointer;
+}
+.round-records summary > span:last-child {
+  display: block;
+}
+
+.round-history .dialog-actions button {
+  flex: 1;
+  padding-inline: 12px;
 }

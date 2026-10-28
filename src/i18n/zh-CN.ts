@@ -1285,6 +1285,15 @@ const messages: Record<string, string> = {
   "Choose tiles or draw": "选牌出牌，或摸牌",
   "Choose tiles or pass": "选牌出牌，或跳过",
 
+  "Opponent difficulty": "电脑对手难度",
+  "All difficulties": "全部难度",
+  "Shown rounds": "当前显示局数",
+  "No rounds match this difficulty.": "还没有这个难度的牌局记录。",
+  "A round matches if any computer used this level. Counts below describe the shown records.": "一局中有任一电脑使用这个难度，就会显示。下方只统计当前显示的记录。",
+
+  "Clear records": "清除记录",
+  "Latest 30 finishes recorded here. Completed imports and older finishes are not added. History is excluded from backups and portable profiles.": "只保留本设备最近三十局的新记录。已结束的导入牌局和旧牌局不补记。备份和可携带进度不包含这些记录。",
+
 };
 export const translateChinese = translator(messages);
 export default messages;

@@ -138,7 +138,6 @@ export default function RoundHistory() {
                             <time dateTime={new Date(r.at).toISOString()}>
                               {new Intl.DateTimeFormat(locale, {
                                 dateStyle: "short",
-                                timeStyle: "short",
                               }).format(r.at)}
                             </time>{" "}
                             · {t("Round")} {r.round}
@@ -148,6 +147,14 @@ export default function RoundHistory() {
                             <strong>{r.players[r.winner].name}</strong>
                           </span>
                         </summary>
+                        <p>
+                          <time dateTime={new Date(r.at).toISOString()}>
+                            {new Intl.DateTimeFormat(locale, {
+                              dateStyle: "short",
+                              timeStyle: "short",
+                            }).format(r.at)}
+                          </time>
+                        </p>
                         <ul aria-label={t("Round scores")}>
                           {r.players.map((p, i) => (
                             <li key={i}>

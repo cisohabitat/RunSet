@@ -679,3 +679,7 @@ is read-only and resets to All when the panel is reopened.
 
 Clearing history always removes all recorded rounds, including filtered-out
 records; the confirmation states this explicitly and preserves game/settings.
+
+History summaries show the date, round and winner; expanding a round also shows
+its full recorded time. Footer actions share space according to label width so
+phone views retain readable text and full touch targets with fallback fonts.

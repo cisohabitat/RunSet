@@ -157,3 +157,13 @@ The explicit filtered-clear refinement passed all ten connected browsing cases
 across Chromium, WebKit phone/iPad, Firefox and offline. Clearing while Easy
 showed one of three records removed all history and kept exact game/settings.
 The translation/projection checks passed; final build is 99,670 gzip bytes.
+
+The c2ce522 gate (40728922220) failed the new phone history bounds in Chromium,
+WebKit phone and offline: fallback fonts made the English footer 81 px and the
+Chinese summary 94 px. Artifacts showed equal button widths wrapping Clear
+records and the full timestamp crowding the round number. The correction gives
+footer buttons max-content flex bases, keeps date/round/winner in the summary
+and shows the complete timestamp inside expanded details. The same strict
+80/64 px assertions remain, with a fallback-font/letter-spacing stress style.
+Build: 99,673 initial gzip bytes, unchanged 100,000-byte budget; 76 cache files.
+Require the correction's full exact-commit CI before Phase 4.

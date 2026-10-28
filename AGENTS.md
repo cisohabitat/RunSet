@@ -965,3 +965,9 @@ History Clear confirms all recorded rounds, including those hidden by the active
 filter. Never imply only shown records are removed when deleting the whole key.
 Retain the filtered-clear test proving all history is removed while exact game
 and preference bytes are kept.
+
+History CI caught fallback-font wrapping in both phone languages. Keep compact
+date-only summaries with the complete timestamp in expanded details, and footer
+buttons with max-content flex bases rather than equal narrow columns. Preserve
+the <=80 px fixture summary and <=64 px footer checks, >=48 px controls and the
+fallback-font/letter-spacing stress journey; do not loosen geometry thresholds.

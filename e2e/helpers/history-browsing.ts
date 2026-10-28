@@ -122,6 +122,11 @@ export async function verifyHistoryBrowsing(
   }
   const before = await snapshot();
   await activate(b("Round history"));
+  // Wider fallback glyph metrics must not strand the marker or wrap the footer.
+  await page.addStyleTag({
+    content:
+      ".round-history { font-family: Arial, sans-serif; letter-spacing: .3px; }",
+  });
   const dialog = page.getByRole("dialog", {
       name: t("Round history"),
       exact: true,

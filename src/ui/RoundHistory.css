@@ -63,6 +63,6 @@
 }
 
 .round-history .dialog-actions button {
-  flex: 1;
+  flex: 1 0 max-content;
   padding-inline: 12px;
 }

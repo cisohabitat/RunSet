@@ -104,7 +104,7 @@ for (const [device, width, height, dark, reading] of [
       await expect(
         page.getByLabel(t("Why the round ended"), { exact: true }),
       ).toContainText(
-        t("阿明 played their last tile. The first empty rack ends the round."),
+        t("The round ended because a rack is empty."),
       );
       await expect(page.locator(".winner-calculation")).toContainText(
         "41 + 3 = +44",
@@ -186,7 +186,7 @@ test("a blocked tie explains seat order and preserves the winner's own remaining
   ).toContainText("everyone passed in succession");
   await expect(
     page.getByLabel("Why the round ended", { exact: true }),
-  ).toContainText("seat comes first");
+  ).toContainText("player seated first");
   const winner = results(s).find((p) => p.winner)!;
   await expect(page.locator(".winner-card")).toContainText(winner.name);
   await expect(page.locator(".winner-card .round-score strong")).toHaveText(
@@ -210,7 +210,7 @@ test("a blocked tie explains seat order and preserves the winner's own remaining
   await page.getByRole("button", { name: /View results/ }).click();
   await expect(
     page.getByLabel("Why the round ended", { exact: true }),
-  ).toContainText("seat comes first");
+  ).toContainText("player seated first");
 });
 test("continuing a match keeps totals while replay resets the match with identical options", async ({
   page,

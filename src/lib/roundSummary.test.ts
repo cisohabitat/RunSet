@@ -12,7 +12,7 @@ it("explains an actual rack-empty finish without changing scores or saved state"
   const before = JSON.stringify(s);
   const summary = roundSummary(s);
   expect(summary.reason).toBe("rack-empty");
-  expect(summary.message).toContain("played their last tile");
+  expect(summary.message).toBe("The round ended because a rack is empty.");
   expect(summary.tieBreak).toBeUndefined();
   expect(JSON.stringify(s)).toBe(before);
   expect(results(s).reduce((n, p) => n + p.score, 0)).toBe(0);
@@ -33,7 +33,7 @@ it("explains empty-pool passes and an actual lowest-total tie by seat order", ()
   const summary = roundSummary(s);
   expect(summary.reason).toBe("pool-exhausted");
   expect(summary.tieBreak).toContain(s.players[0].name);
-  expect(summary.tieBreak).toContain("seat comes first");
+  expect(summary.tieBreak).toContain("player seated first");
   expect(results(s)[0].winner).toBe(true);
 });
 it("does not claim a tie when the lowest remaining total is unique", () => {
@@ -58,6 +58,10 @@ it("translates ending explanations and preserves names that resemble interface l
   for (const message of [
     "阿明 played their last tile. The first empty rack ends the round.",
     "阿明 wins with no tiles left.",
+    "The round ended because a rack is empty.",
+    "Winner: 阿明. No tiles remain in this rack.",
+    "Winner: 阿明. Lowest remaining tile total: 1.",
+    "The lowest total is tied at 1. The player seated first among those tied wins: 阿明.",
     "This saved round is complete. Its exact ending was not recorded.",
     "Remaining tiles deduct 41 points from this round.",
   ])

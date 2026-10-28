@@ -568,3 +568,13 @@ The CI browser matrix now runs Chromium, phone WebKit, iPad WebKit, desktop
 Firefox and offline checks as separate jobs. Each compatibility project keeps
 all of its cases. The complete aggregate check remains required, with the same
 twenty-minute job and five-minute offline limits.
+
+The player-comfort release now has a connected bilingual regression journey:
+resume an interrupted timed draft, use opponent guidance and both tile-finding
+tools, complete the game, export its actual backup, delete progress and recover
+the file offline. It checks exact deadlines/history, 106 physical IDs, preference
+retention and quiet restored results. Result explanations use factual labels
+that also read naturally when the player's name is You.
+
+See [release evidence](docs/PLAYER_COMFORT_RELEASE.md) for the phase gates,
+automated coverage and the limits of emulated-device and voice verification.

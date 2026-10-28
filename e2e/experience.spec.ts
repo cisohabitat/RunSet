@@ -230,6 +230,13 @@ test("matches deal subsequent rounds and timed turns draw on expiry", async ({
   await page.getByRole("button", { name: "Deal the tiles" }).click();
   await expect(page.getByRole("timer")).toHaveCount(1);
   await expect(page.getByLabel("Match scores")).toBeVisible();
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () => JSON.parse(localStorage.getItem("runset.save.v1")!)?.match?.target,
+      ),
+    )
+    .toBe(500);
   await page.getByRole("button", { name: "Home", exact: true }).click();
   await page.evaluate(async () => {
     const { practiceGame } = await import("/src/engine/practice.ts");
@@ -247,14 +254,24 @@ test("matches deal subsequent rounds and timed turns draw on expiry", async ({
   await page.getByRole("button", { name: /New group or run/ }).click();
   await page.getByRole("button", { name: "End turn →", exact: true }).click();
   await expect(page.getByLabel("Match scoreboard")).toBeVisible();
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () => JSON.parse(localStorage.getItem("runset.save.v1")!).phase,
+      ),
+    )
+    .toBe("over");
   await page.reload();
   await page.getByRole("button", { name: "View results" }).click();
   await page.getByRole("button", { name: "Deal round 2" }).click();
-  expect(
-    await page.evaluate(
-      () => JSON.parse(localStorage.getItem("runset.save.v1")!).match.round,
-    ),
-  ).toBe(2);
+  await expect(page.locator(".rack")).toBeVisible();
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () => JSON.parse(localStorage.getItem("runset.save.v1")!).match.round,
+      ),
+    )
+    .toBe(2);
   await page.getByRole("button", { name: "Home", exact: true }).click();
   await page.evaluate(async () => {
     const { practiceGame } = await import("/src/engine/practice.ts");

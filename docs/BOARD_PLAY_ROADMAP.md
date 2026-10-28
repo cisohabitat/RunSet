@@ -6,8 +6,8 @@ starting the next. Continue using Git integration for Vercel; no direct deploy.
 
 | Phase | Outcome | Status |
 |---|---|---|
-| 1 | Tile-sized draft cards and tighter board gaps | Implemented; local browser/build gate passed |
-| 2 | Distinct, calmer selection/destination/invalid/latest states | Pending |
+| 1 | Tile-sized draft cards and tighter board gaps | Published; full CI and six live journeys passed |
+| 2 | Distinct, calmer selection/destination/invalid/latest states | Implemented; local verification in progress |
 | 3 | Evidence-based opening and endgame bot decisions | Pending |
 | 4 | Clearer, brief placement/rejection/ending feedback | Pending |
 
@@ -43,3 +43,32 @@ unchanged 100,000-byte budget, with 70 precached files. Full exact-main CI is
 required after publication before Phase 2.
 
 All 186 unit tests passed before Phase 1 publication.
+
+Phase 1 accepted main: 9160088, complete CI
+[40671169930](https://github.com/cisohabitat/RunSet/actions/runs/40671169930)
+passed with 186 unit and 632 browser tests (304 Chromium, 93 per compatibility
+project, 49 offline), plus aggregate check. Matching READY production passed six
+live bilingual layout journeys before Phase 2 started.
+
+## Phase 2
+
+Safe destinations use a dashed inset outline. Keyboard focus keeps the distinct
+solid focus-colour ring; selected tiles keep their check mark, raised position
+and solid outline. Remove the selected tile's extra block shadow and the recent
+tile's inset border; latest-play dots and accessible explanations remain. Invalid
+cards retain their text/colour cue, use the theme's error border and slightly
+larger repair text. Comfortable repair copy remains 18 px. No new board row,
+state inference, timers, speech, storage or animation behavior is added.
+
+The existing meld-space journeys now check actual selected/check-mark state,
+latest-play dots/descriptions, safe-destination dashes and keyboard focus as
+separate cues, while retaining real placement, Undo, exact-save, long-run,
+rotation and offline checks. Existing contrast, touch-feedback and strict
+comfortable-board checks remain part of verification.
+
+Phase 2 screenshot polish removes uppercase/tracking from captions without
+changing text or font size; this reduces unnecessary English wrapping. The
+comfortable invalid label is 16 px. During the phase, 37 targeted browser checks
+passed; ten final cue/layout journeys passed after caption polish. Type/build
+passed at 99,247 initial gzip bytes and 70 precached files. No rules or storage
+code changes. Complete exact-main CI remains required before Phase 3.

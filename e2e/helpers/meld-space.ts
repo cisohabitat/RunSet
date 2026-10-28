@@ -25,6 +25,7 @@ export async function verifyMeldSpace(
   delete original.turnSeconds;
   delete original.match;
   original.coach = false;
+  original.lastPlaced = [1];
   const long = Array.from({ length: 13 }, (_, i) => i + 13);
   original.pool = original.pool.filter((id) => !long.includes(id));
   for (const player of original.players)
@@ -87,7 +88,21 @@ export async function verifyMeldSpace(
   }
   await activate(button("Continue game →"));
   const before = await save();
+  const recent = page.locator('main.game .table [data-tile-id="1"]');
+  await expect(recent.locator(".tile-recent")).toBeVisible();
+  await expect(recent).toHaveAttribute(
+    "aria-description",
+    t("Played in the latest turn."),
+  );
+
   await activate(page.locator('.rack [data-tile-id="5"]'));
+
+  const selected = page.locator('.rack [data-tile-id="5"]');
+  await expect(selected).toHaveAttribute("aria-pressed", "true");
+  await expect(selected.locator(".tile-check")).toBeVisible();
+  expect(
+    await selected.evaluate((el) => getComputedStyle(el).outlineStyle),
+  ).toBe("solid");
   await chooseView(page, "table", t);
   const cards = page.locator("main.game .table .meld"),
     draft = cards.first();
@@ -142,6 +157,24 @@ export async function verifyMeldSpace(
   await activate(page.locator('main.game .table [data-tile-id="25"]'));
   await activate(page.locator('main.game .table [data-tile-id="25"]'));
   // The original rack selection survives long-run navigation and rotation.
+
+  const destination = button("Add selected tiles to meld 8");
+  await expect(destination).toHaveAttribute(
+    "data-suggested-destination",
+    "true",
+  );
+  // Inspect the actual keyboard focus ring separately from the destination cue.
+  await page.keyboard.press("Tab");
+  await destination.focus();
+  await expect(destination).toBeFocused();
+  expect(
+    await destination.evaluate((el) => getComputedStyle(el).outlineStyle),
+  ).toBe("solid");
+  await destination.evaluate((el) => el.blur());
+  expect(
+    await destination.evaluate((el) => getComputedStyle(el).outlineStyle),
+  ).toBe("dashed");
+  expect(await save()).toBe(before);
   await activate(button("Add selected tiles to meld 8"));
   await expect
     .poll(async () => JSON.parse((await save())!).history.length)
@@ -160,7 +193,9 @@ export async function verifyMeldSpace(
   await activate(button("Continue game →"));
   await chooseView(page, "table", t);
   await page.setViewportSize({ width: 375, height: 667 });
-  expect(await cards.first().evaluate(el=>el.getBoundingClientRect().width)).toBeGreaterThanOrEqual(198);
+  expect(
+    await cards.first().evaluate((el) => el.getBoundingClientRect().width),
+  ).toBeGreaterThanOrEqual(198);
   expect(
     await cards
       .locator(".tile")

@@ -1,0 +1,38 @@
+/* Destination dashes differ from selection and the keyboard focus ring. */
+.game [data-suggested-destination="true"] {
+  outline: 2px dashed var(--accent);
+  outline-offset: -2px;
+  background: var(--soft);
+}
+.game [data-suggested-destination="true"]:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.game .tile.selected {
+  box-shadow: var(--shadow);
+}
+.game .tile.recent:not(.selected):not(.glow) {
+  box-shadow: var(--shadow);
+}
+.game .meld.invalid {
+  border-color: var(--red);
+}
+.game .meld.invalid::before {
+  font-size: 12px;
+  letter-spacing: normal;
+}
+.game .meld-explanation {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.app.comfortable-reading .game .meld-explanation {
+  font-size: 18px;
+}
+.app.comfortable-reading .game .meld.invalid::before {
+  font-size: 16px;
+}
+.game .meld-target {
+  text-transform: none;
+  letter-spacing: normal;
+  line-height: 1.4;
+}

@@ -1,4 +1,5 @@
 import "./GameLayout.css";
+import "./GameStates.css";
 import { useI18n } from "../i18n/I18n";
 import {
   lazy,

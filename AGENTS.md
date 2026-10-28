@@ -836,3 +836,11 @@ retain the complete explanation and readable large/comfortable minima. Never
 pack by changing DOM/engine order or shrinking tiles/targets. Check real bounds
 rather than assuming browsers serialize CSS min() to pixels. Preserve long-run
 access, source meld numbers, native placement/Undo, exact saves and offline use.
+
+GameStates.css distinguishes safe destination dashes from solid keyboard focus
+and selected-tile checks. Keep real native focus visible even on a suggested
+control. Latest-play dots/descriptions stay engine-owned; do not replace them
+with local selection or optimistic placement state. Preserve full repair text,
+comfortable sizes, contrast palettes and exact game bytes while styling states.
+Keep meld captions in normal case with normal spacing; decorative tracking
+should not force extra lines. Comfortable error labels retain 16 px text.

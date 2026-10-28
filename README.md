@@ -615,3 +615,9 @@ more compact unfinished-meld cards: explanations wrap within the tile-sized
 card instead of forcing a wide row. Tiles, magnifier controls, original meld
 numbers, and optional larger/comfortable views retain their sizes and meanings.
 Desktop meld gaps are tighter, with the existing compact touch layouts retained.
+
+Safe destination outlines are dashed; keyboard focus uses a separate solid ring.
+Selected tiles retain their check mark and raised outline, while a corner dot
+marks the latest completed play. Unfinished melds keep a written repair message.
+These cues use the existing light, dark and high-contrast palettes.
+Meld captions use normal case and spacing to avoid unnecessary wrapping.

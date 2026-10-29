@@ -1319,6 +1319,7 @@ const messages: Record<string, string> = {
   "After replacement": "换出后",
   "Reuse this turn": "本回合再用",
   "The joker now stands for 9. Both runs must be valid when you end your turn.": "此时，万能牌当作9。两个顺子都合法后，才结束本回合。",
+  "Close menu": "关闭菜单",
 };
 export const translateChinese = translator(messages);
 export default messages;

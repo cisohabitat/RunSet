@@ -113,6 +113,7 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   await header("playing");
   for(const view of [{width:320,height:640},{width:375,height:667},{width:820,height:1180},{width:1180,height:820}]){
     await page.setViewportSize(view);
+    if(view.width===320) console.log("RELEASE_PLAYING_LAYOUT "+JSON.stringify(await page.locator(".game-context").evaluate(el=>({context:el.getBoundingClientRect().toJSON(),scroll:el.scrollTop,heading:el.querySelector("h1")?.getBoundingClientRect().toJSON(),guide:el.querySelector(".first-game-guide")?.getBoundingClientRect().toJSON()}))));
     await header("playing-"+view.width,((info.project.name==="chromium"&&locale==="en")||(info.project.name==="webkit-phone"&&locale==="zh-CN"))&&view.width===320);
     expect((await page.locator("main.game > .table").boundingBox())!.height).toBeGreaterThanOrEqual(view.width<720?180:220);
   }
@@ -171,7 +172,7 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
     }
     for(const view of views){
       await page.setViewportSize(view);
-      const capture=(info.project.name===""&&locale==="en"&&!reading&&view.width===375)||(info.project.name==="webkit-phone"&&locale==="zh-CN"&&reading&&view.width===375)||(info.project.name==="webkit-ipad"&&view.width===1180&&reading===(locale==="zh-CN"));
+      const capture=((info.project.name===""||info.project.name==="chromium")&&locale==="en"&&!reading&&view.width===375)||(info.project.name==="webkit-phone"&&locale==="zh-CN"&&reading&&view.width===375)||(info.project.name==="webkit-ipad"&&view.width===1180&&reading===(locale==="zh-CN"));
       await header("results-"+view.width+"-"+(reading?"comfortable":"standard"),capture);
       expect(await bytes()).toBe(final);
     }
@@ -188,7 +189,13 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   await expect(page.locator(".site-header").getByRole("button",{name:t("Settings"),exact:true})).toBeFocused();
   await activate(page.locator(".game-dropdown > summary"));
   await expect(page.locator(".game-menu-content")).toBeVisible();
+  await activate(page.locator(".game-menu-content").getByRole("button",{name:t("Close menu"),exact:true}));
+  await expect(page.locator(".game-dropdown > summary")).toBeFocused();
+  await expect(page.locator(".game-menu-content")).not.toBeVisible();
   await activate(page.locator(".game-dropdown > summary"));
+  await page.keyboard.press("Escape");
+  await expect(page.locator(".game-menu-content")).not.toBeVisible();
+  await expect(page.locator(".game-dropdown > summary")).toBeFocused();
   expect(await bytes()).toBe(final);
   await expect.poll(()=>page.evaluate(()=>localStorage.getItem("runset.roundHistory.v1"))).toBe(records);
   expect(await page.evaluate(()=>localStorage.getItem("runset.practice.v1"))).toBe(lesson);

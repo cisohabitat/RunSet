@@ -4501,3 +4501,15 @@ button:not(.tile) {
 .app:not(.comfortable-reading) .game .turn-tools > .more-actions > summary {
   min-inline-size: 44px;
 }
+
+
+/* The phone menu can cover its toggle, so keep an explicit exit in view. */
+.game-menu-content > .game-menu-close {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--paper);
+}

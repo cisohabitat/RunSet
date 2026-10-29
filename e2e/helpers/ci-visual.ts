@@ -1,7 +1,7 @@
 import type { Page, TestInfo } from "@playwright/test";
 /** Fixture-only JPEGs for review when the local execution workspace is unavailable. */
-export async function emitVisual(page: Page, info: TestInfo, locale: "en" | "zh-CN", stage: string) {
-  if (!process.env.CI || !(
+export async function emitVisual(page: Page, info: TestInfo, locale: "en" | "zh-CN", stage: string, include = false) {
+  if (!process.env.CI || !(include ||
     (info.project.name === "webkit-phone" && locale === "zh-CN") ||
     (info.project.name === "webkit-ipad")
   )) return;

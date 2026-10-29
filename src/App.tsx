@@ -374,6 +374,18 @@ export default function App() {
         </summary>
         <nav className="game-menu-content" aria-label={t("Game options")}>
           <button
+            className="text-button game-menu-close"
+            data-menu-action
+            onClick={(event) => {
+              const menu = event.currentTarget.closest<HTMLDetailsElement>(".game-dropdown");
+              if (!menu) return;
+              menu.open = false;
+              menu.querySelector<HTMLElement>("summary")?.focus({ preventScroll: true });
+            }}
+          >
+            {t("Close menu")} <span aria-hidden="true">×</span>
+          </button>
+          <button
             className="text-button"
             data-menu-action
             onClick={() => setScreen("learn")}
@@ -466,7 +478,7 @@ export default function App() {
               {t("r")}
               <span>◆</span>
             </span>
-            {t("runset")}
+            <span className="brand-word">{t("runset")}</span>
             <span className="brand-period">.</span>
           </button>
           <div className="header-right">

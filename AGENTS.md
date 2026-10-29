@@ -1,5 +1,19 @@
 # Contributor and agent guidance
 
+Release consolidation: preserve non-playing header reflow and the narrow playing
+header's labelled 44 px Home target. The visible wordmark must fit its button;
+closed menu descendants are not header controls. Compact translated turn tools
+need at least 44 px inline targets. Keep the translated sticky Close menu action,
+focus return, Escape support and native scroll clearance below it. Menu order is
+Close, Practice, then the existing options with Delete last. Retain strict native
+target, centre-hit, heading clearance, table floor and exact save assertions in
+the connected bilingual release journey. Its fresh-deal recovery and constructed
+near-win import are separate evidence; do not claim a fully played fresh round.
+The supplemental Release review workflow does not replace the full eight-job CI
+gate. Live checks use a new codex/live-release-review/<SHA> branch from the exact
+main commit after matching production READY. No deployment is performed by it.
+See docs/RELEASE_CONSOLIDATION.md.
+
 Whole-turn practice must not refocus an already-announced save warning when
 Reset clears validation feedback. A deferred warning focus can interrupt Space
 between key-down and key-up, losing the first selected tile. Track the notice

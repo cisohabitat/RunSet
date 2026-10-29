@@ -64,27 +64,41 @@ export async function verifyExtendedSession(
   const state = async (): Promise<GameState> => JSON.parse((await bytes())!);
   const activate = async (el: Locator) => {
     await el.scrollIntoViewIfNeeded();
-    expect(
-      await el.evaluate((el) => {
-        const r = el.getBoundingClientRect();
-        return (
-          r.width >= 44 &&
-          r.height >= 44 &&
-          r.top >= 0 &&
-          r.bottom <= innerHeight &&
-          r.left >= 0 &&
-          r.right <= innerWidth &&
-          el.contains(
-            document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2),
-          )
-        );
-      }),
-    ).toBe(true);
+    // Saving feedback and native scrolling can settle after persisted bytes.
+    // Wait for the complete original geometry; never scroll/reposition in the
+    // polling callback, so a permanently covered destination still fails.
+    await expect
+      .poll(() =>
+        el.evaluate((el) => {
+          const r = el.getBoundingClientRect();
+          const hit = document.elementFromPoint(
+            r.x + r.width / 2,
+            r.y + r.height / 2,
+          );
+          const valid =
+            r.width >= 44 &&
+            r.height >= 44 &&
+            r.top >= 0 &&
+            r.bottom <= innerHeight &&
+            r.left >= 0 &&
+            r.right <= innerWidth &&
+            el.contains(hit);
+          return {
+            valid,
+            rect: r.toJSON(),
+            viewport: [innerWidth, innerHeight],
+            hit: hit?.outerHTML.slice(0, 200),
+          };
+        }),
+      )
+      .toMatchObject({ valid: true });
     if (info.project.name === "firefox-desktop") await el.click();
     else await el.tap();
   };
   const check = async () => {
     await expect.poll(state).toEqual(expected);
+    const indicator = page.locator(".game .save-indicator");
+    if (await indicator.count()) await expect(indicator).toHaveText(t("Saved"));
     const actual = await state();
     expect(validSave(actual)).toBe(true);
     expect(actual.history!.length).toBeLessThanOrEqual(100);

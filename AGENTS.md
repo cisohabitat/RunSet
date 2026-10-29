@@ -1090,3 +1090,10 @@ evidence; it supplements the complete required CI matrix. Distinguish main dev
 measurements from built production, renderer heap from process memory, and
 finite bounded growth from proof of indefinite leak freedom. Do not infer
 physical-device behavior from those reports.
+
+Persisted game bytes can precede Saved feedback and the final native layout after
+reload/Undo. Extended-session checkpoints await both the exact save and visible
+Saved indicator when the game is mounted. After native scroll, poll the original
+full target-size/viewport/centre-hit conditions with detailed geometry. Keep the
+existing assertion timeout and a measurement-only poll; no repeated scrolling,
+forced clicks, repositioning or lowered bounds to hide permanent obstruction.

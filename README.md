@@ -738,3 +738,5 @@ covering a destination after native scrolling, particularly in Firefox.
 See the [session review and raw samples](docs/EVERYDAY_SESSION_REVIEW.md).
 For the optional production Chromium resource audit, build and run
 `npx playwright test --config=playwright.session.config.ts`.
+Session checks await visible Saved feedback and complete native target geometry
+after reload/Undo; persisted bytes can precede the final UI layout.

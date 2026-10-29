@@ -202,3 +202,13 @@ melds, and both formerly failing cases pass their unchanged hit tests. All tile,
 control and table minima remain intact. Build: 98,703 gzip bytes / 77 cache files.
 See [review, raw samples and reproduction](EVERYDAY_SESSION_REVIEW.md). Publish
 separately and require complete exact-commit CI before final handoff.
+
+Initial d0fe8f6 / CI 40804829556 failed one new main-browser More target probe
+after Chinese reload/Undo; every other case/job passed, and aggregate check
+correctly failed. The correction awaits visible Saved UI and complete unchanged
+native geometry, with no scrolling inside the measurement poll, relaxed bound,
+larger timeout or application change. Require the correction's full workflow;
+the initial failed gate is not final acceptance. The 12 live cases passed on
+matching READY d0fe8f6 with identical application assets.
+All eight corrected bundled-Chromium cases passed locally (both languages/timer
+modes, twice, two concurrent workers), preserving the resource and state checks.

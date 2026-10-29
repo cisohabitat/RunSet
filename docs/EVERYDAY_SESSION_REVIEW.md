@@ -48,7 +48,7 @@ five-minute shards; additional long offline coverage belongs to compatibility.
 
 ## Retained resources and native lifecycle
 
-[Raw samples](EVERYDAY_SESSION_SAMPLES.json) record the final 20 passing cases,
+[Raw samples](EVERYDAY_SESSION_SAMPLES.json) record 20 passing local cases,
 browser versions, host, source fingerprints and the actual heap/DOM checkpoints.
 Untimed Chromium samples follow forced GC at the same editing arrangement after
 1, 61 and 121 accepted moves, with Undo already at its cap. Results/other lazy
@@ -87,3 +87,27 @@ compatibility tests, with one worker and a 375×667 touch profile. The required 
 matrix retains every original job and gains four main plus four cases in each
 compatibility project (16 new cases total). Complete exact-commit CI, including
 both offline shards and aggregate check, remains required before final handoff.
+
+## Publication gate correction
+
+Initial publication d0fe8f6 failed CI 40804829556 in one new Chinese comfortable
+Chromium case: More's immediate hit-target probe failed after reload/Undo.
+The other 328 main cases, all 124 cases per compatibility project, both 35-case
+offline shards and all 207 units passed. The aggregate gate correctly failed.
+All 12 live release journeys also passed on matching READY d0fe8f6; that does not
+override the failed CI gate. Three unchanged-assertion local repeats using the
+bundled Chromium passed, so a persistent additional application defect was not
+reproduced.
+
+The test now awaits visible Saved feedback as well as the actual persisted
+state, then waits for full original target geometry after native scrolling.
+The polling callback only measures: it never scrolls or repositions the target.
+Every size, complete viewport-bound and native centre-hit requirement remains,
+with detailed box/hit diagnostics and the existing assertion timeout. A permanent
+covered/clipped destination still fails. No application code, CI case, assertion
+or job/step limit is removed/relaxed. Resource samples retain their measured
+helper fingerprint from the earlier local run; application assets are unchanged
+by this readiness-only correction. Require fresh complete exact-commit CI.
+All eight corrected local cases passed with bundled Chromium 156.0.8078.4:
+both languages/timer modes repeated twice with two concurrent workers. The
+earlier three diagnostic repeats passed too. These do not replace the fresh gate.

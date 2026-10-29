@@ -1033,5 +1033,17 @@ comfortable caption selector must beat the later global 16 px supporting-caption
 rule. Test actual visible figures, offline first visits, rotation, Axe and exact
 regular-save bytes, without changing recorded lesson captions or auto-playing
 speech. Compatibility projects verify new examples after disconnecting; preserve
-the full offline job's existing cases and five-minute cap rather than adding
+the full offline suite's existing cases and five-minute per-shard cap rather than adding
 duplicate long journeys near its limit.
+
+The offline suite outgrew one five-minute step: all70 cases passed at5.0 minutes,
+but runner teardown crossed its watchdog. CI now adds offline-2 alongside the
+original offline matrix entry, invoking Playwright shards1/2 and2/2 respectively.
+Each has an independent checkout/build, one worker, a five-minute test step,
+twenty-minute job and unique failure artifacts. Preserve the other four browser
+projects, full install/audio/HTTPS setup and aggregate check across the complete
+matrix. Both shards are required; neither alone proves full offline acceptance.
+Use --list to verify shard sets are disjoint and their union equals the entire
+suite. Run local shards sequentially against a shared dist directory, since the
+real-worker fixtures rewrite dist/sw.js; CI's separate job filesystems may run
+them in parallel. Never omit cases or raise timeouts to mask this capacity issue.

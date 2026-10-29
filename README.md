@@ -710,3 +710,8 @@ How to play now includes expandable examples in English and Simplified Chinese:
 two complete new groups worth 24 + 6 points make a 30-point opening, and a
 before/after sequence shows exact joker replacement and reuse in the same turn.
 These are read-only diagrams; opening them keeps your saved game and deadline.
+
+CI runs the complete offline suite as two isolated shards. Each keeps a
+five-minute test-step limit and its own checkout/build, so real-worker update
+fixtures cannot affect the other shard. The aggregate check requires both shards
+and every other browser job. Local shards sharing one build must run sequentially.

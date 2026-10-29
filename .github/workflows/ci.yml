@@ -36,7 +36,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [chromium, webkit-phone, webkit-ipad, firefox-desktop, offline]
+        suite:
+          [
+            chromium,
+            webkit-phone,
+            webkit-ipad,
+            firefox-desktop,
+            offline,
+            offline-2,
+          ]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -62,12 +70,15 @@ jobs:
       - run: npm run build
       - if: matrix.suite == 'chromium'
         run: npm run test:e2e
-      - if: matrix.suite != 'chromium' && matrix.suite != 'offline'
+      - if: matrix.suite == 'webkit-phone' || matrix.suite == 'webkit-ipad' || matrix.suite == 'firefox-desktop'
         env:
           RUNSET_COMPAT_PROJECT: ${{ matrix.suite }}
         run: npx playwright test --config=playwright.compat.config.ts --project="$RUNSET_COMPAT_PROJECT"
-      - if: matrix.suite == 'offline'
-        run: npx playwright test --config=playwright.offline.config.ts
+      # Separate checkouts/builds isolate the real-worker update fixtures.
+      - if: matrix.suite == 'offline' || matrix.suite == 'offline-2'
+        env:
+          RUNSET_OFFLINE_SHARD: ${{ matrix.suite == 'offline' && '1/2' || '2/2' }}
+        run: npx playwright test --config=playwright.offline.config.ts --shard="$RUNSET_OFFLINE_SHARD"
         timeout-minutes: 5
       - uses: actions/upload-artifact@v4
         if: failure()

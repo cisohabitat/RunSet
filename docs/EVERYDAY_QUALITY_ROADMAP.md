@@ -1,7 +1,7 @@
 # Simpler everyday play and stronger game quality
 
 Approved 2026-10-28. Publish each phase separately to GitHub main. Require the
-complete exact-commit workflow (quality, all five browser jobs and aggregate
+complete exact-commit workflow (quality, every browser matrix job and aggregate
 check) before beginning the next phase. Keep default rules, tile/control sizes,
 visible table floors, both languages, offline assets and independent save keys.
 Multiplayer remains deferred. Physical-device/older-player/native-voice studies
@@ -130,6 +130,24 @@ bytes and deadline through rotation and Back/reload. The new rules content is
 automated text/diagram evidence, not native Mandarin or older-player acceptance.
 Four additional WebKit phone/iPad captures passed with complete joker figures;
 reviewed both languages' replacement/reuse sequence as well as the opening math.
+
+Publication47c4e0 / CI40795173882 failed its offline watchdog after all70 cases
+reported passed at5.0 minutes; runner completion crossed the five-minute step.
+The new example cases were not added to that job. Keep all70 existing cases and
+the watchdog by splitting into two Playwright shards in independent CI jobs.
+Original offline runs1/2; new offline-2 runs2/2. Both retain their five-minute
+test step, twenty-minute job, complete dependency/audio setup and unique failure
+artifacts, and the aggregate check requires the entire matrix. No test, assertion
+or failure artifact is removed. List verification proves35+35 cases, disjoint,
+with exactly the full70-case union. Local shard runs remain sequential because
+their worker fixtures share dist/sw.js; parallel CI jobs have separate builds.
+Require a fresh complete correction workflow before Phase4.
+Every other job on47c4e0 passed: quality, all325 Chromium cases and all120 cases
+in each compatibility project. The offline failure was solely the elapsed step
+watchdog, after all70 cases reported passed; it is still a failed gate.
+Local partition verification passed with no omissions/duplicates. Shard1 passed
+all35 cases in2.6 minutes; shard2 passed all35 cases separately. Application
+source/build and all original offline assertions remain unchanged by sharding.
 
 ## Phase 4 — evidence before bot tuning
 

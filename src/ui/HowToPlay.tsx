@@ -1,5 +1,8 @@
 import { useI18n } from "../i18n/I18n";
 import { TileDemo } from "./Tile";
+import { openingExample, jokerExample } from "../lib/ruleExamples";
+import { tiles } from "../engine/tiles";
+import { inspectMeld } from "../engine/meld";
 export function HowToPlay({ onBack }: { onBack: () => void }) {
   const { t } = useI18n();
   return (
@@ -52,12 +55,37 @@ export function HowToPlay({ onBack }: { onBack: () => void }) {
         <article>
           <span className="step">{t("04 / JOKERS")}</span>
           <h2>{t("A little wild.")}</h2>
-          <TileDemo ids={[3, 104, 5]} />
+          <TileDemo ids={[...jokerExample.before]} />
           <p>
             {t(
               "A joker stands in for a missing tile. Here it counts as 5. To retrieve a table joker, replace it with the exact rack tile it represents and reuse it in a valid meld that turn. For groups, the joker’s missing colour follows red, blue, orange, black order.",
             )}
           </p>
+          <details className="rule-example joker-example">
+            <summary>{t("See replacement and reuse")}</summary>
+            <p>
+              {t(
+                "Replace the joker with your red 5. Then use it with your red 7 and 8 before ending this turn.",
+              )}
+            </p>
+            <figure>
+              <figcaption>{t("Before replacement")}</figcaption>
+              <TileDemo ids={[...jokerExample.before]} />
+            </figure>
+            <figure>
+              <figcaption>{t("After replacement")}</figcaption>
+              <TileDemo ids={[...jokerExample.replacement]} />
+            </figure>
+            <figure>
+              <figcaption>{t("Reuse this turn")}</figcaption>
+              <TileDemo ids={[...jokerExample.reuse]} />
+            </figure>
+            <p>
+              {t(
+                "The joker now stands for 9. Both runs must be valid when you end your turn.",
+              )}
+            </p>
+          </details>
         </article>
         <article>
           <span className="step">{t("05 / YOUR OPENING")}</span>
@@ -68,6 +96,45 @@ export function HowToPlay({ onBack }: { onBack: () => void }) {
               "Your first play must total at least 30 points, using only tiles from your own rack. A joker counts as the number it replaces. Until then, leave existing table melds untouched.",
             )}
           </p>
+          <details className="rule-example opening-example">
+            <summary>{t("See a 30-point example")}</summary>
+            <p>
+              {t(
+                "You can combine more than one new group or run. Use only tiles from your rack to reach at least 30 points.",
+              )}
+            </p>
+            {openingExample.map((ids, i) => (
+              <figure key={i}>
+                <figcaption>
+                  {t(i === 0 ? "First new group" : "Second new group")}
+                </figcaption>
+                <TileDemo ids={[...ids]} />
+                <p>
+                  {ids.map((id) => tiles[id].num).join(" + ")} ={" "}
+                  {inspectMeld([...ids]).points} {t("points")}
+                </p>
+              </figure>
+            ))}
+            <p className="opening-equation">
+              <strong>
+                {t("Opening total")}:{" "}
+                {openingExample
+                  .map((ids) => inspectMeld([...ids]).points)
+                  .join(" + ")}{" "}
+                ={" "}
+                {openingExample.reduce(
+                  (sum, ids) => sum + inspectMeld([...ids]).points,
+                  0,
+                )}{" "}
+                {t("points")}
+              </strong>
+            </p>
+            <p>
+              {t(
+                "The first group alone is only 24 points. Play both complete groups before ending your opening turn.",
+              )}
+            </p>
+          </details>
         </article>
         <article>
           <span className="step">{t("06 / EACH TURN")}</span>

@@ -1023,3 +1023,15 @@ When removing a duplicate navigation control, update the older full accessibilit
 journey to the retained native action. Its rules visit must use How to play on
 Home, not a footer-container button that no longer exists. Keep all four
 language/theme audits and every original Axe/keyboard/reflow assertion intact.
+
+Rule diagrams use canonical physical IDs in src/lib/ruleExamples.ts. Submit those
+same opening and joker sequences to the real reducer in tests; keep below-30
+rejection, represented joker values and 106-ID save validity. Do not create a
+temporary game in the actual rules screen. Native example disclosures are
+visit-only/read-only, >=48 px, with 16/18 px copy and full-width diagrams. Their
+comfortable caption selector must beat the later global 16 px supporting-caption
+rule. Test actual visible figures, offline first visits, rotation, Axe and exact
+regular-save bytes, without changing recorded lesson captions or auto-playing
+speech. Compatibility projects verify new examples after disconnecting; preserve
+the full offline job's existing cases and five-minute cap rather than adding
+duplicate long journeys near its limit.

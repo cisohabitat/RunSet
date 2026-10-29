@@ -10,8 +10,8 @@ remain paused; automated browsers do not establish their results.
 | Phase | Outcome | Status |
 |---|---|---|
 | 1 | Audit the live release across updates, unfinished turns, lessons and recovery | Complete: 2f7abbf, CI 40786907023 passed |
-| 2 | Remove redundant menu actions and make remaining choices easier to scan | Implemented; verification/publication gate applies |
-| 3 | Improve Mandarin rule comprehension with concrete opening/joker examples | Pending |
+| 2 | Remove redundant menu actions and make remaining choices easier to scan | Complete: 4115285, CI 40792273244 passed |
+| 3 | Improve Mandarin rule comprehension with concrete opening/joker examples | Implemented; verification/publication gate applies |
 | 4 | Evaluate bot quality on a larger balanced unseen set before any tuning | Pending |
 | 5 | Stress real browser sessions, background/resume, rotation and storage recovery | Pending |
 
@@ -101,6 +101,35 @@ reuse. Show simple arithmetic and a complete legal before/after example without
 changing the engine rules or literal player names. Preserve exact recorded lesson
 captions; do not imply native Mandarin review or new recordings. Verify both
 languages, readable phone/tablet bounds and first-use offline access.
+
+Rules now offer native expandable opening and joker examples. Two complete
+groups (three 8s and three 2s) show 24 + 6 = 30 from the rack alone. The joker
+sequence shows red 4/joker/red 6, replacing with the actual rack red 5, then
+reusing that joker beside red 7/8 in the same turn. Its represented value becomes
+9. Short Chinese steps accompany every before/after figure. Existing abstract
+rules, missing-colour priority and exact recorded lesson captions are retained.
+
+Canonical diagram IDs are shared with three engine-validation tests: accepted
+combined opening, rejected 24-only opening, and actual accepted joker replacement/
+reuse. The new native journey checks every displayed physical ID, disabled
+read-only tiles, readable captions, target geometry, portrait/landscape rotation,
+full horizontal bounds, Axe and exact saved bytes through Back/reload.
+
+All 207 units passed. Initial browser checks caught the global comfortable
+supporting-caption rule overriding the new 18 px captions; the rules-specific
+selector now wins, with the strict readability assertion retained. Build:
+98,691 initial gzip bytes under the unchanged 100,000 budget, 77 cache files.
+All compatibility example journeys disconnect before first use. Extra production
+Chromium checks use a temporary local config; no existing offline coverage or
+five-minute CI limit is removed to accommodate new interaction tests.
+All ten final example journeys passed: two main Chromium, six production
+compatibility, and two additional production Chromium offline checks. Six existing
+language cases also passed in the broader run. Readable Chinese phone and English
+iPad opening figures were reviewed; native diagrams retain the original game
+bytes and deadline through rotation and Back/reload. The new rules content is
+automated text/diagram evidence, not native Mandarin or older-player acceptance.
+Four additional WebKit phone/iPad captures passed with complete joker figures;
+reviewed both languages' replacement/reuse sequence as well as the opening math.
 
 ## Phase 4 — evidence before bot tuning
 

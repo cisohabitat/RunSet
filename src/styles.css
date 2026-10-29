@@ -573,6 +573,25 @@ legend {
   color: var(--muted);
   margin-top: 20px;
 }
+.rule-example {
+  margin-block: 16px;
+}
+.guide .rule-example :is(p, figcaption, summary) {
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.rule-example summary {
+  min-height: 48px;
+  cursor: pointer;
+  padding-block: 8px;
+}
+.rule-example figure {
+  margin: 12px 0;
+}
+.app.comfortable-reading .guide .rule-example :is(p, figcaption, summary) {
+  font-size: 18px;
+}
 .step {
   font-size: 12px;
   letter-spacing: 1.2px;

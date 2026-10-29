@@ -1307,6 +1307,18 @@ const messages: Record<string, string> = {
   "The update check could not finish. Keep playing and try again.": "未能完成更新检查。可以继续玩，稍后再试。",
   "Downloading an update… Keep this tab open.": "正在下载更新……请保留此页面。",
   "No new version found.": "没有发现新版本。",
+  "See a 30-point example": "看看怎样凑满30分",
+  "You can combine more than one new group or run. Use only tiles from your rack to reach at least 30 points.": "开局可以一次摆出几组同数组或顺子，合计至少30分。只能用自己手里的牌，先别动桌上原有的牌。",
+  "First new group": "第一组新牌",
+  "Second new group": "第二组新牌",
+  "Opening total": "开局合计",
+  "The first group alone is only 24 points. Play both complete groups before ending your opening turn.": "只有第一组是24分，还不够。两组都摆好，合计30分后，才结束开局回合。",
+  "See replacement and reuse": "看看怎样换出并再用万能牌",
+  "Replace the joker with your red 5. Then use it with your red 7 and 8 before ending this turn.": "先用自己手里的红色5，换出桌上的万能牌。再用这张万能牌和红色7、8摆成顺子，然后才能结束本回合。",
+  "Before replacement": "换出前",
+  "After replacement": "换出后",
+  "Reuse this turn": "本回合再用",
+  "The joker now stands for 9. Both runs must be valid when you end your turn.": "此时，万能牌当作9。两个顺子都合法后，才结束本回合。",
 };
 export const translateChinese = translator(messages);
 export default messages;

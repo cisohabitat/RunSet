@@ -705,3 +705,8 @@ original destination. During play, the menu puts Practice · keep this game firs
 Delete saved game last. Restart game still asks before replacing the current
 round with the same players/settings. Menu text uses readable 16/18 px sizes and
 48 px controls, and reopening starts at the first choices.
+
+How to play now includes expandable examples in English and Simplified Chinese:
+two complete new groups worth 24 + 6 points make a 30-point opening, and a
+before/after sequence shows exact joker replacement and reuse in the same turn.
+These are read-only diagrams; opening them keeps your saved game and deadline.

@@ -12,8 +12,8 @@ remain paused; automated browsers do not establish their results.
 | 1 | Audit the live release across updates, unfinished turns, lessons and recovery | Complete: 2f7abbf, CI 40786907023 passed |
 | 2 | Remove redundant menu actions and make remaining choices easier to scan | Complete: 4115285, CI 40792273244 passed |
 | 3 | Improve Mandarin rule comprehension with concrete opening/joker examples | Complete: d39971d, CI 40797539848 passed |
-| 4 | Evaluate bot quality on a larger balanced unseen set before any tuning | Implemented; complete CI gate required |
-| 5 | Stress real browser sessions, background/resume, rotation and storage recovery | Pending |
+| 4 | Evaluate bot quality on a larger balanced unseen set before any tuning | Complete: 7139574, CI 40801453106 passed |
+| 5 | Stress real browser sessions, background/resume, rotation and storage recovery | Implemented; complete publication CI required |
 
 ## Phase 1 — live release audit
 
@@ -174,6 +174,11 @@ The 115 blocked endings limit finish coverage and warrant future independent
 endgame fixtures, not tuning to these wins. Strategies and Easy default remain
 unchanged. See [full review and raw evidence](EVERYDAY_BOTS_REVIEW.md).
 
+Publication 7139574 passed complete CI 40801453106: quality, all six browser
+jobs and aggregate check. Its Git-linked Vercel deployment is READY. All 207
+units and the 98,691-byte production build passed locally before publication.
+Phase 5 began only after that complete workflow succeeded.
+
 ## Phase 5 — long browser sessions
 
 Exercise repeated real browser actions with bounded Undo, timed/untimed state,
@@ -182,3 +187,18 @@ drafts, original deadlines, explicit reload/recovery and 106 physical IDs. Recor
 browser timing/resource samples honestly, separate warm-up from repeated work,
 and keep bounded cleanup. Reuse existing engine soaks; browser sessions complement
 them and do not establish physical-device battery life or older-player usability.
+
+All 16 new primary browser cases passed, plus four additional offline production
+Chromium cases, 13 existing landscape/table-overview cases and all 207 units.
+Sessions retain 100 Undo copies through 121 real edits, selection/rotation,
+write refusal/retry, reload/Undo, exactly-once expiry after logical Home time and
+three actual completed rounds per untimed case. Chromium records retained heap /
+DOM and a separate native freeze/resume; positive heap growth stays within the
+smoke bound, without a physical-device or indefinite leak-freedom claim.
+
+The new journeys caught Firefox's sticky decorative heading covering the first
+meld destination after native scrolling. The regular heading now scrolls with
+melds, and both formerly failing cases pass their unchanged hit tests. All tile,
+control and table minima remain intact. Build: 98,703 gzip bytes / 77 cache files.
+See [review, raw samples and reproduction](EVERYDAY_SESSION_REVIEW.md). Publish
+separately and require complete exact-commit CI before final handoff.

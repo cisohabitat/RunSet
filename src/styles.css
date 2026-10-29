@@ -1625,6 +1625,10 @@ input {
   padding: 8px 3px;
   z-index: 2;
 }
+/* A decorative heading must not cover a destination after native scrolling. */
+.app.playing > .game > .table > .table-topline {
+  position: static;
+}
 .site-header,
 .site-footer {
   padding-left: max(5%, env(safe-area-inset-left));

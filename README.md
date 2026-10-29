@@ -725,3 +725,16 @@ The [larger review](docs/EVERYDAY_BOTS_REVIEW.md) completed 120 balanced rounds
 over ten seed blocks per format, with zero rejected proposals or calls over
 400 ms on its Node host. It preserves raw reports and explains the limited
 finish coverage and correlated deals; it is not physical-device performance.
+
+Extended-session browser checks exercise 121 real edits with Undo capped at 100,
+rotation, a failed-write/retry, reload and actual Undo, plus three real finished
+rounds. Separate timed cases return after 20 minutes of logical Home time and
+check one expiry draw against the original deadline. Both languages run in
+Chromium and offline WebKit phone/iPad and Firefox. Chromium additionally samples
+retained heap/DOM and a native freeze/resume. These are bounded automated smoke
+checks, not physical Apple background, battery or older-player evidence.
+The regular table's decorative heading scrolls with the melds, keeping it from
+covering a destination after native scrolling, particularly in Firefox.
+See the [session review and raw samples](docs/EVERYDAY_SESSION_REVIEW.md).
+For the optional production Chromium resource audit, build and run
+`npx playwright test --config=playwright.session.config.ts`.

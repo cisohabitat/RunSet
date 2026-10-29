@@ -1057,3 +1057,36 @@ raw host/load, fingerprints and bounded redacted counterexamples. A zero missed
 finish count with zero known finish opportunities provides no finish-coverage
 evidence. Preserve the default and strategies unless a demonstrated defect or
 separately justified change warrants implementation; never tune to sampled wins.
+
+Extended-session tests seed 100 valid copied Undo snapshots, then drive real
+tile targets against an independent reducer expectation. Preserve exact saved
+state, 106 IDs, the 100-snapshot bound, selected-tile rotation and original timed
+deadline. Failed primary writes must leave previous bytes and the live edit;
+restore storage and retry through Take a break, then reload and actually Undo.
+The timed Home break is logical elapsed time, not physical mobile suspension;
+verify exactly one expiry draw, restored turn-start table/rack and cleared Undo.
+Keep bot pace bounded away from the immediate expiry assertion, then leave play.
+Untimed runs import three valid playing fixtures through real backup confirmation
+and actually finish each round before checking independent round-history counts.
+Never seed completed games as a substitute. Chromium retained heap/DOM samples
+compare the same editing arrangement after GC, with Undo already at its cap;
+keep 8 MiB/150-node growth smoke bounds, raw samples and explicit host limits.
+Native Chromium frozen/active coverage is separate from logical Home time and
+is not claimed for WebKit/Firefox. Preserve all existing offline cases; production
+compatibility tests cover these additional long offline journeys instead of
+duplicating them in the five-minute offline shards.
+
+The regular table's decorative topline scrolls normally. A sticky topline could
+cover the first meld destination's click point after Firefox native scrolling
+from a lower selected tile. Keep the direct regular-game selector static,
+preserving practice scope, expanded visibility, all target sizes and table floors.
+Retain the extended journey's original centre hit test; do not force clicks,
+reposition destinations in the test or lower geometry requirements to bypass it.
+
+Session evidence and reproduction live in docs/EVERYDAY_SESSION_REVIEW.md and
+docs/EVERYDAY_SESSION_SAMPLES.json. The optional playwright.session.config.ts
+reuses the production preview/connected compatibility flow for Chromium heap
+evidence; it supplements the complete required CI matrix. Distinguish main dev
+measurements from built production, renderer heap from process memory, and
+finite bounded growth from proof of indefinite leak freedom. Do not infer
+physical-device behavior from those reports.

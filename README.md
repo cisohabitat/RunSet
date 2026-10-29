@@ -1,5 +1,11 @@
 # RunSet
 
+Regular table destinations show their group/run number in every arrangement,
+matching placement feedback and Table overview. On a crowded board, More → Find
+selected tiles reveals a hidden rack; Find latest placement locates an unfinished
+edit, or the marked latest play after Undo. See the
+[crowded-board review](docs/CROWDED_BOARD_REVIEW.md) for verification and limits.
+
 Complete-match verification and save-integrity findings are recorded in
 [the match review](docs/MATCH_REVIEW.md). To repeat the six seeded matches from
 fresh deals, run `node scripts/review-matches.mjs --out=/tmp/match-audit.json`.

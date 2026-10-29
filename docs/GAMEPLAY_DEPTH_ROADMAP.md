@@ -13,8 +13,8 @@ everyday-quality cycle is complete.
 | Phase | Outcome | Status |
 |---|---|---|
 | 1 | Diagnose blocked endings and fix demonstrated missed legal endgame moves | Complete: 3e40722, CI 40869715541 passed |
-| 2 | Verify four-player games and complete multi-round matches, scores and recovery | Implemented; full exact-commit CI required after publication |
-| 3 | Review crowded-board destinations, played-tile tracking and rack navigation on phone/iPad | Planned |
+| 2 | Verify four-player games and complete multi-round matches, scores and recovery | Complete on main: 8bb1d89, CI 40890049566 passed; manual production deployment pending |
+| 3 | Review crowded-board destinations, played-tile tracking and rack navigation on phone/iPad | Implemented; full exact-commit CI required after publication |
 | 4 | Consolidate findings into a stable release and remove remaining inconsistencies | Planned |
 
 Phase 1 must distinguish a legal exhausted-pool ending from a proven missed move.
@@ -68,3 +68,12 @@ production READY and eight passing live endgame checks. Phase 2's
 [match review](MATCH_REVIEW.md) records six complete ordinary-deal matches,
 independent scoring, timed expiry and backup recovery, plus a demonstrated
 malformed-score import fix. Publish and require all eight CI jobs before Phase 3.
+
+Phase 2's exact-commit workflow completed successfully: 222 units and 787 browser
+cases, all eight jobs green. Vercel still listed the previous release at handoff;
+the user deploys manually, so no new-production verification was claimed.
+
+Phase 3's [crowded-board review](CROWDED_BOARD_REVIEW.md) demonstrates the missing
+default destination numbers and verifies numbered placement, latest-play tracking,
+50-tile rack navigation, hidden-rack finding, Undo and exact offline reload.
+Require the complete workflow after publication before release consolidation.

@@ -791,7 +791,7 @@ export function Game({
                       `Add selected tiles to meld ${s.table.indexOf(m) + 1}`,
                     )}
                   >
-                    {coaching && tableOrder !== "placed" ? (
+                    {coaching ? (
                       <span className="meld-caption">
                         <span
                           className="meld-index"

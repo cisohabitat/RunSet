@@ -1,5 +1,16 @@
 # Contributor and agent guidance
 
+Regular-game destination captions retain inline source numbers in the default
+placed arrangement as well as organised views. Match placement feedback and
+Table overview numbering; do not add card rows, shrink tiles or alter practice
+captions. Crowded navigation coverage uses 50 table/50 rack tiles, 15 melds and
+100 Undo snapshots. Preserve native 44 px targets, full focus visibility and
+centre hit tests, 300/450 px expanded table-only floors, exact read-only saves,
+deadline, all 106 IDs, actual group-15 placement, Undo and offline reload. The
+latest unfinished edit and last accepted turn are distinct: Undo must return the
+finder to the surviving accepted-play marker. Logical expiry is not physical
+mobile suspension evidence. See docs/CROWDED_BOARD_REVIEW.md.
+
 Phase 2 match evidence lives in docs/MATCH_REVIEW.md and docs/MATCH_AUDIT.json.
 Keep historical scores integral, zero-sum and bounded by the full deck's 788
 points, with nonnegative winner and nonpositive other scores. Completed saves

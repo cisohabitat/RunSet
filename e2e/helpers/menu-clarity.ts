@@ -104,7 +104,8 @@ export async function verifyMenuClarity(
     name: t("Game options"),
     exact: true,
   });
-  await expect(menu.locator(":scope > button").first()).toHaveText(
+  await expect(menu.locator(":scope > button").first()).toContainText(t("Close menu"));
+  await expect(menu.locator(":scope > button").nth(1)).toHaveText(
     t("Practice · keep this game"),
   );
   await expect(menu.locator(":scope > button").last()).toHaveText(
@@ -135,6 +136,7 @@ export async function verifyMenuClarity(
   await page.keyboard.press("Escape");
   await open();
   await expect(menu.locator(":scope > button").first()).toBeInViewport();
+  await expect(menu.locator(":scope > button").nth(1)).toBeInViewport();
   for (const control of await menu.getByRole("button").all()) {
     const size = await control.evaluate((el) => {
       // The visible label forwards clicks across the complete file control;

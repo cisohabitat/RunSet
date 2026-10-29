@@ -13,9 +13,9 @@ everyday-quality cycle is complete.
 | Phase | Outcome | Status |
 |---|---|---|
 | 1 | Diagnose blocked endings and fix demonstrated missed legal endgame moves | Complete: 3e40722, CI 40869715541 passed |
-| 2 | Verify four-player games and complete multi-round matches, scores and recovery | Complete on main: 8bb1d89, CI 40890049566 passed; manual production deployment pending |
-| 3 | Review crowded-board destinations, played-tile tracking and rack navigation on phone/iPad | Implemented; full exact-commit CI required after publication |
-| 4 | Consolidate findings into a stable release and remove remaining inconsistencies | Planned |
+| 2 | Verify four-player games and complete multi-round matches, scores and recovery | Complete: 8bb1d89, CI 40890049566 passed; verified in subsequent production release |
+| 3 | Review crowded-board destinations, played-tile tracking and rack navigation on phone/iPad | Complete: 5544cee, CI 40919262335 passed; matching production and 14 live checks passed |
+| 4 | Consolidate findings into a stable release and remove remaining inconsistencies | Implemented; final publication and full exact-commit CI remain required |
 
 Phase 1 must distinguish a legal exhausted-pool ending from a proven missed move.
 The prior 115 blocked endings out of 120 rounds do not establish a defect by
@@ -95,3 +95,12 @@ CI 40915315154. That run exposed a separate whole-turn practice keyboard race:
 Reset refocused an old save warning during Space. Preserve the deterministic
 bilingual regression and focus each new notice once. Fresh full CI remains the
 release gate; do not advance to Phase 4 on partial results.
+
+Phase 3 completed at 5544cee: all eight jobs in CI 40919262335 succeeded,
+with 222 units and 801 browser cases. Matching production was READY and all
+14 live checks passed. Earlier failed attempts above are historical evidence.
+
+Phase 4's [release consolidation review](RELEASE_CONSOLIDATION.md) records
+header clearance, translated touch targets, visible menu exit and connected
+beginner/save/results verification. Require fresh complete CI and matching live
+checks on the final main commit before calling the phase released.

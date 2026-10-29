@@ -4513,3 +4513,11 @@ button:not(.tile) {
   z-index: 2;
   background: var(--paper);
 }
+
+/* Native scrolling must leave room below the sticky menu exit. */
+.game-menu-content { scroll-padding-top: 56px; }
+@media (max-width: 360px) {
+  .app.playing:not(.comfortable-reading) > .game:not(.table-expanded) .game-context {
+    min-height: 44px;
+  }
+}

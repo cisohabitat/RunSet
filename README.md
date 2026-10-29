@@ -1,5 +1,12 @@
 # RunSet
 
+Phone headers now reflow on Results and other non-game screens. During play,
+very narrow screens use the tile logo as the labelled Home button. Compact turn
+controls retain 44 px touch targets, and Game menu has a translated Close menu
+button that returns focus to its opener. See the
+[release consolidation review](docs/RELEASE_CONSOLIDATION.md) for the connected
+bilingual journey, browser coverage and release gate.
+
 Regular table destinations show their group/run number in every arrangement,
 matching placement feedback and Table overview. On a crowded board, More → Find
 selected tiles reveals a hidden rack; Find latest placement locates an unfinished

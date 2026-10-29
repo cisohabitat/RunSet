@@ -113,7 +113,11 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   await header("playing");
   for(const view of [{width:320,height:640},{width:375,height:667},{width:820,height:1180},{width:1180,height:820}]){
     await page.setViewportSize(view);
-    if(view.width===320) console.log("RELEASE_PLAYING_LAYOUT "+JSON.stringify(await page.locator(".game-context").evaluate(el=>({context:el.getBoundingClientRect().toJSON(),scroll:el.scrollTop,heading:el.querySelector("h1")?.getBoundingClientRect().toJSON(),guide:el.querySelector(".first-game-guide")?.getBoundingClientRect().toJSON()}))));
+    const headingClear = await page.locator(".game-context").evaluate(el => {
+      const box = el.getBoundingClientRect(), heading = el.querySelector("h1")!.getBoundingClientRect();
+      return heading.top >= box.top && heading.bottom <= box.bottom;
+    });
+    expect(headingClear).toBe(true);
     await header("playing-"+view.width,((info.project.name==="chromium"&&locale==="en")||(info.project.name==="webkit-phone"&&locale==="zh-CN"))&&view.width===320);
     expect((await page.locator("main.game > .table").boundingBox())!.height).toBeGreaterThanOrEqual(view.width<720?180:220);
   }

@@ -113,7 +113,7 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   await header("playing");
   for(const view of [{width:320,height:640},{width:375,height:667},{width:820,height:1180},{width:1180,height:820}]){
     await page.setViewportSize(view);
-    await header("playing-"+view.width,info.project.name==="chromium"&&locale==="en"&&view.width===320);
+    await header("playing-"+view.width,((info.project.name==="chromium"&&locale==="en")||(info.project.name==="webkit-phone"&&locale==="zh-CN"))&&view.width===320);
     expect((await page.locator("main.game > .table").boundingBox())!.height).toBeGreaterThanOrEqual(view.width<720?180:220);
   }
   await page.setViewportSize(originalViewport);
@@ -134,6 +134,7 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   await activate(b("Undo move"));
   await expect.poll(async()=>(await state()).table).toEqual(deal.table);
   expect((await state()).players.find(p=>!p.bot)!.rack).toEqual(human.rack);
+  expect((await state()).pool).toEqual(deal.pool);invariant(await state());
   await activate(page.locator(".site-header").getByRole("button",{name:t("Home"),exact:true}));
   // This separate near-win import is an ending control, not a claimed full fresh-deal round.
   const ending=landscapePosition();
@@ -143,9 +144,10 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   ending.pool.push(...ending.players[0].rack.filter(id=>!keep.includes(id)));
   ending.players[0].rack=keep;ending.turnStart.rack=[...keep];
   invariant(ending);
-  const saves=page.locator(".home .save-tools");
-  await expect(saves.locator(".file-button")).toBeVisible();
-  await saves.getByLabel(t("Import game backup"),{exact:true}).setInputFiles({name:"release-ending-control.json",mimeType:"application/json",buffer:Buffer.from(exportBackup(ending))});
+  await expect(page.locator(".home")).toBeVisible();
+  const saves=page.locator(".app > .save-tools");
+  const [chooser]=await Promise.all([page.waitForEvent("filechooser"),activate(saves.locator(".file-button"))]);
+  await chooser.setFiles({name:"release-ending-control.json",mimeType:"application/json",buffer:Buffer.from(exportBackup(ending))});
   await activate(b("Restore backup"));
   await expect.poll(state).toEqual(ending);
   await place(keep);

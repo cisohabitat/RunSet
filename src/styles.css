@@ -4494,3 +4494,10 @@ button:not(.tile) {
     margin-left: 0;
   }
 }
+
+
+/* Compact translated turn labels still need a full native touch target. */
+.app:not(.comfortable-reading) .game .turn-tools > button,
+.app:not(.comfortable-reading) .game .turn-tools > .more-actions > summary {
+  min-inline-size: 44px;
+}

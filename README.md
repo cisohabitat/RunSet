@@ -6,7 +6,7 @@ selected tiles reveals a hidden rack; Find latest placement locates an unfinishe
 edit, or the marked latest play after Undo. See the
 [crowded-board review](docs/CROWDED_BOARD_REVIEW.md) for verification and limits.
 
-Comfortable reading keeps public tiles fully reachable when returning from
+Comfortable reading keeps table and rack tiles fully reachable when returning from
 Full screen to Standard after rotating the device.
 
 Complete-match verification and save-integrity findings are recorded in

@@ -84,3 +84,8 @@ and return to Standard. All other Chromium cases and the other five browser jobs
 passed. The correction adds comfortable Standard-view public-tile scroll margin;
 strict assertions, target sizes, table floors and CI limits remain unchanged.
 Require fresh exact-commit full CI before Phase 4.
+
+The first correction 9a7d0fe / CI 40910929365 fixed the timed case but exposed
+the same native fractional edge on the untimed Chinese rack. Scroll clearance
+must cover both table and rack tiles. Verify every extended-session variant and
+require another full exact-commit workflow before considering Phase 3 complete.

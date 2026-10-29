@@ -61,13 +61,29 @@ native nearest scrolling sufficient clearance without changing tile size, layout
 height, table floors or save data. The original strict target/viewport/centre-hit
 checks and timeout remain intact. Require fresh full CI for the correction.
 
-Correction checks passed: the original failing journey, six Chromium crowded/
+Public-tile correction checks passed: the original failing journey, six Chromium crowded/
 meld-space/arrangement cases and nine offline compatibility cases (crowded
 navigation plus the Chinese timed journey in all three projects). A separate
 visual reproduction measured the same tile at bottom 655.21875 after native
 scrolling, with its original 58×80 px size. The screenshot was inspected.
 Build/typecheck passed at 98,808 initial gzip bytes with the original budget and
 77 cached files. No test assertion, timeout or CI shard was changed.
+
+Commit 9a7d0fe / fresh CI 40910929365 confirmed the timed correction, but exposed
+the same boundary on rack tile 4 in the untimed Chinese extended journey (the
+other 334 Chromium cases passed). A separate diagnostic with the existing wider
+fallback fonts and a partially visible rack tile measured bottom 667.40625 in a
+667 px viewport. The correction now covers both table and rack tiles in regular
+comfortable Standard view. All four main and twelve compatibility extended-session
+variants must pass before publication, followed by fresh complete exact-commit CI.
+
+The table-and-rack correction passed all 24 local cases: four extended-session
+and two crowded cases in Chromium, plus twelve extended-session and six crowded
+cases offline across phone WebKit, iPad WebKit and Firefox. The rack diagnostic
+now measured bottom 655.40625 with the same 58×80 px tile; its screenshot was
+inspected. Build/typecheck remains 98,808 initial gzip bytes / 77 cache files.
+Original tests, native scrolling, geometry checks, memory bounds and CI limits
+remain unchanged. Complete fresh CI is still required after publication.
 
 All 222 units passed. Production build/typecheck passed at 98,812 initial gzip
 bytes, within the unchanged 100,000 cap, with 77 cached files. All 24 focused

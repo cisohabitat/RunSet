@@ -19,7 +19,7 @@
 }
 
 /* Leave clearance when native nearest scrolling rounds the page offset. */
-.app.comfortable-reading > .game:not(.table-expanded) > .table .tile {
+.app.comfortable-reading > .game:not(.table-expanded) :is(.table, .rack) .tile {
   scroll-margin-block: 12px;
 }
 

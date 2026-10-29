@@ -46,7 +46,16 @@ export async function verifyExtendedSession(
     colorScheme: locale === "en" ? "light" : "dark",
   });
   await page.addInitScript(
-    ({ game, locale }) => {
+    ({ game, locale, timed }) => {
+      // Exercise wider system fallback metrics on every reload, including the
+      // native summary's fractional viewport edge after Undo.
+      if (locale === "zh-CN" && !timed)
+        document.addEventListener("DOMContentLoaded", () => {
+          document.documentElement.style.setProperty(
+            "--font-ui",
+            '"DejaVu Sans", "Noto Sans CJK SC", sans-serif',
+          );
+        });
       if (sessionStorage.getItem("extended-session-seeded")) return;
       sessionStorage.setItem("extended-session-seeded", "1");
       localStorage.setItem("runset.save.v1", JSON.stringify(game));
@@ -55,7 +64,7 @@ export async function verifyExtendedSession(
       localStorage.setItem("runset.muted", "true");
       localStorage.setItem("runset.pace", "5000");
     },
-    { game, locale },
+    { game, locale, timed },
   );
   const b = (s: string) =>
     page.getByRole("button", { name: t(s), exact: true });

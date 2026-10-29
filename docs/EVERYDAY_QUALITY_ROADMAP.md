@@ -212,3 +212,14 @@ the initial failed gate is not final acceptance. The 12 live cases passed on
 matching READY d0fe8f6 with identical application assets.
 All eight corrected bundled-Chromium cases passed locally (both languages/timer
 modes, twice, two concurrent workers), preserving the resource and state checks.
+
+Readiness-only d7d024b / CI 40807269770 still failed the same target after five
+seconds, with every other case/job green. Snapshot replay with wider fallback
+metrics identified native fractional scroll rounding: bottom667.40625 in a667 px
+viewport. A12 px More scroll margin yields bottom655.40625 without changing its
+dimensions. The actual application correction retains strict full bounds and
+adds Chinese untimed fallback-font coverage on every reload. Current build:
+98,708 gzip bytes, 77 cache files. Fresh complete CI remains required.
+All eight margin-corrected local bundled-Chromium cases passed, including both
+Chinese fallback-font repeats, with the full geometry requirements unchanged.
+All 12 offline compatibility cases passed on the same margin/fallback correction.

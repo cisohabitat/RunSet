@@ -2209,6 +2209,7 @@ button:not(.tile) {
 .more-actions > summary {
   padding: 12px 8px;
   min-height: 44px;
+  scroll-margin-block: 12px;
   cursor: pointer;
   list-style: none;
 }

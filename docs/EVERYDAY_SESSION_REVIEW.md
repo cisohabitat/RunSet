@@ -12,7 +12,8 @@ Chromium phone, WebKit phone, WebKit iPad and Firefox desktop. All 12 production
 compatibility cases disconnect before the session. Four additional offline
 production Chromium cases passed too. The existing 13 landscape/table-overview
 cases and all 207 units passed. Production build/typecheck passed: 98,703 initial
-gzip bytes, under the unchanged 100,000 budget, 77 precached files.
+gzip bytes before the scroll-edge correction below; the corrected build is
+98,708 bytes, under the unchanged 100,000 budget, with 77 precached files.
 
 ## What the sessions check
 
@@ -111,3 +112,28 @@ by this readiness-only correction. Require fresh complete exact-commit CI.
 All eight corrected local cases passed with bundled Chromium 156.0.8078.4:
 both languages/timer modes repeated twice with two concurrent workers. The
 earlier three diagnostic repeats passed too. These do not replace the fresh gate.
+
+## Persistent native scroll edge
+
+Readiness-only d7d024b failed CI 40807269770 at the same More summary after the
+full five-second wait; every other job and case passed again. Waiting was not
+sufficient. Replaying the failed snapshot at 375×667 with DejaVu fallback metrics
+reproduced native scroll rounding: More ended at 667.40625 px, just outside the
+667 px viewport. The target centre was clickable, but its complete target was
+clipped. The strict assertion correctly continued to reject it.
+
+A 12 px block scroll margin brought the same native-scrolled target to
+655.40625 px. The application now gives More this margin, matching the existing
+primary-action convention. There is no target shrink, geometry tolerance,
+test-only repositioning or timeout increase. Chinese untimed journeys now use
+DejaVu/Noto system fallback metrics on every reload to retain this regression
+locally and across all compatibility projects. No font asset is added to the app.
+The earlier resource file retains its original measured source fingerprints;
+it predates this scroll-margin change and the new fallback-font test fixture.
+Require a fresh complete exact-commit workflow for this actual edge correction.
+All eight local bundled-Chromium cases passed with the margin, including both
+Chinese fallback-font repeats (two concurrent workers, both timer modes and
+languages). Offline compatibility and the complete publication workflow remain
+required; the previous failed runs are not acceptance evidence.
+All 12 offline compatibility cases subsequently passed with the margin and
+fallback fixture too. Complete fresh publication CI is the final remaining gate.

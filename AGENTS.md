@@ -1097,3 +1097,11 @@ Saved indicator when the game is mounted. After native scroll, poll the original
 full target-size/viewport/centre-hit conditions with detailed geometry. Keep the
 existing assertion timeout and a measurement-only poll; no repeated scrolling,
 forced clicks, repositioning or lowered bounds to hide permanent obstruction.
+
+Keep More's 12 px block scroll margin. Native Chromium nearest scrolling can
+round to a whole page offset while leaving the summary's fractional bottom just
+outside the viewport under fallback fonts (667.40625 vs667). Waiting alone does
+not correct this. The margin preserves the whole target without smaller controls
+or epsilon tolerances. Chinese untimed extended tests apply DejaVu/Noto fallback
+metrics on every reload, outside the one-time save seeding guard; retain that
+reproduction across main and compatibility projects.

@@ -740,3 +740,5 @@ For the optional production Chromium resource audit, build and run
 `npx playwright test --config=playwright.session.config.ts`.
 Session checks await visible Saved feedback and complete native target geometry
 after reload/Undo; persisted bytes can precede the final UI layout.
+More also has a native scroll margin so larger fallback fonts keep its complete
+touch target clear of the viewport edge.

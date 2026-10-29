@@ -1,5 +1,10 @@
 # RunSet
 
+The turn status now prompts you to choose a placement after selecting tiles.
+Unfinished turns still show their warning; placement and accepting End turn remain
+separate steps. The [older-player refinement cycle](docs/OLDER_PLAYER_REFINEMENT.md)
+tracks the four approved phases and their release checks.
+
 Phone headers now reflow on Results and other non-game screens. During play,
 very narrow screens use the tile logo as the labelled Home button. Compact turn
 controls retain 44 px touch targets, and Game menu has a translated Close menu

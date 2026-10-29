@@ -258,11 +258,17 @@ export function Game({
       () => JSON.stringify(s.table) !== JSON.stringify(s.turnStart.table),
       [s],
     );
+  const activeSelected = selected.filter(
+    (id) =>
+      human.rack.includes(id) || s.table.some((m) => m.tiles.includes(id)),
+  );
   const turnStage = !myTurn
     ? "waiting"
     : dirty && !check.valid
       ? "unfinished"
-      : check.valid && check.played.length
+      : activeSelected.length
+        ? "selected"
+        : check.valid && check.played.length
         ? "ready"
         : dirty
           ? "rearranged"
@@ -271,15 +277,13 @@ export function Game({
     ? "Opponent turn"
     : turnStage === "unfinished"
       ? "Unfinished turn"
-      : turnStage === "ready"
+      : turnStage === "selected"
+        ? "Choose where to place"
+        : turnStage === "ready"
         ? "Ready to end turn"
         : turnStage === "rearranged"
           ? "Play a rack tile"
           : s.pool.length ? "Choose tiles or draw" : "Choose tiles or pass";
-  const activeSelected = selected.filter(
-    (id) =>
-      human.rack.includes(id) || s.table.some((m) => m.tiles.includes(id)),
-  );
   const helpData = useMemo(
     () => moveHelp(s, blockedMove?.state === s ? blockedMove.ids : undefined),
     [s, blockedMove],

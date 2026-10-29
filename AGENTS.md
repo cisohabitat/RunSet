@@ -1,5 +1,12 @@
 # Contributor and agent guidance
 
+Track the approved refinement cycle in docs/OLDER_PLAYER_REFINEMENT.md. Publish
+and fully CI/live-gate each phase before implementing the next. The regular turn
+status prioritizes waiting and unfinished drafts, then prompts a selected hand
+to choose its destination before showing Ready. Selection is read-only, not an
+accepted move; Escape returns to the underlying state. Keep the existing single
+status row and exact-save/geometry checks. Human/device studies remain paused.
+
 Release consolidation: preserve non-playing header reflow and the narrow playing
 header's labelled 44 px Home target. The visible wordmark must fit its button;
 closed menu descendants are not header controls. Compact translated turn tools

@@ -87,6 +87,14 @@ export async function verifyTurnConfidence(
   const status = page.locator(".status-line");
   await expect(status).toHaveAttribute("data-turn-state", "start");
   await expect(status).toContainText(t("Choose tiles or draw"));
+  const beforeSelection = await save();
+  await activate(page.locator('.rack [data-tile-id="3"]'));
+  await expect(status).toHaveAttribute("data-turn-state", "selected");
+  await expect(status).toContainText(t("Choose where to place"));
+  expect(await save()).toBe(beforeSelection);
+  await page.keyboard.press("Escape");
+  await expect(status).toHaveAttribute("data-turn-state", "start");
+  expect(await save()).toBe(beforeSelection);
   await activate(page.locator('.rack [data-tile-id="3"]'));
   await activate(page.locator("main.game .new-meld"));
   await expect(status).toHaveAttribute("data-turn-state", "unfinished");

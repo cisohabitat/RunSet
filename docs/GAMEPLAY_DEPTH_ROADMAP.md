@@ -77,3 +77,10 @@ Phase 3's [crowded-board review](CROWDED_BOARD_REVIEW.md) demonstrates the missi
 default destination numbers and verifies numbered placement, latest-play tracking,
 50-tile rack navigation, hidden-rack finding, Undo and exact offline reload.
 Require the complete workflow after publication before release consolidation.
+
+Initial Phase 3 publication 0f5fee6 failed CI 40904628014: one Chinese timed
+extended-session target remained fractionally outside the viewport after rotation
+and return to Standard. All other Chromium cases and the other five browser jobs
+passed. The correction adds comfortable Standard-view public-tile scroll margin;
+strict assertions, target sizes, table floors and CI limits remain unchanged.
+Require fresh exact-commit full CI before Phase 4.

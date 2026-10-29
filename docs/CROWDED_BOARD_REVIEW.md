@@ -52,6 +52,23 @@ numbers, hidden racks, selection, Undo and timer checks.
 
 ## Verification and limits
 
+Initial commit 0f5fee6 / CI 40904628014 failed one Chinese timed extended-session
+case; the other 334 Chromium cases and all five other browser jobs passed. After
+rotation and Full screen → Standard, native scrolling left tile 3's bottom at
+667.21875 in a 667 px viewport. The unchanged test reproduced this locally.
+Comfortable Standard-view public tiles now have 12 px block scroll margin, giving
+native nearest scrolling sufficient clearance without changing tile size, layout
+height, table floors or save data. The original strict target/viewport/centre-hit
+checks and timeout remain intact. Require fresh full CI for the correction.
+
+Correction checks passed: the original failing journey, six Chromium crowded/
+meld-space/arrangement cases and nine offline compatibility cases (crowded
+navigation plus the Chinese timed journey in all three projects). A separate
+visual reproduction measured the same tile at bottom 655.21875 after native
+scrolling, with its original 58×80 px size. The screenshot was inspected.
+Build/typecheck passed at 98,808 initial gzip bytes with the original budget and
+77 cached files. No test assertion, timeout or CI shard was changed.
+
 All 222 units passed. Production build/typecheck passed at 98,812 initial gzip
 bytes, within the unchanged 100,000 cap, with 77 cached files. All 24 focused
 local browser cases passed: six Chromium and 18 offline compatibility cases,

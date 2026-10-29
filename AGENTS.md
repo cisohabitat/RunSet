@@ -1,5 +1,13 @@
 # Contributor and agent guidance
 
+Comfortable Standard-view public tiles need 12 px block scroll margin. After
+rotation and Full screen → Standard, native nearest scrolling rounded the page
+offset and left an 80 px tile at bottom 667.21875 in a 667 px viewport. Waiting
+cannot fix that fractional clipping. Retain the extended-session test's complete
+viewport/target/centre-hit checks, native one-time scroll and original timeout;
+do not force a tap, add epsilon tolerances or reduce tiles/table floors. The
+margin changes scroll clearance, not layout dimensions or game state.
+
 Regular-game destination captions retain inline source numbers in the default
 placed arrangement as well as organised views. Match placement feedback and
 Table overview numbering; do not add card rows, shrink tiles or alter practice

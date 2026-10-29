@@ -9,6 +9,9 @@ edit, or the marked latest play after Undo. See the
 Comfortable reading keeps table and rack tiles fully reachable when returning from
 Full screen to Standard after rotating the device.
 
+Whole-turn practice keeps keyboard focus on your tiles after Reset, even when
+an earlier save warning remains visible. New warnings still receive focus.
+
 Complete-match verification and save-integrity findings are recorded in
 [the match review](docs/MATCH_REVIEW.md). To repeat the six seeded matches from
 fresh deals, run `node scripts/review-matches.mjs --out=/tmp/match-audit.json`.

@@ -12,6 +12,7 @@ export default defineConfig({
     "e2e/meld-inspector.spec.ts",
     "e2e/touch-feedback.spec.ts",
     "e2e/feedback.spec.ts",
+    "e2e/whole-turn-recovery.spec.ts",
   ],
   timeout: 60000,
   workers: 1,

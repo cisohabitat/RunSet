@@ -85,6 +85,26 @@ inspected. Build/typecheck remains 98,808 initial gzip bytes / 77 cache files.
 Original tests, native scrolling, geometry checks, memory bounds and CI limits
 remain unchanged. Complete fresh CI is still required after publication.
 
+Commit 0c3ef7d / CI 40915315154 passed all scroll-session checks but exposed a
+separate English whole-turn keyboard race (334 other Chromium cases passed).
+Reset cleared validation feedback, causing the effect to refocus an unchanged
+save warning. If that frame ran during Space, key-up no longer activated the
+first tile. Both languages now reproduce this deterministically by flushing the
+deferred focus during a real Space press; both failed before the correction.
+Practice now remembers which warning was actually focused and announces it once
+until it clears. The ref is recorded only in an executed frame so StrictMode
+cancellation preserves initial/new-warning autofocus. Validation feedback still
+receives focus. All original recovery assertions remain, with additional focus
+and selection checks; no sleeps, retries or timeout changes were added.
+
+The focus correction passed 36 focused local cases: twelve Chromium accessibility/
+recovery cases, eighteen offline practice/lesson/layout cases and the enhanced
+keyboard regression in all three compatibility projects (six additional cases).
+The compatibility configuration now retains those six keyboard cases in CI at
+their existing wide keyboard viewport. Build/typecheck passed at 98,807 initial
+gzip bytes / 77 cache files. Expected full coverage is 222 units and 801 browser
+cases; require the complete fresh exact-commit workflow before release completion.
+
 All 222 units passed. Production build/typecheck passed at 98,812 initial gzip
 bytes, within the unchanged 100,000 cap, with 77 cached files. All 24 focused
 local browser cases passed: six Chromium and 18 offline compatibility cases,

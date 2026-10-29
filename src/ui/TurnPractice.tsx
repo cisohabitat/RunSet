@@ -84,15 +84,18 @@ export function TurnPractice({
   const panel = useRef<HTMLElement>(null);
   const feedbackRef = useRef<HTMLParagraphElement>(null),
     noticeRef = useRef<HTMLParagraphElement>(null);
+  const announcedNotice = useRef("");
   useEffect(() => {
+    if (!notice) announcedNotice.current = "";
     const target = feedback
       ? feedbackRef.current
-      : notice
+      : notice && announcedNotice.current !== notice
         ? noticeRef.current
         : null;
     if (!target) return;
     const frame = requestAnimationFrame(() => {
       if (!target.isConnected || document.querySelector("dialog[open]")) return;
+      if (!feedback) announcedNotice.current = notice;
       target.focus({ preventScroll: true });
       target.scrollIntoView({ block: "center" });
     });

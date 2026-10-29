@@ -41,13 +41,11 @@ for (const locale of ["en", "zh-CN"] as const) {
       .getByRole("button", { name: t("Practise a whole turn"), exact: true })
       .click();
     await expect(
-      page
-        .getByRole("status")
-        .filter({
-          hasText: t(
-            "The saved whole-turn practice could not be restored. A fresh practice table is ready; your other games and lessons are unchanged.",
-          ),
-        }),
+      page.getByRole("status").filter({
+        hasText: t(
+          "The saved whole-turn practice could not be restored. A fresh practice table is ready; your other games and lessons are unchanged.",
+        ),
+      }),
     ).toBeVisible();
     const goal = page.locator("#practice-instructions");
     expect(
@@ -70,13 +68,11 @@ for (const locale of ["en", "zh-CN"] as const) {
     await page.keyboard.press("Space");
     await expect(first).toHaveAttribute("aria-pressed", "true");
     await page.keyboard.press("n");
-    const warning = page
-      .getByRole("status")
-      .filter({
-        hasText: t(
-          "Latest whole-turn practice changes cannot be saved in this browser. Your regular game is unchanged.",
-        ),
-      });
+    const warning = page.getByRole("status").filter({
+      hasText: t(
+        "Latest whole-turn practice changes cannot be saved in this browser. Your regular game is unchanged.",
+      ),
+    });
     await expect(warning).toBeVisible();
     await expect(warning).toBeFocused();
     expect(
@@ -88,13 +84,11 @@ for (const locale of ["en", "zh-CN"] as const) {
     await page
       .getByRole("button", { name: t("Check this turn"), exact: true })
       .click();
-    const feedback = page
-      .getByRole("status")
-      .filter({
-        hasText: t(
-          "Your turn is not ready. Keep editing or choose Reset. No penalty was applied.",
-        ),
-      });
+    const feedback = page.getByRole("status").filter({
+      hasText: t(
+        "Your turn is not ready. Keep editing or choose Reset. No penalty was applied.",
+      ),
+    });
     await expect(feedback).toBeFocused();
     expect(
       await feedback.evaluate((el) => {
@@ -102,10 +96,48 @@ for (const locale of ["en", "zh-CN"] as const) {
         return r.top >= 0 && r.bottom <= innerHeight;
       }),
     ).toBe(true);
+    // Hold deferred focus until a real keyboard press has started on a tile.
+    // A background warning must not take that key-up away from the player.
+    await page.evaluate(() => {
+      const w = window as typeof window & { flushPracticeFocus?: () => number };
+      const nativeFrame = window.requestAnimationFrame,
+        nativeCancel = window.cancelAnimationFrame,
+        pending = new Map<number, FrameRequestCallback>();
+      let id = 0;
+      window.requestAnimationFrame = (callback) => {
+        pending.set(--id, callback);
+        return id;
+      };
+      window.cancelAnimationFrame = (frame) => {
+        if (frame < 0) pending.delete(frame);
+        else nativeCancel.call(window, frame);
+      };
+      w.flushPracticeFocus = () => {
+        window.requestAnimationFrame = nativeFrame;
+        window.cancelAnimationFrame = nativeCancel;
+        const count = pending.size;
+        for (const callback of pending.values()) callback(performance.now());
+        pending.clear();
+        delete w.flushPracticeFocus;
+        return count;
+      };
+    });
     await page
       .getByRole("button", { name: t("Reset turn"), exact: true })
       .click();
-    for (const id of [9, 35, 61]) {
+    await first.focus();
+    await page.keyboard.down("Space");
+    await page.evaluate(() =>
+      (
+        window as typeof window & {
+          flushPracticeFocus: () => number;
+        }
+      ).flushPracticeFocus(),
+    );
+    await expect(first).toBeFocused();
+    await page.keyboard.up("Space");
+    await expect(first).toHaveAttribute("aria-pressed", "true");
+    for (const id of [35, 61]) {
       await page.locator(`.rack [data-tile-id="${id}"]`).focus();
       await page.keyboard.press("Space");
     }

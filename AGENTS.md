@@ -1,5 +1,16 @@
 # Contributor and agent guidance
 
+Whole-turn practice must not refocus an already-announced save warning when
+Reset clears validation feedback. A deferred warning focus can interrupt Space
+between key-down and key-up, losing the first selected tile. Track the notice
+actually focused, mark it only inside the executed animation frame (StrictMode
+cleanup can cancel a frame), and clear that record when the notice disappears.
+Keep autofocus for new warnings and validation feedback. The bilingual recovery
+test deliberately flushes deferred focus during Space and retains every original
+three-tile, completion and saved-game assertion. Do not replace this with sleeps.
+Keep whole-turn-recovery.spec.ts in the compatibility testMatch list so the
+deterministic race runs in every browser project as well as main Chromium.
+
 Comfortable Standard-view table and rack tiles need 12 px block scroll margin. After
 rotation and Full screen → Standard, native nearest scrolling rounded the page
 offset and left an 80 px tile at bottom 667.21875 in a 667 px viewport. Waiting

@@ -89,3 +89,9 @@ The first correction 9a7d0fe / CI 40910929365 fixed the timed case but exposed
 the same native fractional edge on the untimed Chinese rack. Scroll clearance
 must cover both table and rack tiles. Verify every extended-session variant and
 require another full exact-commit workflow before considering Phase 3 complete.
+
+The table-and-rack correction 0c3ef7d passed all scrolling session checks in
+CI 40915315154. That run exposed a separate whole-turn practice keyboard race:
+Reset refocused an old save warning during Space. Preserve the deterministic
+bilingual regression and focus each new notice once. Fresh full CI remains the
+release gate; do not advance to Phase 4 on partial results.

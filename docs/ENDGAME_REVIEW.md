@@ -14,7 +14,8 @@ avoids committing a partial repair that hides a later complete finish. Every
 candidate passes the full turn validator, including original joker obligations.
 New IDs avoid all retained meld IDs. Timeout keeps the best validated plan.
 
-The local probe has 35 ms total and at most 6 ms per meld, inside the existing
+The local probe first tests simple one-tile transfers directly, for up to 10 ms
+of its shared 35 ms. Generic probes then use at most 6 ms per meld, inside the existing
 240 ms overall work cap / 380 ms requested production budget. Whole-board search
 retains the remaining budget. Easy/default and Normal behavior are unchanged.
 Hints using the Hard planner also receive these validated repairs. No rules,
@@ -24,9 +25,9 @@ save schema, timer, display size, dependency or CI limit changes.
 
 | Position | Original Hard rack tiles played | Revised | Revised full-call ms |
 |---|---:|---:|---:|
-| Crowded borrow plus existing legal extension | 1 of 3 | 3 of 3 | 6.81 |
-| Crowded borrow | 0 of 2 | 2 of 2 | 2.92 |
-| Same crowded table in reverse meld order | 0 of 2 | 2 of 2 | 6.21 |
+| Crowded borrow plus existing legal extension | 1 of 3 | 3 of 3 | 3.62 |
+| Crowded borrow | 0 of 2 | 2 of 2 | 1.21 |
+| Same crowded table in reverse meld order | 0 of 2 | 2 of 2 | 1.30 |
 
 The small-table borrow, duplicate interior-run split and exact joker replacement/
 reuse controls also finish. Below-30 unopened and missing-joker-replacement
@@ -40,7 +41,7 @@ board is not claimed to be a typical human game.
 
 ## Separate deal audit
 
-[Raw audit](ENDGAME_AUDIT.json) retains the host, source and baseline-bundle
+[Raw audit](ENDGAME_AUDIT.json), measured for initial publication a302308, retains the host, source and baseline-bundle
 fingerprints, assignments, endings, recorded final-pass positions, bounded
 witnesses and full-call latencies. Baseline is public commit 2ef9269. Discovery
 deals 61001–61004 were separate from final verification deals 62001–62004. No
@@ -75,7 +76,7 @@ positive tactical fixtures, not a claimed perfect finish-recall rate.
 ## Timing and verification
 
 Node v24.19.0/Linux on AMD EPYC 9V74, sequential audit with start load and visible
-CPU count in the raw report. Current Hard calls over the 38 final-pass positions:
+CPU count in the raw report. First-publication Hard calls over the 38 final-pass positions:
 p50 240.02 ms, p95/max 240.27 ms; zero over 400 ms. Original Hard's 1,746 full-round
 calls had maximum 242.52 ms, also zero over 400 ms. Witness work is outside planner
 timing. Time-bounded decisions can vary with host load even on seeded deals.
@@ -102,12 +103,38 @@ Reviewed English phone/light and Chinese iPad/comfortable/dark result captures.
 The documented baseline-build recipe reproduced the recorded bundle hash.
 Complete exact-commit CI remains the publication gate.
 
+## Cold-run correction
+
+Initial a302308 failed CI 40867855167 in the combined extension/borrow control;
+217 other units passed and browser jobs were skipped. The generic six-millisecond
+slice could expire before reaching that literal transfer on a cold runner. No
+assertion or CI timeout is relaxed. The correction tests that inexpensive
+one-tile transfer before generic enumeration, within the same 35 ms local and
+240 ms overall caps. Full turn validation still protects joker changes.
+
+[Final cold check](ENDGAME_COLD_CHECK.json) rechecks all 24 witnessed Hard
+positions from the complete audit, and all eight tactical controls, with fresh
+source fingerprints. Public tables/own racks are the original recorded inputs;
+unseen allocations are reconstructed only to check all 106 IDs and redacted
+again before planning. They are not historical hidden racks or new game results.
+All 24 plays meet or exceed their literal witnesses, and all tactical objectives
+pass. Rechecked Hard p50 is 240.02 ms, p95 240.06 ms, maximum 240.07 ms, zero over
+400 ms. The original full audit remains tied to its measured a302308 source;
+the targeted recheck, full unit simulations, fresh production benchmark and
+actual-worker browser checks validate the correction without repeating unchanged
+baseline game trajectories. All 218 units passed again; require fresh full CI.
+The final production-budget benchmark passed with maximum Hard call 242.36 ms,
+all proposals/hints legal and all physical IDs conserved. Build/typecheck stayed
+at 98,713 initial gzip bytes / 77 cache files. All five focused Chromium and 12
+offline compatibility cases passed again, including the delayed-worker controls.
+
 ## Reproduction
 
 For a current-planner diagnostic without an earlier baseline:
 
 ```sh
 node scripts/review-endgame.mjs --seeds=4 --first-seed=62001 --out=/tmp/endgame-current.json
+node scripts/review-endgame.mjs --recheck=docs/ENDGAME_AUDIT.json --out=/tmp/endgame-cold-check.json
 ```
 
 For the original baseline, create an SSR bundle from its public source revision

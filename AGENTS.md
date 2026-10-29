@@ -1123,3 +1123,10 @@ melds first. Do not greedily commit an early partial repair before checking a
 later rack-empty candidate; the reversed crowded fixture guards that regression.
 The audit must reject unmet tactical objectives before simulating its longer
 seed block. A complete report requires those controls as well as legal plans.
+Try the inexpensive single-public-tile/two-rack-tile transfer before generic
+enumeration, with at most 10 ms from the same 35 ms local cap. The cold combined
+extension/borrow control must still finish; do not relax that objective or raise
+the six-millisecond generic slice to hide it. `--recheck` verifies every known
+Hard witness from a complete versioned audit, reconstructing unseen inventories
+solely for conservation and redacting them before planning. Preserve the input
+audit hash, original source fingerprints and explicit frozen-position scope.

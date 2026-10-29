@@ -24,7 +24,9 @@ if (args["baseline-ref"] && !args.baseline)
   throw Error(
     "--baseline-ref requires a compiled --baseline module; it is not fetched automatically",
   );
-const output = args.out ?? "docs/ENDGAME_AUDIT.json",
+const output =
+    args.out ??
+    (args.recheck ? "docs/ENDGAME_COLD_CHECK.json" : "docs/ENDGAME_AUDIT.json"),
   temporary = await mkdtemp(join(tmpdir(), "runset-endgame-"));
 const levels = ["easy", "normal", "hard"],
   startedAt = new Date().toISOString(),
@@ -162,165 +164,271 @@ try {
       ].map(async (p) => [p, sha(await readFile(p))]),
     ),
   );
-  const report = (complete) => ({
-    startedAt,
-    generatedAt: new Date().toISOString(),
-    complete,
-    environment: {
-      node: process.version,
-      cpu: cpus()[0]?.model,
-      logicalCpuCount: cpus().length,
-      loadAtStart: startLoad,
-    },
-    method: {
-      seedsPerFormat: seeds,
-      firstSeed: first,
-      formats: ["mixed", "pairs"],
-      requestedBudgetMs: 380,
-      workCapMs: engine.BOT_WORK_BUDGET_MS,
-      baselineRef: args["baseline-ref"] ?? "current",
-      baselineBundleSha256,
-      sourceFingerprint: fingerprint,
-      description:
-        "Baseline rounds, all six ordered assignments per deal and format. Current planner is compared on the exact recorded final empty-pool pass positions; round trajectories and winners are not replayed with the new strategy. Witness search is constructive and bounded to racks of at most eight; no global no-move proof.",
-    },
-    tactical,
-    rounds,
-    positions,
-    latencyMs: {
-      baselineRounds: Object.fromEntries(
-        levels.map((l) => [
-          l,
-          {
-            ...latency(baselineTimes[l]),
-            calls: baselineTimes[l].length,
-            over400: baselineTimes[l].filter((t) => t > 400).length,
-          },
-        ]),
-      ),
-      currentEndgames: Object.fromEntries(
-        levels.map((l) => [
-          l,
-          {
-            ...latency(currentTimes[l]),
-            calls: currentTimes[l].length,
-            over400: currentTimes[l].filter((t) => t > 400).length,
-          },
-        ]),
-      ),
-    },
-    checks: {
-      roundsComplete: rounds.length === seeds * 12,
-      all106IdsConserved: true,
-      allSubmittedPlansLegal: true,
-      allPlanningInputsUnchanged: true,
-      allWitnessesValidated: true,
-      allTacticalObjectivesMet: true,
-    },
-    limitations: [
-      "Seat-swapped rounds share deals and are correlated.",
-      "Unseen audit deals are separate from the hand-constructed regression fixtures; no heuristic was tuned to wins.",
-      "Witness patterns cover pair additions, one-tile transfers and duplicate-run splits, not every legal move.",
-      "No witness does not establish that a position is impossible to play.",
-      "Node/Linux timing is not physical Apple performance, battery life or human enjoyment.",
-    ],
-  });
-  await mkdir(dirname(output), { recursive: true });
-  for (const mode of ["mixed", "pairs"])
-    for (let seed = first; seed < first + seeds; seed++) {
-      const assignments = levels.flatMap((a) =>
-        levels
-          .filter((b) => b !== a)
-          .map((b) =>
-            mode === "pairs"
-              ? [a, b]
-              : [a, b, levels.find((c) => c !== a && c !== b)],
-          ),
+  if (args.recheck) {
+    const originalRaw = await readFile(args.recheck, "utf8"),
+      original = JSON.parse(originalRaw);
+    if (!original.complete || !Object.values(original.checks).every(Boolean))
+      throw Error("Incomplete source audit");
+    for (const p of [
+      "src/engine/game.ts",
+      "src/engine/meld.ts",
+      "src/engine/tiles.ts",
+    ])
+      if (original.method.sourceFingerprint[p] !== fingerprint[p])
+        throw Error("Rules changed since frozen audit");
+    const checked = [];
+    for (const position of original.positions.filter(
+      (p) => p.level === "hard" && p.witnessUsed !== null,
+    )) {
+      if (!position.state) throw Error("Missing frozen diagnostic state");
+      const s = structuredClone(position.state),
+        own = s.players[s.current].rack;
+      const inventory = new Set([
+        ...s.table.flatMap((m) => m.tiles),
+        ...own,
+        ...s.pool,
+      ]);
+      const unseen = Array.from({ length: 106 }, (_, id) => id).filter(
+        (id) => !inventory.has(id),
       );
-      for (const seating of assignments) {
-        let s = newGame("Audit", seating.length - 1, "normal", seed),
-          moves = 0;
-        s.players.forEach((p, i) => {
-          p.bot = seating[i];
-          p.name = seating[i];
-        });
-        const lastPass = new Map();
-        conserve(s);
-        while (s.phase === "playing" && moves < 1000) {
-          const actual = call(baseline.planBot, s),
-            level = s.players[s.current].bot;
-          baselineTimes[level].push(actual.ms);
-          if (actual.used) lastPass.clear();
-          else if (!s.pool.length)
-            lastPass.set(s.current, { state: s, actual });
-          s = reducer(s, { type: "botTurn", table: actual.table });
-          conserve(s);
-          moves++;
-        }
-        if (s.phase !== "over") throw Error("Unfinished baseline round");
-        const blocked = s.passes >= s.players.length;
-        rounds.push({
-          mode,
-          seed,
-          seating,
-          moves,
-          ending: blocked ? "blocked" : "rack-empty",
-        });
-        if (blocked) {
-          if (lastPass.size !== s.players.length)
-            throw Error("Incomplete final pass cycle");
-          for (const { state, actual } of lastPass.values()) {
-            const p = state.players[state.current],
-              current = call(planBot, state);
-            currentTimes[p.bot].push(current.ms);
-            const witness = p.rack.length <= 8 ? endgameWitness(state) : null;
-            let witnessUsed = null;
-            if (witness) {
-              const draft = reducer(state, {
-                type: "applyPlan",
-                table: witness,
-              });
-              if (draft === state || !turnCheck(draft).valid)
-                throw Error("Invalid constructive witness");
-              conserve(draft);
-              witnessUsed =
-                p.rack.length - draft.players[state.current].rack.length;
-            }
-            positions.push({
-              mode,
-              seed,
-              seating,
-              seat: state.current,
-              turn: state.turn,
-              level: p.bot,
-              opened: p.melded,
-              rackSize: p.rack.length,
-              tableTiles: state.table.flatMap((m) => m.tiles).length,
-              witnessChecked: p.rack.length <= 8,
-              witnessUsed,
-              knownFinish: witnessUsed === p.rack.length,
-              baselineUsed: actual.used,
-              currentUsed: current.used,
-              currentMs: +current.ms.toFixed(2),
-              ...(witness && p.bot === "hard"
-                ? {
-                    state: redacted(state),
-                    witness,
-                    proposedTable: current.table,
-                  }
-                : {}),
-            });
-          }
-        }
-        await writeFile(output, JSON.stringify(report(false), null, 2) + "\n");
-        console.log(
-          `${rounds.length}/${seeds * 12}: ${mode} ${seed} ${seating.join("/")} ${blocked ? "blocked" : "rack-empty"}`,
+      const others = s.players.filter((_, i) => i !== s.current);
+      others.forEach((p, i) => {
+        if (p.rack.length) throw Error("Expected redacted opponent allocation");
+        p.rack = unseen.splice(
+          0,
+          Math.ceil(unseen.length / (others.length - i)),
         );
-      }
+      });
+      conserve(s);
+      const actual = call(planBot, s);
+      if (actual.used < position.witnessUsed)
+        throw Error(`Lost witnessed move ${position.seed}/${position.seat}`);
+      checked.push({
+        mode: position.mode,
+        seed: position.seed,
+        seating: position.seating,
+        seat: position.seat,
+        turn: position.turn,
+        rackSize: own.length,
+        witnessUsed: position.witnessUsed,
+        currentUsed: actual.used,
+        latencyMs: +actual.ms.toFixed(2),
+      });
     }
-  const final = report(true);
-  await writeFile(output, JSON.stringify(final, null, 2) + "\n");
-  console.log(`Complete: ${output}`);
+    if (!checked.length) throw Error("No witnessed positions to recheck");
+    const times = checked.map((p) => p.latencyMs);
+    await mkdir(dirname(output), { recursive: true });
+    await writeFile(
+      output,
+      JSON.stringify(
+        {
+          startedAt,
+          generatedAt: new Date().toISOString(),
+          complete: true,
+          environment: {
+            node: process.version,
+            cpu: cpus()[0]?.model,
+            logicalCpuCount: cpus().length,
+            loadAtStart: startLoad,
+          },
+          method: {
+            sourceAuditSha256: sha(originalRaw),
+            sourceAuditBaselineRef: original.method.baselineRef,
+            sourceFingerprint: fingerprint,
+            requestedBudgetMs: 380,
+            workCapMs: engine.BOT_WORK_BUDGET_MS,
+            description:
+              "Recheck every witnessed Hard position from the complete frozen audit after the cold-start repair. Public table and own rack are historical; unseen racks are reconstructed deterministically solely for 106-ID validation and then redacted again before planning. These are not historical hidden allocations or new full-round trajectories.",
+          },
+          tactical,
+          positions: checked,
+          latencyMs: {
+            ...latency(times),
+            over400: times.filter((t) => t > 400).length,
+          },
+          checks: {
+            allTacticalObjectivesMet: true,
+            allWitnessedMovesRecovered: true,
+            allSubmittedPlansLegal: true,
+            all106IdsConserved: true,
+            allPlanningInputsUnchanged: true,
+          },
+          limitations: [
+            "This targeted check supplements the original 48-round audit, full unit simulations and production benchmark; it does not rerun round trajectories.",
+            "Witness absence and these finite checks do not prove global optimality or physical Apple performance.",
+          ],
+        },
+        null,
+        2,
+      ) + "\n",
+    );
+    console.log(
+      `Complete: ${checked.length} witnessed positions rechecked, ${output}`,
+    );
+  } else {
+    const report = (complete) => ({
+      startedAt,
+      generatedAt: new Date().toISOString(),
+      complete,
+      environment: {
+        node: process.version,
+        cpu: cpus()[0]?.model,
+        logicalCpuCount: cpus().length,
+        loadAtStart: startLoad,
+      },
+      method: {
+        seedsPerFormat: seeds,
+        firstSeed: first,
+        formats: ["mixed", "pairs"],
+        requestedBudgetMs: 380,
+        workCapMs: engine.BOT_WORK_BUDGET_MS,
+        baselineRef: args["baseline-ref"] ?? "current",
+        baselineBundleSha256,
+        sourceFingerprint: fingerprint,
+        description:
+          "Baseline rounds, all six ordered assignments per deal and format. Current planner is compared on the exact recorded final empty-pool pass positions; round trajectories and winners are not replayed with the new strategy. Witness search is constructive and bounded to racks of at most eight; no global no-move proof.",
+      },
+      tactical,
+      rounds,
+      positions,
+      latencyMs: {
+        baselineRounds: Object.fromEntries(
+          levels.map((l) => [
+            l,
+            {
+              ...latency(baselineTimes[l]),
+              calls: baselineTimes[l].length,
+              over400: baselineTimes[l].filter((t) => t > 400).length,
+            },
+          ]),
+        ),
+        currentEndgames: Object.fromEntries(
+          levels.map((l) => [
+            l,
+            {
+              ...latency(currentTimes[l]),
+              calls: currentTimes[l].length,
+              over400: currentTimes[l].filter((t) => t > 400).length,
+            },
+          ]),
+        ),
+      },
+      checks: {
+        roundsComplete: rounds.length === seeds * 12,
+        all106IdsConserved: true,
+        allSubmittedPlansLegal: true,
+        allPlanningInputsUnchanged: true,
+        allWitnessesValidated: true,
+        allTacticalObjectivesMet: true,
+      },
+      limitations: [
+        "Seat-swapped rounds share deals and are correlated.",
+        "Unseen audit deals are separate from the hand-constructed regression fixtures; no heuristic was tuned to wins.",
+        "Witness patterns cover pair additions, one-tile transfers and duplicate-run splits, not every legal move.",
+        "No witness does not establish that a position is impossible to play.",
+        "Node/Linux timing is not physical Apple performance, battery life or human enjoyment.",
+      ],
+    });
+    await mkdir(dirname(output), { recursive: true });
+    for (const mode of ["mixed", "pairs"])
+      for (let seed = first; seed < first + seeds; seed++) {
+        const assignments = levels.flatMap((a) =>
+          levels
+            .filter((b) => b !== a)
+            .map((b) =>
+              mode === "pairs"
+                ? [a, b]
+                : [a, b, levels.find((c) => c !== a && c !== b)],
+            ),
+        );
+        for (const seating of assignments) {
+          let s = newGame("Audit", seating.length - 1, "normal", seed),
+            moves = 0;
+          s.players.forEach((p, i) => {
+            p.bot = seating[i];
+            p.name = seating[i];
+          });
+          const lastPass = new Map();
+          conserve(s);
+          while (s.phase === "playing" && moves < 1000) {
+            const actual = call(baseline.planBot, s),
+              level = s.players[s.current].bot;
+            baselineTimes[level].push(actual.ms);
+            if (actual.used) lastPass.clear();
+            else if (!s.pool.length)
+              lastPass.set(s.current, { state: s, actual });
+            s = reducer(s, { type: "botTurn", table: actual.table });
+            conserve(s);
+            moves++;
+          }
+          if (s.phase !== "over") throw Error("Unfinished baseline round");
+          const blocked = s.passes >= s.players.length;
+          rounds.push({
+            mode,
+            seed,
+            seating,
+            moves,
+            ending: blocked ? "blocked" : "rack-empty",
+          });
+          if (blocked) {
+            if (lastPass.size !== s.players.length)
+              throw Error("Incomplete final pass cycle");
+            for (const { state, actual } of lastPass.values()) {
+              const p = state.players[state.current],
+                current = call(planBot, state);
+              currentTimes[p.bot].push(current.ms);
+              const witness = p.rack.length <= 8 ? endgameWitness(state) : null;
+              let witnessUsed = null;
+              if (witness) {
+                const draft = reducer(state, {
+                  type: "applyPlan",
+                  table: witness,
+                });
+                if (draft === state || !turnCheck(draft).valid)
+                  throw Error("Invalid constructive witness");
+                conserve(draft);
+                witnessUsed =
+                  p.rack.length - draft.players[state.current].rack.length;
+              }
+              positions.push({
+                mode,
+                seed,
+                seating,
+                seat: state.current,
+                turn: state.turn,
+                level: p.bot,
+                opened: p.melded,
+                rackSize: p.rack.length,
+                tableTiles: state.table.flatMap((m) => m.tiles).length,
+                witnessChecked: p.rack.length <= 8,
+                witnessUsed,
+                knownFinish: witnessUsed === p.rack.length,
+                baselineUsed: actual.used,
+                currentUsed: current.used,
+                currentMs: +current.ms.toFixed(2),
+                ...(witness && p.bot === "hard"
+                  ? {
+                      state: redacted(state),
+                      witness,
+                      proposedTable: current.table,
+                    }
+                  : {}),
+              });
+            }
+          }
+          await writeFile(
+            output,
+            JSON.stringify(report(false), null, 2) + "\n",
+          );
+          console.log(
+            `${rounds.length}/${seeds * 12}: ${mode} ${seed} ${seating.join("/")} ${blocked ? "blocked" : "rack-empty"}`,
+          );
+        }
+      }
+    const final = report(true);
+    await writeFile(output, JSON.stringify(final, null, 2) + "\n");
+    console.log(`Complete: ${output}`);
+  }
 } finally {
   await rm(temporary, { recursive: true, force: true });
 }

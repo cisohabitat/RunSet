@@ -104,6 +104,51 @@ function localRepair(s: GameState, baseline: Meld[], deadline: number): Meld[] {
   const sources = baseline
     .map((source, index) => ({ source, index }))
     .sort((a, b) => a.source.tiles.length - b.source.tiles.length);
+  const join = (source: Meld, index: number, local: Meld[]) => {
+    const used = new Set(baseline.filter((m) => m !== source).map((m) => m.id));
+    const replacement = local.map((m, i) => {
+      let id = `finish-${s.turn}-${index}-${i}`;
+      while (used.has(id)) id += "-";
+      used.add(id);
+      return { id, tiles: m.tiles };
+    });
+    return baseline.flatMap((m) => (m === source ? replacement : [m]));
+  };
+  const consider = (proposal: Meld[]) => {
+    if (
+      remaining(proposal).length < remaining(best).length &&
+      legalPlan(s, proposal)
+    )
+      best = proposal;
+    return !remaining(best).length;
+  };
+  // Cheap literal transfers precede timed candidate enumeration. This keeps a
+  // cold generic search from spending its entire slice before testing a simple
+  // four-tile-group repair. Joker changes still need the complete validator.
+  const transferDeadline = Math.min(localDeadline, performance.now() + 10);
+  const left = remaining(baseline);
+  transfers: for (const { source, index } of sources) {
+    for (const borrowed of source.tiles) {
+      if (performance.now() >= transferDeadline) break transfers;
+      const rest = source.tiles.filter((id) => id !== borrowed);
+      if (!inspectMeld(rest).valid) continue;
+      for (let i = 0; i < left.length; i++)
+        for (let j = i + 1; j < left.length; j++) {
+          if (performance.now() >= transferDeadline) break transfers;
+          const meld = [borrowed, left[i], left[j]];
+          if (!inspectMeld(meld).valid) continue;
+          if (
+            consider(
+              join(source, index, [
+                { id: "rest", tiles: rest },
+                { id: "transfer", tiles: meld },
+              ]),
+            )
+          )
+            return best;
+        }
+    }
+  }
   for (const { source, index } of sources) {
     if (performance.now() >= localDeadline) break;
     const left = remaining(baseline);
@@ -128,31 +173,17 @@ function localRepair(s: GameState, baseline: Meld[], deadline: number): Meld[] {
         ),
     );
     if (!related) continue;
-    const join = (local: Meld[]) => {
-      const used = new Set(
-        baseline.filter((m) => m !== source).map((m) => m.id),
-      );
-      const replacement = local.map((m, i) => {
-        let id = `finish-${s.turn}-${index}-${i}`;
-        while (used.has(id)) id += "-";
-        used.add(id);
-        return { id, tiles: m.tiles };
-      });
-      return baseline.flatMap((m) => (m === source ? replacement : [m]));
-    };
     const local = repartition(
       [source],
       left,
       Math.max(0, Math.min(6, localDeadline - performance.now())),
       (candidate) => {
-        const table = join(candidate);
+        const table = join(source, index, candidate);
         return legalPlan(s, table);
       },
     );
     if (local) {
-      const proposal = join(local);
-      if (remaining(proposal).length < remaining(best).length) best = proposal;
-      if (!remaining(best).length) return best;
+      if (consider(join(source, index, local))) return best;
     }
   }
   return best;

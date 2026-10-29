@@ -52,3 +52,13 @@ complete exact-commit CI after publication before starting Phase 2.
 
 Phase 4 should also revisit the 375 px Results header's brand clearance beside
 language/menu/settings, observed in the endgame capture; retain native targets.
+
+Initial a302308 / CI 40867855167 failed the combined extension/borrow unit on a
+cold runner; 217 other units passed, browser jobs skipped. The correction tests
+simple one-tile transfers before generic enumeration, sharing the original 35 ms
+local budget. All 218 units and the fresh 24-position/eight-tactical cold check
+pass without relaxed assertions or limits. The original 48-round report remains
+versioned to a302308; [cold-check evidence](ENDGAME_COLD_CHECK.json) fingerprints
+the corrected strategy. Complete fresh CI remains required before Phase 2.
+The final production-budget smoke, build/typecheck and all 17 focused browser
+cases passed again after the cold-run correction; initial gzip remains 98,713.

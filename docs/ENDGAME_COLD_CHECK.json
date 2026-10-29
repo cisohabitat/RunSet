@@ -1,0 +1,515 @@
+{
+  "startedAt": "2026-10-29T11:53:56.845Z",
+  "generatedAt": "2026-10-29T11:54:02.583Z",
+  "complete": true,
+  "environment": {
+    "node": "v24.19.0",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "logicalCpuCount": 5,
+    "loadAtStart": [
+      0.03,
+      0.18,
+      0.32
+    ]
+  },
+  "method": {
+    "sourceAuditSha256": "16b691fdf2954e605baba367d201462378189945fbca0d459c89d0ba10d178e4",
+    "sourceAuditBaselineRef": "2ef9269c9104203b0d8250948d158ca940449c26",
+    "sourceFingerprint": {
+      "src/engine/bot.ts": "95089be59b9c860bd0386312c58b5caa7d070d8f461d91c182b93add8692767c",
+      "src/engine/solver.ts": "61e0884daad2113665328b428d941c49060838b1aa4fe93495be2a934b5a5a61",
+      "src/engine/game.ts": "1b31ce55e58dcbcfb33b4c166d37041d0c3cf717ef0ef13d085991f4ba57752d",
+      "src/engine/meld.ts": "b5a90eeb78110ea6e1f5a7223e5555272bd532f41b873acbcdc833c950faa6ae",
+      "src/engine/tiles.ts": "8a4a02afe5ae158d97fddead9e2242ddc951867ed6d3a88845455026cee7b6a7",
+      "scripts/endgame-oracle.ts": "737bec5674578d7dbb0f336b7a39d17bcfa6ecc2a9790202a4bd2125983e2e3d",
+      "scripts/endgame-fixtures.ts": "3abf6d0989ddadff54ebc1f0309abc0c25dba21471c49f045ab018973781b7ba"
+    },
+    "requestedBudgetMs": 380,
+    "workCapMs": 240,
+    "description": "Recheck every witnessed Hard position from the complete frozen audit after the cold-start repair. Public table and own rack are historical; unseen racks are reconstructed deterministically solely for 106-ID validation and then redacted again before planning. These are not historical hidden allocations or new full-round trajectories."
+  },
+  "tactical": [
+    {
+      "id": "crowded-borrow-plus-baseline-extension",
+      "expectedFinish": true,
+      "rackSize": 3,
+      "tableTiles": 95,
+      "before": {
+        "used": 1,
+        "latencyMs": 240.42
+      },
+      "after": {
+        "used": 3,
+        "latencyMs": 3.62
+      }
+    },
+    {
+      "id": "crowded-borrow",
+      "expectedFinish": true,
+      "rackSize": 2,
+      "tableTiles": 96,
+      "before": {
+        "used": 0,
+        "latencyMs": 240.04
+      },
+      "after": {
+        "used": 2,
+        "latencyMs": 1.21
+      }
+    },
+    {
+      "id": "crowded-borrow-reversed",
+      "expectedFinish": true,
+      "rackSize": 2,
+      "tableTiles": 96,
+      "before": {
+        "used": 0,
+        "latencyMs": 240.05
+      },
+      "after": {
+        "used": 2,
+        "latencyMs": 1.3
+      }
+    },
+    {
+      "id": "small-borrow",
+      "expectedFinish": true,
+      "rackSize": 2,
+      "tableTiles": 4,
+      "before": {
+        "used": 2,
+        "latencyMs": 1.79
+      },
+      "after": {
+        "used": 2,
+        "latencyMs": 0.57
+      }
+    },
+    {
+      "id": "duplicate-interior",
+      "expectedFinish": true,
+      "rackSize": 1,
+      "tableTiles": 7,
+      "before": {
+        "used": 1,
+        "latencyMs": 2.2
+      },
+      "after": {
+        "used": 1,
+        "latencyMs": 2.55
+      }
+    },
+    {
+      "id": "joker-replace-reuse",
+      "expectedFinish": true,
+      "rackSize": 3,
+      "tableTiles": 3,
+      "before": {
+        "used": 3,
+        "latencyMs": 0.43
+      },
+      "after": {
+        "used": 3,
+        "latencyMs": 0.47
+      }
+    },
+    {
+      "id": "unopened-below-thirty",
+      "expectedFinish": false,
+      "rackSize": 3,
+      "tableTiles": 3,
+      "before": {
+        "used": 0,
+        "latencyMs": 0.41
+      },
+      "after": {
+        "used": 0,
+        "latencyMs": 0.52
+      }
+    },
+    {
+      "id": "joker-without-replacement",
+      "expectedFinish": false,
+      "rackSize": 2,
+      "tableTiles": 4,
+      "before": {
+        "used": 0,
+        "latencyMs": 2.09
+      },
+      "after": {
+        "used": 0,
+        "latencyMs": 4.55
+      }
+    }
+  ],
+  "positions": [
+    {
+      "mode": "mixed",
+      "seed": 62001,
+      "seating": [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      "seat": 2,
+      "turn": 96,
+      "rackSize": 6,
+      "witnessUsed": 2,
+      "currentUsed": 3,
+      "latencyMs": 240.06
+    },
+    {
+      "mode": "mixed",
+      "seed": 62001,
+      "seating": [
+        "hard",
+        "easy",
+        "normal"
+      ],
+      "seat": 0,
+      "turn": 91,
+      "rackSize": 8,
+      "witnessUsed": 2,
+      "currentUsed": 2,
+      "latencyMs": 240.06
+    },
+    {
+      "mode": "mixed",
+      "seed": 62002,
+      "seating": [
+        "easy",
+        "hard",
+        "normal"
+      ],
+      "seat": 1,
+      "turn": 101,
+      "rackSize": 5,
+      "witnessUsed": 2,
+      "currentUsed": 2,
+      "latencyMs": 240.04
+    },
+    {
+      "mode": "mixed",
+      "seed": 62002,
+      "seating": [
+        "normal",
+        "easy",
+        "hard"
+      ],
+      "seat": 2,
+      "turn": 108,
+      "rackSize": 7,
+      "witnessUsed": 1,
+      "currentUsed": 1,
+      "latencyMs": 240.01
+    },
+    {
+      "mode": "mixed",
+      "seed": 62002,
+      "seating": [
+        "normal",
+        "hard",
+        "easy"
+      ],
+      "seat": 1,
+      "turn": 104,
+      "rackSize": 4,
+      "witnessUsed": 1,
+      "currentUsed": 2,
+      "latencyMs": 240.02
+    },
+    {
+      "mode": "mixed",
+      "seed": 62003,
+      "seating": [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      "seat": 2,
+      "turn": 96,
+      "rackSize": 4,
+      "witnessUsed": 2,
+      "currentUsed": 2,
+      "latencyMs": 240.01
+    },
+    {
+      "mode": "mixed",
+      "seed": 62003,
+      "seating": [
+        "normal",
+        "easy",
+        "hard"
+      ],
+      "seat": 2,
+      "turn": 105,
+      "rackSize": 6,
+      "witnessUsed": 2,
+      "currentUsed": 2,
+      "latencyMs": 240.01
+    },
+    {
+      "mode": "mixed",
+      "seed": 62003,
+      "seating": [
+        "normal",
+        "hard",
+        "easy"
+      ],
+      "seat": 1,
+      "turn": 101,
+      "rackSize": 7,
+      "witnessUsed": 2,
+      "currentUsed": 2,
+      "latencyMs": 96.35
+    },
+    {
+      "mode": "mixed",
+      "seed": 62003,
+      "seating": [
+        "hard",
+        "easy",
+        "normal"
+      ],
+      "seat": 0,
+      "turn": 100,
+      "rackSize": 4,
+      "witnessUsed": 2,
+      "currentUsed": 2,
+      "latencyMs": 240.01
+    },
+    {
+      "mode": "mixed",
+      "seed": 62004,
+      "seating": [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      "seat": 2,
+      "turn": 96,
+      "rackSize": 7,
+      "witnessUsed": 2,
+      "currentUsed": 2,
+      "latencyMs": 240.04
+    },
+    {
+      "mode": "mixed",
+      "seed": 62004,
+      "seating": [
+        "easy",
+        "hard",
+        "normal"
+      ],
+      "seat": 1,
+      "turn": 92,
+      "rackSize": 8,
+      "witnessUsed": 1,
+      "currentUsed": 1,
+      "latencyMs": 240.02
+    },
+    {
+      "mode": "mixed",
+      "seed": 62004,
+      "seating": [
+        "normal",
+        "hard",
+        "easy"
+      ],
+      "seat": 1,
+      "turn": 95,
+      "rackSize": 6,
+      "witnessUsed": 2,
+      "currentUsed": 2,
+      "latencyMs": 89.22
+    },
+    {
+      "mode": "mixed",
+      "seed": 62004,
+      "seating": [
+        "hard",
+        "easy",
+        "normal"
+      ],
+      "seat": 0,
+      "turn": 97,
+      "rackSize": 6,
+      "witnessUsed": 2,
+      "currentUsed": 2,
+      "latencyMs": 85.48
+    },
+    {
+      "mode": "mixed",
+      "seed": 62004,
+      "seating": [
+        "hard",
+        "normal",
+        "easy"
+      ],
+      "seat": 0,
+      "turn": 97,
+      "rackSize": 6,
+      "witnessUsed": 2,
+      "currentUsed": 2,
+      "latencyMs": 88.34
+    },
+    {
+      "mode": "pairs",
+      "seed": 62001,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "seat": 1,
+      "turn": 120,
+      "rackSize": 5,
+      "witnessUsed": 2,
+      "currentUsed": 2,
+      "latencyMs": 240.02
+    },
+    {
+      "mode": "pairs",
+      "seed": 62002,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "seat": 1,
+      "turn": 128,
+      "rackSize": 4,
+      "witnessUsed": 1,
+      "currentUsed": 1,
+      "latencyMs": 240.01
+    },
+    {
+      "mode": "pairs",
+      "seed": 62002,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "seat": 0,
+      "turn": 133,
+      "rackSize": 2,
+      "witnessUsed": 1,
+      "currentUsed": 2,
+      "latencyMs": 6.43
+    },
+    {
+      "mode": "pairs",
+      "seed": 62003,
+      "seating": [
+        "easy",
+        "hard"
+      ],
+      "seat": 1,
+      "turn": 114,
+      "rackSize": 4,
+      "witnessUsed": 1,
+      "currentUsed": 1,
+      "latencyMs": 240.02
+    },
+    {
+      "mode": "pairs",
+      "seed": 62003,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "seat": 1,
+      "turn": 128,
+      "rackSize": 4,
+      "witnessUsed": 1,
+      "currentUsed": 2,
+      "latencyMs": 240.01
+    },
+    {
+      "mode": "pairs",
+      "seed": 62003,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "seat": 0,
+      "turn": 119,
+      "rackSize": 6,
+      "witnessUsed": 2,
+      "currentUsed": 3,
+      "latencyMs": 240.02
+    },
+    {
+      "mode": "pairs",
+      "seed": 62003,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "seat": 0,
+      "turn": 127,
+      "rackSize": 4,
+      "witnessUsed": 2,
+      "currentUsed": 3,
+      "latencyMs": 240.02
+    },
+    {
+      "mode": "pairs",
+      "seed": 62004,
+      "seating": [
+        "normal",
+        "hard"
+      ],
+      "seat": 1,
+      "turn": 134,
+      "rackSize": 4,
+      "witnessUsed": 2,
+      "currentUsed": 2,
+      "latencyMs": 240.02
+    },
+    {
+      "mode": "pairs",
+      "seed": 62004,
+      "seating": [
+        "hard",
+        "easy"
+      ],
+      "seat": 0,
+      "turn": 115,
+      "rackSize": 3,
+      "witnessUsed": 1,
+      "currentUsed": 1,
+      "latencyMs": 240.07
+    },
+    {
+      "mode": "pairs",
+      "seed": 62004,
+      "seating": [
+        "hard",
+        "normal"
+      ],
+      "seat": 0,
+      "turn": 125,
+      "rackSize": 4,
+      "witnessUsed": 2,
+      "currentUsed": 4,
+      "latencyMs": 13.25
+    }
+  ],
+  "latencyMs": {
+    "p50": 240.02,
+    "p95": 240.06,
+    "p99": 240.07,
+    "max": 240.07,
+    "over400": 0
+  },
+  "checks": {
+    "allTacticalObjectivesMet": true,
+    "allWitnessedMovesRecovered": true,
+    "allSubmittedPlansLegal": true,
+    "all106IdsConserved": true,
+    "allPlanningInputsUnchanged": true
+  },
+  "limitations": [
+    "This targeted check supplements the original 48-round audit, full unit simulations and production benchmark; it does not rerun round trajectories.",
+    "Witness absence and these finite checks do not prove global optimality or physical Apple performance."
+  ]
+}

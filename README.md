@@ -751,3 +751,6 @@ Easy and Normal behavior, opening rules and joker restrictions are unchanged.
 The [endgame review](docs/ENDGAME_REVIEW.md) records explicit before/after
 fixtures, a separate 48-round audit and its limits. Reproduce a current diagnostic
 with `node scripts/review-endgame.mjs --seeds=4 --out=/tmp/endgame-review.json`.
+Simple one-tile transfers are checked before timed generic enumeration to retain
+the crowded finish on cold runners. The review links a versioned full audit and
+the correction's targeted recheck; original time limits remain unchanged.

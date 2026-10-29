@@ -4,7 +4,7 @@ import { landscapePosition } from "./landscape";
 import { emitVisual } from "./ci-visual";
 import { validSave } from "../../src/lib/storage";
 import { exportBackup } from "../../src/lib/backup";
-import { results, type GameState } from "../../src/engine/game";
+import { results, reducer, type GameState } from "../../src/engine/game";
 import { translator } from "../../src/i18n/translate";
 import messages from "../../src/i18n/zh-CN";
 
@@ -28,10 +28,12 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   const state = async (): Promise<GameState> => JSON.parse((await bytes())!);
   const activate = async (el: Locator) => {
     await el.scrollIntoViewIfNeeded();
-    await expect.poll(()=>el.evaluate(el=>{
+    const measure=()=>el.evaluate(el=>{
       const r=el.getBoundingClientRect();
-      return {valid:r.width>=44&&r.height>=44&&r.left>=0&&r.right<=innerWidth&&r.top>=0&&r.bottom<=innerHeight&&el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)),rect:r.toJSON(),viewport:[innerWidth,innerHeight]};
-    })).toMatchObject({valid:true});
+      return {valid:r.width>=44&&r.height>=44&&r.left>=0&&r.right<=innerWidth&&r.top>=0&&r.bottom<=innerHeight&&el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)),rect:r.toJSON(),viewport:[innerWidth,innerHeight],label:el.getAttribute("aria-label")||el.textContent?.trim().slice(0,80)};
+    });
+    try{await expect.poll(measure).toMatchObject({valid:true});}
+    catch(error){console.log("RELEASE_ACTION_GEOMETRY "+JSON.stringify(await measure()));await emitVisual(page,info,locale,"phase4-action-failure",true);throw error;}
     if(info.project.name==="firefox-desktop") await el.click(); else await el.tap();
   };
   const header = async (stage: string, capture=false) => {
@@ -118,6 +120,7 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   const human=deal.players.find(p=>!p.bot)!;
   await activate(page.locator('.rack [data-tile-id="'+human.rack[0]+'"]'));
   await activate(page.locator(".new-meld"));
+  await expect.poll(state).toEqual(reducer(deal,{type:"move",ids:[human.rack[0]],target:"new"}));
   await expect(page.locator(".save-indicator")).toHaveText(t("Saved"));
   const draft=await bytes();invariant(await state());
   await activate(page.locator(".more-actions > summary"));

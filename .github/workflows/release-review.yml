@@ -1,0 +1,62 @@
+name: Release review
+on:
+  push:
+    branches: [codex/release-consolidation]
+  create:
+  workflow_dispatch:
+    inputs:
+      production:
+        description: Check the existing production URL
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: runset-release-review-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  review:
+    if: github.event_name != 'create' || (github.event.ref_type == 'branch' && startsWith(github.event.ref, 'codex/live-release-review/'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [chromium, webkit-phone, webkit-ipad, firefox-desktop]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Use Ubuntu HTTPS package mirror
+        run: |
+          for apt_source in /etc/apt/sources.list /etc/apt/sources.list.d/*.list /etc/apt/sources.list.d/*.sources /etc/apt/apt-mirrors.txt /etc/apt/apt-security-mirrors.txt; do
+            if [ -f "$apt_source" ]; then
+              sudo sed -Ei 's|https?://azure\.archive\.ubuntu\.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' "$apt_source"
+            fi
+          done
+          printf '%s\n' 'Acquire::Retries "2";' 'Acquire::http::Timeout "30";' 'Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/99-runset-downloads
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Provide virtual audio output for browser playback
+        run: |
+          sudo apt-get install -y pulseaudio pulseaudio-utils
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=runset
+          pactl set-default-sink runset
+      - run: npm run build
+      - name: Check connected release journey
+        env:
+          RUNSET_REVIEW_PROJECT: ${{ matrix.project }}
+          RUNSET_BASE_URL: ${{ (github.event_name == 'create' || inputs.production == true) && 'https://run-set.vercel.app' || '' }}
+        run: npx playwright test --config=playwright.release.config.ts --project="$RUNSET_REVIEW_PROJECT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-review-${{ matrix.project }}
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7

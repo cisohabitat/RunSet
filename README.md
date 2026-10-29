@@ -742,3 +742,12 @@ Session checks await visible Saved feedback and complete native target geometry
 after reload/Undo; persisted bytes can precede the final UI layout.
 More also has a native scroll margin so larger fallback fonts keep its complete
 touch target clear of the viewport edge.
+
+The next cycle is [gameplay depth](docs/GAMEPLAY_DEPTH_ROADMAP.md), starting with
+concrete endgame witnesses before complete-match and crowded-board reviews.
+Hard checks small legal rearrangements before relying on a whole-table search,
+preserving its existing legal plays and time budget. Easy remains the default;
+Easy and Normal behavior, opening rules and joker restrictions are unchanged.
+The [endgame review](docs/ENDGAME_REVIEW.md) records explicit before/after
+fixtures, a separate 48-round audit and its limits. Reproduce a current diagnostic
+with `node scripts/review-endgame.mjs --seeds=4 --out=/tmp/endgame-review.json`.

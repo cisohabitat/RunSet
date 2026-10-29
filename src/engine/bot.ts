@@ -1,6 +1,7 @@
 import { type GameState, reducer, turnCheck } from "./game";
 import { inspectMeld, type Meld } from "./meld";
 import { rackPlan, repartition } from "./solver";
+import { tiles } from "./tiles";
 // Leave headroom for validation, allocation and worker/runtime overhead.
 export const BOT_WORK_BUDGET_MS = 240;
 function legalPlan(s: GameState, table: Meld[]): boolean {
@@ -89,6 +90,73 @@ function improveExtensions(
     }
   return best;
 }
+/** Look for small rack repairs before repartitioning an entire board.
+ * Unrelated public melds and already-played rack tiles remain intact. Timeout
+ * retains the best validated plan; every candidate uses the full turn validator.
+ */
+function localRepair(s: GameState, baseline: Meld[], deadline: number): Meld[] {
+  const rack = s.players[s.current].rack;
+  const remaining = (table: Meld[]) =>
+    rack.filter((id) => !table.some((m) => m.tiles.includes(id)));
+  if (remaining(baseline).length > 8) return baseline;
+  let best = baseline;
+  const localDeadline = Math.min(deadline, performance.now() + 35);
+  const sources = baseline
+    .map((source, index) => ({ source, index }))
+    .sort((a, b) => a.source.tiles.length - b.source.tiles.length);
+  for (const { source, index } of sources) {
+    if (performance.now() >= localDeadline) break;
+    const left = remaining(baseline);
+    const related = source.tiles.some(
+      (id) =>
+        tiles[id].joker ||
+        left.some(
+          (r) =>
+            tiles[r].joker ||
+            (tiles[r].color === tiles[id].color &&
+              Math.abs(tiles[r].num - tiles[id].num) <= 2),
+        ) ||
+        left.some(
+          (r) =>
+            tiles[r].num === tiles[id].num &&
+            left.some(
+              (other) =>
+                other !== r &&
+                tiles[other].num === tiles[r].num &&
+                tiles[other].color !== tiles[r].color,
+            ),
+        ),
+    );
+    if (!related) continue;
+    const join = (local: Meld[]) => {
+      const used = new Set(
+        baseline.filter((m) => m !== source).map((m) => m.id),
+      );
+      const replacement = local.map((m, i) => {
+        let id = `finish-${s.turn}-${index}-${i}`;
+        while (used.has(id)) id += "-";
+        used.add(id);
+        return { id, tiles: m.tiles };
+      });
+      return baseline.flatMap((m) => (m === source ? replacement : [m]));
+    };
+    const local = repartition(
+      [source],
+      left,
+      Math.max(0, Math.min(6, localDeadline - performance.now())),
+      (candidate) => {
+        const table = join(candidate);
+        return legalPlan(s, table);
+      },
+    );
+    if (local) {
+      const proposal = join(local);
+      if (remaining(proposal).length < remaining(best).length) best = proposal;
+      if (!remaining(best).length) return best;
+    }
+  }
+  return best;
+}
 export function planBot(s: GameState, budget = 380): Meld[] {
   const started = performance.now(),
     requested = Number.isFinite(budget) ? Math.max(0, budget) : 380,
@@ -123,6 +191,9 @@ export function planBot(s: GameState, budget = 380): Meld[] {
   if (p.rack.every((id) => table.some((m) => m.tiles.includes(id))))
     return table;
   if (p.melded && p.bot === "hard") {
+    table = localRepair(s, table, deadline);
+    if (p.rack.every((id) => table.some((m) => m.tiles.includes(id))))
+      return table;
     const hard = repartition(
       s.table,
       p.rack,

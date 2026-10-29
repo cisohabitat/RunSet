@@ -13,7 +13,7 @@ remain paused; automated browsers do not establish their results.
 | 2 | Remove redundant menu actions and make remaining choices easier to scan | Complete: 4115285, CI 40792273244 passed |
 | 3 | Improve Mandarin rule comprehension with concrete opening/joker examples | Complete: d39971d, CI 40797539848 passed |
 | 4 | Evaluate bot quality on a larger balanced unseen set before any tuning | Complete: 7139574, CI 40801453106 passed |
-| 5 | Stress real browser sessions, background/resume, rotation and storage recovery | Implemented; complete publication CI required |
+| 5 | Stress real browser sessions, background/resume, rotation and storage recovery | Complete: 2ef9269, CI 40820134705 passed |
 
 ## Phase 1 — live release audit
 
@@ -223,3 +223,8 @@ adds Chinese untimed fallback-font coverage on every reload. Current build:
 All eight margin-corrected local bundled-Chromium cases passed, including both
 Chinese fallback-font repeats, with the full geometry requirements unchanged.
 All 12 offline compatibility cases passed on the same margin/fallback correction.
+
+Final correction 2ef9269 passed complete CI 40820134705: all 207 units, 771
+browser cases across all six jobs, and aggregate check. All 13 live checks passed
+on matching READY production. The initial failed gates remain recorded above.
+This cycle is complete; the next cycle is [gameplay depth](GAMEPLAY_DEPTH_ROADMAP.md).

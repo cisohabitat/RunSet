@@ -1105,3 +1105,21 @@ not correct this. The margin preserves the whole target without smaller controls
 or epsilon tolerances. Chinese untimed extended tests apply DejaVu/Noto fallback
 metrics on every reload, outside the one-time save seeding guard; retain that
 reproduction across main and compatibility projects.
+
+Track the gameplay-depth cycle in docs/GAMEPLAY_DEPTH_ROADMAP.md and fully
+CI-gate each phase before the next. Diagnose blocked endings with validated
+literal witnesses; neither a pass nor a failed bounded search proves no legal
+move exists. Hard's localRepair operates on its legal baseline, retaining every
+already-played rack tile and all public tiles. Limit it to eight remaining rack
+tiles, 35 ms shared local work and at most 6 ms per relevant meld, all inside the
+unchanged 240 ms overall work cap. Keep the best validated plan on timeout and
+check complete turn legality including joker obligations before accepting any
+candidate. Fresh meld IDs must avoid every retained ID. Preserve Easy/Normal,
+zero-budget fallback and hidden-allocation independence. Separate discovery
+seeds/fixtures from held-out verification, and label frozen-position comparisons
+accurately: they do not establish changed full-round results or win rates.
+Compare local candidates against the same fixed legal baseline, trying smaller
+melds first. Do not greedily commit an early partial repair before checking a
+later rack-empty candidate; the reversed crowded fixture guards that regression.
+The audit must reject unmet tactical objectives before simulating its longer
+seed block. A complete report requires those controls as well as legal plans.

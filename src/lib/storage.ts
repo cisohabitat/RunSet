@@ -1,5 +1,7 @@
 import { inspectMeld } from "../engine/meld";
-import { type GameState } from "../engine/game";
+import { type GameState, results, matchWinner } from "../engine/game";
+import { rackTotal, tiles } from "../engine/tiles";
+const MAX_ROUND_SCORE = rackTotal(tiles.map((tile) => tile.id));
 export const SAVE_KEY = "runset.save.v1";
 export const BACKUP_KEY = "runset.backup.v1";
 let expectedRaw: string | null | undefined;
@@ -13,7 +15,8 @@ function lockedWrite(change: () => void): Promise<WriteResult> {
   const scheduled = generation;
   const work = (): WriteResult => {
     try {
-      if (unreadable || scheduled !== generation) return { ok: false, reason: "conflict" };
+      if (unreadable || scheduled !== generation)
+        return { ok: false, reason: "conflict" };
       const actual = localStorage.getItem(SAVE_KEY);
       if (expectedRaw === undefined) expectedRaw = actual;
       if (actual !== expectedRaw) return { ok: false, reason: "conflict" };
@@ -139,13 +142,26 @@ function validateSave(value: unknown): value is GameState {
           !r ||
           !Array.isArray(r.scores) ||
           r.scores.length !== s.players.length ||
-          r.scores.some((n) => !Number.isFinite(n)) ||
+          r.scores.some(
+            (n) => !Number.isInteger(n) || Math.abs(n) > MAX_ROUND_SCORE,
+          ) ||
           !Number.isInteger(r.winner) ||
           r.winner < 0 ||
-          r.winner >= s.players.length,
+          r.winner >= s.players.length ||
+          r.scores.reduce((sum, n) => sum + n, 0) !== 0 ||
+          r.scores.some((n, i) => (i === r.winner ? n < 0 : n > 0)),
       )
     )
       return false;
+    if (s.phase === "over") {
+      const expected = results(s),
+        last = m.rounds.at(-1)!;
+      if (
+        last.winner !== expected.findIndex((p) => p.winner) ||
+        last.scores.some((score, i) => score !== expected[i].score)
+      )
+        return false;
+    }
     if (
       m.totals.some(
         (n, i) => n !== m.rounds.reduce((sum, r) => sum + r.scores[i], 0),
@@ -153,6 +169,7 @@ function validateSave(value: unknown): value is GameState {
     )
       return false;
   }
+  if (s.match && s.phase === "playing" && matchWinner(s) !== null) return false;
   if (
     s.history !== undefined &&
     (!Array.isArray(s.history) ||
@@ -188,7 +205,11 @@ function validateSave(value: unknown): value is GameState {
     ids.every((id) => Number.isInteger(id) && id >= 0 && id < 106)
   );
 }
-export function loadGame(): { game: GameState | null; notice: string; unreadable?: boolean } {
+export function loadGame(): {
+  game: GameState | null;
+  notice: string;
+  unreadable?: boolean;
+} {
   let raw: string | null;
   try {
     raw = localStorage.getItem(SAVE_KEY);
@@ -200,7 +221,8 @@ export function loadGame(): { game: GameState | null; notice: string; unreadable
     generation++;
     return {
       game: null,
-      notice: "Your save could not be read. Reload to try again. Your stored data has not been removed.",
+      notice:
+        "Your save could not be read. Reload to try again. Your stored data has not been removed.",
       unreadable: true,
     };
   }

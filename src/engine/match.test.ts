@@ -72,3 +72,86 @@ it("rejects inconsistent match scores and timer metadata on load", () => {
   timer.deadline = NaN;
   expect(validSave(timer)).toBe(false);
 });
+
+it("rejects impossible historical scores even when aggregate totals agree", () => {
+  for (const scores of [
+    [10, 0],
+    [10.5, -10.5],
+    [789, -789],
+    [-10, 10],
+  ]) {
+    const s = reducer(wonRound(), { type: "nextRound", at: 0 });
+    s.match!.rounds = [{ scores, winner: 0 }];
+    s.match!.totals = [...scores];
+    expect(validSave(s), JSON.stringify(scores)).toBe(false);
+  }
+});
+it("rejects completed-match history that disagrees with the actual final racks", () => {
+  const s = wonRound();
+  s.match!.rounds = [{ scores: [1, -1], winner: 0 }];
+  s.match!.totals = [1, -1];
+  expect(validSave(s)).toBe(false);
+});
+
+it("rejects a playing round after a unique match winner has already reached the target", () => {
+  const s = reducer(wonRound(), { type: "nextRound" });
+  s.match!.rounds = [{ scores: [600, -600], winner: 0 }];
+  s.match!.totals = [600, -600];
+  expect(validSave(s)).toBe(false);
+});
+
+function tiedMatch(): GameState {
+  const s = newGame("Literal", 3, "easy", 91001, { target: 100 });
+  const racks = [
+    [104, 12, 6],
+    [105, 38, 32],
+    [25, 51, 77, 10],
+  ];
+  s.players.forEach((p, i) => {
+    p.rack = i === 1 ? [] : racks.shift()!;
+  });
+  s.current = 1;
+  s.phase = "over";
+  s.table = [{ id: "finish", tiles: [9, 35, 61] }];
+  s.turnStart = { table: [], rack: [9, 35, 61] };
+  const used = new Set([
+    ...s.table.flatMap((m) => m.tiles),
+    ...s.players.flatMap((p) => p.rack),
+  ]);
+  s.pool = Array.from({ length: 106 }, (_, id) => id).filter(
+    (id) => !used.has(id),
+  );
+  s.match = {
+    target: 100,
+    round: 2,
+    rounds: [
+      { scores: [150, -50, -50, -50], winner: 0 },
+      { scores: [-50, 150, -50, -50], winner: 1 },
+    ],
+    totals: [100, 100, -100, -100],
+  };
+  return s;
+}
+it("continues a tied four-player target and rotates the starter without changing seats", () => {
+  const s = tiedMatch(),
+    names = s.players.map((p) => p.name);
+  expect(validSave(s)).toBe(true);
+  expect(matchWinner(s)).toBeNull();
+  s.turnSeconds = 60;
+  s.deadline = 60000;
+  s.history = [];
+  const next = reducer(s, { type: "nextRound", at: 90000 });
+  expect(next.current).toBe(2);
+  expect(next.match!.round).toBe(3);
+  expect(next.match!.totals).toEqual([100, 100, -100, -100]);
+  expect(next.players.map((p) => p.name)).toEqual(names);
+  expect(next.players.every((p) => p.rack.length === 14 && !p.melded)).toBe(
+    true,
+  );
+  expect(next.pool).toHaveLength(50);
+  expect(next.table).toEqual([]);
+  expect(next.history).toEqual([]);
+  expect(next.deadline).toBe(150000);
+  expect(validSave(next)).toBe(true);
+  conserved(next);
+});

@@ -1,5 +1,12 @@
 # RunSet
 
+Complete-match verification and save-integrity findings are recorded in
+[the match review](docs/MATCH_REVIEW.md). To repeat the six seeded matches from
+fresh deals, run `node scripts/review-matches.mjs --out=/tmp/match-audit.json`.
+Imported match scores must be whole, zero-sum values consistent with the winner,
+cumulative totals and, at results, the final racks. Invalid backups leave the
+current game intact.
+
 A free, browser-only tile-rummy game: build runs, make groups, and empty your rack
 against one to three computer opponents. No account, server, or database is needed.
 

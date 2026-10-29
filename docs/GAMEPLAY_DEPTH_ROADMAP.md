@@ -12,8 +12,8 @@ everyday-quality cycle is complete.
 
 | Phase | Outcome | Status |
 |---|---|---|
-| 1 | Diagnose blocked endings and fix demonstrated missed legal endgame moves | Implemented and locally verified; CI-gated publication |
-| 2 | Verify four-player games and complete multi-round matches, scores and recovery | Planned |
+| 1 | Diagnose blocked endings and fix demonstrated missed legal endgame moves | Complete: 3e40722, CI 40869715541 passed |
+| 2 | Verify four-player games and complete multi-round matches, scores and recovery | Implemented; full exact-commit CI required after publication |
 | 3 | Review crowded-board destinations, played-tile tracking and rack navigation on phone/iPad | Planned |
 | 4 | Consolidate findings into a stable release and remove remaining inconsistencies | Planned |
 
@@ -62,3 +62,9 @@ versioned to a302308; [cold-check evidence](ENDGAME_COLD_CHECK.json) fingerprint
 the corrected strategy. Complete fresh CI remains required before Phase 2.
 The final production-budget smoke, build/typecheck and all 17 focused browser
 cases passed again after the cold-run correction; initial gzip remains 98,713.
+
+Phase 1 finished with 218 units and all 779 browser cases passing, matching
+production READY and eight passing live endgame checks. Phase 2's
+[match review](MATCH_REVIEW.md) records six complete ordinary-deal matches,
+independent scoring, timed expiry and backup recovery, plus a demonstrated
+malformed-score import fix. Publish and require all eight CI jobs before Phase 3.

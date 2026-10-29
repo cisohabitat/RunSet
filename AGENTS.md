@@ -1,5 +1,20 @@
 # Contributor and agent guidance
 
+Phase 2 match evidence lives in docs/MATCH_REVIEW.md and docs/MATCH_AUDIT.json.
+Keep historical scores integral, zero-sum and bounded by the full deck's 788
+points, with nonnegative winner and nonpositive other scores. Completed saves
+must agree with actual rack results; playing saves cannot have a unique match
+champion already at target. Reject malformed imports through the existing notice
+without replacing the current save. These checks establish coherence, not proof
+of every historical move. Preserve the defensive tied-target continuation test.
+The audit must finish all six ordinary-deal matches to unique champions, validate
+original proposals before fallback and independently recompute every score.
+Browser match journeys start with a constructed first-round finish, then play
+fresh full rounds through native controls and real workers. Preserve quota retry,
+draft export/reload/Undo/import, exact save bytes, stable literal names and
+nonduplicated history. Logical clocks speed delays; they do not establish physical
+device suspension behavior. Retain original CI job and offline shard limits.
+
 ## Scope and project
 
 These instructions apply to the entire repository. RunSet is a static,

@@ -1,0 +1,815 @@
+{
+  "startedAt": "2026-10-29T14:06:53.520Z",
+  "generatedAt": "2026-10-29T14:08:12.714Z",
+  "complete": true,
+  "environment": {
+    "node": "v24.19.0",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "logicalCpuCount": 5,
+    "loadAtStart": [
+      0,
+      0.07,
+      0.05
+    ]
+  },
+  "method": {
+    "description": "Six complete seeded matches from normal deals. One human remains in every save and is driven by a redacted Normal planner as a legal scripted stand-in. Computers use their stated styles. Every proposal is checked before fallback. Timed cases restore an unfinished backup and expire the original deadline every 29 actions; backups also round-trip every 13 actions and at results.",
+    "requestedPlannerBudgetMs": 380,
+    "sourceFingerprints": {
+      "src/engine/game.ts": "1b31ce55e58dcbcfb33b4c166d37041d0c3cf717ef0ef13d085991f4ba57752d",
+      "src/engine/bot.ts": "95089be59b9c860bd0386312c58b5caa7d070d8f461d91c182b93add8692767c",
+      "src/engine/solver.ts": "61e0884daad2113665328b428d941c49060838b1aa4fe93495be2a934b5a5a61",
+      "src/lib/storage.ts": "f829c5222ca15b06a5acdd080047a98de30b36551f6d942d50b8d11bf44674b6",
+      "scripts/match-fixtures.ts": "f17f0caa8a18d0481d8c95f4179e8d6d7bf7ec59f529408d605fe8b795004df6"
+    }
+  },
+  "matches": [
+    {
+      "seed": 71001,
+      "opponents": [
+        "easy"
+      ],
+      "target": 500,
+      "timed": false,
+      "players": [
+        {
+          "name": "Match audit",
+          "bot": null
+        },
+        {
+          "name": "Juniper",
+          "bot": "easy"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "winner": 0,
+          "scores": [
+            88,
+            -88
+          ],
+          "totals": [
+            88,
+            -88
+          ],
+          "ending": "blocked",
+          "turns": 115
+        },
+        {
+          "round": 2,
+          "winner": 0,
+          "scores": [
+            87,
+            -87
+          ],
+          "totals": [
+            175,
+            -175
+          ],
+          "ending": "blocked",
+          "turns": 112
+        },
+        {
+          "round": 3,
+          "winner": 0,
+          "scores": [
+            193,
+            -193
+          ],
+          "totals": [
+            368,
+            -368
+          ],
+          "ending": "blocked",
+          "turns": 108
+        },
+        {
+          "round": 4,
+          "winner": 0,
+          "scores": [
+            149,
+            -149
+          ],
+          "totals": [
+            517,
+            -517
+          ],
+          "ending": "blocked",
+          "turns": 106
+        }
+      ],
+      "turns": 441,
+      "backups": 37,
+      "expiries": 0,
+      "winner": 0
+    },
+    {
+      "seed": 71002,
+      "opponents": [
+        "normal"
+      ],
+      "target": 100,
+      "timed": true,
+      "players": [
+        {
+          "name": "Match audit",
+          "bot": null
+        },
+        {
+          "name": "Juniper",
+          "bot": "normal"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "winner": 1,
+          "scores": [
+            -17,
+            17
+          ],
+          "totals": [
+            -17,
+            17
+          ],
+          "ending": "rack-empty",
+          "turns": 124
+        },
+        {
+          "round": 2,
+          "winner": 0,
+          "scores": [
+            59,
+            -59
+          ],
+          "totals": [
+            42,
+            -42
+          ],
+          "ending": "blocked",
+          "turns": 121
+        },
+        {
+          "round": 3,
+          "winner": 0,
+          "scores": [
+            28,
+            -28
+          ],
+          "totals": [
+            70,
+            -70
+          ],
+          "ending": "rack-empty",
+          "turns": 125
+        },
+        {
+          "round": 4,
+          "winner": 1,
+          "scores": [
+            -57,
+            57
+          ],
+          "totals": [
+            13,
+            -13
+          ],
+          "ending": "blocked",
+          "turns": 124
+        },
+        {
+          "round": 5,
+          "winner": 1,
+          "scores": [
+            -44,
+            44
+          ],
+          "totals": [
+            -31,
+            31
+          ],
+          "ending": "rack-empty",
+          "turns": 100
+        },
+        {
+          "round": 6,
+          "winner": 0,
+          "scores": [
+            68,
+            -68
+          ],
+          "totals": [
+            37,
+            -37
+          ],
+          "ending": "blocked",
+          "turns": 126
+        },
+        {
+          "round": 7,
+          "winner": 0,
+          "scores": [
+            19,
+            -19
+          ],
+          "totals": [
+            56,
+            -56
+          ],
+          "ending": "blocked",
+          "turns": 128
+        },
+        {
+          "round": 8,
+          "winner": 1,
+          "scores": [
+            -13,
+            13
+          ],
+          "totals": [
+            43,
+            -43
+          ],
+          "ending": "rack-empty",
+          "turns": 119
+        },
+        {
+          "round": 9,
+          "winner": 0,
+          "scores": [
+            50,
+            -50
+          ],
+          "totals": [
+            93,
+            -93
+          ],
+          "ending": "blocked",
+          "turns": 125
+        },
+        {
+          "round": 10,
+          "winner": 1,
+          "scores": [
+            -47,
+            47
+          ],
+          "totals": [
+            46,
+            -46
+          ],
+          "ending": "blocked",
+          "turns": 126
+        },
+        {
+          "round": 11,
+          "winner": 1,
+          "scores": [
+            -12,
+            12
+          ],
+          "totals": [
+            34,
+            -34
+          ],
+          "ending": "blocked",
+          "turns": 133
+        },
+        {
+          "round": 12,
+          "winner": 0,
+          "scores": [
+            56,
+            -56
+          ],
+          "totals": [
+            90,
+            -90
+          ],
+          "ending": "blocked",
+          "turns": 119
+        },
+        {
+          "round": 13,
+          "winner": 1,
+          "scores": [
+            -51,
+            51
+          ],
+          "totals": [
+            39,
+            -39
+          ],
+          "ending": "blocked",
+          "turns": 131
+        },
+        {
+          "round": 14,
+          "winner": 1,
+          "scores": [
+            -32,
+            32
+          ],
+          "totals": [
+            7,
+            -7
+          ],
+          "ending": "blocked",
+          "turns": 123
+        },
+        {
+          "round": 15,
+          "winner": 0,
+          "scores": [
+            13,
+            -13
+          ],
+          "totals": [
+            20,
+            -20
+          ],
+          "ending": "rack-empty",
+          "turns": 127
+        },
+        {
+          "round": 16,
+          "winner": 0,
+          "scores": [
+            28,
+            -28
+          ],
+          "totals": [
+            48,
+            -48
+          ],
+          "ending": "blocked",
+          "turns": 130
+        },
+        {
+          "round": 17,
+          "winner": 0,
+          "scores": [
+            13,
+            -13
+          ],
+          "totals": [
+            61,
+            -61
+          ],
+          "ending": "blocked",
+          "turns": 125
+        },
+        {
+          "round": 18,
+          "winner": 0,
+          "scores": [
+            18,
+            -18
+          ],
+          "totals": [
+            79,
+            -79
+          ],
+          "ending": "blocked",
+          "turns": 129
+        },
+        {
+          "round": 19,
+          "winner": 1,
+          "scores": [
+            -31,
+            31
+          ],
+          "totals": [
+            48,
+            -48
+          ],
+          "ending": "blocked",
+          "turns": 128
+        },
+        {
+          "round": 20,
+          "winner": 0,
+          "scores": [
+            53,
+            -53
+          ],
+          "totals": [
+            101,
+            -101
+          ],
+          "ending": "blocked",
+          "turns": 127
+        }
+      ],
+      "turns": 2490,
+      "backups": 297,
+      "expiries": 86,
+      "winner": 0
+    },
+    {
+      "seed": 71003,
+      "opponents": [
+        "hard"
+      ],
+      "target": 200,
+      "timed": false,
+      "players": [
+        {
+          "name": "Match audit",
+          "bot": null
+        },
+        {
+          "name": "Juniper",
+          "bot": "hard"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "winner": 1,
+          "scores": [
+            -39,
+            39
+          ],
+          "totals": [
+            -39,
+            39
+          ],
+          "ending": "rack-empty",
+          "turns": 114
+        },
+        {
+          "round": 2,
+          "winner": 1,
+          "scores": [
+            -7,
+            7
+          ],
+          "totals": [
+            -46,
+            46
+          ],
+          "ending": "rack-empty",
+          "turns": 119
+        },
+        {
+          "round": 3,
+          "winner": 1,
+          "scores": [
+            -27,
+            27
+          ],
+          "totals": [
+            -73,
+            73
+          ],
+          "ending": "rack-empty",
+          "turns": 100
+        },
+        {
+          "round": 4,
+          "winner": 1,
+          "scores": [
+            -29,
+            29
+          ],
+          "totals": [
+            -102,
+            102
+          ],
+          "ending": "blocked",
+          "turns": 125
+        },
+        {
+          "round": 5,
+          "winner": 1,
+          "scores": [
+            -6,
+            6
+          ],
+          "totals": [
+            -108,
+            108
+          ],
+          "ending": "rack-empty",
+          "turns": 130
+        },
+        {
+          "round": 6,
+          "winner": 1,
+          "scores": [
+            -23,
+            23
+          ],
+          "totals": [
+            -131,
+            131
+          ],
+          "ending": "rack-empty",
+          "turns": 49
+        },
+        {
+          "round": 7,
+          "winner": 1,
+          "scores": [
+            -63,
+            63
+          ],
+          "totals": [
+            -194,
+            194
+          ],
+          "ending": "rack-empty",
+          "turns": 84
+        },
+        {
+          "round": 8,
+          "winner": 1,
+          "scores": [
+            -25,
+            25
+          ],
+          "totals": [
+            -219,
+            219
+          ],
+          "ending": "rack-empty",
+          "turns": 115
+        }
+      ],
+      "turns": 836,
+      "backups": 72,
+      "expiries": 0,
+      "winner": 1
+    },
+    {
+      "seed": 71004,
+      "opponents": [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      "target": 500,
+      "timed": false,
+      "players": [
+        {
+          "name": "Juniper",
+          "bot": "easy"
+        },
+        {
+          "name": "Atlas",
+          "bot": "normal"
+        },
+        {
+          "name": "Match audit",
+          "bot": null
+        },
+        {
+          "name": "Cleo",
+          "bot": "hard"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "winner": 3,
+          "scores": [
+            -116,
+            -33,
+            -16,
+            165
+          ],
+          "totals": [
+            -116,
+            -33,
+            -16,
+            165
+          ],
+          "ending": "blocked",
+          "turns": 88
+        },
+        {
+          "round": 2,
+          "winner": 3,
+          "scores": [
+            -131,
+            -57,
+            -72,
+            260
+          ],
+          "totals": [
+            -247,
+            -90,
+            -88,
+            425
+          ],
+          "ending": "blocked",
+          "turns": 82
+        },
+        {
+          "round": 3,
+          "winner": 3,
+          "scores": [
+            -87,
+            -23,
+            -30,
+            140
+          ],
+          "totals": [
+            -334,
+            -113,
+            -118,
+            565
+          ],
+          "ending": "rack-empty",
+          "turns": 74
+        }
+      ],
+      "turns": 244,
+      "backups": 21,
+      "expiries": 0,
+      "winner": 3
+    },
+    {
+      "seed": 71005,
+      "opponents": [
+        "normal",
+        "normal",
+        "normal"
+      ],
+      "target": 200,
+      "timed": true,
+      "players": [
+        {
+          "name": "Atlas",
+          "bot": "normal"
+        },
+        {
+          "name": "Match audit",
+          "bot": null
+        },
+        {
+          "name": "Juniper",
+          "bot": "normal"
+        },
+        {
+          "name": "Cleo",
+          "bot": "normal"
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "winner": 3,
+          "scores": [
+            -52,
+            -35,
+            -51,
+            138
+          ],
+          "totals": [
+            -52,
+            -35,
+            -51,
+            138
+          ],
+          "ending": "blocked",
+          "turns": 99
+        },
+        {
+          "round": 2,
+          "winner": 1,
+          "scores": [
+            -86,
+            237,
+            -58,
+            -93
+          ],
+          "totals": [
+            -138,
+            202,
+            -109,
+            45
+          ],
+          "ending": "blocked",
+          "turns": 86
+        }
+      ],
+      "turns": 185,
+      "backups": 23,
+      "expiries": 7,
+      "winner": 1
+    },
+    {
+      "seed": 71006,
+      "opponents": [
+        "hard",
+        "normal",
+        "easy"
+      ],
+      "target": 200,
+      "timed": true,
+      "players": [
+        {
+          "name": "Juniper",
+          "bot": "hard"
+        },
+        {
+          "name": "Atlas",
+          "bot": "normal"
+        },
+        {
+          "name": "Cleo",
+          "bot": "easy"
+        },
+        {
+          "name": "Match audit",
+          "bot": null
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "winner": 0,
+          "scores": [
+            135,
+            -24,
+            -83,
+            -28
+          ],
+          "totals": [
+            135,
+            -24,
+            -83,
+            -28
+          ],
+          "ending": "blocked",
+          "turns": 85
+        },
+        {
+          "round": 2,
+          "winner": 0,
+          "scores": [
+            165,
+            -34,
+            -104,
+            -27
+          ],
+          "totals": [
+            300,
+            -58,
+            -187,
+            -55
+          ],
+          "ending": "blocked",
+          "turns": 93
+        }
+      ],
+      "turns": 178,
+      "backups": 22,
+      "expiries": 7,
+      "winner": 0
+    }
+  ],
+  "latencyMs": {
+    "easy": {
+      "calls": 322,
+      "p50": 0.58,
+      "p95": 1.19,
+      "max": 30.77,
+      "over400": 0
+    },
+    "normal": {
+      "calls": 3428,
+      "p50": 0.68,
+      "p95": 1.68,
+      "max": 15.81,
+      "over400": 0
+    },
+    "hard": {
+      "calls": 524,
+      "p50": 121.04,
+      "p95": 240.15,
+      "max": 243.07,
+      "over400": 0
+    }
+  },
+  "checks": {
+    "allRequestedMatchesComplete": true,
+    "all106IdsConserved": true,
+    "allSubmittedPlansLegal": true,
+    "allPlanningInputsUnchanged": true,
+    "allScoresIndependentlyRecalculated": true,
+    "allBackupsEqual": true,
+    "allOriginalDeadlinesEnforced": true,
+    "allSeatsAndStarterRotationsPreserved": true
+  },
+  "limitations": [
+    "Six synthetic matches do not establish strength rankings or human enjoyment.",
+    "The human is a scripted stand-in; this is not an older-player or native Mandarin study.",
+    "Logical timer expiries do not measure physical background suspension or battery use.",
+    "Node/Linux timing is not physical iPhone/iPad performance."
+  ]
+}

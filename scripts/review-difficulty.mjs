@@ -1,7 +1,7 @@
 // Offline evaluation only: no servers, credentials, strategy changes, or tuning.
 import { build } from "vite";
 import { mkdtemp, rm, writeFile, mkdir, readFile } from "node:fs/promises";
-import { cpus, tmpdir } from "node:os";
+import { cpus, tmpdir, loadavg } from "node:os";
 import { join, dirname } from "node:path";
 import { pathToFileURL } from "node:url";
 import { createHash } from "node:crypto";
@@ -97,6 +97,8 @@ try {
         latencies: [],
         openingPersonalTurns: [],
         remainingPoints: [],
+        knownOpeningTurns: 0,
+        missedKnownOpenings: 0,
       },
     ]),
   );
@@ -107,12 +109,17 @@ try {
     sameTiles: 0,
     fewerTiles: 0,
     baselineCouldEmptyRack: 0,
+    missedBaselineFinishes: 0,
     latencyWhenBaselineCouldEmptyRackMs: [],
   };
   const games = [],
     rejectionExamples = [],
-    slowPlanExamples = [];
+    slowPlanExamples = [],
+    baselineRejectionExamples = [],
+    missedFinishExamples = [];
+  const normalBaselineChecks = { compared: 0, rejected: 0 };
   const startedAt = new Date().toISOString();
+  const hostLoadAtStart = loadavg();
   const allIds = (s) => [
     ...s.pool,
     ...s.players.flatMap((p) => p.rack),
@@ -147,6 +154,8 @@ try {
       node: process.version,
       cpu: cpus()[0]?.model,
       platform: process.platform,
+      logicalCpuCount: cpus().length,
+      hostLoadAtStart,
       engineFingerprint,
     },
     method: {
@@ -158,7 +167,7 @@ try {
       effectiveWorkBudgetMs: Math.min(budget, BOT_WORK_BUDGET_MS),
       productionRedaction: true,
       description:
-        "All ordered seat assignments for each seeded deal, sequentially on one host. Same-turn Normal comparison on post-opening Hard positions. Original submitted plans are checked before the reducer can turn a rejected plan into a draw. No bot strategy is modified.",
+        "All ordered seat assignments for each seeded deal, sequentially on one host. Same-input validated Normal baselines detect opening opportunities and compare post-opening Hard positions. Baseline calls are excluded from actual-plan latency. Original submitted plans are checked before reducer fallback. No bot strategy is modified.",
     },
     summary: Object.fromEntries(
       levels.map((level) => {
@@ -190,6 +199,10 @@ try {
               : null,
             latencyMs: latency(m.latencies),
             plansOver400Ms: m.latencies.filter((n) => n > 400).length,
+            knownOpeningOpportunities: {
+              turns: m.knownOpeningTurns,
+              missed: m.missedKnownOpenings,
+            },
           },
         ];
       }),
@@ -203,6 +216,9 @@ try {
     games,
     rejectionExamples,
     slowPlanExamples,
+    normalBaselineChecks,
+    baselineRejectionExamples,
+    missedFinishExamples,
     checks: {
       completedRounds: games.length,
       all106TilesConserved: true,
@@ -211,6 +227,8 @@ try {
         (level) => metrics[level].rejectedPlans === 0,
       ),
       allPlanningInputsUnchanged: true,
+      allNormalBaselinePlansLegal: normalBaselineChecks.rejected === 0,
+      allRoundActionAccounting: true,
     },
     limitations: [
       "Node timing on this CPU is not physical iPhone/iPad performance.",
@@ -218,6 +236,7 @@ try {
       "Time-bounded search may choose different moves under different host load; seeded deals alone do not reproduce scores exactly.",
       "A bot round win is not a measurement of human enjoyment or beginner accessibility.",
       "This sample does not cover four-player games or long multi-round matches.",
+      "Known opening opportunities and post-opening Hard finishes use one validated Normal baseline, not an exhaustive optimal search or a strength ranking.",
     ],
   });
   await mkdir(dirname(output), { recursive: true });
@@ -227,6 +246,15 @@ try {
         moves = 0;
       const turns = seating.map(() => 0),
         openings = seating.map(() => null);
+      const roundStats = seating.map(() => ({
+        plays: 0,
+        draws: 0,
+        passes: 0,
+        tilesPlayed: 0,
+        latencies: [],
+        knownOpeningTurns: 0,
+        missedKnownOpenings: 0,
+      }));
       s.players.forEach((p, i) => {
         p.bot = seating[i];
         p.name = p.bot;
@@ -244,10 +272,12 @@ try {
           if (i !== seat) player.rack = [];
         });
         const input = JSON.stringify(safe);
-        let baseline;
-        if (p.bot === "hard" && p.melded) {
+        let baseline, baselineFinishTable;
+        let knownOpening = false;
+        if (!p.melded || p.bot === "hard") {
           const normal = structuredClone(safe);
           normal.players[seat].bot = "normal";
+          const normalInput = JSON.stringify(normal);
           const baselineTable = planBot(normal, budget),
             proposedCount = baselineTable
               .flatMap((m) => m.tiles)
@@ -255,9 +285,34 @@ try {
           const draft = proposedCount
             ? reducer(s, { type: "applyPlan", table: baselineTable })
             : s;
-          baseline = draft === s ? 0 : proposedCount;
-          if (proposedCount && draft === s)
-            hardVsNormal.normalBaselineRejected++;
+          if (JSON.stringify(normal) !== normalInput)
+            throw Error("Normal baseline mutated input");
+          normalBaselineChecks.compared++;
+          const accepted =
+            proposedCount > 0 &&
+            draft !== s &&
+            turnCheck(draft).valid &&
+            draft.players[seat].rack.length === before - proposedCount;
+          const rejectedBaseline = proposedCount
+            ? !accepted
+            : JSON.stringify(baselineTable) !== JSON.stringify(s.table);
+          if (rejectedBaseline) {
+            normalBaselineChecks.rejected++;
+            if (baselineRejectionExamples.length < 3)
+              baselineRejectionExamples.push({
+                seed,
+                seating,
+                turn: s.turn,
+                state: normal,
+                proposedTable: baselineTable,
+              });
+          }
+          knownOpening = !p.melded && accepted;
+          if (p.bot === "hard" && p.melded) {
+            baseline = accepted ? proposedCount : 0;
+            baselineFinishTable = baselineTable;
+            if (rejectedBaseline) hardVsNormal.normalBaselineRejected++;
+          }
         }
         const start = performance.now(),
           table = planBot(safe, budget),
@@ -311,7 +366,7 @@ try {
                 seating,
                 turn: s.turn,
                 reason,
-                state: s,
+                state: safe,
                 proposedTable: table,
               });
             used = 0; // Production safely draws/passes after rejecting this proposal.
@@ -330,20 +385,49 @@ try {
           if (baseline === before) {
             hardVsNormal.baselineCouldEmptyRack++;
             hardVsNormal.latencyWhenBaselineCouldEmptyRackMs.push(elapsed);
+            if (used < before) {
+              hardVsNormal.missedBaselineFinishes++;
+              if (missedFinishExamples.length < 3)
+                missedFinishExamples.push({
+                  seed,
+                  seating,
+                  turn: s.turn,
+                  state: safe,
+                  normalTable: baselineFinishTable,
+                  actualTable: table,
+                });
+            }
           }
         }
         const next = reducer(s, { type: "botTurn", table });
         checkState(next);
         const m = metrics[p.bot];
+        const round = roundStats[seat];
         m.moves++;
         m.latencies.push(elapsed);
+        round.latencies.push(elapsed);
+        if (knownOpening) {
+          m.knownOpeningTurns++;
+          round.knownOpeningTurns++;
+          if (!used) {
+            m.missedKnownOpenings++;
+            round.missedKnownOpenings++;
+          }
+        }
         if (used) {
           m.plays++;
           m.tilesPlayed += used;
+          round.plays++;
+          round.tilesPlayed += used;
           if (next.players[seat].rack.length !== before - used)
             throw Error("Submitted play not applied");
-        } else if (s.pool.length) m.draws++;
-        else m.passes++;
+        } else if (s.pool.length) {
+          m.draws++;
+          round.draws++;
+        } else {
+          m.passes++;
+          round.passes++;
+        }
         if (!p.melded && next.players[seat].melded) {
           openings[seat] = turns[seat];
           m.openingPersonalTurns.push(turns[seat]);
@@ -360,6 +444,13 @@ try {
         metrics[p.bot].remainingPoints.push(p.total);
       });
       metrics[winner].wins++;
+      roundStats.forEach((r, i) => {
+        if (
+          14 + r.draws - r.tilesPlayed !== s.players[i].rack.length ||
+          r.plays + r.draws + r.passes !== turns[i]
+        )
+          throw Error("Round action accounting failed");
+      });
       const lowest = Math.min(...scores.map((p) => p.total));
       games.push({
         seed,
@@ -375,6 +466,28 @@ try {
         ),
         openingPersonalTurns: Object.fromEntries(
           seating.map((level, i) => [level, openings[i]]),
+        ),
+        remainingTiles: Object.fromEntries(
+          seating.map((level, i) => [level, s.players[i].rack.length]),
+        ),
+        actualActions: Object.fromEntries(
+          seating.map((level, i) => {
+            const r = roundStats[i];
+            return [
+              level,
+              {
+                plays: r.plays,
+                draws: r.draws,
+                passes: r.passes,
+                tilesPlayed: r.tilesPlayed,
+                knownOpeningTurns: r.knownOpeningTurns,
+                missedKnownOpenings: r.missedKnownOpenings,
+              },
+            ];
+          }),
+        ),
+        latencyMs: Object.fromEntries(
+          seating.map((level, i) => [level, latency(roundStats[i].latencies)]),
         ),
       });
       await writeFile(output, JSON.stringify(report(), null, 2) + "\n");

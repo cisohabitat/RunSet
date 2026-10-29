@@ -1,0 +1,4578 @@
+{
+  "generatedAt": "2026-10-29T01:24:58.170Z",
+  "startedAt": "2026-10-29T01:20:02.394Z",
+  "complete": true,
+  "environment": {
+    "node": "v24.19.0",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "platform": "linux",
+    "logicalCpuCount": 5,
+    "hostLoadAtStart": [
+      0.25,
+      0.08,
+      0.15
+    ],
+    "engineFingerprint": {
+      "bot": "f97c5a2cbea1acab08bb4bc4968e4b57604b4b6fee9ac8e9cbb8c93b0e3082d7",
+      "solver": "61e0884daad2113665328b428d941c49060838b1aa4fe93495be2a934b5a5a61",
+      "game": "1b31ce55e58dcbcfb33b4c166d37041d0c3cf717ef0ef13d085991f4ba57752d",
+      "meld": "b5a90eeb78110ea6e1f5a7223e5555272bd532f41b873acbcdc833c950faa6ae",
+      "tiles": "8a4a02afe5ae158d97fddead9e2242ddc951867ed6d3a88845455026cee7b6a7"
+    }
+  },
+  "method": {
+    "mode": "mixed",
+    "firstSeed": 5001,
+    "seeds": 10,
+    "assignments": [
+      [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      [
+        "easy",
+        "hard",
+        "normal"
+      ],
+      [
+        "normal",
+        "easy",
+        "hard"
+      ],
+      [
+        "normal",
+        "hard",
+        "easy"
+      ],
+      [
+        "hard",
+        "easy",
+        "normal"
+      ],
+      [
+        "hard",
+        "normal",
+        "easy"
+      ]
+    ],
+    "planningBudgetMs": 380,
+    "effectiveWorkBudgetMs": 240,
+    "productionRedaction": true,
+    "description": "All ordered seat assignments for each seeded deal, sequentially on one host. Same-input validated Normal baselines detect opening opportunities and compare post-opening Hard positions. Baseline calls are excluded from actual-plan latency. Original submitted plans are checked before reducer fallback. No bot strategy is modified."
+  },
+  "summary": {
+    "easy": {
+      "gamesPlayed": 60,
+      "wins": 1,
+      "winRate": 0.02,
+      "moves": 1942,
+      "plays": 400,
+      "draws": 1467,
+      "passes": 75,
+      "tilesPlayed": 1463,
+      "rejectedPlans": 0,
+      "rejectionReasons": {},
+      "tilesPerPlay": 3.66,
+      "openingPersonalTurns": {
+        "count": 60,
+        "p50": 2,
+        "p95": 12
+      },
+      "meanRemainingPoints": 102.27,
+      "latencyMs": {
+        "p50": 0.47,
+        "p95": 0.89,
+        "p99": 2,
+        "max": 8.19
+      },
+      "plansOver400Ms": 0,
+      "knownOpeningOpportunities": {
+        "turns": 60,
+        "missed": 0
+      }
+    },
+    "normal": {
+      "gamesPlayed": 60,
+      "wins": 22,
+      "winRate": 0.37,
+      "moves": 1952,
+      "plays": 696,
+      "draws": 1181,
+      "passes": 75,
+      "tilesPlayed": 1578,
+      "rejectedPlans": 0,
+      "rejectionReasons": {},
+      "tilesPerPlay": 2.27,
+      "openingPersonalTurns": {
+        "count": 60,
+        "p50": 2,
+        "p95": 11
+      },
+      "meanRemainingPoints": 53.63,
+      "latencyMs": {
+        "p50": 0.62,
+        "p95": 1.58,
+        "p99": 2.81,
+        "max": 11.52
+      },
+      "plansOver400Ms": 0,
+      "knownOpeningOpportunities": {
+        "turns": 60,
+        "missed": 0
+      }
+    },
+    "hard": {
+      "gamesPlayed": 60,
+      "wins": 37,
+      "winRate": 0.62,
+      "moves": 1952,
+      "plays": 719,
+      "draws": 1157,
+      "passes": 76,
+      "tilesPlayed": 1632,
+      "rejectedPlans": 0,
+      "rejectionReasons": {},
+      "tilesPerPlay": 2.27,
+      "openingPersonalTurns": {
+        "count": 60,
+        "p50": 2,
+        "p95": 11
+      },
+      "meanRemainingPoints": 43.63,
+      "latencyMs": {
+        "p50": 240.01,
+        "p95": 240.07,
+        "p99": 240.66,
+        "max": 243.23
+      },
+      "plansOver400Ms": 0,
+      "knownOpeningOpportunities": {
+        "turns": 60,
+        "missed": 0
+      }
+    }
+  },
+  "hardVsNormal": {
+    "compared": 1721,
+    "normalBaselineRejected": 0,
+    "moreTiles": 92,
+    "sameTiles": 1629,
+    "fewerTiles": 0,
+    "baselineCouldEmptyRack": 0,
+    "missedBaselineFinishes": 0,
+    "latencyWhenBaselineCouldEmptyRackMs": {
+      "p50": null,
+      "p95": null,
+      "p99": null,
+      "max": null
+    }
+  },
+  "games": [
+    {
+      "seed": 5001,
+      "seating": [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 106,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 86,
+        "normal": 45,
+        "hard": 41
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 6,
+        "hard": 1
+      },
+      "remainingTiles": {
+        "easy": 10,
+        "normal": 4,
+        "hard": 4
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 9,
+          "draws": 26,
+          "passes": 1,
+          "tilesPlayed": 30,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 13,
+          "draws": 20,
+          "passes": 2,
+          "tilesPlayed": 30,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 16,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.48,
+          "p95": 1.06,
+          "p99": 1.55,
+          "max": 1.55
+        },
+        "normal": {
+          "p50": 0.7,
+          "p95": 2.38,
+          "p99": 4.09,
+          "max": 4.09
+        },
+        "hard": {
+          "p50": 138.65,
+          "p95": 240.14,
+          "p99": 240.54,
+          "max": 240.54
+        }
+      }
+    },
+    {
+      "seed": 5001,
+      "seating": [
+        "easy",
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 105,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 104,
+        "hard": 20,
+        "normal": 35
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 6,
+        "normal": 1
+      },
+      "remainingTiles": {
+        "easy": 17,
+        "hard": 4,
+        "normal": 7
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 7,
+          "draws": 27,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 14,
+          "draws": 18,
+          "passes": 3,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 15,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.51,
+          "p95": 1.48,
+          "p99": 1.64,
+          "max": 1.64
+        },
+        "hard": {
+          "p50": 72.14,
+          "p95": 240.03,
+          "p99": 240.04,
+          "max": 240.04
+        },
+        "normal": {
+          "p50": 0.72,
+          "p95": 2.11,
+          "p99": 3.35,
+          "max": 3.35
+        }
+      }
+    },
+    {
+      "seed": 5001,
+      "seating": [
+        "normal",
+        "easy",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 96,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 44,
+        "easy": 123,
+        "hard": 68
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 10,
+        "hard": 1
+      },
+      "remainingTiles": {
+        "normal": 7,
+        "easy": 17,
+        "hard": 9
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 12,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 5,
+          "draws": 25,
+          "passes": 2,
+          "tilesPlayed": 22,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 11,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 25,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.53,
+          "p95": 1.04,
+          "p99": 2.1,
+          "max": 2.1
+        },
+        "easy": {
+          "p50": 0.47,
+          "p95": 0.78,
+          "p99": 0.93,
+          "max": 0.93
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.09,
+          "p99": 240.55,
+          "max": 240.55
+        }
+      }
+    },
+    {
+      "seed": 5001,
+      "seating": [
+        "normal",
+        "hard",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 107,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 10,
+        "hard": 34,
+        "easy": 68
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 11,
+        "easy": 1
+      },
+      "remainingTiles": {
+        "normal": 1,
+        "hard": 3,
+        "easy": 9
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 15,
+          "draws": 18,
+          "passes": 3,
+          "tilesPlayed": 31,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 13,
+          "draws": 21,
+          "passes": 2,
+          "tilesPlayed": 32,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 9,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 30,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.65,
+          "p95": 1.21,
+          "p99": 1.48,
+          "max": 1.48
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.66,
+          "p99": 243.23,
+          "max": 243.23
+        },
+        "easy": {
+          "p50": 0.5,
+          "p95": 1.02,
+          "p99": 2.71,
+          "max": 2.71
+        }
+      }
+    },
+    {
+      "seed": 5001,
+      "seating": [
+        "hard",
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 100,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 47,
+        "easy": 114,
+        "normal": 46
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 12,
+        "normal": 1
+      },
+      "remainingTiles": {
+        "hard": 6,
+        "easy": 13,
+        "normal": 6
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 14,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 6,
+          "draws": 26,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 13,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 86.1,
+          "p95": 240.04,
+          "p99": 240.07,
+          "max": 240.07
+        },
+        "easy": {
+          "p50": 0.53,
+          "p95": 0.97,
+          "p99": 1.01,
+          "max": 1.01
+        },
+        "normal": {
+          "p50": 0.55,
+          "p95": 1.94,
+          "p99": 5.01,
+          "max": 5.01
+        }
+      }
+    },
+    {
+      "seed": 5001,
+      "seating": [
+        "hard",
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 91,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 74,
+        "normal": 55,
+        "easy": 84
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 15,
+        "easy": 1
+      },
+      "remainingTiles": {
+        "hard": 9,
+        "normal": 10,
+        "easy": 15
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 10,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 25,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 7,
+          "draws": 22,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 6,
+          "draws": 22,
+          "passes": 2,
+          "tilesPlayed": 21,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 78.12,
+          "p95": 240.03,
+          "p99": 240.03,
+          "max": 240.03
+        },
+        "normal": {
+          "p50": 0.81,
+          "p95": 2.99,
+          "p99": 8.14,
+          "max": 8.14
+        },
+        "easy": {
+          "p50": 0.43,
+          "p95": 0.75,
+          "p99": 2.14,
+          "max": 2.14
+        }
+      }
+    },
+    {
+      "seed": 5002,
+      "seating": [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 94,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 122,
+        "normal": 58,
+        "hard": 50
+      },
+      "openingPersonalTurns": {
+        "easy": 4,
+        "normal": 1,
+        "hard": 4
+      },
+      "remainingTiles": {
+        "easy": 18,
+        "normal": 6,
+        "hard": 7
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 6,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 21,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 12,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 9,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.51,
+          "p95": 0.99,
+          "p99": 1.84,
+          "max": 1.84
+        },
+        "normal": {
+          "p50": 0.73,
+          "p95": 2.73,
+          "p99": 2.73,
+          "max": 2.73
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.04,
+          "p99": 240.08,
+          "max": 240.08
+        }
+      }
+    },
+    {
+      "seed": 5002,
+      "seating": [
+        "easy",
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 96,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 166,
+        "hard": 48,
+        "normal": 75
+      },
+      "openingPersonalTurns": {
+        "easy": 4,
+        "hard": 1,
+        "normal": 4
+      },
+      "remainingTiles": {
+        "easy": 22,
+        "hard": 8,
+        "normal": 8
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 5,
+          "draws": 26,
+          "passes": 1,
+          "tilesPlayed": 18,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 12,
+          "draws": 18,
+          "passes": 2,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 11,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.49,
+          "p95": 0.67,
+          "p99": 0.69,
+          "max": 0.69
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.02,
+          "p99": 240.03,
+          "max": 240.03
+        },
+        "normal": {
+          "p50": 0.59,
+          "p95": 1.11,
+          "p99": 1.47,
+          "max": 1.47
+        }
+      }
+    },
+    {
+      "seed": 5002,
+      "seating": [
+        "normal",
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 97,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 96,
+        "easy": 80,
+        "hard": 45
+      },
+      "openingPersonalTurns": {
+        "normal": 4,
+        "easy": 1,
+        "hard": 4
+      },
+      "remainingTiles": {
+        "normal": 11,
+        "easy": 11,
+        "hard": 5
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 11,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 8,
+          "draws": 23,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 11,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 29,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.75,
+          "p95": 1.67,
+          "p99": 2.04,
+          "max": 2.04
+        },
+        "easy": {
+          "p50": 0.45,
+          "p95": 0.56,
+          "p99": 0.57,
+          "max": 0.57
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.56,
+          "p99": 240.68,
+          "max": 240.68
+        }
+      }
+    },
+    {
+      "seed": 5002,
+      "seating": [
+        "normal",
+        "hard",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 92,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 68,
+        "hard": 78,
+        "easy": 161
+      },
+      "openingPersonalTurns": {
+        "normal": 4,
+        "hard": 1,
+        "easy": 4
+      },
+      "remainingTiles": {
+        "normal": 10,
+        "hard": 12,
+        "easy": 18
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 10,
+          "draws": 19,
+          "passes": 2,
+          "tilesPlayed": 23,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 9,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 23,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 5,
+          "draws": 24,
+          "passes": 1,
+          "tilesPlayed": 20,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.65,
+          "p95": 1.42,
+          "p99": 1.45,
+          "max": 1.45
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.13,
+          "p99": 240.17,
+          "max": 240.17
+        },
+        "easy": {
+          "p50": 0.54,
+          "p95": 1.51,
+          "p99": 1.54,
+          "max": 1.54
+        }
+      }
+    },
+    {
+      "seed": 5002,
+      "seating": [
+        "hard",
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 103,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 24,
+        "easy": 95,
+        "normal": 18
+      },
+      "openingPersonalTurns": {
+        "hard": 4,
+        "easy": 1,
+        "normal": 4
+      },
+      "remainingTiles": {
+        "hard": 4,
+        "easy": 15,
+        "normal": 3
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 14,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 30,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 7,
+          "draws": 25,
+          "passes": 2,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 13,
+          "draws": 19,
+          "passes": 2,
+          "tilesPlayed": 30,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.18,
+          "p99": 240.54,
+          "max": 240.54
+        },
+        "easy": {
+          "p50": 0.47,
+          "p95": 1.97,
+          "p99": 5.3,
+          "max": 5.3
+        },
+        "normal": {
+          "p50": 0.58,
+          "p95": 1.2,
+          "p99": 2.51,
+          "max": 2.51
+        }
+      }
+    },
+    {
+      "seed": 5002,
+      "seating": [
+        "hard",
+        "normal",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 92,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 68,
+        "normal": 78,
+        "easy": 161
+      },
+      "openingPersonalTurns": {
+        "hard": 4,
+        "normal": 1,
+        "easy": 4
+      },
+      "remainingTiles": {
+        "hard": 10,
+        "normal": 12,
+        "easy": 18
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 10,
+          "draws": 19,
+          "passes": 2,
+          "tilesPlayed": 23,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 9,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 23,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 5,
+          "draws": 24,
+          "passes": 1,
+          "tilesPlayed": 20,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.04,
+          "p99": 240.2,
+          "max": 240.2
+        },
+        "normal": {
+          "p50": 0.59,
+          "p95": 1.5,
+          "p99": 2.07,
+          "max": 2.07
+        },
+        "easy": {
+          "p50": 0.49,
+          "p95": 1.25,
+          "p99": 1.6,
+          "max": 1.6
+        }
+      }
+    },
+    {
+      "seed": 5003,
+      "seating": [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 98,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 125,
+        "normal": 58,
+        "hard": 46
+      },
+      "openingPersonalTurns": {
+        "easy": 6,
+        "normal": 1,
+        "hard": 1
+      },
+      "remainingTiles": {
+        "easy": 15,
+        "normal": 10,
+        "hard": 7
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 7,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 10,
+          "draws": 21,
+          "passes": 2,
+          "tilesPlayed": 25,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 13,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 25,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.47,
+          "p95": 1.81,
+          "p99": 1.95,
+          "max": 1.95
+        },
+        "normal": {
+          "p50": 0.53,
+          "p95": 1.18,
+          "p99": 1.96,
+          "max": 1.96
+        },
+        "hard": {
+          "p50": 74.46,
+          "p95": 240.02,
+          "p99": 240.17,
+          "max": 240.17
+        }
+      }
+    },
+    {
+      "seed": 5003,
+      "seating": [
+        "easy",
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 105,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 64,
+        "hard": 3,
+        "normal": 16
+      },
+      "openingPersonalTurns": {
+        "easy": 6,
+        "hard": 1,
+        "normal": 1
+      },
+      "remainingTiles": {
+        "easy": 10,
+        "hard": 2,
+        "normal": 3
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 9,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 29,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 15,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 31,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 14,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 31,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.45,
+          "p95": 0.65,
+          "p99": 2.2,
+          "max": 2.2
+        },
+        "hard": {
+          "p50": 88.3,
+          "p95": 240.1,
+          "p99": 240.8,
+          "max": 240.8
+        },
+        "normal": {
+          "p50": 0.57,
+          "p95": 1.06,
+          "p99": 1.43,
+          "max": 1.43
+        }
+      }
+    },
+    {
+      "seed": 5003,
+      "seating": [
+        "normal",
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 92,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 36,
+        "easy": 126,
+        "hard": 33
+      },
+      "openingPersonalTurns": {
+        "normal": 6,
+        "easy": 1,
+        "hard": 1
+      },
+      "remainingTiles": {
+        "normal": 7,
+        "easy": 21,
+        "hard": 7
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 11,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 4,
+          "draws": 26,
+          "passes": 1,
+          "tilesPlayed": 19,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 10,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.67,
+          "p95": 1.92,
+          "p99": 2.73,
+          "max": 2.73
+        },
+        "easy": {
+          "p50": 0.42,
+          "p95": 0.74,
+          "p99": 0.74,
+          "max": 0.74
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.02,
+          "p99": 240.15,
+          "max": 240.15
+        }
+      }
+    },
+    {
+      "seed": 5003,
+      "seating": [
+        "normal",
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 100,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 48,
+        "hard": 19,
+        "easy": 49
+      },
+      "openingPersonalTurns": {
+        "normal": 7,
+        "hard": 1,
+        "easy": 1
+      },
+      "remainingTiles": {
+        "normal": 9,
+        "hard": 5,
+        "easy": 6
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 12,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 12,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 29,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 9,
+          "draws": 23,
+          "passes": 1,
+          "tilesPlayed": 31,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.71,
+          "p95": 1.39,
+          "p99": 1.76,
+          "max": 1.76
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.07,
+          "p99": 240.37,
+          "max": 240.37
+        },
+        "easy": {
+          "p50": 0.4,
+          "p95": 0.67,
+          "p99": 0.74,
+          "max": 0.74
+        }
+      }
+    },
+    {
+      "seed": 5003,
+      "seating": [
+        "hard",
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 96,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 67,
+        "easy": 83,
+        "normal": 61
+      },
+      "openingPersonalTurns": {
+        "hard": 6,
+        "easy": 1,
+        "normal": 1
+      },
+      "remainingTiles": {
+        "hard": 7,
+        "easy": 14,
+        "normal": 9
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 11,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 6,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 25,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 12,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 77.33,
+          "p95": 240.02,
+          "p99": 240.06,
+          "max": 240.06
+        },
+        "easy": {
+          "p50": 0.43,
+          "p95": 0.65,
+          "p99": 0.78,
+          "max": 0.78
+        },
+        "normal": {
+          "p50": 0.67,
+          "p95": 2.57,
+          "p99": 2.66,
+          "max": 2.66
+        }
+      }
+    },
+    {
+      "seed": 5003,
+      "seating": [
+        "hard",
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 98,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 40,
+        "normal": 34,
+        "easy": 149
+      },
+      "openingPersonalTurns": {
+        "hard": 7,
+        "normal": 1,
+        "easy": 1
+      },
+      "remainingTiles": {
+        "hard": 4,
+        "normal": 6,
+        "easy": 16
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 11,
+          "draws": 20,
+          "passes": 2,
+          "tilesPlayed": 30,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 12,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 6,
+          "draws": 24,
+          "passes": 2,
+          "tilesPlayed": 22,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 79.68,
+          "p95": 240.17,
+          "p99": 240.41,
+          "max": 240.41
+        },
+        "normal": {
+          "p50": 0.64,
+          "p95": 2.42,
+          "p99": 5.39,
+          "max": 5.39
+        },
+        "easy": {
+          "p50": 0.47,
+          "p95": 0.9,
+          "p99": 1.63,
+          "max": 1.63
+        }
+      }
+    },
+    {
+      "seed": 5004,
+      "seating": [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 101,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 68,
+        "normal": 61,
+        "hard": 51
+      },
+      "openingPersonalTurns": {
+        "easy": 5,
+        "normal": 1,
+        "hard": 1
+      },
+      "remainingTiles": {
+        "easy": 11,
+        "normal": 8,
+        "hard": 7
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 9,
+          "draws": 24,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 11,
+          "draws": 22,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 13,
+          "draws": 18,
+          "passes": 2,
+          "tilesPlayed": 25,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.49,
+          "p95": 0.9,
+          "p99": 2.46,
+          "max": 2.46
+        },
+        "normal": {
+          "p50": 0.55,
+          "p95": 1.72,
+          "p99": 2.26,
+          "max": 2.26
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.05,
+          "p99": 240.06,
+          "max": 240.06
+        }
+      }
+    },
+    {
+      "seed": 5004,
+      "seating": [
+        "easy",
+        "hard",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 101,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 68,
+        "hard": 61,
+        "normal": 51
+      },
+      "openingPersonalTurns": {
+        "easy": 5,
+        "hard": 1,
+        "normal": 1
+      },
+      "remainingTiles": {
+        "easy": 11,
+        "hard": 8,
+        "normal": 7
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 9,
+          "draws": 24,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 11,
+          "draws": 22,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 13,
+          "draws": 18,
+          "passes": 2,
+          "tilesPlayed": 25,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.49,
+          "p95": 1.04,
+          "p99": 1.44,
+          "max": 1.44
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.56,
+          "p99": 240.59,
+          "max": 240.59
+        },
+        "normal": {
+          "p50": 0.66,
+          "p95": 1.84,
+          "p99": 2.3,
+          "max": 2.3
+        }
+      }
+    },
+    {
+      "seed": 5004,
+      "seating": [
+        "normal",
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 100,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 75,
+        "easy": 88,
+        "hard": 62
+      },
+      "openingPersonalTurns": {
+        "normal": 5,
+        "easy": 1,
+        "hard": 1
+      },
+      "remainingTiles": {
+        "normal": 8,
+        "easy": 11,
+        "hard": 8
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 12,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 7,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 14,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.77,
+          "p95": 1.56,
+          "p99": 1.95,
+          "max": 1.95
+        },
+        "easy": {
+          "p50": 0.43,
+          "p95": 0.75,
+          "p99": 1.67,
+          "max": 1.67
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.33,
+          "p99": 240.44,
+          "max": 240.44
+        }
+      }
+    },
+    {
+      "seed": 5004,
+      "seating": [
+        "normal",
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 95,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 85,
+        "hard": 59,
+        "easy": 103
+      },
+      "openingPersonalTurns": {
+        "normal": 8,
+        "hard": 1,
+        "easy": 1
+      },
+      "remainingTiles": {
+        "normal": 12,
+        "hard": 8,
+        "easy": 15
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 10,
+          "draws": 20,
+          "passes": 2,
+          "tilesPlayed": 22,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 11,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 6,
+          "draws": 24,
+          "passes": 1,
+          "tilesPlayed": 23,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.68,
+          "p95": 1.31,
+          "p99": 2.74,
+          "max": 2.74
+        },
+        "hard": {
+          "p50": 73.06,
+          "p95": 240.31,
+          "p99": 240.94,
+          "max": 240.94
+        },
+        "easy": {
+          "p50": 0.53,
+          "p95": 1.16,
+          "p99": 2.52,
+          "max": 2.52
+        }
+      }
+    },
+    {
+      "seed": 5004,
+      "seating": [
+        "hard",
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 100,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 75,
+        "easy": 88,
+        "normal": 62
+      },
+      "openingPersonalTurns": {
+        "hard": 5,
+        "easy": 1,
+        "normal": 1
+      },
+      "remainingTiles": {
+        "hard": 8,
+        "easy": 11,
+        "normal": 8
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 12,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 7,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 14,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.05,
+          "p99": 240.17,
+          "max": 240.17
+        },
+        "easy": {
+          "p50": 0.42,
+          "p95": 0.84,
+          "p99": 0.89,
+          "max": 0.89
+        },
+        "normal": {
+          "p50": 0.65,
+          "p95": 1.93,
+          "p99": 3.01,
+          "max": 3.01
+        }
+      }
+    },
+    {
+      "seed": 5004,
+      "seating": [
+        "hard",
+        "normal",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 96,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 68,
+        "normal": 89,
+        "easy": 104
+      },
+      "openingPersonalTurns": {
+        "hard": 8,
+        "normal": 1,
+        "easy": 1
+      },
+      "remainingTiles": {
+        "hard": 8,
+        "normal": 12,
+        "easy": 13
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 12,
+          "draws": 18,
+          "passes": 2,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 8,
+          "draws": 22,
+          "passes": 2,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 7,
+          "draws": 24,
+          "passes": 1,
+          "tilesPlayed": 25,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 70.23,
+          "p95": 240.47,
+          "p99": 242.93,
+          "max": 242.93
+        },
+        "normal": {
+          "p50": 0.61,
+          "p95": 1.02,
+          "p99": 2.39,
+          "max": 2.39
+        },
+        "easy": {
+          "p50": 0.45,
+          "p95": 0.9,
+          "p99": 0.91,
+          "max": 0.91
+        }
+      }
+    },
+    {
+      "seed": 5005,
+      "seating": [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 107,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 84,
+        "normal": 5,
+        "hard": 9
+      },
+      "openingPersonalTurns": {
+        "easy": 11,
+        "normal": 1,
+        "hard": 8
+      },
+      "remainingTiles": {
+        "easy": 11,
+        "normal": 2,
+        "hard": 3
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 7,
+          "draws": 26,
+          "passes": 3,
+          "tilesPlayed": 29,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 18,
+          "draws": 17,
+          "passes": 1,
+          "tilesPlayed": 29,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 13,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 32,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.48,
+          "p95": 0.94,
+          "p99": 0.99,
+          "max": 0.99
+        },
+        "normal": {
+          "p50": 0.63,
+          "p95": 1.58,
+          "p99": 1.81,
+          "max": 1.81
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.08,
+          "p99": 240.3,
+          "max": 240.3
+        }
+      }
+    },
+    {
+      "seed": 5005,
+      "seating": [
+        "easy",
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 92,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 89,
+        "hard": 25,
+        "normal": 56
+      },
+      "openingPersonalTurns": {
+        "easy": 11,
+        "hard": 1,
+        "normal": 8
+      },
+      "remainingTiles": {
+        "easy": 15,
+        "hard": 6,
+        "normal": 9
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 5,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 12,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 8,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.5,
+          "p95": 1.15,
+          "p99": 1.69,
+          "max": 1.69
+        },
+        "hard": {
+          "p50": 73.06,
+          "p95": 240.07,
+          "p99": 240.91,
+          "max": 240.91
+        },
+        "normal": {
+          "p50": 0.64,
+          "p95": 1.6,
+          "p99": 2.22,
+          "max": 2.22
+        }
+      }
+    },
+    {
+      "seed": 5005,
+      "seating": [
+        "normal",
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 94,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 55,
+        "easy": 116,
+        "hard": 51
+      },
+      "openingPersonalTurns": {
+        "normal": 9,
+        "easy": 1,
+        "hard": 8
+      },
+      "remainingTiles": {
+        "normal": 7,
+        "easy": 14,
+        "hard": 9
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 10,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 6,
+          "draws": 24,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 10,
+          "draws": 19,
+          "passes": 2,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.64,
+          "p95": 1.7,
+          "p99": 1.85,
+          "max": 1.85
+        },
+        "easy": {
+          "p50": 0.45,
+          "p95": 0.64,
+          "p99": 1.9,
+          "max": 1.9
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 242.35,
+          "p99": 243.22,
+          "max": 243.22
+        }
+      }
+    },
+    {
+      "seed": 5005,
+      "seating": [
+        "normal",
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 99,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 57,
+        "hard": 10,
+        "easy": 107
+      },
+      "openingPersonalTurns": {
+        "normal": 11,
+        "hard": 1,
+        "easy": 8
+      },
+      "remainingTiles": {
+        "normal": 5,
+        "hard": 2,
+        "easy": 13
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 11,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 30,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 15,
+          "draws": 17,
+          "passes": 1,
+          "tilesPlayed": 29,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 6,
+          "draws": 26,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.53,
+          "p95": 2.35,
+          "p99": 5.71,
+          "max": 5.71
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.05,
+          "p99": 240.06,
+          "max": 240.06
+        },
+        "easy": {
+          "p50": 0.51,
+          "p95": 0.98,
+          "p99": 1.02,
+          "max": 1.02
+        }
+      }
+    },
+    {
+      "seed": 5005,
+      "seating": [
+        "hard",
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 94,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 55,
+        "easy": 116,
+        "normal": 51
+      },
+      "openingPersonalTurns": {
+        "hard": 9,
+        "easy": 1,
+        "normal": 8
+      },
+      "remainingTiles": {
+        "hard": 7,
+        "easy": 14,
+        "normal": 9
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 10,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 6,
+          "draws": 24,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 10,
+          "draws": 19,
+          "passes": 2,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.05,
+          "p99": 240.18,
+          "max": 240.18
+        },
+        "easy": {
+          "p50": 0.46,
+          "p95": 2.01,
+          "p99": 2.53,
+          "max": 2.53
+        },
+        "normal": {
+          "p50": 0.64,
+          "p95": 1.37,
+          "p99": 2.89,
+          "max": 2.89
+        }
+      }
+    },
+    {
+      "seed": 5005,
+      "seating": [
+        "hard",
+        "normal",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 98,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 7,
+        "normal": 20,
+        "easy": 79
+      },
+      "openingPersonalTurns": {
+        "hard": 11,
+        "normal": 1,
+        "easy": 8
+      },
+      "remainingTiles": {
+        "hard": 1,
+        "normal": 4,
+        "easy": 12
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 10,
+          "draws": 21,
+          "passes": 2,
+          "tilesPlayed": 34,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 13,
+          "draws": 18,
+          "passes": 2,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 6,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.08,
+          "p99": 240.15,
+          "max": 240.15
+        },
+        "normal": {
+          "p50": 0.56,
+          "p95": 2.12,
+          "p99": 2.62,
+          "max": 2.62
+        },
+        "easy": {
+          "p50": 0.43,
+          "p95": 0.95,
+          "p99": 1.34,
+          "max": 1.34
+        }
+      }
+    },
+    {
+      "seed": 5006,
+      "seating": [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 96,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 78,
+        "normal": 32,
+        "hard": 33
+      },
+      "openingPersonalTurns": {
+        "easy": 10,
+        "normal": 1,
+        "hard": 17
+      },
+      "remainingTiles": {
+        "easy": 10,
+        "normal": 4,
+        "hard": 4
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 7,
+          "draws": 23,
+          "passes": 2,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 11,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 30,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 10,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 31,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.43,
+          "p95": 0.58,
+          "p99": 0.95,
+          "max": 0.95
+        },
+        "normal": {
+          "p50": 0.53,
+          "p95": 1.23,
+          "p99": 1.24,
+          "max": 1.24
+        },
+        "hard": {
+          "p50": 1.45,
+          "p95": 240.21,
+          "p99": 240.7,
+          "max": 240.7
+        }
+      }
+    },
+    {
+      "seed": 5006,
+      "seating": [
+        "easy",
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 88,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 151,
+        "hard": 24,
+        "normal": 46
+      },
+      "openingPersonalTurns": {
+        "easy": 10,
+        "hard": 1,
+        "normal": 16
+      },
+      "remainingTiles": {
+        "easy": 22,
+        "hard": 4,
+        "normal": 8
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 4,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 17,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 10,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 7,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.47,
+          "p95": 0.73,
+          "p99": 1.09,
+          "max": 1.09
+        },
+        "hard": {
+          "p50": 68.76,
+          "p95": 240.02,
+          "p99": 240.02,
+          "max": 240.02
+        },
+        "normal": {
+          "p50": 0.82,
+          "p95": 1.27,
+          "p99": 4.77,
+          "max": 4.77
+        }
+      }
+    },
+    {
+      "seed": 5006,
+      "seating": [
+        "normal",
+        "easy",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 93,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 34,
+        "easy": 87,
+        "hard": 55
+      },
+      "openingPersonalTurns": {
+        "normal": 10,
+        "easy": 1,
+        "hard": 11
+      },
+      "remainingTiles": {
+        "normal": 5,
+        "easy": 13,
+        "hard": 5
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 10,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 29,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 6,
+          "draws": 23,
+          "passes": 2,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 9,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 30,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.64,
+          "p95": 1.63,
+          "p99": 11.52,
+          "max": 11.52
+        },
+        "easy": {
+          "p50": 0.5,
+          "p95": 0.72,
+          "p99": 1.34,
+          "max": 1.34
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.08,
+          "p99": 240.09,
+          "max": 240.09
+        }
+      }
+    },
+    {
+      "seed": 5006,
+      "seating": [
+        "normal",
+        "hard",
+        "easy"
+      ],
+      "winner": "easy",
+      "moves": 91,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 85,
+        "hard": 79,
+        "easy": 62
+      },
+      "openingPersonalTurns": {
+        "normal": 10,
+        "hard": 1,
+        "easy": 12
+      },
+      "remainingTiles": {
+        "normal": 12,
+        "hard": 10,
+        "easy": 11
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 8,
+          "draws": 22,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 9,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 6,
+          "draws": 22,
+          "passes": 2,
+          "tilesPlayed": 25,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.61,
+          "p95": 1.22,
+          "p99": 1.51,
+          "max": 1.51
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.05,
+          "p99": 240.05,
+          "max": 240.05
+        },
+        "easy": {
+          "p50": 0.55,
+          "p95": 1.12,
+          "p99": 1.41,
+          "max": 1.41
+        }
+      }
+    },
+    {
+      "seed": 5006,
+      "seating": [
+        "hard",
+        "easy",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 94,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 33,
+        "easy": 77,
+        "normal": 50
+      },
+      "openingPersonalTurns": {
+        "hard": 10,
+        "easy": 1,
+        "normal": 11
+      },
+      "remainingTiles": {
+        "hard": 4,
+        "easy": 10,
+        "normal": 7
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 9,
+          "draws": 22,
+          "passes": 1,
+          "tilesPlayed": 32,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 7,
+          "draws": 23,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 11,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.06,
+          "p99": 240.29,
+          "max": 240.29
+        },
+        "easy": {
+          "p50": 0.44,
+          "p95": 0.91,
+          "p99": 6.27,
+          "max": 6.27
+        },
+        "normal": {
+          "p50": 0.6,
+          "p95": 2.77,
+          "p99": 2.81,
+          "max": 2.81
+        }
+      }
+    },
+    {
+      "seed": 5006,
+      "seating": [
+        "hard",
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 94,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 69,
+        "normal": 30,
+        "easy": 89
+      },
+      "openingPersonalTurns": {
+        "hard": 10,
+        "normal": 1,
+        "easy": 12
+      },
+      "remainingTiles": {
+        "hard": 9,
+        "normal": 4,
+        "easy": 12
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 9,
+          "draws": 22,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 11,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 29,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 6,
+          "draws": 23,
+          "passes": 2,
+          "tilesPlayed": 25,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 240.01,
+          "p95": 241.46,
+          "p99": 241.56,
+          "max": 241.56
+        },
+        "normal": {
+          "p50": 0.51,
+          "p95": 1.34,
+          "p99": 2.05,
+          "max": 2.05
+        },
+        "easy": {
+          "p50": 0.47,
+          "p95": 0.94,
+          "p99": 1.7,
+          "max": 1.7
+        }
+      }
+    },
+    {
+      "seed": 5007,
+      "seating": [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 96,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 129,
+        "normal": 87,
+        "hard": 41
+      },
+      "openingPersonalTurns": {
+        "easy": 5,
+        "normal": 6,
+        "hard": 2
+      },
+      "remainingTiles": {
+        "easy": 20,
+        "normal": 10,
+        "hard": 5
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 5,
+          "draws": 26,
+          "passes": 1,
+          "tilesPlayed": 20,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 10,
+          "draws": 20,
+          "passes": 2,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 13,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.5,
+          "p95": 0.82,
+          "p99": 2,
+          "max": 2
+        },
+        "normal": {
+          "p50": 0.51,
+          "p95": 1.12,
+          "p99": 3.25,
+          "max": 3.25
+        },
+        "hard": {
+          "p50": 83.27,
+          "p95": 240.02,
+          "p99": 240.03,
+          "max": 240.03
+        }
+      }
+    },
+    {
+      "seed": 5007,
+      "seating": [
+        "easy",
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 103,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 92,
+        "hard": 7,
+        "normal": 28
+      },
+      "openingPersonalTurns": {
+        "easy": 5,
+        "hard": 6,
+        "normal": 2
+      },
+      "remainingTiles": {
+        "easy": 12,
+        "hard": 2,
+        "normal": 5
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 8,
+          "draws": 26,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 13,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 32,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 15,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.5,
+          "p95": 1.38,
+          "p99": 3.08,
+          "max": 3.08
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.02,
+          "p99": 240.03,
+          "max": 240.03
+        },
+        "normal": {
+          "p50": 0.52,
+          "p95": 1.56,
+          "p99": 2.07,
+          "max": 2.07
+        }
+      }
+    },
+    {
+      "seed": 5007,
+      "seating": [
+        "normal",
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 45,
+      "ending": "rack-empty",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 101,
+        "easy": 63,
+        "hard": 0
+      },
+      "openingPersonalTurns": {
+        "normal": 5,
+        "easy": 6,
+        "hard": 2
+      },
+      "remainingTiles": {
+        "normal": 11,
+        "easy": 10,
+        "hard": 0
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 4,
+          "draws": 11,
+          "passes": 0,
+          "tilesPlayed": 14,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 4,
+          "draws": 11,
+          "passes": 0,
+          "tilesPlayed": 15,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 8,
+          "draws": 7,
+          "passes": 0,
+          "tilesPlayed": 21,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.51,
+          "p95": 0.8,
+          "p99": 0.8,
+          "max": 0.8
+        },
+        "easy": {
+          "p50": 0.39,
+          "p95": 0.64,
+          "p99": 0.64,
+          "max": 0.64
+        },
+        "hard": {
+          "p50": 11,
+          "p95": 240.02,
+          "p99": 240.02,
+          "max": 240.02
+        }
+      }
+    },
+    {
+      "seed": 5007,
+      "seating": [
+        "normal",
+        "hard",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 105,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 28,
+        "hard": 33,
+        "easy": 105
+      },
+      "openingPersonalTurns": {
+        "normal": 5,
+        "hard": 6,
+        "easy": 2
+      },
+      "remainingTiles": {
+        "normal": 4,
+        "hard": 3,
+        "easy": 13
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 16,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 15,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 30,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 7,
+          "draws": 27,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.6,
+          "p95": 1.66,
+          "p99": 1.92,
+          "max": 1.92
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.35,
+          "p99": 240.86,
+          "max": 240.86
+        },
+        "easy": {
+          "p50": 0.46,
+          "p95": 0.59,
+          "p99": 1.49,
+          "max": 1.49
+        }
+      }
+    },
+    {
+      "seed": 5007,
+      "seating": [
+        "hard",
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 99,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 38,
+        "easy": 90,
+        "normal": 37
+      },
+      "openingPersonalTurns": {
+        "hard": 5,
+        "easy": 6,
+        "normal": 2
+      },
+      "remainingTiles": {
+        "hard": 7,
+        "easy": 13,
+        "normal": 6
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 12,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 7,
+          "draws": 24,
+          "passes": 2,
+          "tilesPlayed": 25,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 12,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 87.21,
+          "p95": 240.22,
+          "p99": 241.38,
+          "max": 241.38
+        },
+        "easy": {
+          "p50": 0.47,
+          "p95": 0.9,
+          "p99": 1.18,
+          "max": 1.18
+        },
+        "normal": {
+          "p50": 0.63,
+          "p95": 2.13,
+          "p99": 2.43,
+          "max": 2.43
+        }
+      }
+    },
+    {
+      "seed": 5007,
+      "seating": [
+        "hard",
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 95,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 42,
+        "normal": 15,
+        "easy": 107
+      },
+      "openingPersonalTurns": {
+        "hard": 5,
+        "normal": 6,
+        "easy": 2
+      },
+      "remainingTiles": {
+        "hard": 8,
+        "normal": 4,
+        "easy": 17
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 13,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 10,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 31,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 5,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 22,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.03,
+          "p99": 240.33,
+          "max": 240.33
+        },
+        "normal": {
+          "p50": 0.53,
+          "p95": 1.55,
+          "p99": 1.68,
+          "max": 1.68
+        },
+        "easy": {
+          "p50": 0.49,
+          "p95": 1.14,
+          "p99": 1.38,
+          "max": 1.38
+        }
+      }
+    },
+    {
+      "seed": 5008,
+      "seating": [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 101,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 96,
+        "normal": 65,
+        "hard": 29
+      },
+      "openingPersonalTurns": {
+        "easy": 7,
+        "normal": 1,
+        "hard": 1
+      },
+      "remainingTiles": {
+        "easy": 16,
+        "normal": 7,
+        "hard": 5
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 7,
+          "draws": 26,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 12,
+          "draws": 20,
+          "passes": 2,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 14,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.47,
+          "p95": 1.16,
+          "p99": 8.19,
+          "max": 8.19
+        },
+        "normal": {
+          "p50": 0.49,
+          "p95": 1.81,
+          "p99": 2.27,
+          "max": 2.27
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.07,
+          "p99": 240.1,
+          "max": 240.1
+        }
+      }
+    },
+    {
+      "seed": 5008,
+      "seating": [
+        "easy",
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 105,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 134,
+        "hard": 19,
+        "normal": 40
+      },
+      "openingPersonalTurns": {
+        "easy": 7,
+        "hard": 1,
+        "normal": 1
+      },
+      "remainingTiles": {
+        "easy": 19,
+        "hard": 4,
+        "normal": 7
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 6,
+          "draws": 27,
+          "passes": 2,
+          "tilesPlayed": 22,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 15,
+          "draws": 18,
+          "passes": 2,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 15,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.49,
+          "p95": 0.75,
+          "p99": 0.99,
+          "max": 0.99
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.56,
+          "p99": 240.58,
+          "max": 240.58
+        },
+        "normal": {
+          "p50": 0.63,
+          "p95": 2.55,
+          "p99": 3.09,
+          "max": 3.09
+        }
+      }
+    },
+    {
+      "seed": 5008,
+      "seating": [
+        "normal",
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 102,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 50,
+        "easy": 65,
+        "hard": 22
+      },
+      "openingPersonalTurns": {
+        "normal": 6,
+        "easy": 1,
+        "hard": 1
+      },
+      "remainingTiles": {
+        "normal": 9,
+        "easy": 9,
+        "hard": 4
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 12,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 8,
+          "draws": 23,
+          "passes": 3,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 13,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 30,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.72,
+          "p95": 2.96,
+          "p99": 3.51,
+          "max": 3.51
+        },
+        "easy": {
+          "p50": 0.42,
+          "p95": 2.12,
+          "p99": 2.17,
+          "max": 2.17
+        },
+        "hard": {
+          "p50": 240,
+          "p95": 240.04,
+          "p99": 240.1,
+          "max": 240.1
+        }
+      }
+    },
+    {
+      "seed": 5008,
+      "seating": [
+        "normal",
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 104,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 21,
+        "hard": 7,
+        "easy": 35
+      },
+      "openingPersonalTurns": {
+        "normal": 10,
+        "hard": 1,
+        "easy": 1
+      },
+      "remainingTiles": {
+        "normal": 2,
+        "hard": 3,
+        "easy": 8
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 13,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 33,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 15,
+          "draws": 18,
+          "passes": 2,
+          "tilesPlayed": 29,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 8,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 31,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.51,
+          "p95": 1.36,
+          "p99": 2.08,
+          "max": 2.08
+        },
+        "hard": {
+          "p50": 86.99,
+          "p95": 240.08,
+          "p99": 240.11,
+          "max": 240.11
+        },
+        "easy": {
+          "p50": 0.46,
+          "p95": 0.62,
+          "p99": 2.37,
+          "max": 2.37
+        }
+      }
+    },
+    {
+      "seed": 5008,
+      "seating": [
+        "hard",
+        "easy",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 93,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 35,
+        "easy": 167,
+        "normal": 50
+      },
+      "openingPersonalTurns": {
+        "hard": 6,
+        "easy": 1,
+        "normal": 1
+      },
+      "remainingTiles": {
+        "hard": 6,
+        "easy": 21,
+        "normal": 7
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 11,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 5,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 18,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 10,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 77.44,
+          "p95": 240.05,
+          "p99": 240.06,
+          "max": 240.06
+        },
+        "easy": {
+          "p50": 0.5,
+          "p95": 1.82,
+          "p99": 3.04,
+          "max": 3.04
+        },
+        "normal": {
+          "p50": 0.64,
+          "p95": 2.06,
+          "p99": 2.23,
+          "max": 2.23
+        }
+      }
+    },
+    {
+      "seed": 5008,
+      "seating": [
+        "hard",
+        "normal",
+        "easy"
+      ],
+      "winner": "normal",
+      "moves": 101,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 78,
+        "normal": 52,
+        "easy": 105
+      },
+      "openingPersonalTurns": {
+        "hard": 10,
+        "normal": 1,
+        "easy": 1
+      },
+      "remainingTiles": {
+        "hard": 8,
+        "normal": 5,
+        "easy": 12
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 11,
+          "draws": 21,
+          "passes": 2,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 15,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 7,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 96.46,
+          "p95": 240.15,
+          "p99": 240.72,
+          "max": 240.72
+        },
+        "normal": {
+          "p50": 0.53,
+          "p95": 1.48,
+          "p99": 1.54,
+          "max": 1.54
+        },
+        "easy": {
+          "p50": 0.43,
+          "p95": 1.48,
+          "p99": 2.44,
+          "max": 2.44
+        }
+      }
+    },
+    {
+      "seed": 5009,
+      "seating": [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 101,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 113,
+        "normal": 57,
+        "hard": 67
+      },
+      "openingPersonalTurns": {
+        "easy": 3,
+        "normal": 4,
+        "hard": 2
+      },
+      "remainingTiles": {
+        "easy": 14,
+        "normal": 7,
+        "hard": 10
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 8,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 25,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 14,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 12,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.54,
+          "p95": 0.78,
+          "p99": 1.32,
+          "max": 1.32
+        },
+        "normal": {
+          "p50": 0.62,
+          "p95": 1.13,
+          "p99": 1.5,
+          "max": 1.5
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.08,
+          "p99": 240.37,
+          "max": 240.37
+        }
+      }
+    },
+    {
+      "seed": 5009,
+      "seating": [
+        "easy",
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 102,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 111,
+        "hard": 55,
+        "normal": 69
+      },
+      "openingPersonalTurns": {
+        "easy": 3,
+        "hard": 4,
+        "normal": 2
+      },
+      "remainingTiles": {
+        "easy": 14,
+        "hard": 6,
+        "normal": 9
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 8,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 25,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 12,
+          "draws": 19,
+          "passes": 3,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 12,
+          "draws": 20,
+          "passes": 2,
+          "tilesPlayed": 25,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.45,
+          "p95": 1.15,
+          "p99": 5.66,
+          "max": 5.66
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.12,
+          "p99": 243.03,
+          "max": 243.03
+        },
+        "normal": {
+          "p50": 0.67,
+          "p95": 1.75,
+          "p99": 2.23,
+          "max": 2.23
+        }
+      }
+    },
+    {
+      "seed": 5009,
+      "seating": [
+        "normal",
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 105,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 54,
+        "easy": 107,
+        "hard": 39
+      },
+      "openingPersonalTurns": {
+        "normal": 3,
+        "easy": 4,
+        "hard": 2
+      },
+      "remainingTiles": {
+        "normal": 7,
+        "easy": 16,
+        "hard": 5
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 14,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 8,
+          "draws": 26,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 15,
+          "draws": 18,
+          "passes": 2,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.6,
+          "p95": 1.75,
+          "p99": 3.24,
+          "max": 3.24
+        },
+        "easy": {
+          "p50": 0.5,
+          "p95": 0.84,
+          "p99": 0.86,
+          "max": 0.86
+        },
+        "hard": {
+          "p50": 84.6,
+          "p95": 240.05,
+          "p99": 240.09,
+          "max": 240.09
+        }
+      }
+    },
+    {
+      "seed": 5009,
+      "seating": [
+        "normal",
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 98,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 101,
+        "hard": 51,
+        "easy": 106
+      },
+      "openingPersonalTurns": {
+        "normal": 3,
+        "hard": 4,
+        "easy": 2
+      },
+      "remainingTiles": {
+        "normal": 12,
+        "hard": 8,
+        "easy": 13
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 11,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 23,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 12,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 8,
+          "draws": 23,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.62,
+          "p95": 1.22,
+          "p99": 1.64,
+          "max": 1.64
+        },
+        "hard": {
+          "p50": 70.4,
+          "p95": 240.01,
+          "p99": 240.01,
+          "max": 240.01
+        },
+        "easy": {
+          "p50": 0.47,
+          "p95": 0.64,
+          "p99": 0.78,
+          "max": 0.78
+        }
+      }
+    },
+    {
+      "seed": 5009,
+      "seating": [
+        "hard",
+        "easy",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 99,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 42,
+        "easy": 109,
+        "normal": 105
+      },
+      "openingPersonalTurns": {
+        "hard": 3,
+        "easy": 4,
+        "normal": 2
+      },
+      "remainingTiles": {
+        "hard": 6,
+        "easy": 17,
+        "normal": 13
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 13,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 7,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 22,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 12,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 21,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 71.75,
+          "p95": 240.22,
+          "p99": 240.81,
+          "max": 240.81
+        },
+        "easy": {
+          "p50": 0.48,
+          "p95": 0.78,
+          "p99": 1.23,
+          "max": 1.23
+        },
+        "normal": {
+          "p50": 0.63,
+          "p95": 1.48,
+          "p99": 2.69,
+          "max": 2.69
+        }
+      }
+    },
+    {
+      "seed": 5009,
+      "seating": [
+        "hard",
+        "normal",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 103,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 60,
+        "normal": 63,
+        "easy": 139
+      },
+      "openingPersonalTurns": {
+        "hard": 3,
+        "normal": 4,
+        "easy": 2
+      },
+      "remainingTiles": {
+        "hard": 8,
+        "normal": 7,
+        "easy": 17
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 13,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 14,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 7,
+          "draws": 24,
+          "passes": 3,
+          "tilesPlayed": 21,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.08,
+          "p99": 241.05,
+          "max": 241.05
+        },
+        "normal": {
+          "p50": 0.7,
+          "p95": 1.94,
+          "p99": 1.97,
+          "max": 1.97
+        },
+        "easy": {
+          "p50": 0.45,
+          "p95": 0.69,
+          "p99": 0.72,
+          "max": 0.72
+        }
+      }
+    },
+    {
+      "seed": 5010,
+      "seating": [
+        "easy",
+        "normal",
+        "hard"
+      ],
+      "winner": "normal",
+      "moves": 99,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 99,
+        "normal": 27,
+        "hard": 109
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "normal": 1,
+        "hard": 1
+      },
+      "remainingTiles": {
+        "easy": 13,
+        "normal": 4,
+        "hard": 16
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 7,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 14,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 11,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 19,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.44,
+          "p95": 1.32,
+          "p99": 2.23,
+          "max": 2.23
+        },
+        "normal": {
+          "p50": 0.55,
+          "p95": 1.01,
+          "p99": 2.49,
+          "max": 2.49
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.4,
+          "p99": 241.05,
+          "max": 241.05
+        }
+      }
+    },
+    {
+      "seed": 5010,
+      "seating": [
+        "easy",
+        "hard",
+        "normal"
+      ],
+      "winner": "hard",
+      "moves": 99,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "easy": 99,
+        "hard": 27,
+        "normal": 109
+      },
+      "openingPersonalTurns": {
+        "easy": 1,
+        "hard": 1,
+        "normal": 1
+      },
+      "remainingTiles": {
+        "easy": 13,
+        "hard": 4,
+        "normal": 16
+      },
+      "actualActions": {
+        "easy": {
+          "plays": 7,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 14,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 11,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 19,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "easy": {
+          "p50": 0.41,
+          "p95": 0.68,
+          "p99": 1.3,
+          "max": 1.3
+        },
+        "hard": {
+          "p50": 82.65,
+          "p95": 240.12,
+          "p99": 240.26,
+          "max": 240.26
+        },
+        "normal": {
+          "p50": 0.76,
+          "p95": 1.58,
+          "p99": 4.62,
+          "max": 4.62
+        }
+      }
+    },
+    {
+      "seed": 5010,
+      "seating": [
+        "normal",
+        "easy",
+        "hard"
+      ],
+      "winner": "hard",
+      "moves": 94,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 97,
+        "easy": 138,
+        "hard": 76
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "easy": 1,
+        "hard": 1
+      },
+      "remainingTiles": {
+        "normal": 12,
+        "easy": 20,
+        "hard": 9
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 9,
+          "draws": 22,
+          "passes": 1,
+          "tilesPlayed": 24,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 6,
+          "draws": 24,
+          "passes": 1,
+          "tilesPlayed": 18,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 12,
+          "draws": 18,
+          "passes": 1,
+          "tilesPlayed": 23,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.68,
+          "p95": 2.1,
+          "p99": 3.05,
+          "max": 3.05
+        },
+        "easy": {
+          "p50": 0.45,
+          "p95": 0.73,
+          "p99": 2.49,
+          "max": 2.49
+        },
+        "hard": {
+          "p50": 80.09,
+          "p95": 240.01,
+          "p99": 240.04,
+          "max": 240.04
+        }
+      }
+    },
+    {
+      "seed": 5010,
+      "seating": [
+        "normal",
+        "hard",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 95,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "normal": 64,
+        "hard": 32,
+        "easy": 139
+      },
+      "openingPersonalTurns": {
+        "normal": 1,
+        "hard": 1,
+        "easy": 1
+      },
+      "remainingTiles": {
+        "normal": 7,
+        "hard": 5,
+        "easy": 19
+      },
+      "actualActions": {
+        "normal": {
+          "plays": 9,
+          "draws": 20,
+          "passes": 3,
+          "tilesPlayed": 27,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "hard": {
+          "plays": 11,
+          "draws": 19,
+          "passes": 2,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 5,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 20,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "normal": {
+          "p50": 0.58,
+          "p95": 1.38,
+          "p99": 1.96,
+          "max": 1.96
+        },
+        "hard": {
+          "p50": 240.01,
+          "p95": 240.07,
+          "p99": 240.26,
+          "max": 240.26
+        },
+        "easy": {
+          "p50": 0.48,
+          "p95": 0.73,
+          "p99": 0.75,
+          "max": 0.75
+        }
+      }
+    },
+    {
+      "seed": 5010,
+      "seating": [
+        "hard",
+        "easy",
+        "normal"
+      ],
+      "winner": "normal",
+      "moves": 98,
+      "ending": "blocked",
+      "lowestRackTie": false,
+      "remainingPoints": {
+        "hard": 36,
+        "easy": 131,
+        "normal": 31
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "easy": 1,
+        "normal": 1
+      },
+      "remainingTiles": {
+        "hard": 4,
+        "easy": 18,
+        "normal": 7
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 12,
+          "draws": 20,
+          "passes": 1,
+          "tilesPlayed": 30,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 7,
+          "draws": 25,
+          "passes": 1,
+          "tilesPlayed": 21,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 12,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 26,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 162.93,
+          "p95": 240.09,
+          "p99": 240.13,
+          "max": 240.13
+        },
+        "easy": {
+          "p50": 0.47,
+          "p95": 0.98,
+          "p99": 1.22,
+          "max": 1.22
+        },
+        "normal": {
+          "p50": 0.64,
+          "p95": 1.37,
+          "p99": 3.4,
+          "max": 3.4
+        }
+      }
+    },
+    {
+      "seed": 5010,
+      "seating": [
+        "hard",
+        "normal",
+        "easy"
+      ],
+      "winner": "hard",
+      "moves": 103,
+      "ending": "blocked",
+      "lowestRackTie": true,
+      "remainingPoints": {
+        "hard": 42,
+        "normal": 42,
+        "easy": 43
+      },
+      "openingPersonalTurns": {
+        "hard": 1,
+        "normal": 1,
+        "easy": 1
+      },
+      "remainingTiles": {
+        "hard": 5,
+        "normal": 5,
+        "easy": 6
+      },
+      "actualActions": {
+        "hard": {
+          "plays": 15,
+          "draws": 19,
+          "passes": 1,
+          "tilesPlayed": 28,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "normal": {
+          "plays": 12,
+          "draws": 21,
+          "passes": 1,
+          "tilesPlayed": 30,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        },
+        "easy": {
+          "plays": 9,
+          "draws": 24,
+          "passes": 1,
+          "tilesPlayed": 32,
+          "knownOpeningTurns": 1,
+          "missedKnownOpenings": 0
+        }
+      },
+      "latencyMs": {
+        "hard": {
+          "p50": 172.05,
+          "p95": 240.07,
+          "p99": 240.39,
+          "max": 240.39
+        },
+        "normal": {
+          "p50": 0.66,
+          "p95": 2.48,
+          "p99": 2.79,
+          "max": 2.79
+        },
+        "easy": {
+          "p50": 0.42,
+          "p95": 0.84,
+          "p99": 1.13,
+          "max": 1.13
+        }
+      }
+    }
+  ],
+  "rejectionExamples": [],
+  "slowPlanExamples": [],
+  "normalBaselineChecks": {
+    "compared": 2414,
+    "rejected": 0
+  },
+  "baselineRejectionExamples": [],
+  "missedFinishExamples": [],
+  "checks": {
+    "completedRounds": 60,
+    "all106TilesConserved": true,
+    "allCompletedTablesLegal": true,
+    "allSubmittedPlansLegal": true,
+    "allPlanningInputsUnchanged": true,
+    "allNormalBaselinePlansLegal": true,
+    "allRoundActionAccounting": true
+  },
+  "limitations": [
+    "Node timing on this CPU is not physical iPhone/iPad performance.",
+    "10 distinct deals per format; seat-swapped rounds sharing a deal are correlated.",
+    "Time-bounded search may choose different moves under different host load; seeded deals alone do not reproduce scores exactly.",
+    "A bot round win is not a measurement of human enjoyment or beginner accessibility.",
+    "This sample does not cover four-player games or long multi-round matches.",
+    "Known opening opportunities and post-opening Hard finishes use one validated Normal baseline, not an exhaustive optimal search or a strength ranking."
+  ]
+}

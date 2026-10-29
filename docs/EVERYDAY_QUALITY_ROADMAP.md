@@ -11,8 +11,8 @@ remain paused; automated browsers do not establish their results.
 |---|---|---|
 | 1 | Audit the live release across updates, unfinished turns, lessons and recovery | Complete: 2f7abbf, CI 40786907023 passed |
 | 2 | Remove redundant menu actions and make remaining choices easier to scan | Complete: 4115285, CI 40792273244 passed |
-| 3 | Improve Mandarin rule comprehension with concrete opening/joker examples | Implemented; verification/publication gate applies |
-| 4 | Evaluate bot quality on a larger balanced unseen set before any tuning | Pending |
+| 3 | Improve Mandarin rule comprehension with concrete opening/joker examples | Complete: d39971d, CI 40797539848 passed |
+| 4 | Evaluate bot quality on a larger balanced unseen set before any tuning | Implemented; complete CI gate required |
 | 5 | Stress real browser sessions, background/resume, rotation and storage recovery | Pending |
 
 ## Phase 1 — live release audit
@@ -149,6 +149,11 @@ Local partition verification passed with no omissions/duplicates. Shard1 passed
 all35 cases in2.6 minutes; shard2 passed all35 cases separately. Application
 source/build and all original offline assertions remain unchanged by sharding.
 
+The correction d39971d passed complete CI 40797539848: quality, all six browser
+jobs and aggregate check. Six live example journeys also passed against READY
+47c4e0, whose application assets are identical to the workflow-only correction.
+Phase 4 began only after the complete correction workflow succeeded.
+
 ## Phase 4 — evidence before bot tuning
 
 Use a larger unseen seed block than the prior two-deal review, all six mixed
@@ -158,6 +163,16 @@ legality, conservation, endings/ties and full-call latency. Inspect missed legal
 finishes and opening opportunities; never infer a missing legal move from Draw.
 Correct any demonstrated defect with a separate tactical regression. Do not tune
 to sampled wins, invent a skill ranking or change default difficulty speculatively.
+
+Completed 60 mixed and 60 paired rounds across ten previously unseen seed blocks
+per format, at the production budget, sequentially on one host. All original
+proposals and 5,153 validated Normal baselines were legal; physical IDs, input
+immutability and per-round action/rack accounting passed. No known opening was
+missed. One known Normal rack-empty finish was available to Hard, and taken;
+mixed supplied none. Maximum actual call was 244.68 ms; zero exceeded 400 ms.
+The 115 blocked endings limit finish coverage and warrant future independent
+endgame fixtures, not tuning to these wins. Strategies and Easy default remain
+unchanged. See [full review and raw evidence](EVERYDAY_BOTS_REVIEW.md).
 
 ## Phase 5 — long browser sessions
 

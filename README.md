@@ -715,3 +715,13 @@ CI runs the complete offline suite as two isolated shards. Each keeps a
 five-minute test-step limit and its own checkout/build, so real-worker update
 fixtures cannot affect the other shard. The aggregate check requires both shards
 and every other browser job. Local shards sharing one build must run sequentially.
+
+The larger bot review adds validated same-position opening opportunities, missed
+known Normal finishes, per-round accepted actions and rack accounting to the
+existing legality and full-call timing audit. It evaluates production strategies;
+the review does not change opponent behavior or the Easy default. Opening and
+finish baselines are bounded comparisons, not an exhaustive search for every move.
+The [larger review](docs/EVERYDAY_BOTS_REVIEW.md) completed 120 balanced rounds
+over ten seed blocks per format, with zero rejected proposals or calls over
+400 ms on its Node host. It preserves raw reports and explains the limited
+finish coverage and correlated deals; it is not physical-device performance.

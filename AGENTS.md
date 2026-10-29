@@ -1047,3 +1047,13 @@ Use --list to verify shard sets are disjoint and their union equals the entire
 suite. Run local shards sequentially against a shared dist directory, since the
 real-worker fixtures rewrite dist/sw.js; CI's separate job filesystems may run
 them in parallel. Never omit cases or raise timeouts to mask this capacity issue.
+
+Difficulty-review diagnostics validate the separate same-input Normal baseline
+before counting a known opening or finish; retain its input-immutability and
+original-plan rejection checks. Keep baseline work outside measured actual-plan
+latency. Per-round plays/draws/passes and accepted rack tiles must reconcile with
+personal turn counts and 14 + draws - tilesPlayed = remaining rack size. Export
+raw host/load, fingerprints and bounded redacted counterexamples. A zero missed
+finish count with zero known finish opportunities provides no finish-coverage
+evidence. Preserve the default and strategies unless a demonstrated defect or
+separately justified change warrants implementation; never tune to sampled wins.

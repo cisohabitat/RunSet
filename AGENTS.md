@@ -1019,3 +1019,7 @@ without changing focus or game state; nested disclosure toggles must not reset i
 For native file controls, measure the visible .file-button label that forwards
 clicks, not the transparent input's smaller border-interior box or unused font.
 Keep the same full target/text assertions and test every accessible menu button.
+When removing a duplicate navigation control, update the older full accessibility
+journey to the retained native action. Its rules visit must use How to play on
+Home, not a footer-container button that no longer exists. Keep all four
+language/theme audits and every original Axe/keyboard/reflow assertion intact.

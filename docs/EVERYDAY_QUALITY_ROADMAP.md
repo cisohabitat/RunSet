@@ -83,6 +83,17 @@ All ten final target/text journeys passed. Native file-upload checks measure the
 visible forwarding label (48 px), rather than the transparent input's 46 px inner
 box or unused font. The original target and readable-text minima remain intact.
 
+The first publication c0eb90e failed main CI 40790415506: all four full-screen
+accessibility audits still clicked the removed Home footer button. They timed
+out at that stale selector; 319 other Chromium cases and every other browser
+job passed, including all 70 offline cases in 4.9 minutes. The correction uses
+the retained single Home How to play action. No audit, assertion, timeout or
+application behavior is removed/changed. Require the fresh correction's complete
+workflow before Phase 3; the failed publication is not the final acceptance gate.
+All ten corrected accessibility cases passed locally, including four complete
+language/theme audits, keyboard play and 320 px reflow. Application source and
+its 98,617-byte build remain unchanged by this selector correction.
+
 ## Phase 3 — Mandarin comprehension
 
 Audit dense rule copy and real examples for first opening and joker retrieval/

@@ -100,7 +100,9 @@ for (const locale of ["en", "zh-CN"] as const)
         .getByRole("banner")
         .getByRole("button", { name: t("Home"), exact: true })
         .click();
-      await page.locator(".site-footer").getByRole("button").click();
+      await page
+        .getByRole("button", { name: t("How to play →"), exact: true })
+        .click();
       await expect(page.locator(".guide")).toBeVisible();
       await audit("rules");
       await page

@@ -4437,3 +4437,60 @@ button:not(.tile) {
 .more-actions .more-section h3 { font-size: 16px; line-height: 1.5; margin: 0 0 8px; }
 .more-actions .more-section { min-width: 0; }
 .app.comfortable-reading .more-actions .more-section h3 { font-size: 18px; }
+
+
+/* Keep the wordmark inside its native Home target. Non-game pages can reflow. */
+.site-header > .brand {
+  flex: none;
+}
+@media (max-width: 720px) {
+  .app:not(.playing) > .site-header:has(.language-switch) {
+    height: auto;
+    min-height: 84px;
+    padding-block: 8px;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+  .app:not(.playing) > .site-header:has(.language-switch) > .header-right {
+    min-width: 0;
+    max-width: 100%;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .app.playing:not(.comfortable-reading) > .site-header > .brand {
+    padding-inline: 0;
+    font-size: 20px;
+    gap: 0;
+  }
+  .app.playing:not(.comfortable-reading) > .site-header .brand-period {
+    margin-left: 0;
+  }
+}
+@media (max-width: 360px) {
+  .app.playing:not(.comfortable-reading) > .site-header > .brand {
+    width: 44px;
+    min-width: 44px;
+    justify-content: center;
+  }
+  .app.playing:not(.comfortable-reading) > .site-header :is(.brand-word, .brand-period) {
+    display: none;
+  }
+  .app.playing:not(.comfortable-reading) > .site-header .brand-icon {
+    display: inline-flex;
+  }
+  .app.playing:not(.comfortable-reading) > .site-header .header-right {
+    gap: 2px;
+  }
+  .app.playing:not(.comfortable-reading) > .site-header .language-switch select {
+    max-width: 80px;
+  }
+  .app.playing:not(.comfortable-reading) > .site-header .game-dropdown > summary {
+    min-width: 44px;
+    padding-inline: 4px;
+    column-gap: 2px;
+  }
+  .app.playing:not(.comfortable-reading) > .site-header .game-dropdown > summary::after {
+    margin-left: 0;
+  }
+}

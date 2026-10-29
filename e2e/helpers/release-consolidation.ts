@@ -40,7 +40,7 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
     const measure=()=>el.evaluate(header=>{
       const problems: string[]=[];
       const rect=header.getBoundingClientRect();
-      const controls=Array.from(header.querySelectorAll<HTMLElement>("button,select,summary")).filter(el=>el.getClientRects().length>0&&getComputedStyle(el).visibility!=="hidden");
+      const controls=Array.from(header.querySelectorAll<HTMLElement>(".brand,.header-right > .language-switch select,.header-right > .game-dropdown > summary,.header-right > .sound-button,.header-right > .text-button")).filter(el=>el.getClientRects().length>0&&getComputedStyle(el).visibility!=="hidden");
       const boxes=controls.map(el=>({el,r:el.getBoundingClientRect(),name:el.getAttribute("aria-label")||el.textContent?.trim().slice(0,40)||el.tagName}));
       for(const {el,r,name} of boxes){
         if(r.width<44||r.height<44) problems.push(name+": target "+r.width+"x"+r.height);
@@ -52,7 +52,9 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
         if(Math.min(a.right,c.right)>Math.max(a.left,c.left)&&Math.min(a.bottom,c.bottom)>Math.max(a.top,c.top)) problems.push(boxes[i].name+" overlaps "+boxes[j].name);
       }
       const brand=header.querySelector<HTMLElement>(".brand")!, br=brand.getBoundingClientRect();
-      for(const node of brand.childNodes) if(node.nodeType===Node.TEXT_NODE&&node.textContent?.trim()){
+      const word=brand.querySelector<HTMLElement>(".brand-word");
+      const wordNodes=word ? (word.getClientRects().length ? [word] : []) : Array.from(brand.childNodes).filter(node=>node.nodeType===Node.TEXT_NODE&&node.textContent?.trim());
+      for(const node of wordNodes){
         const range=document.createRange();range.selectNodeContents(node);
         const word=range.getBoundingClientRect();
         if(word.left<br.left||word.right>br.right||word.top<br.top||word.bottom>br.bottom) problems.push("Wordmark outside its button: "+JSON.stringify({word:word.toJSON(),button:br.toJSON()}));
@@ -107,6 +109,12 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   expect(deal.players.find(p=>!p.bot)!.name).toBe(name);
   expect(deal.players.find(p=>p.bot)!.bot).toBe("easy");
   await header("playing");
+  for(const view of [{width:320,height:640},{width:375,height:667},{width:820,height:1180},{width:1180,height:820}]){
+    await page.setViewportSize(view);
+    await header("playing-"+view.width,info.project.name==="chromium"&&locale==="en"&&view.width===320);
+    expect((await page.locator("main.game > .table").boundingBox())!.height).toBeGreaterThanOrEqual(view.width<720?180:220);
+  }
+  await page.setViewportSize(originalViewport);
   const human=deal.players.find(p=>!p.bot)!;
   await activate(page.locator('.rack [data-tile-id="'+human.rack[0]+'"]'));
   await activate(page.locator(".new-meld"));

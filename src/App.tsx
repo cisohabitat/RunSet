@@ -466,7 +466,7 @@ export default function App() {
               {t("r")}
               <span>◆</span>
             </span>
-            {t("runset")}
+            <span className="brand-word">{t("runset")}</span>
             <span className="brand-period">.</span>
           </button>
           <div className="header-right">

@@ -1,3 +1,4 @@
+import { verifySettingsChrome } from "./settings-chrome";
 import {seedPreviousManifest, verifyCurrentManifest} from "./cache-version";
 import { verifyLessonSelectionRecovery } from "./lesson-selection";
 import { verifyTileMarkings } from "./tile-markings";
@@ -196,6 +197,7 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   await page.getByLabel("语言 / Language",{exact:true}).selectOption(locale);
   await expect(page.locator("html")).toHaveAttribute("lang",locale);
   await activate(page.locator(".site-header").getByRole("button",{name:t("Settings"),exact:true}));
+  await verifySettingsChrome(page, page.getByRole("dialog",{name:t("Settings"),exact:true}));
   await activate(page.getByRole("dialog",{name:t("Settings"),exact:true}).getByRole("button",{name:t("Done"),exact:true}).first());
   await expect(page.locator(".site-header").getByRole("button",{name:t("Settings"),exact:true})).toBeFocused();
   await activate(page.locator(".game-dropdown > summary"));

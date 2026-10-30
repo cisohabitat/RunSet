@@ -3326,13 +3326,36 @@ button:not(.tile) {
 }
 .settings-dialog {
   max-height: calc(100dvh - 24px);
+  overflow: hidden;
+}
+.settings-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.settings-body {
+  min-height: 0;
   overflow: auto;
+  overscroll-behavior: contain;
+  padding: 6px;
+  margin: -6px;
+}
+.settings-body :is(button, select, input, summary) {
+  scroll-margin-block: 12px;
+}
+.settings-dialog .settings-heading {
+  flex: none;
 }
 .settings-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
+}
+.settings-dialog .settings-heading > button {
+  min-width: 48px;
+  min-height: 48px;
+  font-size: 16px;
 }
 .settings-heading h2 {
   margin: 0;

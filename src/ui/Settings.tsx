@@ -93,222 +93,224 @@ export default function Settings({
           {t("Done")}
         </button>
       </div>
-      <details
-        ref={guide}
-        className="caregiver-guide"
-        onToggle={(e) => setGuideOpen(e.currentTarget.open)}
-      >
-        <summary style={{ minHeight: 48, paddingBlock: 12, cursor: "pointer" }}>
-          {t("Set up together")}
-        </summary>
-        {guideOpen && (
-          <>
-            <p>
-              {t(
-                "Take a moment together, then choose what feels comfortable. Each choice is optional.",
-              )}
-            </p>
-            <LanguageSwitch />
-            {error && (
-              <p role="alert">
-                中文暂时无法加载，请联网后重试。 Chinese could not load. Please
-                retry.
+      <div className="settings-body">
+        <details
+          ref={guide}
+          className="caregiver-guide"
+          onToggle={(e) => setGuideOpen(e.currentTarget.open)}
+        >
+          <summary style={{ minHeight: 48, paddingBlock: 12, cursor: "pointer" }}>
+            {t("Set up together")}
+          </summary>
+          {guideOpen && (
+            <>
+              <p>
+                {t(
+                  "Take a moment together, then choose what feels comfortable. Each choice is optional.",
+                )}
               </p>
-            )}
-            <ol>
-              <li>
-                <p>{t("Choose English or 简体中文 above.")}</p>
-              </li>
-              <li>
-                <p>
-                  {t(
-                    "Try Comfortable reading for larger text and tiles, and Higher contrast if colours are hard to see. Simple home screen keeps the main choices large.",
-                  )}
+              <LanguageSwitch />
+              {error && (
+                <p role="alert">
+                  中文暂时无法加载，请联网后重试。 Chinese could not load. Please
+                  retry.
                 </p>
-              </li>
-              <li>
-                <p>
-                  {t(
-                    "Choose Sound effects if wanted. In Learn to play, tap Listen to hear an instruction; you can always read it.",
-                  )}
-                </p>
-              </li>
-              <li>
-                <p>
-                  {t(
-                    "Set Opponent pace to Unhurried for a five-second wait before planning. Timed turns still keep their limit.",
-                  )}
-                </p>
-              </li>
-              <li>
-                <p>
-                  {t(
-                    "Try Learn to play together first. New games default to one Easy opponent, no timer and guidance on.",
-                  )}
-                </p>
-              </li>
-            </ol>
-            <button
-              className="secondary"
-              style={{ minHeight: 48 }}
-              onClick={() => {
-                if (guide.current) guide.current.open = false;
-                readingControl.current?.focus({ preventScroll: true });
-                readingControl.current?.scrollIntoView({ block: "center" });
+              )}
+              <ol>
+                <li>
+                  <p>{t("Choose English or 简体中文 above.")}</p>
+                </li>
+                <li>
+                  <p>
+                    {t(
+                      "Try Comfortable reading for larger text and tiles, and Higher contrast if colours are hard to see. Simple home screen keeps the main choices large.",
+                    )}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    {t(
+                      "Choose Sound effects if wanted. In Learn to play, tap Listen to hear an instruction; you can always read it.",
+                    )}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    {t(
+                      "Set Opponent pace to Unhurried for a five-second wait before planning. Timed turns still keep their limit.",
+                    )}
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    {t(
+                      "Try Learn to play together first. New games default to one Easy opponent, no timer and guidance on.",
+                    )}
+                  </p>
+                </li>
+              </ol>
+              <button
+                className="secondary"
+                style={{ minHeight: 48 }}
+                onClick={() => {
+                  if (guide.current) guide.current.open = false;
+                  readingControl.current?.focus({ preventScroll: true });
+                  readingControl.current?.scrollIntoView({ block: "center" });
+                }}
+              >
+                {t("Choose display settings")}
+              </button>
+              <p>{t("Use the controls below. Your current game is kept.")}</p>
+            </>
+          )}
+        </details>
+        <fieldset>
+          <legend>{t("Reading and display")}</legend>
+          <label>
+            {t("Display theme")}
+            <select
+              aria-label={t("Display theme")}
+              value={theme}
+              onChange={(e) => {
+                const value = e.target.value as Theme;
+                setTheme(value);
+                try {
+                  localStorage.setItem("runset.theme", value);
+                  setThemeError(false);
+                } catch {
+                  setThemeError(true);
+                }
               }}
             >
-              {t("Choose display settings")}
-            </button>
-            <p>{t("Use the controls below. Your current game is kept.")}</p>
-          </>
-        )}
-      </details>
-      <fieldset>
-        <legend>{t("Reading and display")}</legend>
-        <label>
-          {t("Display theme")}
-          <select
-            aria-label={t("Display theme")}
-            value={theme}
-            onChange={(e) => {
-              const value = e.target.value as Theme;
-              setTheme(value);
-              try {
-                localStorage.setItem("runset.theme", value);
-                setThemeError(false);
-              } catch {
-                setThemeError(true);
-              }
-            }}
-          >
-            <option value="system">{t("Follow device")}</option>
-            <option value="light">{t("Light")}</option>
-            <option value="dark">{t("Dark")}</option>
-          </select>
-        </label>
-        {themeError && (
-          <p role="status">
-            {t(
-              "This display choice could not be saved. It still applies for this visit.",
-            )}
-          </p>
-        )}
+              <option value="system">{t("Follow device")}</option>
+              <option value="light">{t("Light")}</option>
+              <option value="dark">{t("Dark")}</option>
+            </select>
+          </label>
+          {themeError && (
+            <p role="status">
+              {t(
+                "This display choice could not be saved. It still applies for this visit.",
+              )}
+            </p>
+          )}
 
-        <label>
-          <input
-            type="checkbox"
-            checked={simple}
-            onChange={(e) => setSimple(e.target.checked)}
-          />
-          {t("Simple home screen")}
-        </label>
-        <p>
-          {t(
-            "Large main choices. More options stay available when you need them.",
-          )}
-        </p>
-        <label>
-          <input
-            type="checkbox"
-            ref={readingControl}
-            checked={reading}
-            onChange={(e) => setReading(e.target.checked)}
-          />
-          {t("Comfortable reading")}
-        </label>
-        <p>
-          {t(
-            "Larger text, tiles and buttons. Pages scroll so you can read and play at your own pace.",
-          )}
-        </p>
-        <label>
-          <input
-            type="checkbox"
-            checked={contrast}
-            onChange={(e) => setContrast(e.target.checked)}
-          />
-          {t("Higher contrast")}
-        </label>
-        <p>
-          {t(
-            "Stronger text, tile colours and borders. Tile sizes and your game stay the same.",
-          )}
-        </p>
-        {!reading && (
           <label>
             <input
               type="checkbox"
-              checked={touch}
-              onChange={(e) => setTouch(e.target.checked)}
+              checked={simple}
+              onChange={(e) => setSimple(e.target.checked)}
             />
-            {t("Larger touch controls")}
+            {t("Simple home screen")}
           </label>
-        )}
-        <p className="settings-preview">
-          {t("Choose tiles, then choose where to place them.")}
-        </p>
-      </fieldset>
-      <fieldset>
-        <legend>{t("Sound and pace")}</legend>
-        <label>
-          <input
-            type="checkbox"
-            checked={!muted}
-            onChange={(e) => setMuted(!e.target.checked)}
-          />
-          {t("Sound effects")}
-        </label>
-        <label className="pace-setting">
-          {t("Opponent pace")}
-          <select
-            aria-label={t("Opponent pace")}
-            value={pace}
-            onChange={(e) => setPace(Number(e.target.value))}
-          >
-            <option value={700}>{t("Quick")}</option>
-            <option value={1400}>{t("Comfortable")}</option>
-            <option value={2400}>{t("Take my time")}</option>
-            <option value={5000}>{t("Unhurried · 5 seconds")}</option>
-          </select>
-        </label>
+          <p>
+            {t(
+              "Large main choices. More options stay available when you need them.",
+            )}
+          </p>
+          <label>
+            <input
+              type="checkbox"
+              ref={readingControl}
+              checked={reading}
+              onChange={(e) => setReading(e.target.checked)}
+            />
+            {t("Comfortable reading")}
+          </label>
+          <p>
+            {t(
+              "Larger text, tiles and buttons. Pages scroll so you can read and play at your own pace.",
+            )}
+          </p>
+          <label>
+            <input
+              type="checkbox"
+              checked={contrast}
+              onChange={(e) => setContrast(e.target.checked)}
+            />
+            {t("Higher contrast")}
+          </label>
+          <p>
+            {t(
+              "Stronger text, tile colours and borders. Tile sizes and your game stay the same.",
+            )}
+          </p>
+          {!reading && (
+            <label>
+              <input
+                type="checkbox"
+                checked={touch}
+                onChange={(e) => setTouch(e.target.checked)}
+              />
+              {t("Larger touch controls")}
+            </label>
+          )}
+          <p className="settings-preview">
+            {t("Choose tiles, then choose where to place them.")}
+          </p>
+        </fieldset>
+        <fieldset>
+          <legend>{t("Sound and pace")}</legend>
+          <label>
+            <input
+              type="checkbox"
+              checked={!muted}
+              onChange={(e) => setMuted(!e.target.checked)}
+            />
+            {t("Sound effects")}
+          </label>
+          <label className="pace-setting">
+            {t("Opponent pace")}
+            <select
+              aria-label={t("Opponent pace")}
+              value={pace}
+              onChange={(e) => setPace(Number(e.target.value))}
+            >
+              <option value={700}>{t("Quick")}</option>
+              <option value={1400}>{t("Comfortable")}</option>
+              <option value={2400}>{t("Take my time")}</option>
+              <option value={5000}>{t("Unhurried · 5 seconds")}</option>
+            </select>
+          </label>
+          <p>
+            {t(
+              "Pace changes the wait before an opponent plays. Timed turns keep the same limit.",
+            )}
+          </p>
+        </fieldset>
+        <fieldset>
+          <legend>{t("Learning help")}</legend>
+          <label>
+            <input
+              type="checkbox"
+              checked={learning}
+              onChange={(e) => setLearning(e.target.checked)}
+            />
+            {t("Explain penalties before ending a turn")}
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={narrate}
+              onChange={(e) => setNarrate(e.target.checked)}
+            />
+            {t("Explain opponent moves")}
+          </label>
+        </fieldset>
         <p>
           {t(
-            "Pace changes the wait before an opponent plays. Timed turns keep the same limit.",
+            "Settings are remembered on this device. Your game and lesson progress are kept.",
           )}
         </p>
-      </fieldset>
-      <fieldset>
-        <legend>{t("Learning help")}</legend>
-        <label>
-          <input
-            type="checkbox"
-            checked={learning}
-            onChange={(e) => setLearning(e.target.checked)}
-          />
-          {t("Explain penalties before ending a turn")}
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={narrate}
-            onChange={(e) => setNarrate(e.target.checked)}
-          />
-          {t("Explain opponent moves")}
-        </label>
-      </fieldset>
-      <p>
-        {t(
-          "Settings are remembered on this device. Your game and lesson progress are kept.",
+        {timed && (
+          <p role="status">
+            {t("The turn timer keeps running while settings are open.")}
+          </p>
         )}
-      </p>
-      {timed && (
-        <p role="status">
-          {t("The turn timer keeps running while settings are open.")}
-        </p>
-      )}
-      <button className="primary" onClick={onClose}>
-        {t("Done")}
-      </button>
+        <button className="primary" onClick={onClose}>
+          {t("Done")}
+        </button>
+      </div>
     </dialog>
   );
 }

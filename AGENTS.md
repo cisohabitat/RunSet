@@ -1,5 +1,14 @@
 # Contributor and agent guidance
 
+Track the visual/ease cycle in docs/VISUAL_EASE_ROADMAP.md and gate each phase
+on complete twelve-job exact-commit CI plus matching production/live checks.
+Settings uses a fixed flex heading and a separate native-scrolling settings-body.
+Preserve a visible 48 px Done exit, body focus/scroll clearance, bottom Done,
+Escape, opener focus return, guide behavior, timers and save isolation. Do not
+replace it with a sticky overlay covering controls. Keep bilingual 320/1180/1440
+standard/comfortable geometry and scrolled live-flow checks without reducing
+tile dimensions, board floors, native targets or existing time/bundle limits.
+
 Upgrade compatibility lives in docs/UPGRADE_COMPATIBILITY.md. Worker asset reads
 prefer CACHE before the retained-cache fallback; a global caches.match first
 can serve stale stable-URL files after a successful update. Keep old hashed

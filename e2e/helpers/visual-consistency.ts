@@ -1,3 +1,4 @@
+import { verifySettingsChrome } from "./settings-chrome";
 import {
   expect,
   type Page,
@@ -130,7 +131,24 @@ export async function verifyVisualConsistency(
   await dialog
     .getByRole("combobox", { name: t("Opponent pace"), exact: true })
     .scrollIntoViewIfNeeded();
+  await verifySettingsChrome(page, dialog);
   await shot("settings");
+  const originalViewport = page.viewportSize()!;
+  const reading = dialog.getByRole("checkbox", {name:t("Comfortable reading"), exact:true});
+  for (const comfortable of [false, true]) {
+    await reading.setChecked(comfortable);
+    for (const viewport of [{width:320,height:640},{width:1180,height:820},{width:1440,height:900}]) {
+      await page.setViewportSize(viewport);
+      await verifySettingsChrome(page, dialog);
+      await shot(`settings-${viewport.width}-${comfortable ? "comfortable" : "standard"}`);
+    }
+  }
+  await reading.uncheck();
+  await page.setViewportSize(originalViewport);
+  await dialog.locator(".caregiver-guide > summary").click();
+  await verifySettingsChrome(page, dialog);
+  await dialog.locator(".caregiver-guide > summary").click();
+  expect(await save()).toBe(before);
   expect(
     (await new AxeBuilder({ page }).include(".settings-dialog").analyze())
       .violations,

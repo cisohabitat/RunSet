@@ -1,5 +1,9 @@
 # RunSet
 
+Settings keeps its title and Done button visible while the options scroll,
+including on narrow phones and in comfortable reading. The fresh
+[visual clarity cycle](docs/VISUAL_EASE_ROADMAP.md) records the review and next phases.
+
 Updates read cached files from the active version first, while an open older
 tab can still load its previous hashed app chunks. Historical upgrade checks
 cover saved drafts, Undo, preferences, all four learning records and older

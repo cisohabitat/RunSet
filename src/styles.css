@@ -3619,6 +3619,20 @@ button:not(.tile) {
   outline-offset: 2px;
   background: var(--soft);
 }
+.more-actions :is(.current-turn-help, .turn-actions-help) > summary {
+  min-height: 44px;
+  padding-block: 12px;
+  font-size: 16px;
+  line-height: 1.5;
+  scroll-margin-block: 12px;
+  cursor: pointer;
+}
+.more-actions :is(.current-turn-help, .turn-actions-help) p {
+  font-size: 16px;
+}
+.app.comfortable-reading .more-actions :is(.current-turn-help, .turn-actions-help) :is(summary, p) {
+  font-size: 18px;
+}
 .turn-actions-help p,
 .current-turn-help p {
   margin: 8px 0;

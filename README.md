@@ -1,5 +1,9 @@
 # RunSet
 
+Returning to a timed game now explains an expired turn before you continue,
+including whether it will draw a tile or pass. Editable saved drafts explain Undo
+and Reset, and More’s turn-help controls have larger tap targets and readable text.
+
 Settings keeps its title and Done button visible while the options scroll,
 including on narrow phones and in comfortable reading. The fresh
 [visual clarity cycle](docs/VISUAL_EASE_ROADMAP.md) records the review and next phases.

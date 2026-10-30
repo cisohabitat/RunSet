@@ -344,6 +344,14 @@ const messages: Record<string, string> = {
   "No timer. Resume whenever you like.": "不限时，想回来时再继续。",
   "Timed game: the turn deadline still applies.":
     "这是限时牌局，离开后回合时限仍然有效。",
+  "Time has run out for this turn. Continuing resets unfinished edits, draws one tile and ends this turn.":
+    "本回合已超时。继续游戏时，会还原未完成的改动、摸一张牌，并结束本回合。",
+  "Time has run out for this turn. Continuing resets unfinished edits and passes without drawing a tile.":
+    "本回合已超时。继续游戏时，会还原未完成的改动，跳过本回合，不摸牌。",
+  "After continuing, Undo takes back one move. Reset restores this turn without a penalty.":
+    "继续游戏后，可用“撤销”退回上一步；用“重置”恢复到本回合开始，不会罚摸牌。",
+  "After continuing, Reset restores this turn without a penalty.":
+    "继续游戏后，可用“重置”恢复到本回合开始，不会罚摸牌。",
   "Unfinished moves kept. Check the table before ending your turn.":
     "尚未完成的出牌已保留。结束回合前，请先检查牌桌。",
   "Could not save yet. Keep this tab open and try again.":

@@ -7,8 +7,8 @@ remain deferred or paused as previously agreed.
 
 | Phase | Scope | Status |
 | --- | --- | --- |
-| 1 | Fresh phone, iPad landscape and desktop visual review; fix demonstrated layout issues | Implemented; require complete exact-commit CI and matching live review |
-| 2 | Returning-player clarity: turn ownership, unfinished moves and finding help | Planned |
+| 1 | Fresh phone, iPad landscape and desktop visual review; fix demonstrated layout issues | Complete: 5d7cf80, CI 41001914360 and eight matching live checks in 41002020602 passed |
+| 2 | Returning-player clarity: turn ownership, unfinished moves and finding help | Implemented; exact-commit full CI and matching live acceptance required |
 | 3 | Chinese learning instructions, hint explanations and mistake recovery | Planned |
 | 4 | Reconcile historical roadmap statuses and consolidate release evidence | Planned |
 
@@ -73,3 +73,64 @@ Require fresh complete exact-commit CI and matching live review after correction
 All ten corrected Firefox historical journeys passed locally, with 40–80
 origin requests blocked per case during actual disconnected phases. No browser
 sandbox override is committed; CI retains its standard installed dependencies.
+
+
+## Phase 2: returning-player clarity
+
+Baseline: completed Phase 1 5d7cf80, all twelve CI jobs passed with 223 units /
+849 browser cases; matching READY production and eight passing live checks.
+
+Demonstrated on the original resume journey: after a timed saved play expired
+on Home, Next when you continue still promised Ready: choose End turn to keep
+this play. Actual continuation resets that draft and draws one tile (or passes
+when the pool is empty). The old generic deadline caveat did not correct the
+contradictory primary instruction. A browser regression failed with that exact
+stale Ready message after advancing past the deadline.
+
+ResumeGuide now observes wall time without mutating the saved game. It updates
+while Home is open and on visibility/focus return, and cleans up its interval
+and listeners. Expired instructions explain the reset and draw/pass before the
+player continues. Editable drafts explain how Undo differs from penalty-free
+Reset; missing/empty Undo history offers Reset alone. Expired turns do not promise
+recovery controls which continuing will bypass. Both full and Simple Home share
+this behavior; all deadlines, engine rules and game saves remain authoritative.
+
+The extended return journey also exposed a standard-view What can I do now?
+summary whose native hit check failed the existing 44 px minimum. Both that
+summary and Reset, Draw and Pass explained now have 44 px minimum targets,
+16 px summary/body text (18 comfortable) and native scroll clearance. This stays
+inside the existing More overlay, preserving meld space and tile dimensions.
+
+Verification retains every original resume/expiry assertion and adds real Undo,
+Reset, help reading, exact save/deadline checks, plus a logical seven-day untimed
+absence. Two additional bilingual cases cover absent/empty Undo history, actual
+Reset, full/Simple Home and an empty-pool timed draft becoming a pass after a
+logical week away. Home remains byte-for-byte read-only before continuation;
+then actual expiry restores the turn-start table/rack and passes exactly once
+without adding a tile. The Chinese control verifies the final consecutive pass
+ends a blocked round; copy does not promise a next player when results follow. The existing timed case covers the one-tile draw path.
+The existing named-turn/multi-opponent and dismissed-coach help checks are retained.
+
+New browser coverage runs in main Chromium and all three production compatibility
+profiles; the existing resume tests remain in both original offline shards.
+Expected totals are 223 units / 857 browser cases (339 main + 136 per compatibility
+profile + 70 offline + 40 historical upgrades). The supplemental release review
+now runs all six bilingual beginner/return cases in each of four browser profiles:
+24 matching live checks. Original job, offline-step and bundle limits remain.
+Clock advancement is logical timing evidence, not physical suspension or a human
+older-player study. Multiplayer and human/physical-device studies remain paused.
+
+Local build/type checking passes with 99293 initial gzip bytes and 77 cache files.
+All 223 units, four refined Chromium returning journeys and the earlier six-case
+Chromium/Firefox release reviews passed. Initial validation also caught optional
+legacy Undo history; absent and empty history are covered separately. Existing
+save checkpoints wait for the mounted Saved indicator before recovery actions.
+Require complete exact-commit CI and the expanded 24-case live review before
+considering Phase 2 released.
+
+The final six-case Firefox release review passed, including native Undo/Reset,
+both expiry paths and the blocked-round ending. An isolated local returning-only
+run reported a click without delivering DOM mouse events; temporary input/window
+diagnostics were removed. No application-input workaround, browser profile change,
+forced action, geometry tolerance or extra wait was added. The full configured
+review and required CI/live matrices retain native recovery assertions.

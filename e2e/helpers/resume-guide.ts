@@ -24,9 +24,9 @@ export async function verifyResumeGuide(
   delete original.match;
   original.coach = false;
   original.players[0].name = "constructor";
+  await page.clock.install({ time: now });
   if (locale === "en") {
     original.deadline = now + 120000;
-    await page.clock.install({ time: now });
   } else {
     delete original.deadline;
     delete original.turnSeconds;
@@ -45,6 +45,7 @@ export async function verifyResumeGuide(
       sessionStorage.setItem("resume-seeded", "true");
       localStorage.setItem("runset.save.v1", JSON.stringify(game));
       localStorage.setItem("runset.language", locale);
+      localStorage.setItem("runset.pace", "5000");
       localStorage.setItem("runset.reading", String(locale === "zh-CN"));
     },
     { game, locale },
@@ -91,9 +92,35 @@ export async function verifyResumeGuide(
   await expect(guide).toContainText(
     t("Unfinished moves kept. Check the table before ending your turn."),
   );
+  await expect(guide).toContainText(t("After continuing, Undo takes back one move. Reset restores this turn without a penalty."));
   await expect(page.locator(".save-summary")).toContainText("constructor");
   expect(await save()).toBe(before);
   await activate(button("Continue game →"));
+  await expect(page.locator(".save-indicator")).toHaveText(t("Saved"));
+  await activate(button("Undo move"));
+  await expect.poll(async () => JSON.parse((await save())!)).toEqual(reducer(game, {type:"undo"}));
+  const rebuildDraft = async () => {
+    for (const id of [3,4]) await activate(page.locator(`.rack [data-tile-id="${id}"]`));
+    await activate(page.locator("main.game .new-meld"));
+    await expect.poll(async () => JSON.parse((await save())!).history.length).toBe(1);
+    await expect(page.locator(".save-indicator")).toHaveText(t("Saved"));
+  };
+  await rebuildDraft();
+  await activate(button("Reset turn"));
+  await expect.poll(async () => JSON.parse((await save())!).history.length).toBe(0);
+  const reset = JSON.parse((await save())!);
+  expect(reset.table).toEqual(original.table);
+  expect(reset.players[0].rack).toEqual(original.players[0].rack);
+  expect(reset.deadline).toBe(game.deadline);
+  expect(reset.history).toEqual([]);
+  expect(reset.pool).toEqual(original.pool);
+  await rebuildDraft();
+  const beforeHelp = await save();
+  await activate(page.locator(".more-actions > summary"));
+  await activate(page.locator(".current-turn-help > summary"));
+  await expect(page.locator(".current-turn-help")).toContainText(t("Complete the red-outlined group or run, or use Reset to undo this turn without a penalty."));
+  expect(await save()).toBe(beforeHelp);
+  await activate(page.locator(".more-actions > summary"));
   await activate(page.locator('.rack [data-tile-id="5"]'));
   await expect(page.locator('.rack [data-tile-id="5"]')).toHaveAttribute(
     "aria-pressed",
@@ -144,14 +171,24 @@ export async function verifyResumeGuide(
   await page.screenshot({
     path: `/tmp/runset-resume-guide-${info.project.name || "chromium"}-${locale}.png`,
   });
-  if (locale === "en") await page.clock.fastForward(120001);
+  if (locale === "en") {
+    await page.clock.fastForward(120001);
+    await expect(guide).toContainText(t("Time has run out for this turn. Continuing resets unfinished edits, draws one tile and ends this turn."));
+    await expect(guide).not.toContainText(t("Ready: choose End turn to keep this play."));
+  } else {
+    await page.clock.fastForward(7 * 86400000);
+    await expect(guide).toContainText(t("Ready: choose End turn to keep this play."));
+  }
   expect(await save()).toBe(ready);
   await activate(button("Continue game →"));
-  if (locale === "en")
-    await expect
-      .poll(async () => JSON.parse((await save())!).turn)
-      .toBeGreaterThan(game.turn);
-  else expect(await save()).toBe(ready);
+  if (locale === "en") {
+    await expect.poll(async () => JSON.parse((await save())!).turn).toBe(game.turn + 1);
+    const expired = JSON.parse((await save())!);
+    expect(expired.table).toEqual(original.table);
+    expect(expired.players[0].rack).toEqual([...original.players[0].rack, original.pool[0]]);
+    expect(expired.pool).toEqual(original.pool.slice(1));
+    expect(expired.history).toEqual([]);
+  } else expect(await save()).toBe(ready);
   expect(validSave(JSON.parse((await save())!))).toBe(true);
   expect(errors).toEqual([]);
 }

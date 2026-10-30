@@ -2,6 +2,16 @@
 
 Track the visual/ease cycle in docs/VISUAL_EASE_ROADMAP.md and gate each phase
 on complete twelve-job exact-commit CI plus matching production/live checks.
+Home resume guidance tracks wall-clock expiry read-only, updating on a timer,
+visibility and focus with owned cleanup. It must never dispatch, persist, reset a
+deadline or call a planner. Expired summaries explain reset plus one draw or an
+empty-pool pass; suppress stale Ready and recovery promises. Explain Undo only
+when snapshots exist, retaining Reset for missing/empty history. Keep bilingual
+week-away, actual Undo/Reset/help, exact save/deadline and native target checks.
+More’s turn-help summaries retain 44 px targets, 16/18 px copy and native scroll
+clearance. Do not consume permanent meld space. Release review includes returning
+journeys as well as the connected beginner journey: 24 live checks.
+
 Settings uses a fixed flex heading and a separate native-scrolling settings-body.
 Preserve a visible 48 px Done exit, body focus/scroll clearance, bottom Done,
 Escape, opener focus return, guide behavior, timers and save isolation. Do not

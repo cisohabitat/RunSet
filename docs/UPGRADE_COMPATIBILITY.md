@@ -119,3 +119,13 @@ the routed top-level setup lost the seeded cache or failed the offline fetch.
 The correction seeds on the real document before native registration and keeps
 every prior-cache, offline-content, exact-storage and connected-story assertion.
 Fresh complete exact-commit CI and live acceptance remain required.
+
+The real-page fixture in a1e1f5f passed Chromium and both WebKit profiles live
+(run 40994227012). Firefox retained both caches with an activated controller,
+but its explicit no-store request failed offline. Use the normal asset-request
+path instead, retaining all assertions. Both Firefox language journeys pass
+locally with that request. A negative control temporarily restoring the original
+global-cache-first behavior in generated output fails with the labelled old
+manifest, proving the ordinary request still detects the original defect. The
+generated worker was restored afterwards; no browser sandbox overrides are
+part of the repository or CI configuration.

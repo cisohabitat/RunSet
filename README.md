@@ -5,7 +5,8 @@ tab can still load its previous hashed app chunks. Historical upgrade checks
 cover saved drafts, Undo, preferences, all four learning records and older
 portable profiles, including interrupted installs and offline recovery. See
 [upgrade compatibility](docs/UPGRADE_COMPATIBILITY.md). Run `npm run test:upgrade`
-from a full-history checkout to repeat the dedicated browser suite.
+from a full-history checkout to repeat the dedicated browser suite. The live
+review also checks active-version manifest content offline in all four browsers.
 
 Muting sound, hiding the page or leaving a screen cancels queued game cues.
 Turning sound back on does not replay them. The fresh

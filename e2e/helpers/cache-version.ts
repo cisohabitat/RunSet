@@ -26,7 +26,8 @@ export async function verifyCurrentManifest(page: Page, context: BrowserContext)
   await page.waitForFunction(() => navigator.serviceWorker.controller?.state === "activated");
   await context.setOffline(true);
   try {
-    expect(await page.evaluate(async () => (await fetch("/manifest.webmanifest", {cache:"no-store"})).json())).toMatchObject({name:"RunSet · Tile-rummy",short_name:"RunSet"});
+    // Use the normal asset path; Firefox no-store can reject before cache delivery offline.
+    expect(await page.evaluate(async () => (await fetch("/manifest.webmanifest")).json())).toMatchObject({name:"RunSet · Tile-rummy",short_name:"RunSet"});
     expect(await page.evaluate(key => caches.has(key), previous)).toBe(true);
     expect(await page.evaluate(() => JSON.stringify(Object.fromEntries(Object.keys(localStorage).sort().map(k => [k, localStorage.getItem(k)]))))).toBe(before);
   } catch (error) {

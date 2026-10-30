@@ -14,7 +14,10 @@ live prior-cache fixture on the real document, latching only the first native
 registration until cache writes finish, then restore/call native registration.
 Do not route a synthetic top-level setup page: cross-engine storage/interception
 behavior invalidates the fixture. Wait for an activated controller; retain all
-offline manifest, prior-cache, exact-storage and connected-flow assertions. Preserve
+offline manifest, prior-cache, exact-storage and connected-flow assertions. Use
+ordinary asset fetches for the cache-priority probe: Firefox no-store requests
+can fail offline before returning cached content. Preserve the negative control
+that returns the labelled old manifest with global-cache-first worker behavior. Preserve
 exact preexisting storage bytes, explicitly allowed new defaults, legacy whole-
 turn records without lesson/layout, real Undo/practice continuation and optional
 profile replacement scope. CI now requires quality, the original six browser

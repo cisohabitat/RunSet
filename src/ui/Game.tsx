@@ -331,6 +331,10 @@ export function Game({
   useEffect(() => {
     if (myTurn && !embedded) focusRack();
   }, [s.turn, myTurn, embedded]);
+  const clearSelection = () => {
+    setSelected([]);
+    onSelectionChange?.([]);
+  };
   const select = useCallback(
     (id: number) => {
       if (myTurn) {
@@ -360,8 +364,7 @@ export function Game({
       ? { before: s, ids: [...ids], target }
       : null;
     dispatch({ type: "move", ids, target });
-    setSelected([]);
-    onSelectionChange?.([]);
+    clearSelection();
   };
   const newMeldTouch = useTouchClick(() => move("new"));
   const drop = (e: React.DragEvent, target: string) => {
@@ -375,7 +378,7 @@ export function Game({
   const act = (a: Action) => {
     pendingPlacement.current = null;
     setPlacement(null);
-    setSelected([]);
+    clearSelection();
     dispatch(a);
   };
   const findTile = (
@@ -430,7 +433,7 @@ export function Game({
           act({ type: "undo" });
           focusRack();
         } else if (e.key === "Escape") {
-          setSelected([]);
+          clearSelection();
           setHint(null);
         } else if (
           !e.ctrlKey &&
@@ -585,7 +588,7 @@ export function Game({
                     className="primary"
                     onClick={() => {
                       dispatch({ type: "applyPlan", table: hint.table! });
-                      setSelected([]);
+                      clearSelection();
                     }}
                   >
                     {t("Place hint")}
@@ -993,7 +996,7 @@ export function Game({
             >
               {t("Place selected")}
             </button>
-            <button className="text-button" onClick={() => setSelected([])}>
+            <button className="text-button" onClick={clearSelection}>
               {t("Deselect all")}
             </button>
           </div>
@@ -1034,7 +1037,7 @@ export function Game({
               <button
                 className="text-button mobile-clear"
                 aria-label={t("Deselect all")}
-                onClick={() => setSelected([])}
+                onClick={clearSelection}
               >
                 {t("Clear")}
               </button>
@@ -1349,7 +1352,7 @@ export function Game({
           onClose={() => setPreview(false)}
           onPlace={() => {
             setPreview(false);
-            setSelected([]);
+            clearSelection();
             dispatch({ type: "applyPlan", table: hint.table! });
           }}
         />

@@ -1,3 +1,4 @@
+import { verifyLessonSelectionRecovery } from "./lesson-selection";
 import { verifyTileMarkings } from "./tile-markings";
 import { expect, type Page, type BrowserContext, type TestInfo, type Locator } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
@@ -85,6 +86,7 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   await activate(page.locator(".hero-actions").getByRole("button",{name:new RegExp(t("Learn to play").trim())}));
   await expect(page.locator(".practice-panel h1")).toBeFocused();
   await header("learn");
+  await verifyLessonSelectionRecovery(page, t, activate);
   const place = async(ids: number[])=>{
     for(const id of ids) await activate(page.locator('.rack [data-tile-id="'+id+'"]'));
     await activate(page.locator(".new-meld"));

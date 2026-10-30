@@ -78,3 +78,9 @@
 .game .tile-markings p { font-size: 16px; line-height: 1.6; margin-block: 12px; }
 .app.comfortable-reading .game .tile-markings > summary { min-height: 48px; }
 .app.comfortable-reading .game .tile-markings :is(summary, p) { font-size: 18px; }
+
+/* Leave native scroll clearance for lesson turn controls on phones. */
+.game .selection-actions > button,
+.game .turn-tools > button {
+  scroll-margin-block: 12px;
+}

@@ -1,5 +1,14 @@
 # Contributor and agent guidance
 
+Game selection clearing must notify onSelectionChange([]), including Escape,
+Deselect all/mobile Clear, Reset/Undo/Draw and explicit hint placement. Otherwise
+GuidedTutorial can retain a selection tip after no tiles remain selected. Keep
+the callback separate from engine feedback and storage warnings; clear only the
+selection-specific state. Keep 12 px block scroll margin on visible deselect
+and turn-tool controls: native phone scrolling otherwise leaves a fractional bottom edge
+outside the viewport. Preserve the connected bilingual wrong-selection →
+Escape/deselect/Reset regression, then finish the real basics lesson.
+
 Tile markings is a native read-only disclosure in More, not a permanent board
 row. Preserve 16/18 px copy, 44/48 px summary targets, each complete paragraph
 within the menu scroll area, selected IDs and exact save/deadline bytes. Explain

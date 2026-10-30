@@ -6,8 +6,8 @@ cases), matching production READY and eight passing live connected checks.
 | Phase | Scope | Status |
 |---|---|---|
 | 1 | Clearer turn feedback from selection to placement to acceptance | Complete: ed8a0ca, CI 40976555852 and 10 live checks passed |
-| 2 | Crowded-table readability and selection/latest-play distinction | Implemented; release gates pending |
-| 3 | Chinese learning, mistake recovery and hints | Review after Phase 2 gates |
+| 2 | Crowded-table readability and selection/latest-play distinction | Complete: a90f781, CI 40978735493 and 10 live checks passed |
+| 3 | Chinese learning, mistake recovery and hints | Implemented; release gates pending |
 | 4 | Bot pacing, difficulty consistency, sound and celebrations | Review after Phase 3 gates |
 
 Publish each phase separately to main, update README and AGENTS, and require
@@ -42,3 +42,28 @@ The 50-table/50-rack crowded journey and fresh connected release journey now
 open the key, read every complete translated paragraph inside the actual menu
 scroll bounds, close it and verify exact saves, selection and table height.
 All prior navigation, placement, Undo, expiry and offline assertions remain.
+
+## Phase 3
+
+Confirmed on production a90f781: selecting red 1 in the first basics step then
+clearing with keyboard Escape left zero selected tiles but retained the wrong-
+selection tip. The same connected regression failed in both languages before
+the fix (expected zero tips, received one).
+
+All Game clear-selection paths now notify the existing lesson callback. This
+clears selection-specific tips; engine feedback and storage warnings retain
+their own state. Escape, visible deselect and Reset are exercised in the actual
+connected beginner journey, followed by all original group/run, opening, draw,
+invalid-play recovery and completion steps. Read-only selection changes preserve
+the exact lesson save; every step preserves the separate regular save. No lesson
+copy, recorded captions, rules, penalty behavior or stored schema changes.
+
+The new strict phone recovery check also exposed a Clear button bottom of
+667.1875 in a 667 px viewport after native scrolling. Reset then exposed the same boundary. Deselect and turn-tool controls
+now retain 12 px block scroll margin; no smaller targets, epsilon tolerance,
+forced taps or repeated scrolling are used. Local main/compatibility browser
+suites must run sequentially because their default artifact directories overlap.
+
+Local verification: 222 units, eight existing lesson/turn-confidence checks and
+two connected bilingual recovery journeys passed. Production build: 99074 initial
+gzip bytes and 77 cache files, with the original budget unchanged.

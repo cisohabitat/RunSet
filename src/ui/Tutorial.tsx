@@ -101,17 +101,9 @@ function GuidedTutorial({
   const finished =
     lesson === "basics" ? step === 7 : lessonComplete(lesson, game);
   const [feedback, setFeedback] = useState(""),
-    [selectionTip, setSelectionTip] = useState("");
+    [selection, setSelection] = useState<number[]>([]);
   const panelRef = useRef<HTMLElement>(null);
   const feedbackRef = useRef<HTMLParagraphElement>(null);
-  useEffect(() => {
-    if (feedback || selectionTip)
-      feedbackRef.current?.scrollIntoView({ block: "nearest" });
-    else {
-      panelRef.current?.scrollTo({ top: 0 });
-      if (finished) panelRef.current?.scrollIntoView({ block: "start" });
-    }
-  }, [lesson, step, attempt, feedback, selectionTip, finished]);
   const invalid = game.table.some((m) => !inspectMeld(m.tiles).valid);
   const jokerReplaced = game.table.some(
     (m) => m.id === "practice-wild" && m.tiles.includes(4),
@@ -146,15 +138,35 @@ function GuidedTutorial({
       tiles[id].joker ? "the joker" : `${tiles[id].color} ${tiles[id].num}`,
     )
     .join(", ");
+  const actionLabel = lesson === "basics"
+    ? step === 2 ? "I see: 30 + 6 = 36 →"
+      : step === 3 ? "End turn →"
+      : step === 4 ? "Watch Juniper draw →"
+      : step === 5 ? "Draw a tile"
+      : step === 6 && invalid ? "Reset" : ""
+    : "";
+  const actionTip = actionLabel
+    ? `No tiles are needed for this step. Choose ${actionLabel}.`
+    : "";
+  const selectionTip = !selection.length ? "" : actionTip || (
+    selection.some(id => !objective.ids.includes(id))
+      ? `For this step, select ${labels}. Other tiles can wait.` : ""
+  );
   const selectionChanged = (ids: number[]) => {
-    setSelectionTip(
-      ids.some((id) => !objective.ids.includes(id))
-        ? `For this step, select ${labels}. Other tiles can wait.`
-        : "",
-    );
+    setSelection(ids);
     if (ids.length) setFeedback("");
   };
+  useEffect(() => {
+    if (feedback || selectionTip)
+      feedbackRef.current?.scrollIntoView({ block: "nearest" });
+    else {
+      panelRef.current?.scrollTo({ top: 0 });
+      panelRef.current?.querySelector<HTMLElement>(".practice-copy")?.scrollTo({ top: 0 });
+      if (finished) panelRef.current?.scrollIntoView({ block: "start" });
+    }
+  }, [lesson, step, attempt, feedback, selectionTip, finished]);
   const update = (next: Progress) => {
+    setFeedback("");
     setProgress(next);
     try {
       localStorage.setItem(key, JSON.stringify(next));
@@ -167,7 +179,7 @@ function GuidedTutorial({
   const choose = (lesson: Lesson) => {
     setAttempt((value) => value + 1);
     setFeedback("");
-    setSelectionTip("");
+    setSelection([]);
     update({ lesson, step: 0, game: practicePosition(lesson, locale) });
   };
   const basics = [
@@ -294,7 +306,7 @@ function GuidedTutorial({
           )))
     ) {
       setFeedback(
-        `This exercise uses ${labels}. Select those tiles and choose the outlined destination.`,
+        actionTip || `This exercise uses ${labels}. Select those tiles and choose the outlined destination.`,
       );
       return;
     }
@@ -446,10 +458,7 @@ function GuidedTutorial({
           lessonAction={
             lesson === "basics" && (step === 2 || step === 4)
               ? {
-                  label:
-                    step === 2
-                      ? "I see: 30 + 6 = 36 →"
-                      : "Watch Juniper draw →",
+                  label: actionLabel,
                   onClick: () =>
                     update(
                       step === 2

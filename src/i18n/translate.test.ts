@@ -86,6 +86,10 @@ describe("Simplified Chinese presentation", () => {
   it("translates rule feedback, list colours, penalties and nested narration", () => {
     for (const message of [
       "For this step, select red 1, blue 2, the joker. Other tiles can wait.",
+      "No tiles are needed for this step. Choose I see: 30 + 6 = 36 →.",
+      "No tiles are needed for this step. Choose End turn →.",
+      "No tiles are needed for this step. Choose Draw a tile.",
+      "No tiles are needed for this step. Choose Reset.",
       "This group repeats blue. Use one tile of each colour, up to four.",
       "First finish this step: Choose End turn. You played tiles from your rack and left every group and run valid. No turn or penalty was applied.",
       "Time’s up. 阿明 drew a tile.",

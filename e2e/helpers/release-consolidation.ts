@@ -1,6 +1,6 @@
 import { verifySettingsChrome } from "./settings-chrome";
 import {seedPreviousManifest, verifyCurrentManifest} from "./cache-version";
-import { verifyLessonSelectionRecovery } from "./lesson-selection";
+import { verifyLessonSelectionRecovery, verifyLessonActionRecovery } from "./lesson-selection";
 import { verifyTileMarkings } from "./tile-markings";
 import { expect, type Page, type BrowserContext, type TestInfo, type Locator } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
@@ -96,11 +96,25 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
     await activate(page.locator(".new-meld"));
   };
   await place([9,35,61]);await place([0,1,2]);
+  await verifyLessonActionRecovery(page, t, activate, "I see: 30 + 6 = 36 →");
+  // A still-selected tile must get the new action's correction when the step changes.
+  await activate(page.locator('.rack [data-tile-id="12"]'));
+  const beforeAcknowledgement = await page.evaluate(()=>JSON.parse(localStorage.getItem("runset.practice.v1")!));
   await activate(b("I see: 30 + 6 = 36 →"));
+  await expect(page.locator(".practice-feedback")).toHaveText(t("No tiles are needed for this step. Choose End turn →."));
+  await expect.poll(()=>page.evaluate(()=>JSON.parse(localStorage.getItem("runset.practice.v1")!))).toEqual({...beforeAcknowledgement,step:3});
+  await page.locator('.rack [data-tile-id="12"]').focus();
+  await page.keyboard.press("Escape");
+  await expect(page.locator(".practice-feedback")).toHaveCount(0);
+  await verifyLessonActionRecovery(page, t, activate, "End turn →");
   await activate(b("End turn →"));
+  await expect(page.locator(".practice-feedback")).toHaveCount(0);
   await activate(b("Watch Juniper draw →"));
+  await verifyLessonActionRecovery(page, t, activate, "Draw a tile");
   await activate(page.getByRole("button",{name:new RegExp(t("Draw a tile"))}));
-  await place([12]);await activate(b("Reset turn"));
+  await place([12]);
+  await verifyLessonActionRecovery(page, t, activate, "Reset", 25);
+  await activate(b("Reset turn"));
   await expect(page.getByRole("heading",{name:t("You know the basics"),exact:true})).toBeVisible();
   expect(await bytes()).toBeNull();
   const lesson=await page.evaluate(()=>localStorage.getItem("runset.practice.v1"));

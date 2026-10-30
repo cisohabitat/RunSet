@@ -14,6 +14,21 @@ More’s turn-help summaries retain 44 px targets, 16/18 px copy and native scro
 clearance. Do not consume permanent meld space. Release review includes returning
 journeys as well as the connected beginner journey: 24 live checks.
 
+Lesson selection tips derive from current selected IDs and the current objective,
+so action-only steps never produce empty tile lists or stale previous-step tips.
+Use translated button labels in the No tiles correction; Draw a tile is the
+dictionary key without the decorative arrow. Clear rejected-action feedback on
+progress updates, retain storage warnings, and never persist mere selection or
+rejected moves. Keep native action-step recovery, Escape, exact regular/practice
+bytes and complete feedback visibility checks in both languages. Recorded lesson
+captions remain unchanged; feedback-only edits must not orphan narration assets.
+Practice tiles and feedback retain 12 px native scroll clearance. The scrolling
+practice-copy has 12 px end padding; visible page-flow copies use zero end padding.
+When corrections clear, reset the actual inner copy scroll as well as the panel.
+Lesson primary buttons stay stationary on hover: the mouse-led 1440 px lesson
+must not stall on a bouncing next-action target. Keep that native regression,
+full feedback/instruction bounds and all table/target floors unchanged.
+
 Settings uses a fixed flex heading and a separate native-scrolling settings-body.
 Preserve a visible 48 px Done exit, body focus/scroll clearance, bottom Done,
 Escape, opener focus return, guide behavior, timers and save isolation. Do not

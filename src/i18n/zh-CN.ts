@@ -1140,6 +1140,8 @@ const messages: Record<string, string> = {
   "Watch Juniper draw →": "看 Juniper 摸牌 →",
   "Practice progress cannot be saved in this browser. Your regular game is unchanged.":
     "这个浏览器无法保存练习进度。你的正式游戏没有改变。",
+  "No tiles are needed for this step. Choose {action}.":
+    "这一步不用选牌。请点“{action}”。",
   "For this step, select {tiles}. Other tiles can wait.":
     "这一步请选择{tiles}，其他牌先不用动。",
   "This exercise uses {tiles}. Select those tiles and choose the outlined destination.":

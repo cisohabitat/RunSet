@@ -1542,6 +1542,9 @@ input {
   gap: 20px;
   flex-wrap: wrap;
 }
+.practice-layout .primary:hover:enabled {
+  transform: none;
+}
 .practice-panel {
   max-width: 1180px;
   margin: 20px auto;
@@ -2694,7 +2697,11 @@ button:not(.tile) {
 .practice-layout.playing .player-dock {
   padding: 0;
 }
+.practice-layout .game :is(.table, .rack) .tile {
+  scroll-margin-block: 12px;
+}
 .practice-feedback {
+  scroll-margin-block: 12px;
   color: var(--red);
   font-weight: 600;
   background: var(--paper);
@@ -3039,6 +3046,7 @@ button:not(.tile) {
   scrollbar-width: thin;
   scrollbar-color: var(--muted) transparent;
   padding-right: 6px;
+  padding-bottom: 12px;
 }
 .practice-layout .practice-actions {
   border-top: 1px solid var(--line);
@@ -3261,6 +3269,7 @@ button:not(.tile) {
 }
 :lang(zh-CN) .practice-copy {
   overflow: visible;
+  padding-bottom: 0;
 }
 :lang(zh-CN) .practice-layout.playing > .game {
   flex: none;
@@ -3943,6 +3952,7 @@ button:not(.tile) {
   }
   .app .practice-layout .practice-copy {
     overflow: visible;
+    padding-bottom: 0;
   }
   .app .practice-layout.playing > .game {
     flex: none;

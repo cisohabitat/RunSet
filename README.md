@@ -1,5 +1,9 @@
 # RunSet
 
+Learn to play names the correct action when a step needs a button instead of
+tiles. English and Chinese corrections follow the current step and clear old
+feedback as the lesson advances, while your regular game stays separate.
+
 Returning to a timed game now explains an expired turn before you continue,
 including whether it will draw a tile or pass. Editable saved drafts explain Undo
 and Reset, and More’s turn-help controls have larger tap targets and readable text.

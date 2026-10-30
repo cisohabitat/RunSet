@@ -8,8 +8,8 @@ remain deferred or paused as previously agreed.
 | Phase | Scope | Status |
 | --- | --- | --- |
 | 1 | Fresh phone, iPad landscape and desktop visual review; fix demonstrated layout issues | Complete: 5d7cf80, CI 41001914360 and eight matching live checks in 41002020602 passed |
-| 2 | Returning-player clarity: turn ownership, unfinished moves and finding help | Implemented; exact-commit full CI and matching live acceptance required |
-| 3 | Chinese learning instructions, hint explanations and mistake recovery | Planned |
+| 2 | Returning-player clarity: turn ownership, unfinished moves and finding help | Complete: fd2c185, CI 41050591499 and 24 matching live checks in 41050800697 passed |
+| 3 | Chinese learning instructions, hint explanations and mistake recovery | Implemented; exact-commit full CI and matching live acceptance required |
 | 4 | Reconcile historical roadmap statuses and consolidate release evidence | Planned |
 
 Publish each phase separately, update README and AGENTS, then require all twelve
@@ -143,3 +143,68 @@ contained the new played tile. The test now requires the exact expected edited
 reducer state and Saved before capturing bytes; all subsequent Home immutability,
 expiry, geometry and actual recovery assertions remain unchanged. Fresh complete
 exact-commit CI and all 24 matching live cases are required after correction.
+
+
+## Phase 3: Chinese learning and mistake recovery
+
+Baseline: fd2c185, full twelve-job CI 41050591499 passed (223 units / 857 browser
+cases), matching READY production and all 24 live cases in 41050800697 passed.
+
+The lesson correction assumed every step had tile IDs. At the acknowledgement,
+End turn and Draw stages those IDs are empty, so an unexpected selection produced
+For this step, select . Other tiles can wait. Attempting a new meld could also
+produce an empty exercise tile list. The connected browser regression failed on
+that exact empty-list message before the fix. The incomplete-play Reset stage
+also needs an action rather than another selected tile.
+
+Corrections now name the current button in English or Chinese. Selection tips
+derive from current selected IDs and the current objective, so a selection kept
+across the acknowledgement gets the new End turn instruction. A successful
+progress update clears old rejected-action feedback while preserving storage
+warnings. Mere selection and rejected moves never save or alter practice/regular
+state. Existing restart, Escape, Undo, Reset, progression and normal objectives
+remain. Captions and recorded instructions are unchanged, preserving exact audio
+matches and optional listening; no pronunciation or older-player study is claimed.
+
+The existing connected bilingual release journey now intentionally selects and
+misplaces a tile at the acknowledgement, End turn, Draw and Reset stages. Each
+must name the actual current action, clear selection tips with Escape, retain
+exact regular/practice bytes after rejection and expose the complete correction
+inside its real scroll bounds. The acknowledgement additionally advances while
+a tile remains selected: its correction must switch to End turn without changing
+the saved game position. All original lesson completion, new-game, draft recovery,
+backup, actual ending, menu, accessibility and responsive assertions remain.
+Chinese feedback is checked for accidental untranslated English as well as exact
+translated content. Nested action-label translation is covered in the existing
+translation unit test, including the Draw a tile key without its decorative arrow.
+
+Hint explanations were reviewed and existing preview checks passed in both
+languages at phone/tablet widths: read-only preview, labelled rack tiles, opening
+arithmetic, explicit placement, Undo and timer-expiry invalidation. The existing
+real-planner learning flow also passed. No demonstrated hint defect justified a
+planner, hint strategy or rule change. Human Mandarin listening remains paused.
+
+Two additional native-mouse desktop cases cover the 1440×900 clipped-copy layout
+in English/standard and Chinese/comfortable reading. They exposed a feedback
+bottom of 328.09375 in a copy area ending at 328 px; inner end padding provides
+real clearance. Phone recovery also exposed a rack tile bottom of 667.1875 in a
+667 px viewport. Practice tiles/feedback now retain 12 px scroll margin. Page-flow
+copies retain zero end padding, preserving their existing space. Clearing
+corrections resets the inner copy scroll so the next instruction is visible.
+The desktop Watch next-action target also failed native stability until lesson
+primary hover movement was removed; colour feedback remains. No forced mouse
+movement, target relocation, epsilon tolerance or larger timeout was used.
+
+No cases are removed or timeouts increased. Expected full counts are 223 units
+and 859 browser cases (341 main, 136 per compatibility profile, 70 offline and
+40 historical upgrades), with all 24 matching live release checks required.
+Native phone, tablet and desktop projects retain their target/table-space bounds.
+
+Local acceptance: all 223 units, seven connected-learning/hint-preview checks,
+four final phone/desktop lesson journeys and all six built Chromium release
+journeys passed. The final build is 99335 initial gzip bytes under the unchanged
+100000-byte budget, with 77 cached files. Full exact-commit CI and matching live
+acceptance remain required; local automation does not establish native listening
+or physical-device usability.
+The final six built Firefox release journeys also passed with every new lesson
+correction/visibility assertion and the existing returning-player checks intact.

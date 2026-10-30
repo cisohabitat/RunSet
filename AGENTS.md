@@ -8,6 +8,8 @@ deadline or call a planner. Expired summaries explain reset plus one draw or an
 empty-pool pass; suppress stale Ready and recovery promises. Explain Undo only
 when snapshots exist, retaining Reset for missing/empty history. Keep bilingual
 week-away, actual Undo/Reset/help, exact save/deadline and native target checks.
+Capture a checkpoint only after the expected edited state and visible Saved;
+a prior Saved label alone does not establish that the latest edit was persisted.
 More’s turn-help summaries retain 44 px targets, 16/18 px copy and native scroll
 clearance. Do not consume permanent meld space. Release review includes returning
 journeys as well as the connected beginner journey: 24 live checks.

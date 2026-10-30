@@ -134,3 +134,12 @@ run reported a click without delivering DOM mouse events; temporary input/window
 diagnostics were removed. No application-input workaround, browser profile change,
 forced action, geometry tolerance or extra wait was added. The full configured
 review and required CI/live matrices retain native recovery assertions.
+
+Initial Phase 2 publication 60bdc23 reached READY production. Expanded live run
+41050126652 caught an early checkpoint in the new empty-pool journey: the old
+Saved label was still present while the latest placement persisted. The expected
+raw checkpoint contained the reset board, while the actual later save correctly
+contained the new played tile. The test now requires the exact expected edited
+reducer state and Saved before capturing bytes; all subsequent Home immutability,
+expiry, geometry and actual recovery assertions remain unchanged. Fresh complete
+exact-commit CI and all 24 matching live cases are required after correction.

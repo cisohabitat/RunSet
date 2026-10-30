@@ -65,6 +65,7 @@ export async function verifyReturnExpiry(page: Page, context: BrowserContext, in
   await expect.poll(state).toEqual(reducer(draft,{type:"resetTurn"}));
   await activate(page.locator('.rack [data-tile-id="3"]'));
   await activate(b("Add selected tiles to meld 1"));
+  await expect.poll(state).toEqual(reducer(reducer(draft,{type:"resetTurn"}),{type:"move",ids:[3],target:"red-run"}));
   await expect(page.locator(".save-indicator")).toHaveText(t("Saved"));
   const ready = await saved();
   await activate(page.locator(".site-header").getByRole("button",{name:t("Home"),exact:true}));

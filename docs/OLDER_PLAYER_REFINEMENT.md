@@ -5,8 +5,8 @@ cases), matching production READY and eight passing live connected checks.
 
 | Phase | Scope | Status |
 |---|---|---|
-| 1 | Clearer turn feedback from selection to placement to acceptance | Implemented; release gates pending |
-| 2 | Crowded-table readability and selection/latest-play distinction | Review after Phase 1 gates |
+| 1 | Clearer turn feedback from selection to placement to acceptance | Complete: ed8a0ca, CI 40976555852 and 10 live checks passed |
+| 2 | Crowded-table readability and selection/latest-play distinction | Implemented; release gates pending |
 | 3 | Chinese learning, mistake recovery and hints | Review after Phase 2 gates |
 | 4 | Bot pacing, difficulty consistency, sound and celebrations | Review after Phase 3 gates |
 
@@ -29,3 +29,16 @@ The existing bilingual turn-confidence journey now checks selection, the
 translated destination prompt, Escape and exact unchanged saved bytes, retaining
 all original placement, Undo, invalid End, timed expiry, read-only Axe and
 rearrangement assertions. It runs in main and all offline compatibility profiles.
+
+## Phase 2
+
+Tile markings already differed visually but lacked an accessible explanation
+of what each mark meant. More now has a bilingual native Tile markings
+disclosure, including how selecting a latest-play tile temporarily replaces its
+dot with a check. It does not add board rows, resize tiles or change any state.
+Copy stays at 16 px (18 comfortable), with native 44/48 px summary targets.
+
+The 50-table/50-rack crowded journey and fresh connected release journey now
+open the key, read every complete translated paragraph inside the actual menu
+scroll bounds, close it and verify exact saves, selection and table height.
+All prior navigation, placement, Undo, expiry and offline assertions remain.

@@ -1321,6 +1321,11 @@ const messages: Record<string, string> = {
   "The joker now stands for 9. Both runs must be valid when you end your turn.": "此时，万能牌当作9。两个顺子都合法后，才结束本回合。",
   "Close menu": "关闭菜单",
   "Choose where to place": "请选择放牌位置",
+  "Tile markings": "牌面标记说明",
+  "✓ Check mark: selected. Tap the tile again to deselect.": "✓ 勾号：这张牌已选中。再点一次即可取消选择。",
+  "● Dot: played in the latest completed turn. A check mark replaces the dot while selected.": "● 圆点：上一回合打出的牌。选中时会显示勾号，取消选择后恢复圆点。",
+  "Dashed destination: this selection can complete a valid turn here.": "放牌位置的虚线框：把选中的牌放在这里，就能满足本回合的出牌要求。",
+  "Highlighted tile: part of the hint, not a move already played.": "高亮的牌：提示建议使用的牌，还没有替你出牌。",
 };
 export const translateChinese = translator(messages);
 export default messages;

@@ -1,3 +1,4 @@
+import { verifyTileMarkings } from "./tile-markings";
 import {
   expect,
   type Page,
@@ -164,6 +165,9 @@ export async function verifyCrowdedNavigation(
   expect(await bytes()).toBe(before);
   const selected = page.locator('.rack [data-tile-id="89"]');
   await activate(selected);
+  await menu();
+  await verifyTileMarkings(page, t, activate);
+  await activate(page.locator(".more-actions > summary"));
   await chooseView(page, "table", t);
   await expect(page.locator(".rack")).not.toBeVisible();
   expect(

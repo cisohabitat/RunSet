@@ -1163,6 +1163,15 @@ export function Game({
                   >
                     <h3>{t("Find and arrange tiles")}</h3>
                     {coaching && (
+                      <details className="tile-markings">
+                        <summary>{t("Tile markings")}</summary>
+                        <p>{t("✓ Check mark: selected. Tap the tile again to deselect.")}</p>
+                        <p>{t("● Dot: played in the latest completed turn. A check mark replaces the dot while selected.")}</p>
+                        <p>{t("Dashed destination: this selection can complete a valid turn here.")}</p>
+                        <p>{t("Highlighted tile: part of the hint, not a move already played.")}</p>
+                      </details>
+                    )}
+                    {coaching && (
                       <TableArrangement
                         value={tableOrder}
                         onChange={setTableOrder}

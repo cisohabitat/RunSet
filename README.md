@@ -1,5 +1,9 @@
 # RunSet
 
+More → Find and arrange tiles → Tile markings explains selection checks,
+latest-play dots, destination dashes and hint highlights. This read-only key
+keeps the meld area available and works offline in both languages.
+
 The turn status now prompts you to choose a placement after selecting tiles.
 Unfinished turns still show their warning; placement and accepting End turn remain
 separate steps. The [older-player refinement cycle](docs/OLDER_PLAYER_REFINEMENT.md)

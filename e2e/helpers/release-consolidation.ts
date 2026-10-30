@@ -1,3 +1,4 @@
+import { verifyTileMarkings } from "./tile-markings";
 import { expect, type Page, type BrowserContext, type TestInfo, type Locator } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { landscapePosition } from "./landscape";
@@ -129,6 +130,7 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   await expect(page.locator(".save-indicator")).toHaveText(t("Saved"));
   const draft=await bytes();invariant(await state());
   await activate(page.locator(".more-actions > summary"));
+  await verifyTileMarkings(page, t, activate);
   await activate(b("Take a break"));
   await expect(page.locator(".home")).toBeVisible();
   expect(await bytes()).toBe(draft);

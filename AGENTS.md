@@ -1,5 +1,11 @@
 # Contributor and agent guidance
 
+Tile markings is a native read-only disclosure in More, not a permanent board
+row. Preserve 16/18 px copy, 44/48 px summary targets, each complete paragraph
+within the menu scroll area, selected IDs and exact save/deadline bytes. Explain
+the check replacing the latest-play dot without changing those engine-owned
+marks. Keep crowded and connected live journey coverage and board floors.
+
 Track the approved refinement cycle in docs/OLDER_PLAYER_REFINEMENT.md. Publish
 and fully CI/live-gate each phase before implementing the next. The regular turn
 status prioritizes waiting and unfinished drafts, then prompts a selected hand

@@ -9,6 +9,18 @@ success; never label a new documentation commit verified using its parent’s CI
 
 Track the decision-clarity cycle in docs/DECISION_CLARITY_ROADMAP.md. Gate each
 phase on complete twelve-job exact-commit CI and matching production/live checks.
+Phase 3 evidence lives in docs/SOLO_PACING_REVIEW.md and fingerprinted SOLO_BOTS
+reports. Keep --draw-review optional, validate original proposals before fallback,
+and independently reconcile Easy traces, streaks, comparison counters and seed/
+seating coverage with scripts/verify-draw-review.mjs. Do not count seat swaps or
+shared-format seeds as independent deals, or infer enjoyment from bot wins.
+Preserve strategies/defaults/caps unless a reproduced defect justifies a change.
+Native pacing tests observe real Worker construction and real results; never
+replace readiness/plans/responses. Load Settings/game on a human turn before
+pausing the test clock, then actually End turn. Retain all four 700/1400/2400/
+5000 ms boundaries, Settings cancellation, exact saves/deadlines and same accepted
+Easy plan. New live cases supplement every original case: 48 in four profiles.
+
 Before opening, guidance checks selected turn-start public tiles, including mixed
 selections. Prompt rack-only opening or Clear selection then End turn when ready.
 Own rack tiles placed in this draft remain editable; do not classify all on-table
@@ -36,7 +48,7 @@ a prior Saved label alone does not establish that the latest edit was persisted.
 More’s turn-help summaries retain 44 px targets, 16/18 px copy and native scroll
 clearance. Do not consume permanent meld space. Release review includes returning
 journeys as well as the connected beginner journey, plus locked-opening selections:
-40 live checks.
+48 live checks.
 
 Lesson selection tips derive from current selected IDs and the current objective,
 so action-only steps never produce empty tile lists or stale previous-step tips.

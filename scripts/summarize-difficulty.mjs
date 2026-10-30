@@ -66,6 +66,7 @@ function describe(r) {
       blocks,
     },
     samePositionComparison: r.hardVsNormal,
+    ...(r.method.drawReview ? {easyVsNormal:r.easyVsNormal} : {}),
     checks: r.checks,
   };
 }

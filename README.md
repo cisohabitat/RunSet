@@ -7,6 +7,11 @@ phone, tablet or desktop. No account, server or database is needed.
 [Play RunSet](https://run-set.vercel.app/) · [Current roadmap](docs/ROADMAP.md) ·
 [Verified releases and release gates](docs/RELEASE_STATUS.md)
 
+The [fresh solo review](docs/SOLO_PACING_REVIEW.md) explains Easy’s repeated draws
+and the step up to Normal’s table additions. Opponent help covers that difference
+in both languages. Real-worker checks cover every pace setting; the existing
+strategies and beginner defaults remain.
+
 Move help explains one-move Undo and whole-turn Reset, with buttons that find
 the actual controls before you act. Joker help points to the joker that needs
 repair, and blocked-opening advice explicitly starts with clearing selection.
@@ -193,7 +198,7 @@ first-time-player usability sessions remain manual checks.
 
 `npm run build` type-checks and emits a static site in `dist/`. GitHub Actions
 requires quality, six browser jobs, four historical-upgrade jobs and the aggregate
-check on pushes and PRs. The supplemental release review checks 40 connected
+check on pushes and PRs. The supplemental release review checks 48 connected
 journeys against matching production after it is READY; it does not deploy.
 See the [release procedure](docs/RELEASE_STATUS.md#release-procedure).
 

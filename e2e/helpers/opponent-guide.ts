@@ -81,6 +81,7 @@ export async function verifyOpponentGuide(
       t((["easy", "normal", "hard"] as const)[i]),
     );
   }
+  await expect(guide).toContainText(t("Easy may draw repeatedly while waiting for a new group or run. After opening, Normal can also add single tiles to the table."));
   await expect(guide).toContainText(
     t(
       "An opponent drawing does not prove that no legal move exists. Its search may not find every move.",

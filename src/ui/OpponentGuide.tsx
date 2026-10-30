@@ -24,6 +24,9 @@ export function OpponentGuide({ game }: { game: GameState }) {
             </li>
           ))}
       </ul>
+      {game.players.some(p => p.bot === "easy") && (
+        <p>{t("Easy may draw repeatedly while waiting for a new group or run. After opening, Normal can also add single tiles to the table.")}</p>
+      )}
       <p>
         {t(
           "Before opening, every opponent needs at least 30 points using only its own rack.",

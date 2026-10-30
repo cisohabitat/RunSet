@@ -35,10 +35,11 @@ locked-opening journeys per profile: 32 live cases.
 | Phase | Exact release commit | Full CI | Matching live review | Counts at that release |
 | --- | --- | --- | --- | --- |
 | 1: rack-only opening guidance | `2988d5699ac3c4f30dca6dda9c206671f5dddbf7` | [41080709747](https://github.com/cisohabitat/RunSet/actions/runs/41080709747) | [41083235984](https://github.com/cisohabitat/RunSet/actions/runs/41083235984) | 224 unit, 867 browser, 32 live |
+| 2: mistake recovery | `1b41fc7e0f63b10deaae321e21843d811a1416eb` | [41094208501](https://github.com/cisohabitat/RunSet/actions/runs/41094208501) | [41096842874](https://github.com/cisohabitat/RunSet/actions/runs/41096842874) | 225 unit, 875 browser, 40 live |
 
-The listed Phase 1 CI/live runs completed successfully on its exact SHA with
-matching READY production. Phase 2 adds two bilingual mistake-recovery cases per
-profile, retaining all previous journeys: the current live gate is 40 cases.
+The listed Phase 1–2 CI/live runs completed successfully on their exact SHAs with
+matching READY production. Phase 3 adds two bilingual native-worker pacing cases
+per profile, retaining every previous journey: the current live gate is 48 cases.
 Its new commit must pass its own full gate before being reported released.
 
 ## Release procedure
@@ -59,7 +60,7 @@ Its new commit must pass its own full gate before being reported released.
    `codex/live-release-review/<SHA>` from that exact commit. The workflow only
    tests the existing production site; it does not deploy or promote.
 5. Require the exact-SHA Release review to finish successfully in all four
-   profiles, with all 40 live cases. Recheck main and production still match;
+   profiles, with all 48 live cases. Recheck main and production still match;
    report the commit and both run links before beginning the next phase.
    Fix failures and repeat the complete gate on any correction commit.
 

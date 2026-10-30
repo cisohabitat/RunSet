@@ -24,6 +24,9 @@ if (
   throw Error(
     "Use --seeds=1..100 --first-seed=positive-integer --budget=20..380.",
   );
+if (args["draw-review"] !== undefined && !["true", "false"].includes(args["draw-review"]))
+  throw Error("Use --draw-review=true|false.");
+const drawReview = args["draw-review"] === "true";
 const mode = args.mode ?? "mixed";
 if (!["mixed", "pairs"].includes(mode)) throw Error("Use --mode=mixed|pairs.");
 const output = args.out ?? `docs/DIFFICULTY_${mode.toUpperCase()}.json`;
@@ -99,6 +102,9 @@ try {
         remainingPoints: [],
         knownOpeningTurns: 0,
         missedKnownOpenings: 0,
+        drawStreaks: [],
+        drawsBeforeOpening: 0,
+        drawsAfterOpening: 0,
       },
     ]),
   );
@@ -112,6 +118,12 @@ try {
     missedBaselineFinishes: 0,
     latencyWhenBaselineCouldEmptyRackMs: [],
   };
+  const easyVsNormal = {
+    compared: 0, moreTiles: 0, sameTiles: 0, fewerTiles: 0,
+    drawsWithKnownNormalPlay: 0, extensionOnlyDraws: 0, newMeldDraws: 0,
+    baselineCouldEmptyRack: 0, missedBaselineFinishes: 0,
+  };
+  const easyDrawExamples = [], easyMissedFinishExamples = [];
   const games = [],
     rejectionExamples = [],
     slowPlanExamples = [],
@@ -146,6 +158,7 @@ try {
       ]),
     ),
   );
+  const evaluatorSource = await readFile("scripts/review-difficulty.mjs");
   const report = () => ({
     generatedAt: new Date().toISOString(),
     startedAt,
@@ -166,8 +179,10 @@ try {
       planningBudgetMs: budget,
       effectiveWorkBudgetMs: Math.min(budget, BOT_WORK_BUDGET_MS),
       productionRedaction: true,
+      drawReview,
+      evaluatorFingerprint: createHash("sha256").update(evaluatorSource).digest("hex"),
       description:
-        "All ordered seat assignments for each seeded deal, sequentially on one host. Same-input validated Normal baselines detect opening opportunities and compare post-opening Hard positions. Baseline calls are excluded from actual-plan latency. Original submitted plans are checked before reducer fallback. No bot strategy is modified.",
+        "All ordered seat assignments for each seeded deal, sequentially on one host. Same-input validated Normal baselines detect opening opportunities and compare post-opening Hard positions. Baseline calls are excluded from actual-plan latency. Original submitted plans are checked before reducer fallback. No bot strategy is modified." + (drawReview ? " Easy also receives a same-input validated Normal comparison on every personal turn; draw streaks and a count-only Easy trace are recorded." : ""),
     },
     summary: Object.fromEntries(
       levels.map((level) => {
@@ -186,6 +201,11 @@ try {
             rejectedPlans: m.rejectedPlans,
             rejectionReasons: m.rejectionReasons,
             tilesPerPlay: m.plays ? rounded(m.tilesPlayed / m.plays) : null,
+            ...(drawReview ? {drawReview: {
+              drawsBeforeOpening: m.drawsBeforeOpening,
+              drawsAfterOpening: m.drawsAfterOpening,
+              streaks: {count:m.drawStreaks.length, p50:percentile(m.drawStreaks,0.5), p95:percentile(m.drawStreaks,0.95), max:m.drawStreaks.length ? m.drawStreaks.reduce((maximum,n)=>Math.max(maximum,n),0) : 0},
+            }} : {}),
             openingPersonalTurns: {
               count: m.openingPersonalTurns.length,
               p50: percentile(m.openingPersonalTurns, 0.5),
@@ -213,6 +233,7 @@ try {
         hardVsNormal.latencyWhenBaselineCouldEmptyRackMs,
       ),
     },
+    ...(drawReview ? {easyVsNormal, easyDrawExamples, easyMissedFinishExamples} : {}),
     games,
     rejectionExamples,
     slowPlanExamples,
@@ -229,6 +250,7 @@ try {
       allPlanningInputsUnchanged: true,
       allNormalBaselinePlansLegal: normalBaselineChecks.rejected === 0,
       allRoundActionAccounting: true,
+      ...(drawReview ? {allDrawStreakAccounting:true} : {}),
     },
     limitations: [
       "Node timing on this CPU is not physical iPhone/iPad performance.",
@@ -236,6 +258,7 @@ try {
       "Time-bounded search may choose different moves under different host load; seeded deals alone do not reproduce scores exactly.",
       "A bot round win is not a measurement of human enjoyment or beginner accessibility.",
       "This sample does not cover four-player games or long multi-round matches.",
+      ...(drawReview ? ["Draw streaks count consecutive personal turns, interrupted by a play or pass; a round ending can truncate a streak.", "A validated Normal play when Easy draws is a witnessed alternative, not proof of optimal play or a defect in Easy's deliberately limited style."] : []),
       "Known opening opportunities and post-opening Hard finishes use one validated Normal baseline, not an exhaustive optimal search or a strength ranking.",
     ],
   });
@@ -254,7 +277,12 @@ try {
         latencies: [],
         knownOpeningTurns: 0,
         missedKnownOpenings: 0,
+        currentDrawStreak: 0,
+        drawStreaks: [],
+        drawsBeforeOpening: 0,
+        drawsAfterOpening: 0,
       }));
+      const easyTrace = [];
       s.players.forEach((p, i) => {
         p.bot = seating[i];
         p.name = p.bot;
@@ -273,8 +301,9 @@ try {
         });
         const input = JSON.stringify(safe);
         let baseline, baselineFinishTable;
+        let normalUsed, normalTableForEasy, normalExtensionOnly = false;
         let knownOpening = false;
-        if (!p.melded || p.bot === "hard") {
+        if (!p.melded || p.bot === "hard" || (drawReview && p.bot === "easy")) {
           const normal = structuredClone(safe);
           normal.players[seat].bot = "normal";
           const normalInput = JSON.stringify(normal);
@@ -308,6 +337,11 @@ try {
               });
           }
           knownOpening = !p.melded && accepted;
+          normalUsed = accepted ? proposedCount : 0;
+          normalTableForEasy = baselineTable;
+          normalExtensionOnly = accepted && baselineTable
+            .filter(m => m.tiles.some(id => p.rack.includes(id)))
+            .every(m => s.table.some(old => old.id === m.id));
           if (p.bot === "hard" && p.melded) {
             baseline = accepted ? proposedCount : 0;
             baselineFinishTable = baselineTable;
@@ -399,10 +433,38 @@ try {
             }
           }
         }
+        if (drawReview && p.bot === "easy" && p.melded) {
+          easyVsNormal.compared++;
+          easyVsNormal[used > normalUsed ? "moreTiles" : used < normalUsed ? "fewerTiles" : "sameTiles"]++;
+          if (normalUsed === before && normalUsed > 0) {
+            easyVsNormal.baselineCouldEmptyRack++;
+            if (used < before) {
+              easyVsNormal.missedBaselineFinishes++;
+              if (easyMissedFinishExamples.length < 3) easyMissedFinishExamples.push({seed,seating,turn:s.turn,state:safe,normalTable:normalTableForEasy,actualTable:table});
+            }
+          }
+          if (!used && s.pool.length && normalUsed > 0) {
+            easyVsNormal.drawsWithKnownNormalPlay++;
+            easyVsNormal[normalExtensionOnly ? "extensionOnlyDraws" : "newMeldDraws"]++;
+            if (easyDrawExamples.filter(example=>example.normalExtensionOnly === normalExtensionOnly).length < 2) easyDrawExamples.push({seed,seating,turn:s.turn,normalUsed,normalExtensionOnly,state:safe,normalTable:normalTableForEasy});
+          }
+        }
         const next = reducer(s, { type: "botTurn", table });
         checkState(next);
         const m = metrics[p.bot];
         const round = roundStats[seat];
+        if (drawReview) {
+          const action = used ? "play" : s.pool.length ? "draw" : "pass";
+          if (action === "draw") {
+            round.currentDrawStreak++;
+            const key = p.melded ? "drawsAfterOpening" : "drawsBeforeOpening";
+            round[key]++; m[key]++;
+          } else if (round.currentDrawStreak) {
+            round.drawStreaks.push(round.currentDrawStreak);
+            round.currentDrawStreak = 0;
+          }
+          if (p.bot === "easy") easyTrace.push({turn:s.turn,opened:p.melded,rackBefore:before,poolBefore:s.pool.length,action,played:used,normalUsed,normalExtensionOnly});
+        }
         m.moves++;
         m.latencies.push(elapsed);
         round.latencies.push(elapsed);
@@ -451,6 +513,13 @@ try {
         )
           throw Error("Round action accounting failed");
       });
+      if (drawReview) for (let i = 0; i < seating.length; i++) {
+        const r = roundStats[i];
+        if (r.currentDrawStreak) r.drawStreaks.push(r.currentDrawStreak);
+        if (r.drawStreaks.reduce((a,b)=>a+b,0) !== r.draws || r.drawsBeforeOpening + r.drawsAfterOpening !== r.draws)
+          throw Error("Draw streak accounting failed");
+        metrics[seating[i]].drawStreaks.push(...r.drawStreaks);
+      }
       const lowest = Math.min(...scores.map((p) => p.total));
       games.push({
         seed,
@@ -482,10 +551,12 @@ try {
                 tilesPlayed: r.tilesPlayed,
                 knownOpeningTurns: r.knownOpeningTurns,
                 missedKnownOpenings: r.missedKnownOpenings,
+                ...(drawReview ? {drawStreaks:r.drawStreaks,drawsBeforeOpening:r.drawsBeforeOpening,drawsAfterOpening:r.drawsAfterOpening} : {}),
               },
             ];
           }),
         ),
+        ...(drawReview ? {easyTrace} : {}),
         latencyMs: Object.fromEntries(
           seating.map((level, i) => [level, latency(roundStats[i].latencies)]),
         ),

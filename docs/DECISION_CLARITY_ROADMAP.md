@@ -10,8 +10,8 @@ remains deferred.
 | Phase | Scope | Status |
 | --- | --- | --- |
 | 1 | Simpler decisions: review busy turns and clear next actions using existing space | Complete: 2988d56, CI 41080709747 and 32 matching live checks in 41083235984 passed |
-| 2 | Plain-language mistake recovery with concrete corrections and visible Undo/Reset | Implemented; full exact-commit CI and matching live acceptance required |
-| 3 | Review Easy-bot pacing, repetitive draws and difficulty jumps using recorded evidence | Planned |
+| 2 | Plain-language mistake recovery with concrete corrections and visible Undo/Reset | Complete: 1b41fc7, CI 41094208501 and 40 matching live checks in 41096842874 passed |
+| 3 | Review Easy-bot pacing, repetitive draws and difficulty jumps using recorded evidence | Review and guidance implemented; exact-commit full CI and live gate required |
 | 4 | Crowded-board selection and feedback review across phone, iPad landscape and desktop | Planned |
 
 Publish separately, update README and AGENTS, then pass full twelve-job CI and
@@ -135,3 +135,23 @@ languages after the two-column change. Final build: 99423 initial gzip bytes,
 77 precached files. Local Markdown links and whitespace checks passed. Local
 WebKit remains unavailable due to host libraries; complete provisioned CI and
 matching live acceptance are still required before reporting Phase 2 released.
+
+
+## Phase 3: Easy draws, pacing and difficulty
+
+The [solo pacing review](SOLO_PACING_REVIEW.md) records 48 fresh ordinary-deal
+rounds and 5190 turns, their fingerprints, raw traces, independent accounting
+checks, bounded witnesses and limits. All original proposals were legal and no
+witnessed opening was missed. All 1061 known Normal alternatives during Easy's
+post-opening draws used extensions outside Easy's style. Strategies, defaults,
+rules and budgets stay unchanged; optional bilingual opponent help now explains
+why repeated Easy draws and a slower/faster pace are separate choices.
+
+New native-worker journeys verify all four waits, actual accepted human/bot
+openings, Settings cancellation and exact save/deadline preservation. They run
+in main, all three offline compatibility profiles and the expanded 48-case live
+review, retaining every earlier case and original CI/geometry limits. See the
+review for expected counts, clock-fixture corrections and verification limits.
+Phase 2 is complete at 1b41fc7 with all twelve CI jobs and matching production/
+live acceptance passed; its implementation-time gate notes above are historical.
+This new Phase 3 publication requires its own full exact-commit gate.

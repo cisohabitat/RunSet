@@ -1345,6 +1345,7 @@ const messages: Record<string, string> = {
   "Reset restores this whole turn without a penalty.": "“重置”会撤回本回合的全部操作，不会罚摸牌。",
   "Find Undo": "找到撤销按钮",
   "Find Reset": "找到重置按钮",
+  "Easy may draw repeatedly while waiting for a new group or run. After opening, Normal can also add single tiles to the table.": "简单对手在等手牌凑成新的同数组或顺子时，可能会连续多次摸牌。开局后，普通对手还能往牌桌上的同数组或顺子里添牌。",
 };
 export const translateChinese = translator(messages);
 export default messages;

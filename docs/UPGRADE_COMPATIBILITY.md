@@ -99,8 +99,10 @@ cache identities. Local suites sharing output/build folders run sequentially.
 The connected release/live workflow additionally seeds a labelled prior cache
 in a fresh browser context, installs the real current worker and checks the
 actual production manifest offline. The prior cache is retained while the
-current manifest wins. An inert routed setup document avoids JSON-download
-behavior differences between browsers; it is test-only. This live cache check
+current manifest wins. Setup runs on the real page before its first native worker registration. A
+one-time registration latch waits for test-cache writes, restores the native
+method and calls it with the original arguments; no request interception is
+used. The controller must be activated before the offline fetch. This live cache check
 is distinct from the historical native upgrade fixture suite. Matching
 production READY and complete exact-commit CI/live runs remain release gates.
 
@@ -110,3 +112,10 @@ and both complete offline shards (35 + 35). The production build remains 99211
 initial gzip bytes against the unchanged 100000-byte budget, with 77 files.
 Cross-browser historical acceptance and matching live deployment checks must
 pass on the published commit; local Chromium is not physical Apple evidence.
+
+Initial publication 0fa04ba passed all 40 historical upgrade checks in CI
+40992840579. Live review 40993048539 exposed a fixture problem on WebKit/Firefox:
+the routed top-level setup lost the seeded cache or failed the offline fetch.
+The correction seeds on the real document before native registration and keeps
+every prior-cache, offline-content, exact-storage and connected-story assertion.
+Fresh complete exact-commit CI and live acceptance remain required.

@@ -9,7 +9,12 @@ existing-cache case). Historical fixtures build pinned Git sources with an
 identical package lock; fail if locks differ, never substitute current engines
 or HEAD. Retain only app outputs/metadata after building, so historical specs
 and node_modules cannot be rediscovered or uploaded as failure artifacts.
-Test-only probes/caches never belong in public or production dist. Preserve
+Test-only probes/caches never belong in public or production dist. Seed the
+live prior-cache fixture on the real document, latching only the first native
+registration until cache writes finish, then restore/call native registration.
+Do not route a synthetic top-level setup page: cross-engine storage/interception
+behavior invalidates the fixture. Wait for an activated controller; retain all
+offline manifest, prior-cache, exact-storage and connected-flow assertions. Preserve
 exact preexisting storage bytes, explicitly allowed new defaults, legacy whole-
 turn records without lesson/layout, real Undo/practice continuation and optional
 profile replacement scope. CI now requires quality, the original six browser

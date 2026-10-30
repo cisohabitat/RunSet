@@ -1340,6 +1340,11 @@ const messages: Record<string, string> = {
   "Table tiles unlock after your opening. Clear selection, then finish your opening with rack tiles and End turn.": "开局完成后才能动用牌桌上的牌。请先取消选择，用自己的手牌完成开局，再点“结束回合”。",
   "Clear selection, then End turn. Table tiles unlock after your opening.": "请先取消选择，再点“结束回合”。开局完成后才能动用牌桌上的牌。",
   "Clear selection. Open with rack tiles before using table tiles.": "请取消选择，用自己的手牌开局，之后才能动用牌桌上的牌。",
+  "Clear selection, then choose only rack tiles for your opening.": "请先取消选择，再只用自己的手牌开局。",
+  "Undo takes back one move. Reset restores this whole turn without a penalty.": "“撤销”只退回上一步；“重置”会撤回本回合的全部操作，不会罚摸牌。",
+  "Reset restores this whole turn without a penalty.": "“重置”会撤回本回合的全部操作，不会罚摸牌。",
+  "Find Undo": "找到撤销按钮",
+  "Find Reset": "找到重置按钮",
 };
 export const translateChinese = translator(messages);
 export default messages;

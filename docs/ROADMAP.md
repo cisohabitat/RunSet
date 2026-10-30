@@ -4,8 +4,8 @@
 
 The [decision-clarity cycle](DECISION_CLARITY_ROADMAP.md) is the latest approved
 cycle: simpler decisions, mistake recovery, solo pacing and crowded-board polish.
-Phase 1 implements clearer rack-only opening guidance and requires its own release
-gate; Phases 2–4 are planned. The preceding
+Phase 1 is released through `2988d56`. Phase 2 implements clearer mistake
+recovery and requires its own release gate; Phases 3–4 are planned. The preceding
 [visual/ease cycle](VISUAL_EASE_ROADMAP.md) is complete through `aa83616`.
 The [release ledger](RELEASE_STATUS.md) records observed exact-commit results
 and the current publication procedure.

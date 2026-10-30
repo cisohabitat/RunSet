@@ -19,7 +19,7 @@ findings; their older matrix descriptions do not replace the procedure below.
 Each listed full CI and live run completed successfully for its exact commit;
 matching Vercel production was observed READY before live acceptance. Earlier
 failed publications are documented in the phase record and superseded by these
-corrected commits. The new decision-clarity phase requires its own gate; these
+corrected commits. New decision-clarity phases require their own gates; these
 results do not establish that a later commit passed.
 
 The Phase 3 production build measured 99,335 initial gzip bytes against the
@@ -29,6 +29,17 @@ unchanged 100,000-byte limit, with 77 precached files. Its 859 browser cases wer
 Those releases ran six connected beginner/return journeys per profile: 24 total.
 The decision-clarity follow-up retains all of them and adds two bilingual
 locked-opening journeys per profile: 32 live cases.
+
+## Verified decision-clarity releases
+
+| Phase | Exact release commit | Full CI | Matching live review | Counts at that release |
+| --- | --- | --- | --- | --- |
+| 1: rack-only opening guidance | `2988d5699ac3c4f30dca6dda9c206671f5dddbf7` | [41080709747](https://github.com/cisohabitat/RunSet/actions/runs/41080709747) | [41083235984](https://github.com/cisohabitat/RunSet/actions/runs/41083235984) | 224 unit, 867 browser, 32 live |
+
+The listed Phase 1 CI/live runs completed successfully on its exact SHA with
+matching READY production. Phase 2 adds two bilingual mistake-recovery cases per
+profile, retaining all previous journeys: the current live gate is 40 cases.
+Its new commit must pass its own full gate before being reported released.
 
 ## Release procedure
 
@@ -48,7 +59,7 @@ locked-opening journeys per profile: 32 live cases.
    `codex/live-release-review/<SHA>` from that exact commit. The workflow only
    tests the existing production site; it does not deploy or promote.
 5. Require the exact-SHA Release review to finish successfully in all four
-   profiles, with all 32 live cases. Recheck main and production still match;
+   profiles, with all 40 live cases. Recheck main and production still match;
    report the commit and both run links before beginning the next phase.
    Fix failures and repeat the complete gate on any correction commit.
 

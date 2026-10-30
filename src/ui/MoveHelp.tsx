@@ -14,14 +14,14 @@ export function MoveHelp({
   game: GameState;
   data: MoveHelpData | null;
   disabled: boolean;
-  onFind: (id: number) => void;
+  onFind: (target: number | "undo" | "reset") => void;
 }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null),
     opener = useRef<HTMLButtonElement>(null),
     close = useRef<HTMLButtonElement>(null);
-  const pendingFind = useRef<number | null>(null);
+  const pendingFind = useRef<number | "undo" | "reset" | null>(null);
   useEffect(() => {
     if (!open && pendingFind.current !== null) {
       const id = pendingFind.current;
@@ -122,6 +122,11 @@ export function MoveHelp({
             )}
             {data.followUp && <p>{t(data.followUp)}</p>}
             <p>
+              {t(game.history?.length
+                ? "Undo takes back one move. Reset restores this whole turn without a penalty."
+                : "Reset restores this whole turn without a penalty.")}
+            </p>
+            <p>
               {t(
                 "Preview only. Your tiles and turn are unchanged. Timed games keep running.",
               )}
@@ -138,6 +143,20 @@ export function MoveHelp({
                 {t("Find affected tiles")}
               </button>
             )}
+            {!!game.history?.length && (
+              <button onClick={() => {
+                pendingFind.current = "undo";
+                setOpen(false);
+              }}>
+                {t("Find Undo")}
+              </button>
+            )}
+            <button onClick={() => {
+              pendingFind.current = "reset";
+              setOpen(false);
+            }}>
+              {t("Find Reset")}
+            </button>
             <button
               ref={close}
               className="primary"

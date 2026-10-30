@@ -1,8 +1,9 @@
 import { expect, it } from "vitest";
 import { practiceGame } from "../engine/practice";
-import { reducer } from "../engine/game";
+import { reducer, turnCheck } from "../engine/game";
 import { inspectMeld } from "../engine/meld";
 import { moveHelp } from "./moveHelp";
+import { validSave } from "./storage";
 it("explains an actual blocked attempt and does not accept inherited reason keys", () => {
   const base = practiceGame("rearrange"),
     blocked = reducer(base, { type: "move", ids: [0], target: "rack" });
@@ -86,4 +87,24 @@ it("distinguishes repairing one meld from finishing the full turn", () => {
   const partial = reducer(opened, { type: "move", ids: [5, 6], target: "new" });
   // No single rack tile repairs this pile: do not invent a successful addition.
   expect(moveHelp(partial)?.candidate).toBeUndefined();
+});
+
+it("identifies only the unresolved joker, not an unchanged or correctly reused one", () => {
+  const base = practiceGame("jokers");
+  const extra = [9, 35, 105];
+  for (const p of base.players) p.rack = p.rack.filter(id => !extra.includes(id));
+  base.pool = base.pool.filter(id => !extra.includes(id));
+  base.table.push({id:"second-wild", tiles:extra});
+  base.turnStart.table = structuredClone(base.table);
+  const bad = reducer(base, {type:"move", ids:[105], target:"new"});
+  expect(moveHelp(bad)?.ids).toEqual([105]);
+  const replaced = reducer(base, {type:"move", ids:[4], target:"practice-wild"});
+  const reused = reducer(replaced, {type:"move", ids:[104,30,56], target:"new"});
+  expect(turnCheck(reused).valid).toBe(true);
+  expect(validSave(reused)).toBe(true);
+  const mixed = reducer(reused, {type:"move", ids:[105], target:"new"});
+  const before = JSON.stringify(mixed);
+  expect(moveHelp(mixed)?.ids).toEqual([105]);
+  expect(validSave(mixed)).toBe(true);
+  expect(JSON.stringify(mixed)).toBe(before);
 });

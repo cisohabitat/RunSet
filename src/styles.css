@@ -4568,3 +4568,16 @@ button:not(.tile) {
     min-height: 44px;
   }
 }
+
+/* Keep recovery labels readable instead of squeezing four narrow modal actions. */
+@media (max-width: 540px) {
+  .move-help .dialog-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .move-help .dialog-actions > button:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+.move-help .hint-preview-body { padding-bottom: 12px; }
+.move-help .hint-preview-body p { scroll-margin-block: 12px; }

@@ -9,8 +9,8 @@ remains deferred.
 
 | Phase | Scope | Status |
 | --- | --- | --- |
-| 1 | Simpler decisions: review busy turns and clear next actions using existing space | Implemented; its own full exact-commit CI and matching live gate required |
-| 2 | Plain-language mistake recovery with concrete corrections and visible Undo/Reset | Planned |
+| 1 | Simpler decisions: review busy turns and clear next actions using existing space | Complete: 2988d56, CI 41080709747 and 32 matching live checks in 41083235984 passed |
+| 2 | Plain-language mistake recovery with concrete corrections and visible Undo/Reset | Implemented; full exact-commit CI and matching live acceptance required |
 | 3 | Review Easy-bot pacing, repetitive draws and difficulty jumps using recorded evidence | Planned |
 | 4 | Crowded-board selection and feedback review across phone, iPad landscape and desktop | Planned |
 
@@ -74,3 +74,64 @@ build measured 99341 initial gzip bytes and 77 precached files. Local Markdown
 links and diff whitespace checks passed. Full exact-commit CI and matching READY
 production with all 32 live cases remain required before reporting this phase
 released; local browser automation does not establish human/device acceptance.
+
+
+## Phase 2: clear corrections and reachable recovery controls
+
+Baseline `2988d5699ac3c4f30dca6dda9c206671f5dddbf7` passed all twelve CI jobs
+in 41080709747 (224 unit / 867 browser tests) and all 32 matching live checks
+in 41083235984, with matching production READY. This completes Phase 1; its
+implementation-time gate notes above are historical.
+
+Blocked-opening help retained selected table tiles but only said to choose rack
+tiles. Tapping a rack tile adds it to that retained selection, so another attempt
+still includes locked public tiles. The correction now explicitly begins with
+Clear selection in both languages. The regression follows that advice through
+actual Clear, rack-only placement and the correct remaining-opening-points help.
+
+The Move help dialog lacked a direct route to Undo or Reset. It now explains
+one-move Undo versus whole-turn penalty-free Reset, with Find Undo and Find Reset
+controls. They close the dialog and More, then focus and reveal the actual turn
+control. Finding is read-only: the next explicit native activation performs the
+recovery. Missing/empty legacy history offers Reset without promising Undo.
+Existing Back/Escape/focus restoration and Find affected tiles remain intact.
+Phone screenshots showed four narrow action columns with three-line labels.
+Only this dialog's footer now uses two columns below 540 px; an odd final exit
+spans both columns. Main-board tile dimensions, native targets and floors stay.
+
+A two-joker regression also failed: the help listed both original jokers when
+only the second needed repair, so Find affected tiles focused the unchanged first
+joker. The validator's existing replacement/reuse check is extracted unchanged
+as unresolvedJokers and shared by help. The affected list excludes unchanged and
+correctly replaced/reused jokers. There is no rule, strategy, save-schema or bot
+budget change; the original End-turn reason and validation order are preserved.
+
+Strict Firefox bounds caught the final Chinese paragraph ending at 546.0000305
+inside a scroll area ending at 546 px. The help body now has 12 px end padding
+and paragraph scroll margin. Geometry assertions keep exact full bounds; no
+rounding tolerance, forced action or timeout increase is used.
+
+The new bilingual journey exercises the real two-joker error, affected-tile
+finder, read-only action finders, native Undo, Reset across two actual moves,
+legacy missing history, and blocked-opening correction. Checkpoints wait for
+both exact expected reducer state and Saved. All paragraph bounds, footer target
+sizes/centre hits, accessible modal checks, exact saved bytes and deadline remain
+asserted. It runs in main Chromium, all three offline compatibility profiles and
+matching production. All prior cases remain: expected totals are 225 unit tests,
+875 browser cases (345 main, 140 per compatibility profile, 70 offline and 40
+upgrades) and 40 live cases (ten per profile). Full twelve-job CI and exact-SHA
+READY production/live acceptance remain the gate. Physical-device and human
+Mandarin/older-player acceptance remain paused.
+
+Local Phase 2 acceptance: all 225 units passed, with 30 focused rule/help/
+translation checks passing after the final validator assertions. Both final
+phone journeys preserved a selected rack tile through read-only finders. The
+full configured Chromium and Firefox release reviews each passed ten cases.
+An initial isolated Firefox run missed native More activation; no input/profile
+workaround was added, and the full configured review retained native menu/focus
+assertions. An overlapping local browser run invalidated some shared traces;
+final reviews ran sequentially. Phone footer screenshots were inspected in both
+languages after the two-column change. Final build: 99423 initial gzip bytes,
+77 precached files. Local Markdown links and whitespace checks passed. Local
+WebKit remains unavailable due to host libraries; complete provisioned CI and
+matching live acceptance are still required before reporting Phase 2 released.

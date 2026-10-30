@@ -14,7 +14,16 @@ selections. Prompt rack-only opening or Clear selection then End turn when ready
 Own rack tiles placed in this draft remain editable; do not classify all on-table
 tiles as locked. Keep unfinished/waiting priority, exact save/deadline checks,
 native Clear/Deselect/Escape and real opening acceptance in both languages.
-The extra two release cases per profile supplement every original live case.
+The opening and mistake-recovery release cases supplement every original live
+case. MoveHelp action finders close the modal and More before focusing real
+Undo/Reset controls. They must never dispatch, clear selection or persist: only
+subsequent activation acts. Missing/empty history offers Reset alone. Preserve
+strict native targets, exact bytes/deadlines, legacy recovery and actual actions.
+Use the engine’s unchanged unresolvedJokers check for affected joker IDs; never
+list unchanged or correctly reused jokers as repair targets. Blocked-opening
+copy starts with Clear selection. Recovery paragraphs have 12 px scroll clearance
+and body end padding; below 540 px footer actions use two columns with an odd
+last exit spanning both. Keep all other preview tile sizes and board floors.
 
 Home resume guidance tracks wall-clock expiry read-only, updating on a timer,
 visibility and focus with owned cleanup. It must never dispatch, persist, reset a
@@ -27,7 +36,7 @@ a prior Saved label alone does not establish that the latest edit was persisted.
 More’s turn-help summaries retain 44 px targets, 16/18 px copy and native scroll
 clearance. Do not consume permanent meld space. Release review includes returning
 journeys as well as the connected beginner journey, plus locked-opening selections:
-32 live checks.
+40 live checks.
 
 Lesson selection tips derive from current selected IDs and the current objective,
 so action-only steps never produce empty tile lists or stale previous-step tips.

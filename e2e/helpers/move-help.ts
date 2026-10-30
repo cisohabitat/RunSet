@@ -174,7 +174,7 @@ export async function verifyMoveHelp(
   await verifyBlocked(
     "Open with 30 points before rearranging table tiles.",
     [0],
-    "Choose only tiles from your rack for your opening.",
+    "Clear selection, then choose only rack tiles for your opening.",
     true,
   );
   await fresh(true);

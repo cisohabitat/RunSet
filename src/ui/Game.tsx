@@ -95,6 +95,8 @@ export function Game({
     [s.table, coaching, tableOrder],
   );
   useEffect(() => setPracticeSource(null), [s]);
+  const undoAction = useRef<HTMLButtonElement>(null);
+  const resetAction = useRef<HTMLButtonElement>(null);
   const [breaking, setBreaking] = useState(false);
   const breakRequest = useRef<AbortController | null>(null);
   useEffect(() => () => breakRequest.current?.abort(), []);
@@ -1007,6 +1009,7 @@ export function Game({
           <div className="turn-tools">
             <button
               className="text-button"
+              ref={undoAction}
               aria-label={t("Undo move")}
               disabled={!myTurn || !s.history?.length}
               onClick={() => act({ type: "undo" })}
@@ -1028,6 +1031,7 @@ export function Game({
             )}
             <button
               className="text-button"
+              ref={resetAction}
               aria-label={t("Reset turn")}
               data-coach-target={coachTarget === "reset" || undefined}
               disabled={!myTurn}
@@ -1131,9 +1135,20 @@ export function Game({
                         game={s}
                         data={helpData}
                         disabled={!myTurn}
-                        onFind={(id) =>
-                          findTile(id, 1, helpData?.ids.length ?? 1, "help")
-                        }
+                        onFind={(target) => {
+                          if (typeof target === "number") {
+                            findTile(target, 1, helpData?.ids.length ?? 1, "help");
+                            return;
+                          }
+                          const menu = feedbackRoot.current?.querySelector<HTMLDetailsElement>(".more-actions");
+                          if (menu) menu.open = false;
+                          requestAnimationFrame(() => {
+                            const control = target === "undo" ? undoAction.current : resetAction.current;
+                            if (!control?.isConnected || control.disabled) return;
+                            control.focus({ preventScroll: true });
+                            control.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "auto" });
+                          });
+                        }}
                       />
                     )}
                     <details className="turn-actions-help">

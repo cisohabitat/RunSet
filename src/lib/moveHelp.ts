@@ -1,4 +1,4 @@
-import { reducer, turnCheck, type GameState } from "../engine/game";
+import { reducer, turnCheck, unresolvedJokers, type GameState } from "../engine/game";
 import { inspectMeld } from "../engine/meld";
 import { explainMeld } from "../engine/coaching";
 import { tiles } from "../engine/tiles";
@@ -15,7 +15,7 @@ const blockedNext: Record<string, string> = {
   "Table tiles cannot return to your rack.":
     "Choose a group/run on the table as the destination.",
   "Open with 30 points before rearranging table tiles.":
-    "Choose only tiles from your rack for your opening.",
+    "Clear selection, then choose only rack tiles for your opening.",
   "Your opening meld must come entirely from your rack.":
     "Choose New group or run for your opening.",
 };
@@ -55,9 +55,7 @@ export function moveHelp(
       kind: "draft",
       reason: check.reason,
       next: "Use Reset to restore the joker, then replace it with the matching rack tile.",
-      ids: game.turnStart.table
-        .flatMap((m) => m.tiles)
-        .filter((id) => tiles[id].joker),
+      ids: unresolvedJokers(game, check.played),
     };
   const invalid = game.table.find((m) => !inspectMeld(m.tiles).valid);
   if (invalid) {

@@ -147,8 +147,13 @@ export function turnCheck(s: GameState): {
       points < 30)
   )
     reason = "Your opening meld must total at least 30 using only your rack.";
-  // A retrieved joker must be replaced by its represented tile from the rack,
-  // and reused in a valid meld during this turn.
+  if (unresolvedJokers(s, played).length)
+    reason = "Replace a joker with its represented rack tile, then reuse it this turn.";
+  return { valid: !reason, points, played, reason };
+}
+/** Physical jokers which fail the same replacement/reuse check as End turn. */
+export function unresolvedJokers(s: GameState, played: number[]): number[] {
+  const unresolved: number[] = [];
   for (const m of s.turnStart.table) {
     const before = inspectMeld(m.tiles);
     for (const joker of m.tiles.filter((id) => tiles[id].joker)) {
@@ -165,13 +170,11 @@ export function turnCheck(s: GameState): {
             tiles[id].num === before.values[joker] &&
             tiles[id].color === before.jokerColors[joker],
         );
-        if (replacement === undefined || !after)
-          reason =
-            "Replace a joker with its represented rack tile, then reuse it this turn.";
+        if (replacement === undefined || !after) unresolved.push(joker);
       }
     }
   }
-  return { valid: !reason, points, played, reason };
+  return unresolved;
 }
 function advance(
   s: GameState,

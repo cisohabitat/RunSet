@@ -22,7 +22,7 @@ self.addEventListener('message',event=>{if(event.data?.type==='SKIP_WAITING')sel
 self.addEventListener('activate',event=>event.waitUntil((async()=>{const keys=(await caches.keys()).filter(key=>key.startsWith('runset-'));let previous;for(const key of keys.filter(key=>key!==CACHE).reverse()){if(await(await caches.open(key)).match('/index.html',{ignoreVary:true})){previous=key;break;}}const keep=new Set([CACHE,...(previous?[previous]:[])]);await Promise.allSettled(keys.filter(key=>!keep.has(key)).map(key=>caches.delete(key)));await self.clients.claim();})()));
 self.addEventListener('fetch',event=>{const url=new URL(event.request.url);if(event.request.method!=='GET'||url.origin!==self.location.origin||url.pathname.startsWith('/api/'))return;
 if(event.request.mode==='navigate'){event.respondWith(fetch(event.request).catch(()=>caches.open(CACHE).then(cache=>cache.match('/index.html',{ignoreVary:true}))));return;}
-if(FILES.includes(url.pathname)||url.pathname.startsWith('/assets/'))event.respondWith(caches.match(event.request,{ignoreVary:true}).then(cached=>cached||fetch(event.request)));
+if(FILES.includes(url.pathname)||url.pathname.startsWith('/assets/'))event.respondWith(caches.open(CACHE).then(cache=>cache.match(event.request,{ignoreVary:true})).then(cached=>cached||caches.match(event.request,{ignoreVary:true})).then(cached=>cached||fetch(event.request)));
 });
 `,
 );

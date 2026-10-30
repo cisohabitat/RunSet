@@ -12,7 +12,8 @@
     "test:e2e": "playwright test",
     "test:offline": "npm run build && playwright test --config=playwright.offline.config.ts",
     "benchmark": "node scripts/benchmark.mjs",
-    "test:compat": "npm run build && playwright test --config=playwright.compat.config.ts"
+    "test:compat": "npm run build && playwright test --config=playwright.compat.config.ts",
+    "test:upgrade": "npm run build && node scripts/build-upgrade-fixtures.mjs && playwright test --config=playwright.upgrade.config.ts"
   },
   "dependencies": {
     "react": "^19.2.0",

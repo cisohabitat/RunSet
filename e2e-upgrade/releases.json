@@ -1,0 +1,5 @@
+[
+  {"id":"legacy-opening","sha":"6effa7a12b9be88072a3cf4dc94c4cc78f8be2c3","profile":false,"legacyOpening":true},
+  {"id":"portable-profile","sha":"26f3518ef67037385ab201bfea7ac961dba65b10","profile":true,"legacyOpening":false},
+  {"id":"refined-release","sha":"3c044868ecc5bb8584c119aac333fafe5e51177e","profile":true,"legacyOpening":false}
+]

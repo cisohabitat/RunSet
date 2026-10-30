@@ -1,5 +1,12 @@
 # RunSet
 
+Updates read cached files from the active version first, while an open older
+tab can still load its previous hashed app chunks. Historical upgrade checks
+cover saved drafts, Undo, preferences, all four learning records and older
+portable profiles, including interrupted installs and offline recovery. See
+[upgrade compatibility](docs/UPGRADE_COMPATIBILITY.md). Run `npm run test:upgrade`
+from a full-history checkout to repeat the dedicated browser suite.
+
 Muting sound, hiding the page or leaving a screen cancels queued game cues.
 Turning sound back on does not replay them. The fresh
 [bot and feedback review](docs/REFINEMENT_GAME_FEEL.md) records the difficulty

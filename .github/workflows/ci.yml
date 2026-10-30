@@ -89,9 +89,58 @@ jobs:
             test-results/
           if-no-files-found: ignore
           retention-days: 7
+  upgrades:
+    needs: quality
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [chromium, webkit-phone, webkit-ipad, firefox-desktop]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Immutable historical ancestors are required; never substitute HEAD.
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Use Ubuntu HTTPS package mirror
+        run: |
+          for apt_source in /etc/apt/sources.list /etc/apt/sources.list.d/*.list /etc/apt/sources.list.d/*.sources /etc/apt/apt-mirrors.txt /etc/apt/apt-security-mirrors.txt; do
+            if [ -f "$apt_source" ]; then
+              sudo sed -Ei 's|https?://azure\.archive\.ubuntu\.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' "$apt_source"
+            fi
+          done
+          printf '%s\n' 'Acquire::Retries "2";' 'Acquire::http::Timeout "30";' 'Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/99-runset-downloads
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Provide virtual audio output for browser playback
+        run: |
+          sudo apt-get install -y pulseaudio pulseaudio-utils
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=runset
+          pactl set-default-sink runset
+      - name: Verify historical clients through a native app upgrade
+        env:
+          RUNSET_UPGRADE_PROJECT: ${{ matrix.project }}
+        run: npm run test:upgrade -- --project="$RUNSET_UPGRADE_PROJECT"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: upgrade-failure-${{ matrix.project }}
+          path: |
+            playwright-report/
+            test-results/upgrade-browser/
+            test-results/upgrade-fixtures/manifest.json
+          if-no-files-found: ignore
+          retention-days: 7
   check:
     if: always()
-    needs: [quality, browsers]
+    needs: [quality, browsers, upgrades]
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -99,3 +148,4 @@ jobs:
         run: |
           test "${{ needs.quality.result }}" = success
           test "${{ needs.browsers.result }}" = success
+          test "${{ needs.upgrades.result }}" = success

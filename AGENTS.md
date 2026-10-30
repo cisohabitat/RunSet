@@ -1,5 +1,22 @@
 # Contributor and agent guidance
 
+Upgrade compatibility lives in docs/UPGRADE_COMPATIBILITY.md. Worker asset reads
+prefer CACHE before the retained-cache fallback; a global caches.match first
+can serve stale stable-URL files after a successful update. Keep old hashed
+modules available for still-open clients. Preserve explicit acceptance, both
+save guards, the previous cache, and failed-install cleanup (including the
+existing-cache case). Historical fixtures build pinned Git sources with an
+identical package lock; fail if locks differ, never substitute current engines
+or HEAD. Retain only app outputs/metadata after building, so historical specs
+and node_modules cannot be rediscovered or uploaded as failure artifacts.
+Test-only probes/caches never belong in public or production dist. Preserve
+exact preexisting storage bytes, explicitly allowed new defaults, legacy whole-
+turn records without lesson/layout, real Undo/practice continuation and optional
+profile replacement scope. CI now requires quality, the original six browser
+jobs, four historical-upgrade jobs and aggregate check: all twelve on the exact
+commit, retaining 20-minute jobs and five-minute offline shards. Run local
+browser suites sequentially when their artifact directories/builds overlap.
+
 Sound owns a set of currently sounding/future-scheduled oscillators. Remove and
 disconnect ended notes; stopSounds cancels all remaining notes without closing
 the gesture-primed context. App cancels on mute, hidden visibility, pagehide,

@@ -1,3 +1,4 @@
+import {seedPreviousManifest, verifyCurrentManifest} from "./cache-version";
 import { verifyLessonSelectionRecovery } from "./lesson-selection";
 import { verifyTileMarkings } from "./tile-markings";
 import { expect, type Page, type BrowserContext, type TestInfo, type Locator } from "@playwright/test";
@@ -75,9 +76,11 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
     const ids=[...s.pool,...s.players.flatMap(p=>p.rack),...s.table.flatMap(m=>m.tiles)];
     expect(ids).toHaveLength(106);expect(new Set(ids).size).toBe(106);
   };
+  if(offline) await seedPreviousManifest(page);
   await page.goto("/");
   if(offline){
     await expect(page.getByRole("status").filter({hasText:t("Ready offline")})).toBeVisible({timeout:15000});
+    await verifyCurrentManifest(page, context);
     await context.setOffline(true);
     await page.reload();
   }

@@ -34,6 +34,7 @@ export async function verifyGentlePlay(
   });
   await page.addInitScript(({ base, locale }) => {
     (window as any).__runsetCueNotes = 0;
+    (window as any).__runsetStoppedNotes = 0;
     (window as any).AudioContext = class {
       state = "running";
       currentTime = 0;
@@ -41,10 +42,10 @@ export async function verifyGentlePlay(
       resume() { return Promise.resolve(); }
       createOscillator() {
         (window as any).__runsetCueNotes++;
-        return { connect() {}, frequency: { value: 0 }, type: "sine", start() {}, stop() {} };
+        return { connect() {}, disconnect() {}, frequency: { value: 0 }, type: "sine", start() {}, stop(at?: number) { if (at === undefined) (window as any).__runsetStoppedNotes++; } };
       }
       createGain() {
-        return { connect() {}, gain: { setValueAtTime() {}, exponentialRampToValueAtTime() {} } };
+        return { connect() {}, disconnect() {}, gain: { setValueAtTime() {}, exponentialRampToValueAtTime() {} } };
       }
     };
     if (sessionStorage.getItem("gentle-seeded")) return;
@@ -64,6 +65,7 @@ export async function verifyGentlePlay(
   };
   const save = () => page.evaluate(() => localStorage.getItem("runset.save.v1"));
   const notes = () => page.evaluate(() => (window as any).__runsetCueNotes as number);
+  const stopped = () => page.evaluate(() => (window as any).__runsetStoppedNotes as number);
   const home = () => activate(page.locator(".game-over").getByRole("button", { name: t("Home"), exact: true }));
   const finished = async () => {
     await expect(page.locator(".game-over")).toBeVisible();
@@ -102,6 +104,15 @@ export async function verifyGentlePlay(
   expect(await notes()).toBeGreaterThan(0);
   await emitVisual(page, info, locale, "fresh-result");
   const afterWin = await notes();
+  const beforeSoundSetting = await save();
+  await activate(page.locator(".site-header").getByRole("button", {name: t("Settings"), exact: true}));
+  const settings = page.getByRole("dialog", {name: t("Settings"), exact: true});
+  await settings.getByLabel(t("Sound effects"), {exact: true}).uncheck();
+  await expect.poll(stopped).toBe(afterWin);
+  await settings.getByLabel(t("Sound effects"), {exact: true}).check();
+  expect(await notes()).toBe(afterWin);
+  expect(await save()).toBe(beforeSoundSetting);
+  await activate(settings.getByRole("button", {name: t("Done"), exact: true}).first());
 
   await home();
   await activate(page.getByRole("button", { name: t("View results →"), exact: true }));
@@ -127,6 +138,21 @@ export async function verifyGentlePlay(
   await activate(page.getByRole("button", { name: t("Continue game →"), exact: true }));
   await expect(page.locator(".rack")).toBeVisible();
   const beforeView = await save();
+  const selected = page.locator('.rack [data-tile-id="3"]');
+  await activate(selected);
+  const beforeHide = await stopped();
+  await page.evaluate(() => {
+    Object.defineProperty(document, "hidden", {configurable: true, value: true});
+    document.dispatchEvent(new Event("visibilitychange"));
+  });
+  await expect.poll(stopped).toBe(beforeHide + 1);
+  await expect(selected).toHaveAttribute("aria-pressed", "true");
+  expect(await save()).toBe(beforeView);
+  await page.evaluate(() => {
+    delete (document as any).hidden;
+    document.dispatchEvent(new Event("visibilitychange"));
+  });
+  await activate(selected);
   await chooseView(page, "table", t);
   expect(await save()).toBe(beforeView);
   const draw = page.locator(".primary-actions > button").first();

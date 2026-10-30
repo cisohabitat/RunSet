@@ -16,7 +16,7 @@ import {
   settingsForGame,
   type GameSettings,
 } from "./lib/gameSettings";
-import { sound, primeAudio, transitionCue } from "./lib/sound";
+import { sound, primeAudio, stopSounds, transitionCue } from "./lib/sound";
 import { useScreenFocus } from "./ui/useScreenFocus";
 import { RecoveryBoundary, RecoveryScreen } from "./ui/RecoveryBoundary";
 import { Home } from "./ui/Home";
@@ -141,6 +141,19 @@ export default function App() {
   );
   const [notice, setNotice] = useState(initial.notice);
   const [muted, setMuted] = usePreference("runset.muted", false, true);
+  useEffect(() => {
+    const silenceHiddenPage = () => {
+      if (document.hidden) stopSounds();
+    };
+    if (muted) stopSounds();
+    document.addEventListener("visibilitychange", silenceHiddenPage);
+    window.addEventListener("pagehide", stopSounds);
+    return () => {
+      document.removeEventListener("visibilitychange", silenceHiddenPage);
+      window.removeEventListener("pagehide", stopSounds);
+      stopSounds();
+    };
+  }, [muted, screen]);
   useEffect(() => {
     if (!game) {
       setSaveStatus("No saved game");

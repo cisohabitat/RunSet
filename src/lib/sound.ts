@@ -8,6 +8,18 @@ export type Cue =
   | "win"
   | "lose";
 let context: AudioContext | undefined;
+const sounding = new Set<OscillatorNode>();
+/** Cancel sounding and future-scheduled notes without closing the gesture-primed context. */
+export function stopSounds() {
+  for (const osc of sounding) {
+    try {
+      osc.stop();
+    } catch {
+      /* A completed optional note may already be stopped. */
+    }
+  }
+  sounding.clear();
+}
 /** Unlock from a real pointer/key gesture, without playing a note. */
 export function primeAudio() {
   try {
@@ -71,6 +83,12 @@ export function sound(cue: Cue, muted: boolean) {
       gain.gain.setValueAtTime(0.0001, t);
       gain.gain.exponentialRampToValueAtTime(volume, t + 0.008);
       gain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
+      sounding.add(osc);
+      osc.onended = () => {
+        sounding.delete(osc);
+        osc.disconnect();
+        gain.disconnect();
+      };
       osc.start(t);
       osc.stop(t + duration + 0.01);
     });

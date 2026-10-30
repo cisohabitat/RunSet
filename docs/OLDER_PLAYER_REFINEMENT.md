@@ -7,8 +7,8 @@ cases), matching production READY and eight passing live connected checks.
 |---|---|---|
 | 1 | Clearer turn feedback from selection to placement to acceptance | Complete: ed8a0ca, CI 40976555852 and 10 live checks passed |
 | 2 | Crowded-table readability and selection/latest-play distinction | Complete: a90f781, CI 40978735493 and 10 live checks passed |
-| 3 | Chinese learning, mistake recovery and hints | Implemented; release gates pending |
-| 4 | Bot pacing, difficulty consistency, sound and celebrations | Review after Phase 3 gates |
+| 3 | Chinese learning, mistake recovery and hints | Complete: 1cd3ba4, CI 40981124188 and eight live checks passed |
+| 4 | Bot pacing, difficulty consistency, sound and celebrations | Implemented; release requires the gates below |
 
 Publish each phase separately to main, update README and AGENTS, and require
 quality, every browser job, aggregate check and the direct exact-commit workflow
@@ -67,3 +67,17 @@ suites must run sequentially because their default artifact directories overlap.
 Local verification: 222 units, eight existing lesson/turn-confidence checks and
 two connected bilingual recovery journeys passed. Production build: 99074 initial
 gzip bytes and 77 cache files, with the original budget unchanged.
+
+## Phase 4
+
+The [game-feel review](REFINEMENT_GAME_FEEL.md) covers a demonstrated queued-
+sound cancellation bug, existing celebration and pacing behavior, and a fresh
+24-game production-budget audit of all mixed/pair difficulty seatings across
+two held-out seed blocks. No strategy or default changes were justified.
+
+The sound registry now cancels queued notes on mute, visibility loss, pagehide,
+screen cleanup and unmount; naturally ended nodes release their connections.
+Unmuting/resuming remains silent until another actual action. Game state and
+recorded/device speech stay independent. Require final exact-main CI, all six
+browser jobs and aggregate check plus matching READY production/live acceptance
+before marking this final phase released. No human/device study is claimed.

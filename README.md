@@ -1,5 +1,10 @@
 # RunSet
 
+Muting sound, hiding the page or leaving a screen cancels queued game cues.
+Turning sound back on does not replay them. The fresh
+[bot and feedback review](docs/REFINEMENT_GAME_FEEL.md) records the difficulty
+audit and celebration checks; new games still default to one Easy opponent.
+
 Learn to play clears its wrong-selection tip when you deselect with Escape,
 Clear/Deselect all or Reset. The next instruction follows the current lesson
 step, and your regular game stays separate.

@@ -1,7 +1,7 @@
-import { expect, it } from "vitest";
+import { expect, it, vi } from "vitest";
 import { reducer } from "../engine/game";
 import { fixture } from "../engine/test-helpers";
-import { transitionCue } from "./sound";
+import { primeAudio, sound, stopSounds, transitionCue } from "./sound";
 
 it("sounds actual placement and undo, without replaying unchanged states or preferences", () => {
   const before = fixture([3], [{ id: "run", tiles: [0, 1, 2] }], true);
@@ -51,4 +51,53 @@ it("celebrates the actual winner once and ignores reopening a completed result",
   botPlaced.players[botPlaced.current].bot = "easy";
   botFinished.players[botPlaced.current].bot = "easy";
   expect(transitionCue(botPlaced, botFinished)).toBe("lose");
+});
+
+it("cancels scheduled cues, releases finished notes and never replays on resume", () => {
+  const nodes: {stop: ReturnType<typeof vi.fn>; disconnect: ReturnType<typeof vi.fn>; onended: (() => void) | null}[] = [];
+  const doc = {hidden: false};
+  let state = "running";
+  vi.stubGlobal("document", doc);
+  vi.stubGlobal("AudioContext", class {
+    get state() { return state; }
+    currentTime = 1;
+    destination = {};
+    resume() { state = "running"; return Promise.resolve(); }
+    createOscillator() {
+      const node = {connect() {}, disconnect: vi.fn(), frequency: {value: 0}, type: "sine", start: vi.fn(), stop: vi.fn(), onended: null as (() => void) | null};
+      nodes.push(node);
+      return node;
+    }
+    createGain() { return {connect() {}, disconnect() {}, gain: {setValueAtTime() {}, exponentialRampToValueAtTime() {}}}; }
+  });
+  try {
+    primeAudio();
+    sound("win", false);
+    expect(nodes).toHaveLength(4);
+    stopSounds();
+    for (const node of nodes) expect(node.stop).toHaveBeenLastCalledWith();
+    const calls = nodes.map(node => node.stop.mock.calls.length);
+    stopSounds();
+    expect(nodes.map(node => node.stop.mock.calls.length)).toEqual(calls);
+    sound("select", false);
+    const finished = nodes[4];
+    finished.onended!();
+    stopSounds();
+    expect(finished.disconnect).toHaveBeenCalledOnce();
+    expect(finished.stop).toHaveBeenCalledOnce(); // Only its scheduled natural end.
+    doc.hidden = true;
+    sound("win", false);
+    doc.hidden = false;
+    sound("win", true);
+    state = "suspended";
+    sound("win", false);
+    expect(nodes).toHaveLength(5);
+    primeAudio();
+    expect(nodes).toHaveLength(5);
+    sound("select", false);
+    expect(nodes).toHaveLength(6);
+  } finally {
+    stopSounds();
+    vi.unstubAllGlobals();
+  }
 });

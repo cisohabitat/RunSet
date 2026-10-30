@@ -1,5 +1,15 @@
 # Contributor and agent guidance
 
+Sound owns a set of currently sounding/future-scheduled oscillators. Remove and
+disconnect ended notes; stopSounds cancels all remaining notes without closing
+the gesture-primed context. App cancels on mute, hidden visibility, pagehide,
+screen cleanup and unmount, removing its owned listeners. Resume/unmute never
+replays old cues. Keep the before-failing bilingual mute/visibility regression,
+original celebration counts, exact saves and no-replay checks. Mocks prove cue
+control rather than audible quality or physical suspension. Difficulty evidence
+is in docs/REFINEMENT_GAME_FEEL.md and its fingerprinted raw reports; preserve
+strategies/defaults/caps unless a demonstrated defect justifies a change.
+
 Game selection clearing must notify onSelectionChange([]), including Escape,
 Deselect all/mobile Clear, Reset/Undo/Draw and explicit hint placement. Otherwise
 GuidedTutorial can retain a selection tip after no tiles remain selected. Keep

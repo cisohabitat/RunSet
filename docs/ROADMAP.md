@@ -1,14 +1,39 @@
 # RunSet improvement roadmap
 
-The active follow-up is the [premium improvement cycle](PREMIUM_ROADMAP.md),
-released phase by phase with exact-commit GitHub CI gates. Historical phases
-below retain their original numbering; the paused human study stays paused.
+## Current status
 
-## Current roadmap: older Chinese-speaking players
+The [visual/ease cycle](VISUAL_EASE_ROADMAP.md) is the latest approved cycle.
+Phases 1–3 are released and verified; Phase 4 consolidates this documentation.
+The [release ledger](RELEASE_STATUS.md) is the source for exact commits, CI runs,
+live checks and the current publication procedure. A documentation change still
+requires its own complete exact-commit release gate before it is called released.
+
+Implemented work includes bilingual guided lessons and focused exercises,
+readable phone/iPad/desktop layouts, safe delete/replace and backup recovery,
+Undo/Reset, hints, offline updates, historical-save upgrades, matches and timers.
+New games default to one Easy opponent, guidance on and no timer. See README
+for player-facing controls and the linked phase records for detailed findings.
+
+No additional feature cycle is approved by this document. The remaining external
+validation is physical iPhone/iPad Safari, older Chinese-speaking beginner sessions
+and native Mandarin listening; all remain paused. Multiplayer remains deferred.
+Automated browser profiles and logical timing are not evidence of those studies.
+
+## Historical roadmap and acceptance criteria
+
+The sections below preserve the original product plan and acceptance targets.
+Their phase numbers and release-time counts are historical. The current cycle
+and release procedure above take precedence over older next-step instructions.
+The premium cycle implemented focused exercises and recorded bilingual guidance;
+its human acceptance phase remains paused. This supersedes the old partly-complete
+Phase 6 summary without claiming a human pronunciation review occurred.
+
+## Original older-player roadmap
 
 Phase 1 is paused at the user’s request. Phases 2–5 are implemented;
-Phase 6 is partly complete: the bot review and reliability follow-up are implemented; practice challenges
-remain planned. Each implementation phase is published separately,
+Phase 6 implementation is complete: the bot review, reliability follow-up and
+focused exercises shipped in the subsequent premium cycle. Each implementation
+phase is published separately,
 and GitHub CI for its exact commit must pass before the next phase begins.
 
 | Phase | Status | Work |
@@ -18,7 +43,7 @@ and GitHub CI for its exact commit must pass before the next phase begins.
 | 3 | Implemented | Dynamic next actions, opening progress, End explanations, safe destination outlines and action definitions; see [FIRST_GAME_GUIDANCE.md](FIRST_GAME_GUIDANCE.md) |
 | 4 | Implemented | Ending and tie-break explanations, actual score arithmetic, same-settings replay and editable current options; see [RESULTS_AND_REPLAY.md](RESULTS_AND_REPLAY.md) |
 | 5 | Implemented | Optional replayable Mandarin/English device-voice lessons and reminders, text retained; see [READ_ALOUD.md](READ_ALOUD.md) |
-| 6 | Partly complete | [Bot difficulty review](DIFFICULTY_REVIEW.md) and [planner reliability follow-up](PREMIUM_BOTS.md) implemented; mistake-focused exercises follow in the premium cycle |
+| 6 | Implemented | [Bot difficulty review](DIFFICULTY_REVIEW.md), [planner reliability follow-up](PREMIUM_BOTS.md) and [focused exercises](PREMIUM_EXERCISES.md); human acceptance remains paused |
 
 English/Simplified Chinese support is already implemented; multiplayer stays
 deferred. The release history and original acceptance criteria follow below.

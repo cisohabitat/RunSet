@@ -1,5 +1,12 @@
 # Contributor and agent guidance
 
+Use docs/ROADMAP.md for current scope and docs/RELEASE_STATUS.md for verified
+release evidence and the current publication procedure. Older phase notes retain
+release-time counts; do not treat their superseded gates as current requirements
+or rewrite those counts as current results. Keep docs/VISUAL_EASE_ROADMAP.md,
+README and this file aligned when releasing. Record only observed exact-SHA
+success; never label a new documentation commit verified using its parent’s CI.
+
 Track the visual/ease cycle in docs/VISUAL_EASE_ROADMAP.md and gate each phase
 on complete twelve-job exact-commit CI plus matching production/live checks.
 Home resume guidance tracks wall-clock expiry read-only, updating on a timer,
@@ -107,9 +114,10 @@ Close, Practice, then the existing options with Delete last. Retain strict nativ
 target, centre-hit, heading clearance, table floor and exact save assertions in
 the connected bilingual release journey. Its fresh-deal recovery and constructed
 near-win import are separate evidence; do not claim a fully played fresh round.
-The supplemental Release review workflow does not replace the full eight-job CI
-gate. Live checks use a new codex/live-release-review/<SHA> branch from the exact
-main commit after matching production READY. No deployment is performed by it.
+The supplemental Release review workflow does not replace the full twelve-job
+CI gate. Live checks use workflow dispatch with production=true on exact main,
+or a new codex/live-release-review/<SHA> branch from that exact commit, after
+matching production READY. No deployment is performed by it.
 See docs/RELEASE_CONSOLIDATION.md.
 
 Whole-turn practice must not refocus an already-announced save warning when

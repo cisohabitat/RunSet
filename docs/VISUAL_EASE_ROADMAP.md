@@ -9,8 +9,8 @@ remain deferred or paused as previously agreed.
 | --- | --- | --- |
 | 1 | Fresh phone, iPad landscape and desktop visual review; fix demonstrated layout issues | Complete: 5d7cf80, CI 41001914360 and eight matching live checks in 41002020602 passed |
 | 2 | Returning-player clarity: turn ownership, unfinished moves and finding help | Complete: fd2c185, CI 41050591499 and 24 matching live checks in 41050800697 passed |
-| 3 | Chinese learning instructions, hint explanations and mistake recovery | Implemented; exact-commit full CI and matching live acceptance required |
-| 4 | Reconcile historical roadmap statuses and consolidate release evidence | Planned |
+| 3 | Chinese learning instructions, hint explanations and mistake recovery | Complete: 82f4687, CI 41061053647 and 24 matching live checks in 41061261423 passed |
+| 4 | Reconcile historical roadmap statuses and consolidate release evidence | Documentation implemented; its own exact-commit CI and matching live gate required |
 
 Publish each phase separately, update README and AGENTS, then require all twelve
 CI jobs and matching production/live acceptance before the next phase. Preserve
@@ -208,3 +208,26 @@ acceptance remain required; local automation does not establish native listening
 or physical-device usability.
 The final six built Firefox release journeys also passed with every new lesson
 correction/visibility assertion and the existing returning-player checks intact.
+
+
+## Phase 4: documentation consolidation
+
+README now starts with the game and current navigation rather than accumulated
+release announcements. ROADMAP identifies the latest cycle, corrects the old
+planned-exercises status and separates historical acceptance targets from current
+scope. RELEASE_STATUS records the verified first three phases and one current
+publication procedure. AGENTS points contributors to those sources and replaces
+its superseded eight-job gate. The original release-consolidation note explicitly
+labels its eight-case/older-matrix evidence as historical.
+
+No gameplay, assets, dependencies, test cases, workflow files or budgets change.
+Check local Markdown links and diff whitespace. This documentation phase still
+requires all twelve exact-commit CI jobs and 24 matching live checks before being
+reported released. Do not infer its success from the Phase 3 baseline.
+
+## Completed release evidence
+
+Phases 1–3 passed their final exact-commit gates; earlier paragraphs describing
+required acceptance are contemporaneous implementation notes, not pending work.
+See the [release ledger](RELEASE_STATUS.md) for final runs, historical case counts,
+matching production requirements and the verification limits retained here.

@@ -1,71 +1,16 @@
 # RunSet
 
-Learn to play names the correct action when a step needs a button instead of
-tiles. English and Chinese corrections follow the current step and clear old
-feedback as the lesson advances, while your regular game stays separate.
+A free, browser-only tile-rummy game in English and Simplified Chinese. Learn
+with guided practice, then play against one to three computer opponents on
+phone, tablet or desktop. No account, server or database is needed.
 
-Returning to a timed game now explains an expired turn before you continue,
-including whether it will draw a tile or pass. Editable saved drafts explain Undo
-and Reset, and More’s turn-help controls have larger tap targets and readable text.
+[Play RunSet](https://run-set.vercel.app/) · [Current roadmap](docs/ROADMAP.md) ·
+[Verified releases and release gates](docs/RELEASE_STATUS.md)
 
-Settings keeps its title and Done button visible while the options scroll,
-including on narrow phones and in comfortable reading. The fresh
-[visual clarity cycle](docs/VISUAL_EASE_ROADMAP.md) records the review and next phases.
-
-Updates read cached files from the active version first, while an open older
-tab can still load its previous hashed app chunks. Historical upgrade checks
-cover saved drafts, Undo, preferences, all four learning records and older
-portable profiles, including interrupted installs and offline recovery. See
-[upgrade compatibility](docs/UPGRADE_COMPATIBILITY.md). Run `npm run test:upgrade`
-from a full-history checkout to repeat the dedicated browser suite. The live
-review also checks active-version manifest content offline in all four browsers.
-
-Muting sound, hiding the page or leaving a screen cancels queued game cues.
-Turning sound back on does not replay them. The fresh
-[bot and feedback review](docs/REFINEMENT_GAME_FEEL.md) records the difficulty
-audit and celebration checks; new games still default to one Easy opponent.
-
-Learn to play clears its wrong-selection tip when you deselect with Escape,
-Clear/Deselect all or Reset. The next instruction follows the current lesson
-step, and your regular game stays separate.
-
-More → Find and arrange tiles → Tile markings explains selection checks,
-latest-play dots, destination dashes and hint highlights. This read-only key
-keeps the meld area available and works offline in both languages.
-
-The turn status now prompts you to choose a placement after selecting tiles.
-Unfinished turns still show their warning; placement and accepting End turn remain
-separate steps. The [older-player refinement cycle](docs/OLDER_PLAYER_REFINEMENT.md)
-tracks the four approved phases and their release checks.
-
-Phone headers now reflow on Results and other non-game screens. During play,
-very narrow screens use the tile logo as the labelled Home button. Compact turn
-controls retain 44 px touch targets, and Game menu has a translated Close menu
-button that returns focus to its opener. See the
-[release consolidation review](docs/RELEASE_CONSOLIDATION.md) for the connected
-bilingual journey, browser coverage and release gate.
-
-Regular table destinations show their group/run number in every arrangement,
-matching placement feedback and Table overview. On a crowded board, More → Find
-selected tiles reveals a hidden rack; Find latest placement locates an unfinished
-edit, or the marked latest play after Undo. See the
-[crowded-board review](docs/CROWDED_BOARD_REVIEW.md) for verification and limits.
-
-Comfortable reading keeps table and rack tiles fully reachable when returning from
-Full screen to Standard after rotating the device.
-
-Whole-turn practice keeps keyboard focus on your tiles after Reset, even when
-an earlier save warning remains visible. New warnings still receive focus.
-
-Complete-match verification and save-integrity findings are recorded in
-[the match review](docs/MATCH_REVIEW.md). To repeat the six seeded matches from
-fresh deals, run `node scripts/review-matches.mjs --out=/tmp/match-audit.json`.
-Imported match scores must be whole, zero-sum values consistent with the winner,
-cumulative totals and, at results, the final racks. Invalid backups leave the
-current game intact.
-
-A free, browser-only tile-rummy game: build runs, make groups, and empty your rack
-against one to three computer opponents. No account, server, or database is needed.
+The latest visual/ease releases keep Settings’ exit visible, explain expired
+saved turns before continuing, and make lesson corrections name the correct
+button in both languages. The [phase record](docs/VISUAL_EASE_ROADMAP.md)
+contains reproduced defects, fixes and verification limits.
 
 ## Play locally
 
@@ -106,8 +51,8 @@ while settings are open, with a visible reminder. The independent large-tile
 option remains available when comfortable reading is off.
 
 See [reading-mode verification](docs/READING_MODE.md). The older-player study and
-real-device checks (Phase 1) are paused; Phases 2–5 are implemented. The remaining
-phases are tracked in [the roadmap](docs/ROADMAP.md).
+physical-device checks remain paused. See the [current roadmap](docs/ROADMAP.md)
+for implemented work and remaining validation.
 
 ## More room for the table / 放大牌桌
 
@@ -237,8 +182,11 @@ The [playtest follow-up](docs/PLAYTEST_FOLLOWUP.md) addresses the supplied live 
 Real-device Safari and
 first-time-player usability sessions remain manual checks.
 
-`npm run build` type-checks and emits a static site in `dist/`. GitHub Actions runs
-installation, type-checking, tests, and the production build on pushes and PRs.
+`npm run build` type-checks and emits a static site in `dist/`. GitHub Actions
+requires quality, six browser jobs, four historical-upgrade jobs and the aggregate
+check on pushes and PRs. The supplemental release review checks 24 connected
+journeys against matching production after it is READY; it does not deploy.
+See the [release procedure](docs/RELEASE_STATUS.md#release-procedure).
 
 ## Architecture
 
@@ -326,8 +274,10 @@ is available, the game explains how to retry or add one. See
 
 ## Roadmap
 
-The [premium improvement cycle](docs/PREMIUM_ROADMAP.md) tracks the current
-phase-by-phase work, with exact-commit GitHub CI required between releases.
+The [current roadmap](docs/ROADMAP.md) is the entry point for phase status.
+The [release ledger](docs/RELEASE_STATUS.md) records verified commits and the
+current twelve-job CI and matching-production acceptance requirements. The
+[premium improvement cycle](docs/PREMIUM_ROADMAP.md) is historical context.
 The [shorter play flow](docs/PREMIUM_PLAY_FLOW.md) makes Continue primary for
 saved games, starts new players with one Easy opponent, and keeps custom setup
 options behind a disclosure. Existing replay options are preserved.

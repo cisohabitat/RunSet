@@ -1,5 +1,10 @@
 # Release consolidation
 
+Historical release record: counts and matrix descriptions below belong to this
+earlier cycle. For the current twelve-job CI gate, 24 live checks and latest
+verified commits, use [RELEASE_STATUS](RELEASE_STATUS.md). The latest approved
+cycle is [VISUAL_EASE_ROADMAP](VISUAL_EASE_ROADMAP.md).
+
 Phase 4 follows the completed crowded-board release 5544cee (full CI
 40919262335: 222 units, 801 browser cases; matching production READY and
 14 live checks). Multiplayer and physical Apple/older-player/native Mandarin

@@ -1,7 +1,8 @@
 # Verified releases and publication
 
 Use [ROADMAP](ROADMAP.md) for current scope and
-[VISUAL_EASE_ROADMAP](VISUAL_EASE_ROADMAP.md) for the latest approved phase work.
+[DECISION_CLARITY_ROADMAP](DECISION_CLARITY_ROADMAP.md) for the latest approved
+phase work. The preceding visual/ease cycle is complete.
 This ledger records observed acceptance, not predicted success for later commits.
 Historical phase documents retain their original case counts and failed-run
 findings; their older matrix descriptions do not replace the procedure below.
@@ -13,18 +14,21 @@ findings; their older matrix descriptions do not replace the procedure below.
 | 1: visible Settings exit | `5d7cf80866398581dd1fb0b3fc3befea3e7ebeba` | [41001914360](https://github.com/cisohabitat/RunSet/actions/runs/41001914360) | [41002020602](https://github.com/cisohabitat/RunSet/actions/runs/41002020602) | 223 unit, 849 browser, 8 live |
 | 2: returning-player clarity | `fd2c1854c5d830e5e01cf6d7435b60ccb4b5a1c1` | [41050591499](https://github.com/cisohabitat/RunSet/actions/runs/41050591499) | [41050800697](https://github.com/cisohabitat/RunSet/actions/runs/41050800697) | 223 unit, 857 browser, 24 live |
 | 3: bilingual lesson recovery | `82f468741ad6d98b205a13a1a0eaa3bfc52e3747` | [41061053647](https://github.com/cisohabitat/RunSet/actions/runs/41061053647) | [41061261423](https://github.com/cisohabitat/RunSet/actions/runs/41061261423) | 223 unit, 859 browser, 24 live |
+| 4: documentation consolidation | `aa83616dd6f5ccc5f1ceb12fa145d57adc0f6c75` | [41069807759](https://github.com/cisohabitat/RunSet/actions/runs/41069807759) | [41072105921](https://github.com/cisohabitat/RunSet/actions/runs/41072105921) | 223 unit, 859 browser, 24 live |
 
 Each listed full CI and live run completed successfully for its exact commit;
 matching Vercel production was observed READY before live acceptance. Earlier
 failed publications are documented in the phase record and superseded by these
-corrected commits. Phase 4 documentation consolidation requires its own gate;
-the Phase 3 results do not establish that a later commit passed.
+corrected commits. The new decision-clarity phase requires its own gate; these
+results do not establish that a later commit passed.
 
 The Phase 3 production build measured 99,335 initial gzip bytes against the
 unchanged 100,000-byte limit, with 77 precached files. Its 859 browser cases were
 341 main Chromium, 136 each in phone WebKit, iPad WebKit and desktop Firefox,
 70 across two offline shards and 40 historical-upgrade cases across four profiles.
-The live review runs six connected beginner/return journeys per profile: 24 total.
+Those releases ran six connected beginner/return journeys per profile: 24 total.
+The decision-clarity follow-up retains all of them and adds two bilingual
+locked-opening journeys per profile: 32 live cases.
 
 ## Release procedure
 
@@ -44,7 +48,7 @@ The live review runs six connected beginner/return journeys per profile: 24 tota
    `codex/live-release-review/<SHA>` from that exact commit. The workflow only
    tests the existing production site; it does not deploy or promote.
 5. Require the exact-SHA Release review to finish successfully in all four
-   profiles, with all 24 live cases. Recheck main and production still match;
+   profiles, with all 32 live cases. Recheck main and production still match;
    report the commit and both run links before beginning the next phase.
    Fix failures and repeat the complete gate on any correction commit.
 

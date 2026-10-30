@@ -273,17 +273,6 @@ export function Game({
         : dirty
           ? "rearranged"
           : "start";
-  const turnLabel = turnStage === "waiting"
-    ? "Opponent turn"
-    : turnStage === "unfinished"
-      ? "Unfinished turn"
-      : turnStage === "selected"
-        ? "Choose where to place"
-        : turnStage === "ready"
-        ? "Ready to end turn"
-        : turnStage === "rearranged"
-          ? "Play a rack tile"
-          : s.pool.length ? "Choose tiles or draw" : "Choose tiles or pass";
   const helpData = useMemo(
     () => moveHelp(s, blockedMove?.state === s ? blockedMove.ids : undefined),
     [s, blockedMove],
@@ -328,6 +317,19 @@ export function Game({
     [s, selectionKey, coaching],
   );
   const guidance = turnGuidance(s, activeSelected, destinations);
+  const turnLabel = turnStage === "waiting"
+    ? "Opponent turn"
+    : turnStage === "unfinished"
+      ? "Unfinished turn"
+      : turnStage === "selected"
+        ? guidance.openingTableSelection
+          ? "Open with rack tiles"
+          : "Choose where to place"
+        : turnStage === "ready"
+          ? "Ready to end turn"
+          : turnStage === "rearranged"
+            ? "Play a rack tile"
+            : s.pool.length ? "Choose tiles or draw" : "Choose tiles or pass";
   useEffect(() => {
     if (myTurn && !embedded) focusRack();
   }, [s.turn, myTurn, embedded]);

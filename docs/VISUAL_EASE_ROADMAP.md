@@ -10,7 +10,7 @@ remain deferred or paused as previously agreed.
 | 1 | Fresh phone, iPad landscape and desktop visual review; fix demonstrated layout issues | Complete: 5d7cf80, CI 41001914360 and eight matching live checks in 41002020602 passed |
 | 2 | Returning-player clarity: turn ownership, unfinished moves and finding help | Complete: fd2c185, CI 41050591499 and 24 matching live checks in 41050800697 passed |
 | 3 | Chinese learning instructions, hint explanations and mistake recovery | Complete: 82f4687, CI 41061053647 and 24 matching live checks in 41061261423 passed |
-| 4 | Reconcile historical roadmap statuses and consolidate release evidence | Documentation implemented; its own exact-commit CI and matching live gate required |
+| 4 | Reconcile historical roadmap statuses and consolidate release evidence | Complete: aa83616, CI 41069807759 and 24 matching live checks in 41072105921 passed |
 
 Publish each phase separately, update README and AGENTS, then require all twelve
 CI jobs and matching production/live acceptance before the next phase. Preserve
@@ -227,7 +227,7 @@ reported released. Do not infer its success from the Phase 3 baseline.
 
 ## Completed release evidence
 
-Phases 1–3 passed their final exact-commit gates; earlier paragraphs describing
+Phases 1–4 passed their final exact-commit gates; earlier paragraphs describing
 required acceptance are contemporaneous implementation notes, not pending work.
 See the [release ledger](RELEASE_STATUS.md) for final runs, historical case counts,
 matching production requirements and the verification limits retained here.

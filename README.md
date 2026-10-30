@@ -7,7 +7,12 @@ phone, tablet or desktop. No account, server or database is needed.
 [Play RunSet](https://run-set.vercel.app/) · [Current roadmap](docs/ROADMAP.md) ·
 [Verified releases and release gates](docs/RELEASE_STATUS.md)
 
-The latest visual/ease releases keep Settings’ exit visible, explain expired
+Before opening, selecting public table tiles now explains using your own rack
+first. A ready opening points to clearing selection and End turn; English and
+Chinese guidance use the existing space. The new
+[decision-clarity cycle](docs/DECISION_CLARITY_ROADMAP.md) records the findings.
+
+The completed visual/ease releases keep Settings’ exit visible, explain expired
 saved turns before continuing, and make lesson corrections name the correct
 button in both languages. The [phase record](docs/VISUAL_EASE_ROADMAP.md)
 contains reproduced defects, fixes and verification limits.
@@ -184,7 +189,7 @@ first-time-player usability sessions remain manual checks.
 
 `npm run build` type-checks and emits a static site in `dist/`. GitHub Actions
 requires quality, six browser jobs, four historical-upgrade jobs and the aggregate
-check on pushes and PRs. The supplemental release review checks 24 connected
+check on pushes and PRs. The supplemental release review checks 32 connected
 journeys against matching production after it is READY; it does not deploy.
 See the [release procedure](docs/RELEASE_STATUS.md#release-procedure).
 

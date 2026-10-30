@@ -3,12 +3,19 @@
 Use docs/ROADMAP.md for current scope and docs/RELEASE_STATUS.md for verified
 release evidence and the current publication procedure. Older phase notes retain
 release-time counts; do not treat their superseded gates as current requirements
-or rewrite those counts as current results. Keep docs/VISUAL_EASE_ROADMAP.md,
+or rewrite those counts as current results. Keep the active phase roadmap,
 README and this file aligned when releasing. Record only observed exact-SHA
 success; never label a new documentation commit verified using its parent’s CI.
 
-Track the visual/ease cycle in docs/VISUAL_EASE_ROADMAP.md and gate each phase
-on complete twelve-job exact-commit CI plus matching production/live checks.
+Track the decision-clarity cycle in docs/DECISION_CLARITY_ROADMAP.md. Gate each
+phase on complete twelve-job exact-commit CI and matching production/live checks.
+Before opening, guidance checks selected turn-start public tiles, including mixed
+selections. Prompt rack-only opening or Clear selection then End turn when ready.
+Own rack tiles placed in this draft remain editable; do not classify all on-table
+tiles as locked. Keep unfinished/waiting priority, exact save/deadline checks,
+native Clear/Deselect/Escape and real opening acceptance in both languages.
+The extra two release cases per profile supplement every original live case.
+
 Home resume guidance tracks wall-clock expiry read-only, updating on a timer,
 visibility and focus with owned cleanup. It must never dispatch, persist, reset a
 deadline or call a planner. Expired summaries explain reset plus one draw or an
@@ -19,7 +26,8 @@ Capture a checkpoint only after the expected edited state and visible Saved;
 a prior Saved label alone does not establish that the latest edit was persisted.
 More’s turn-help summaries retain 44 px targets, 16/18 px copy and native scroll
 clearance. Do not consume permanent meld space. Release review includes returning
-journeys as well as the connected beginner journey: 24 live checks.
+journeys as well as the connected beginner journey, plus locked-opening selections:
+32 live checks.
 
 Lesson selection tips derive from current selected IDs and the current objective,
 so action-only steps never produce empty tile lists or stale previous-step tips.

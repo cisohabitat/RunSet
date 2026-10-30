@@ -100,3 +100,33 @@ it("translates all guidance states, including selection and empty-pool feedback"
       expect(t(g.endHelp), g.endHelp).not.toMatch(/[a-z]/i);
     }
 });
+
+it("explains locked public tiles before opening without blocking the player's own draft", () => {
+  const s = opened();
+  s.players[0].melded = false;
+  // The tens are still physical tiles: move them from their old holders.
+  const opening = [9, 35, 61];
+  for (const p of s.players) p.rack = p.rack.filter(id => !opening.includes(id));
+  s.pool = s.pool.filter(id => !opening.includes(id));
+  s.players[0].rack.push(...opening);
+  s.turnStart.rack = [...s.players[0].rack];
+  const ready = reducer(s, { type: "move", ids: opening, target: "new" });
+  expect(turnCheck(ready).valid).toBe(true);
+  const t = translator(messages);
+  for (const state of [s, ready]) {
+    const before = JSON.stringify(state);
+    for (const ids of [[0], [0, 3]]) {
+      const g = turnGuidance(state, ids, suggestedDestinations(state, ids));
+      expect(g.message).toContain("Table tiles unlock after your opening.");
+      expect(g.compactMessage).toContain("Clear selection");
+      expect(t(g.message)).not.toMatch(/[a-z]/i);
+      expect(t(g.compactMessage)).not.toMatch(/[a-z]/i);
+    }
+    expect(JSON.stringify(state)).toBe(before);
+    expect(validSave(state)).toBe(true);
+  }
+  // Own rack tiles already placed in this draft may be rearranged before opening.
+  expect(turnGuidance(ready, [9], []).message).not.toContain("Table tiles unlock");
+  ready.players[0].melded = true;
+  expect(turnGuidance(ready, [0], []).message).not.toContain("Table tiles unlock");
+});

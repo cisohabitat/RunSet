@@ -2,11 +2,13 @@
 
 ## Current status
 
-The [visual/ease cycle](VISUAL_EASE_ROADMAP.md) is the latest approved cycle.
-Phases 1–3 are released and verified; Phase 4 consolidates this documentation.
-The [release ledger](RELEASE_STATUS.md) is the source for exact commits, CI runs,
-live checks and the current publication procedure. A documentation change still
-requires its own complete exact-commit release gate before it is called released.
+The [decision-clarity cycle](DECISION_CLARITY_ROADMAP.md) is the latest approved
+cycle: simpler decisions, mistake recovery, solo pacing and crowded-board polish.
+Phase 1 implements clearer rack-only opening guidance and requires its own release
+gate; Phases 2–4 are planned. The preceding
+[visual/ease cycle](VISUAL_EASE_ROADMAP.md) is complete through `aa83616`.
+The [release ledger](RELEASE_STATUS.md) records observed exact-commit results
+and the current publication procedure.
 
 Implemented work includes bilingual guided lessons and focused exercises,
 readable phone/iPad/desktop layouts, safe delete/replace and backup recovery,
@@ -14,7 +16,7 @@ Undo/Reset, hints, offline updates, historical-save upgrades, matches and timers
 New games default to one Easy opponent, guidance on and no timer. See README
 for player-facing controls and the linked phase records for detailed findings.
 
-No additional feature cycle is approved by this document. The remaining external
+The four phases above are the approved scope. The remaining external
 validation is physical iPhone/iPad Safari, older Chinese-speaking beginner sessions
 and native Mandarin listening; all remain paused. Multiplayer remains deferred.
 Automated browser profiles and logical timing are not evidence of those studies.

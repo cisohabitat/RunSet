@@ -37,6 +37,12 @@ export function turnGuidance(
   const p = s.players[s.current],
     check = turnCheck(s);
   const dirty = JSON.stringify(s.table) !== JSON.stringify(s.turnStart.table);
+  const openingTableSelection = !p.melded && selected.some((id) =>
+    s.turnStart.table.some((meld) => meld.tiles.includes(id)),
+  );
+  const openingSelectionHelp = check.valid && check.played.length
+    ? "Clear selection, then End turn. Table tiles unlock after your opening."
+    : "Table tiles unlock after your opening. Clear selection, then finish your opening with rack tiles and End turn.";
   const human = s.players.findIndex((player) => !player.bot);
   const waiting = (human - s.current + s.players.length) % s.players.length;
   const waitMessage =
@@ -60,9 +66,11 @@ export function turnGuidance(
       : !p.melded && check.played.length && check.points < 30
         ? `Your opening is ${check.points} / 30 points. Add more tiles from your own rack, or Reset for free.`
         : selected.length
-          ? destinations.length
-            ? `${selected.length} tiles selected. Choose an outlined destination. End turn will check the whole table before finishing.`
-            : "No safe finish was found for these selected tiles. Select more tiles, or use New group or run to build in steps."
+          ? openingTableSelection
+            ? openingSelectionHelp
+            : destinations.length
+              ? `${selected.length} tiles selected. Choose an outlined destination. End turn will check the whole table before finishing.`
+              : "No safe finish was found for these selected tiles. Select more tiles, or use New group or run to build in steps."
           : p.melded && check.valid && check.played.length
             ? "Your table is ready. Choose End turn to keep these moves, or continue playing."
             : !p.melded
@@ -77,13 +85,17 @@ export function turnGuidance(
       : !p.melded && check.played.length && check.points < 30
         ? `Opening: ${check.points} / 30. Add rack tiles, or Reset.`
         : selected.length
-          ? destinations.length
-            ? `${selected.length} selected. Choose an outlined destination.`
-            : "No safe finish yet. Select more tiles, or build in steps."
+          ? openingTableSelection
+            ? check.valid && check.played.length
+              ? openingSelectionHelp
+              : "Clear selection. Open with rack tiles before using table tiles."
+            : destinations.length
+              ? `${selected.length} selected. Choose an outlined destination.`
+              : "No safe finish yet. Select more tiles, or build in steps."
           : check.valid && check.played.length
             ? "Ready: choose End turn to keep this play."
             : !p.melded
               ? `Select tiles → New group or run. Reach 30 points, or ${action}.`
               : `Add to a group or run, make a new one, or ${action}.`;
-  return { message, compactMessage, endHelp };
+  return { message, compactMessage, endHelp, openingTableSelection };
 }

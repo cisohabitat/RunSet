@@ -1336,6 +1336,10 @@ const messages: Record<string, string> = {
   "● Dot: played in the latest completed turn. A check mark replaces the dot while selected.": "● 圆点：上一回合打出的牌。选中时会显示勾号，取消选择后恢复圆点。",
   "Dashed destination: this selection can complete a valid turn here.": "放牌位置的虚线框：把选中的牌放在这里，就能满足本回合的出牌要求。",
   "Highlighted tile: part of the hint, not a move already played.": "高亮的牌：提示建议使用的牌，还没有替你出牌。",
+  "Open with rack tiles": "请用手牌开局",
+  "Table tiles unlock after your opening. Clear selection, then finish your opening with rack tiles and End turn.": "开局完成后才能动用牌桌上的牌。请先取消选择，用自己的手牌完成开局，再点“结束回合”。",
+  "Clear selection, then End turn. Table tiles unlock after your opening.": "请先取消选择，再点“结束回合”。开局完成后才能动用牌桌上的牌。",
+  "Clear selection. Open with rack tiles before using table tiles.": "请取消选择，用自己的手牌开局，之后才能动用牌桌上的牌。",
 };
 export const translateChinese = translator(messages);
 export default messages;

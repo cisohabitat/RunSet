@@ -58,3 +58,18 @@ Local acceptance passed 223 units, 11 existing reading/settings flows, six fresh
 multi-screen visual journeys and both Firefox production visual journeys. Local
 WebKit could not launch because host libraries were missing; the required CI
 matrix installs its complete standard dependencies and must provide that result.
+
+Initial publication f8ce252 passed all eight matching live checks in
+41000977748. Full CI 41000832309 exposed two Firefox historical interrupted-
+update failures. Local reproduction loaded the new candidate HTML while offline
+and failed its uncached new entry module with NS_ERROR_CORRUPTED_CONTENT.
+Firefox's worker-owned fetch still reached the live fixture origin despite
+context offline emulation. The fixture now destroys incoming connections during
+offline phases as well as setting the browser offline. It reconnects only for
+the explicit retry, records rejected network attempts, and additionally requires
+the old app entry after failed-install recovery. No original readiness, cache,
+storage, explicit acceptance, learning or old-client assertions are removed.
+Require fresh complete exact-commit CI and matching live review after correction.
+All ten corrected Firefox historical journeys passed locally, with 40–80
+origin requests blocked per case during actual disconnected phases. No browser
+sandbox override is committed; CI retains its standard installed dependencies.

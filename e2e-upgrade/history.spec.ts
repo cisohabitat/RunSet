@@ -153,12 +153,15 @@ for (const release of releases) for (const locale of ["en", "zh-CN"] as const) {
           expect(await page.evaluate(() => caches.keys())).toEqual(oldCaches);
           expect(navigations).toBe(0);
           retained(before, await snapshot(page));
+          server.setOffline(true);
           await context.setOffline(true);
           await page.reload();
           await ready();
+          expect(await page.locator('script[type="module"][src]').getAttribute("src")).toBe(oldEntry);
           expect(await page.evaluate(async () => (await fetch("/upgrade-probe.json")).json())).toEqual({release:release.sha,testOnly:true});
           retained(before, await snapshot(page));
           await context.setOffline(false);
+          server.setOffline(false);
           server.repair();
           navigations = 0;
           await discover();
@@ -167,6 +170,7 @@ for (const release of releases) for (const locale of ["en", "zh-CN"] as const) {
         expect(navigations).toBe(0);
         expect(otherNavigations).toBe(0);
         retained(before, await snapshot(page));
+        server.setOffline(true);
         await context.setOffline(true);
         await Promise.all([
           page.waitForEvent("framenavigated", f => f === page.mainFrame()),
@@ -231,7 +235,7 @@ for (const release of releases) for (const locale of ["en", "zh-CN"] as const) {
         expect(await state()).toEqual(undone);
         expect(errors).toEqual([]);
         await page.screenshot({path:`/tmp/runset-upgrade-${release.id}-${locale}-${info.project.name}.png`});
-        console.log("HISTORICAL_UPGRADE "+JSON.stringify({from:release.sha,locale,project:info.project.name,interrupted,workerOnly,legacyOpening:release.legacyOpening,portable:!!portable,regularUndo:true,shortLessonContinued:true,wholeTurnCompleted:true,completedExerciseRetained:true,physicalDevice:false}));
+        console.log("HISTORICAL_UPGRADE "+JSON.stringify({from:release.sha,locale,project:info.project.name,interrupted,workerOnly,legacyOpening:release.legacyOpening,portable:!!portable,regularUndo:true,shortLessonContinued:true,wholeTurnCompleted:true,completedExerciseRetained:true,offlineNetworkRequestsBlocked:server.offlineRequests(),physicalDevice:false}));
       } finally { await server.close(); }
     });
   }

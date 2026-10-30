@@ -33,6 +33,11 @@ profile replacement scope. CI now requires quality, the original six browser
 jobs, four historical-upgrade jobs and aggregate check: all twelve on the exact
 commit, retaining 20-minute jobs and five-minute offline shards. Run local
 browser suites sequentially when their artifact directories/builds overlap.
+Historical offline phases must also disconnect the fixture origin, destroying
+incoming sockets: Firefox context offline emulation can leave worker fetches
+connected. Record blocked requests; require the old entry after interrupted
+installation recovery, then reconnect only for the explicit retry. Preserve
+every original cache, readiness, storage, old-client and learning assertion.
 
 Sound owns a set of currently sounding/future-scheduled oscillators. Remove and
 disconnect ended notes; stopSounds cancels all remaining notes without closing

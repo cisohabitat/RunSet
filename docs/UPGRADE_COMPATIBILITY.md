@@ -129,3 +129,13 @@ global-cache-first behavior in generated output fails with the labelled old
 manifest, proving the ordinary request still detects the original defect. The
 generated worker was restored afterwards; no browser sandbox overrides are
 part of the repository or CI configuration.
+
+
+Historical offline phases also disconnect the fixture origin, destroying incoming
+request sockets until the explicit online retry. Firefox can still send worker-
+owned fetches after context.setOffline(true); browser emulation alone therefore
+cannot prove a disconnected upgrade. A later candidate in f8ce252 reproduced
+new network HTML with an uncached module during failed-install recovery (CI
+41000832309), despite both previous cache and saves remaining intact. Retain the
+origin disconnect, blocked-request diagnostics and explicit old-entry recovery
+assertion along with every original cache/readiness/save/learning check.

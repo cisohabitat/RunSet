@@ -7,8 +7,13 @@ export async function upgradeServer(oldDir: string, candidateDir: string) {
   let root = resolve(oldDir, "dist");
   let failedAsset = "";
   let failures = 0;
+  let offline = false;
+  let offlineRequests = 0;
   const mime: Record<string, string> = {".html":"text/html", ".js":"text/javascript", ".css":"text/css", ".json":"application/json", ".webmanifest":"application/manifest+json", ".svg":"image/svg+xml", ".png":"image/png", ".mp3":"audio/mpeg"};
   const server = createServer(async (req, res) => {
+    // Browser offline emulation does not consistently cover worker-owned fetches.
+    // A disconnected origin must never deliver a newer index during recovery.
+    if (offline) { offlineRequests++; req.socket.destroy(); return; }
     try {
       const path = decodeURIComponent(new URL(req.url!, "http://localhost").pathname);
       if (path === failedAsset) { failures++; res.writeHead(503); res.end("Test-only interrupted asset download"); return; }
@@ -26,6 +31,8 @@ export async function upgradeServer(oldDir: string, candidateDir: string) {
     origin: `http://127.0.0.1:${address.port}`,
     publish(entry: string, interrupt: boolean) { root = resolve(candidateDir, "dist"); failedAsset = interrupt ? entry : ""; },
     repair() { failedAsset = ""; },
+    setOffline(value: boolean) { offline = value; },
+    offlineRequests: () => offlineRequests,
     failures: () => failures,
     close: () => new Promise<void>((done, reject) => { server.closeAllConnections(); server.close(error => error ? reject(error) : done()); }),
   };

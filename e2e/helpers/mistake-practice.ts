@@ -17,6 +17,7 @@ export async function verifyMistakePractice(page: Page, context: BrowserContext,
   source.coach = false;
   source.turnSeconds = 120;
   source.deadline = now + 120000;
+  if (scenario === "repair" && locale === "zh-CN") source.players[1].rack.push(...source.pool.splice(0));
   if (scenario === "opening") source.players[0].melded = false;
   if (scenario === "repair") source = reducer(source, {type:"move",ids:[3,4],target:"new"});
   if (scenario === "joker") source = reducer(source, {type:"move",ids:[104],target:"new"});
@@ -74,9 +75,11 @@ export async function verifyMistakePractice(page: Page, context: BrowserContext,
   }
   await saved(source);
   const selected = scenario === "opening" ? "3" : "12";
+  await expect(page.locator('main.game [data-tile-id="'+selected+'"]')).toHaveAttribute("aria-pressed","true");
   const before = await keys(), regularBytes = await bytes();
   const more = page.locator("main.game .more-actions");
   await activate(more.locator(":scope > summary"));
+  await expect(more).toHaveAttribute("open","");
   const opener = b("Why this move?");
   await activate(opener);
   const help = page.getByRole("dialog",{name:t("Move help"),exact:true});
@@ -186,6 +189,29 @@ export async function verifyMistakePractice(page: Page, context: BrowserContext,
     const afterExpiry = await keys();
     for (const key of ["runset.practice.v1","runset.exercises.v1","runset.turnPractice.v1"])
       expect(afterExpiry[key]).toBe(before[key]);
+  }
+  if (scenario === "repair") {
+    // A public-only rearrangement really reaches the engine's draw/pass advice.
+    await activate(more.locator(":scope > summary"));
+    await expect(more).not.toHaveAttribute("open","");
+    await activate(b("Reset turn"));
+    const reset = reducer(source,{type:"resetTurn"});
+    await saved(reset);
+    for (const id of [0,1,2]) await activate(page.locator('main.game .table [data-tile-id="'+id+'"]'));
+    await activate(page.locator("main.game .new-meld"));
+    const rearranged = reducer(reset,{type:"move",ids:[0,1,2],target:"new"});
+    await saved(rearranged);
+    await activate(b("End turn →"));
+    const blocked = reducer(rearranged,{type:"endTurn"});
+    await saved(blocked);
+    await activate(more.locator(":scope > summary"));
+    await expect(more).toHaveAttribute("open","");
+    await activate(opener);
+    await expect(help).toContainText(t(source.pool.length
+      ? "Choose Draw to restore unfinished edits, take one tile and end your turn."
+      : "Choose Pass to restore unfinished edits and end your turn."));
+    await expect(help.getByRole("button",{name:t("Practise this correction"),exact:true})).toHaveCount(0);
+    expect(await bytes()).toBe(JSON.stringify(blocked));
   }
   expect(errors).toEqual([]);
 }

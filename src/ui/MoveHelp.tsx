@@ -143,7 +143,7 @@ export function MoveHelp({
                 "Preview only. Your tiles and turn are unchanged. Timed games keep running.",
               )}
             </p>
-            <section aria-label={t("Practise this correction")}>
+            {data.ids.length > 0 && <section aria-label={t("Practise this correction")}>
               <h3>{t("Try it in a practice copy")}</h3>
               <p>
                 {t("Open a temporary copy of this position to try the next step. Practice edits are never copied back.")}
@@ -155,7 +155,7 @@ export function MoveHelp({
               >
                 {t("Practise this correction")}
               </button>
-            </section>
+            </section>}
           </div>
           <div className="dialog-actions">
             {data.ids.length > 0 && (

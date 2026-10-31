@@ -7,7 +7,7 @@ phone, tablet or desktop. No account, server or database is needed.
 [Play RunSet](https://run-set.vercel.app/) · [Current roadmap](docs/ROADMAP.md) ·
 [Verified releases and release gates](docs/RELEASE_STATUS.md)
 
-Move help now offers **Practise this correction**, opening the existing temporary
+Move help with affected tiles now offers **Practise this correction**, opening the existing temporary
 copy with the same reason and next step. Try the correction, then return to the
 unchanged saved game. Other lesson/exercise drafts are kept, and real-game timers
 continue. See the [practice connection review](docs/MISTAKE_PRACTICE_REVIEW.md).

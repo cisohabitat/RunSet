@@ -15,7 +15,7 @@ the explanation and find that tool without the correction text beside its board.
 Sending the player to a saved exercise would also introduce an unnecessary draft
 replacement or screen transition.
 
-Move help now offers **Practise this correction**. It closes before opening the
+Move help with affected tiles now offers **Practise this correction**. It closes before opening the
 existing temporary position-practice dialog and carries the current reason and
 next step into a labelled **Correction to practise** section. The practice copy
 still uses the existing public-position projection and reducer. Nothing is
@@ -85,3 +85,26 @@ unchanged 100,000-byte limit and 80 precached files. Test discovery confirms 355
 main cases, 456 across the three compatibility profiles and 96 hosted cases.
 These local results supplement the required publication gate; they do not report
 CI or production acceptance for a commit that has not yet completed those runs.
+
+## Eligibility correction before acceptance
+
+Review of the first published candidate, 4ca5ae8, found that generic draw/pass
+advice also offered the new entry. A public-position copy intentionally cannot
+draw unseen tiles, so that promise was unsupported. New bilingual witnesses use
+real Reset, public-only rearrangement and End turn to reach the engine's actual
+Draw advice (English) and empty-pool Pass advice (Chinese). Both failed before
+the correction because the entry was still present. The new entry and its launch
+guard now require affected physical tiles. General draw/pass explanations and
+the existing generic position-practice entry remain available. No case count,
+assertion limit or engine rule changes. The correction requires its own complete
+exact-commit CI and matching hosted gate.
+
+After eligibility correction, all six main cases passed, and both changed
+Draw/Pass witnesses passed in built Chromium and both WebKit profiles. A focused
+local Firefox launch missed the initial More click: neither that control nor an
+independent temporary button at y=736 received a native pointer event, while the
+same probe at y=502 did. Changing the virtual screen/launch dimensions did not
+repair it. The probes were removed; the native mouse and strict open/geometry
+assertions remain. No local focused-Firefox success or application pointer fix
+is claimed from that diagnostic. Full Firefox CI remains required. The corrected
+build passed type checking at 99,157 initial gzip bytes / 80 precached files.

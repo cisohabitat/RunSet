@@ -1150,7 +1150,7 @@ export function Game({
                         data={helpData}
                         disabled={!myTurn}
                         onPractice={(opener) => {
-                          if (!myTurn || !helpData) return;
+                          if (!myTurn || !helpData?.ids.length) return;
                           setPracticeRequest({
                             source: s,
                             opener,

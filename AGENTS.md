@@ -45,7 +45,9 @@ Keep full focus paint/native hit checks, independent reducer/save assertions and
 real forward/backward keyboard navigation. A checkbox's label is its large hit
 target; do not require its glyph to become 44 px. Preserve existing test budgets.
 
-Phase 3 evidence lives in docs/MISTAKE_PRACTICE_REVIEW.md. MoveHelp's practice
+Phase 3 evidence lives in docs/MISTAKE_PRACTICE_REVIEW.md. Offer targeted practice
+only when help identifies affected physical tiles: draw/pass-only advice cannot
+be acted on in a copy that excludes unseen draws. MoveHelp's practice
 entry reuses PositionPractice without navigating away from the mounted Game or
 replacing any saved learning draft. Queue the request until help closes and
 require the same help-data identity before opening the copy. Capture the real

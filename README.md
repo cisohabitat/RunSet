@@ -7,6 +7,10 @@ phone, tablet or desktop. No account, server or database is needed.
 [Play RunSet](https://run-set.vercel.app/) · [Current roadmap](docs/ROADMAP.md) ·
 [Verified releases and release gates](docs/RELEASE_STATUS.md)
 
+Focused and selected tiles now keep their full outlines visible at crowded table and rack
+edges, including raised selected tiles. Tile sizes and table space are preserved.
+See the [crowded-board visual review](docs/CROWDED_FOCUS_REVIEW.md).
+
 The [fresh solo review](docs/SOLO_PACING_REVIEW.md) explains Easy’s repeated draws
 and the step up to Normal’s table additions. Opponent help covers that difference
 in both languages. Real-worker checks cover every pace setting; the existing
@@ -198,7 +202,7 @@ first-time-player usability sessions remain manual checks.
 
 `npm run build` type-checks and emits a static site in `dist/`. GitHub Actions
 requires quality, six browser jobs, four historical-upgrade jobs and the aggregate
-check on pushes and PRs. The supplemental release review checks 48 connected
+check on pushes and PRs. The supplemental release review checks 56 connected
 journeys against matching production after it is READY; it does not deploy.
 See the [release procedure](docs/RELEASE_STATUS.md#release-procedure).
 

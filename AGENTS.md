@@ -19,7 +19,18 @@ Native pacing tests observe real Worker construction and real results; never
 replace readiness/plans/responses. Load Settings/game on a human turn before
 pausing the test clock, then actually End turn. Retain all four 700/1400/2400/
 5000 ms boundaries, Settings cancellation, exact saves/deadlines and same accepted
-Easy plan. New live cases supplement every original case: 48 in four profiles.
+Easy plan. New live cases supplement every original case; crowded navigation
+brings the current release gate to 56 cases in four profiles.
+
+Crowded focus review lives in docs/CROWDED_FOCUS_REVIEW.md. Keep the existing
+tile focus, selection and rejected-move strokes inset at -3 px so they remain
+whole inside clipped table/rack regions, including raised selected tiles. Preserve
+tile bodies, check marks, latest-play dots, original stroke widths/colours, native
+targets and all table/rack floors. Crowded focus checks
+include actual outline paint using fractional padding-box bounds and scrollbar
+widths, not rounded client dimensions or epsilon tolerances. Keep native viewport/
+landscape/desktop overview finds, exact read-only saves and all original rich
+crowded placement/Undo/reload/expiry assertions. The same cases run live.
 
 Before opening, guidance checks selected turn-start public tiles, including mixed
 selections. Prompt rack-only opening or Clear selection then End turn when ready.
@@ -48,7 +59,7 @@ a prior Saved label alone does not establish that the latest edit was persisted.
 More’s turn-help summaries retain 44 px targets, 16/18 px copy and native scroll
 clearance. Do not consume permanent meld space. Release review includes returning
 journeys as well as the connected beginner journey, plus locked-opening selections:
-48 live checks.
+56 live checks.
 
 Lesson selection tips derive from current selected IDs and the current objective,
 so action-only steps never produce empty tile lists or stale previous-step tips.

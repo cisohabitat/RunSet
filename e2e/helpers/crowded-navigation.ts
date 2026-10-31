@@ -88,30 +88,36 @@ export async function verifyCrowdedNavigation(
         }),
       )
       .toBe(true);
-    if (info.project.name === "firefox-desktop") await el.click();
+    if (info.project.name === "firefox-desktop" || page.viewportSize()?.width === 1440) await el.click();
     else await el.tap();
   };
-  const visibleFocus = async (tile: Locator) => {
-    await expect(tile).toBeFocused();
-    await expect
-      .poll(() =>
-        tile.evaluate((el) => {
-          const r = el.getBoundingClientRect(),
-            region = el.closest(".rack-tiles,.table")!.getBoundingClientRect();
-          return (
-            r.width >= 44 &&
-            r.height >= 44 &&
-            r.top >= Math.max(0, region.top) &&
-            r.bottom <= Math.min(innerHeight, region.bottom) &&
-            r.left >= Math.max(0, region.left) &&
-            r.right <= Math.min(innerWidth, region.right) &&
-            el.contains(
-              document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2),
-            )
-          );
-        }),
-      )
-      .toBe(true);
+  const visibleFocus = async (tile: Locator, requireFocus = true) => {
+    if (requireFocus) await expect(tile).toBeFocused();
+    const measure = () => tile.evaluate((el) => {
+      const r = el.getBoundingClientRect(),
+        owner = el.closest<HTMLElement>(".rack-tiles,.table")!,
+        region = owner.getBoundingClientRect(),
+        border = getComputedStyle(owner),
+        style = getComputedStyle(el),
+        ring = Math.max(0, parseFloat(style.outlineWidth) + parseFloat(style.outlineOffset)),
+        top = region.top + parseFloat(border.borderTopWidth),
+        left = region.left + parseFloat(border.borderLeftWidth),
+        scrollbarX = Math.max(0, owner.offsetWidth - owner.clientWidth - parseFloat(border.borderLeftWidth) - parseFloat(border.borderRightWidth)),
+        scrollbarY = Math.max(0, owner.offsetHeight - owner.clientHeight - parseFloat(border.borderTopWidth) - parseFloat(border.borderBottomWidth)),
+        bottom = region.bottom - parseFloat(border.borderBottomWidth) - scrollbarY,
+        right = region.right - parseFloat(border.borderRightWidth) - scrollbarX;
+      return {
+        valid: r.width >= 44 && r.height >= 44 && style.outlineStyle !== "none" &&
+          parseFloat(style.outlineWidth) >= 2 &&
+          r.top - ring >= Math.max(0, top) && r.bottom + ring <= Math.min(innerHeight, bottom) &&
+          r.left - ring >= Math.max(0, left) && r.right + ring <= Math.min(innerWidth, right) &&
+          el.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)),
+        tile: el.getAttribute("data-tile-id"), rect: r.toJSON(), clip: {top,left,bottom,right},
+        outline: {width:style.outlineWidth,offset:style.outlineOffset,style:style.outlineStyle},
+      };
+    });
+    try { await expect.poll(async () => (await measure()).valid).toBe(true); }
+    catch(error) { console.log("CROWDED_FOCUS_GEOMETRY " + JSON.stringify(await measure())); throw error; }
   };
   const check = (s: GameState) => {
     expect(validSave(s)).toBe(true);
@@ -148,6 +154,25 @@ export async function verifyCrowdedNavigation(
       page.locator("main.game .table .meld-index").nth(i),
     ).toHaveText(`${i + 1} ·`);
   const before = await bytes();
+  const profile = page.viewportSize()!;
+  const viewports = [profile, {width:1180,height:820}, {width:1440,height:900}]
+    .filter((size,index,all) => all.findIndex(other => other.width === size.width && other.height === size.height) === index);
+  for (const size of viewports) {
+    await page.setViewportSize(size);
+    const target = page.locator('.table [data-tile-id="84"]');
+    const dimensions = await target.evaluate(el => {
+      const style=getComputedStyle(el); return {width:style.width,height:style.height};
+    });
+    const tableHeight = await page.locator("main.game > .table").evaluate(el => getComputedStyle(el).height);
+    await find("Table overview");
+    await activate(page.getByRole("dialog").getByRole("button", {name:new RegExp(t("Find group/run 15"))}));
+    await visibleFocus(target);
+    expect(await target.evaluate(el => {const style=getComputedStyle(el);return {width:style.width,height:style.height};})).toEqual(dimensions);
+    expect(await page.locator("main.game > .table").evaluate(el => getComputedStyle(el).height)).toBe(tableHeight);
+    expect(await bytes()).toBe(before);
+    await page.screenshot({path:`/tmp/runset-crowded-focus-${info.project.name||"chromium"}-${locale}-${size.width}.png`});
+  }
+  await page.setViewportSize(profile);
   await chooseView(page, "wide", t);
   const first = page.locator('.rack [data-tile-id="13"]'),
     last = page.locator('.rack [data-tile-id="99"]');
@@ -157,11 +182,22 @@ export async function verifyCrowdedNavigation(
   await visibleFocus(last);
   await page.keyboard.press("ArrowRight");
   await visibleFocus(first);
+  await expect(first).toHaveAttribute("aria-pressed", "true");
+  await expect(first.locator(".tile-check")).toBeVisible();
+  await page.screenshot({path:`/tmp/runset-crowded-selected-${info.project.name||"chromium"}-${locale}.png`});
+  await page.keyboard.press("ArrowRight");
+  await visibleFocus(page.locator('.rack [data-tile-id="14"]'));
+  await visibleFocus(first, false);
+  await expect(first).toHaveAttribute("aria-pressed", "true");
+  await page.keyboard.press("ArrowLeft");
+  await visibleFocus(first);
   await page.keyboard.press("ArrowLeft");
   await visibleFocus(last);
   await page.keyboard.press("Home");
   await visibleFocus(first);
   await activate(b("Deselect all"));
+  await expect(first).toHaveAttribute("aria-pressed", "false");
+  await expect(first.locator(".tile-check")).toHaveCount(0);
   expect(await bytes()).toBe(before);
   const selected = page.locator('.rack [data-tile-id="89"]');
   await activate(selected);
@@ -232,6 +268,29 @@ export async function verifyCrowdedNavigation(
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+  // Rejected public-tile returns keep the selection and latest-play meaning.
+  const acceptedMarker = page.locator('.table [data-tile-id="1"]');
+  await activate(acceptedMarker);
+  await find("Return selected tiles to rack");
+  const rejected = reducer(undone, {type:"move",ids:[1],target:"rack"});
+  await expect.poll(state).toEqual(rejected);
+  check(await state());
+  const rejectedBytes = await bytes();
+  await find("Find selected tiles");
+  await visibleFocus(acceptedMarker);
+  await expect(acceptedMarker).toHaveClass(/rejected/);
+  await expect(acceptedMarker.locator(".tile-check")).toBeVisible();
+  await expect(acceptedMarker.locator(".tile-recent")).toBeHidden();
+  await page.keyboard.press("ArrowRight");
+  await visibleFocus(page.locator('.table [data-tile-id="2"]'));
+  await visibleFocus(acceptedMarker, false);
+  await expect(acceptedMarker).toHaveCSS("outline-style", "dashed");
+  await page.screenshot({path:`/tmp/runset-crowded-rejected-${info.project.name||"chromium"}-${locale}.png`});
+  await activate(b("Deselect all"));
+  await expect(acceptedMarker).toHaveAttribute("aria-pressed", "false");
+  await expect(acceptedMarker.locator(".tile-check")).toHaveCount(0);
+  await expect(acceptedMarker.locator(".tile-recent")).toBeVisible();
+  expect(await bytes()).toBe(rejectedBytes);
   if (locale === "en") {
     await page.clock.fastForward(120001);
     await expect.poll(async () => (await state()).turn).toBe(initial.turn + 1);

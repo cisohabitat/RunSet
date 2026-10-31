@@ -111,7 +111,8 @@
 }
 .game .tile:focus {
   outline: 2px solid var(--focus);
-  outline-offset: 1px;
+  /* Keep the complete ring inside clipped table/rack scroll regions. */
+  outline-offset: -3px;
 }
 
 /* Compact the timed header without reducing tiles or hiding save/timer text. */

@@ -9,6 +9,7 @@
   outline-offset: 2px;
 }
 .game .tile.selected {
+  outline-offset: -3px;
   box-shadow: var(--shadow);
 }
 .game .tile.recent:not(.selected):not(.glow) {
@@ -46,7 +47,7 @@
 /* A rejected request keeps the selected tiles and written engine explanation. */
 .game .tile.rejected {
   outline: 3px dashed var(--red);
-  outline-offset: 2px;
+  outline-offset: -3px;
 }
 .game .tile.rejected:focus-visible {
   outline-color: var(--focus);

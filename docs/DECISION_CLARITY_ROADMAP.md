@@ -11,8 +11,8 @@ remains deferred.
 | --- | --- | --- |
 | 1 | Simpler decisions: review busy turns and clear next actions using existing space | Complete: 2988d56, CI 41080709747 and 32 matching live checks in 41083235984 passed |
 | 2 | Plain-language mistake recovery with concrete corrections and visible Undo/Reset | Complete: 1b41fc7, CI 41094208501 and 40 matching live checks in 41096842874 passed |
-| 3 | Review Easy-bot pacing, repetitive draws and difficulty jumps using recorded evidence | Review and guidance implemented; exact-commit full CI and live gate required |
-| 4 | Crowded-board selection and feedback review across phone, iPad landscape and desktop | Planned |
+| 3 | Review Easy-bot pacing, repetitive draws and difficulty jumps using recorded evidence | Complete: 1a0515b, CI 41101619354 and 48 matching live checks in 41105155839 passed |
+| 4 | Crowded-board selection and feedback review across phone, iPad landscape and desktop | Implemented; its own complete exact-commit CI and matching live gate required |
 
 Publish separately, update README and AGENTS, then pass full twelve-job CI and
 matching production/live checks before beginning the next phase. Preserve the
@@ -155,3 +155,21 @@ review for expected counts, clock-fixture corrections and verification limits.
 Phase 2 is complete at 1b41fc7 with all twelve CI jobs and matching production/
 live acceptance passed; its implementation-time gate notes above are historical.
 This new Phase 3 publication requires its own full exact-commit gate.
+
+## Phase 4: complete focus rings on crowded boards
+
+The [crowded focus review](CROWDED_FOCUS_REVIEW.md) records fresh phone, landscape
+iPad and desktop captures and a before-failing bilingual regression. The existing
+focus outline was clipped outside scrolling edges, including a raised selected
+rack tile. Focus, selection and rejected-move strokes now paint inside the tile;
+all dimensions, selection marks, board floors, spacing, rules and saves remain
+unchanged.
+
+The existing crowded journey adds precise full-outline bounds and read-only
+viewport review, retaining all original actual placement, Undo, expiry and
+accessibility assertions. Its two bilingual cases join the live gate: 56 checks
+across four profiles, with the original 883 browser / 225 unit counts retained.
+Phase 3 is complete at 1a0515b; its implementation-time gate notes above are
+historical. This Phase 4 publication still needs its own complete exact-commit
+CI and matching production/live acceptance. No additional feature cycle is
+approved by this document; human/device studies remain paused.

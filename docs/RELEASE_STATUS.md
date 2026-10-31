@@ -36,10 +36,11 @@ locked-opening journeys per profile: 32 live cases.
 | --- | --- | --- | --- | --- |
 | 1: rack-only opening guidance | `2988d5699ac3c4f30dca6dda9c206671f5dddbf7` | [41080709747](https://github.com/cisohabitat/RunSet/actions/runs/41080709747) | [41083235984](https://github.com/cisohabitat/RunSet/actions/runs/41083235984) | 224 unit, 867 browser, 32 live |
 | 2: mistake recovery | `1b41fc7e0f63b10deaae321e21843d811a1416eb` | [41094208501](https://github.com/cisohabitat/RunSet/actions/runs/41094208501) | [41096842874](https://github.com/cisohabitat/RunSet/actions/runs/41096842874) | 225 unit, 875 browser, 40 live |
+| 3: solo pacing review | `1a0515bde1a90e259e448b8bd103d9df8a396c6e` | [41101619354](https://github.com/cisohabitat/RunSet/actions/runs/41101619354) | [41105155839](https://github.com/cisohabitat/RunSet/actions/runs/41105155839) | 225 unit, 883 browser, 48 live |
 
-The listed Phase 1–2 CI/live runs completed successfully on their exact SHAs with
-matching READY production. Phase 3 adds two bilingual native-worker pacing cases
-per profile, retaining every previous journey: the current live gate is 48 cases.
+The listed Phase 1–3 CI/live runs completed successfully on their exact SHAs with
+matching READY production. Phase 4 adds the two existing bilingual crowded-board
+journeys per profile, retaining every previous journey: the live gate is 56 cases.
 Its new commit must pass its own full gate before being reported released.
 
 ## Release procedure
@@ -60,7 +61,7 @@ Its new commit must pass its own full gate before being reported released.
    `codex/live-release-review/<SHA>` from that exact commit. The workflow only
    tests the existing production site; it does not deploy or promote.
 5. Require the exact-SHA Release review to finish successfully in all four
-   profiles, with all 48 live cases. Recheck main and production still match;
+   profiles, with all 56 live cases. Recheck main and production still match;
    report the commit and both run links before beginning the next phase.
    Fix failures and repeat the complete gate on any correction commit.
 

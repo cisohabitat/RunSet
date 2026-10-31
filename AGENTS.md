@@ -30,7 +30,11 @@ targets and all table/rack floors. Crowded focus checks
 include actual outline paint using fractional padding-box bounds and scrollbar
 widths, not rounded client dimensions or epsilon tolerances. Keep native viewport/
 landscape/desktop overview finds, exact read-only saves and all original rich
-crowded placement/Undo/reload/expiry assertions. The same cases run live.
+crowded placement/Undo/reload/expiry assertions. The same cases run live. Regular
+game finders use native block/inline-center reveal: WebKit nearest alignment can
+leave a comfortable phone tile below the viewport after nested page/table
+scrolling settles. An extra animation frame did not repair it. Retain exact full
+viewport/clip/centre-hit checks without corrective test scrolling.
 
 Before opening, guidance checks selected turn-start public tiles, including mixed
 selections. Prompt rack-only opening or Clear selection then End turn when ready.

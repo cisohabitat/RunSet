@@ -33,10 +33,10 @@ rectangle; both the table edge and raised rack edge show the complete frames. Th
 Selection checks, raised selection position, accepted-play dots, rejected-move
 feedback and destination dashes retain their separate meanings.
 
-This changes paint only. Tile bodies, numbers, touch targets, card spacing,
-viewport layout, table floors and rack capacities are unchanged. No toolbar,
-board row, persistent preference, timer, engine rule, planner or save field is
-added or changed. Practice keeps its existing tile dimensions and navigation.
+The outline changes affect paint only. Tile bodies, numbers, touch targets, card spacing,
+viewport layout, table floors and rack capacities are unchanged. Located tiles now use native centered reveal so they remain visible within
+nested table/page scrolling. No toolbar, board row, persistent preference, timer,
+engine rule, planner or save field is added or changed. Practice keeps its existing tile dimensions and navigation.
 
 ## Regression and review
 
@@ -80,14 +80,38 @@ required before this phase is reported released.
 
 ## Local acceptance
 
-The final build passed type checking and the initial gzip budget at 99,418 bytes
+The initial publication build passed type checking and the gzip budget at 99,418 bytes
 (100,000-byte limit), with 77 offline cache files. The complete updated crowded
 journey passed in both languages after the focused, unfocused selected and
 rejected-move regressions were added. Eight earlier extended-session, meld-space
-and arrangement checks also passed during this review. Final complete local
+and arrangement checks also passed during this review. Initial complete local
 release reviews passed all 14 journeys in Firefox (2.2 minutes) and all 14 in
 Chromium (1.7 minutes), run sequentially against the final build. These local
 checks do not substitute for the published exact-commit CI and live gate.
+
+## WebKit phone correction
+
+The initial publication `7dc22239b8ad4588da87319e88068e458e518ca8` failed its
+[exact-commit CI](https://github.com/cisohabitat/RunSet/actions/runs/41149660937):
+the Chinese comfortable phone crowded journey failed; its other 141 cases and
+the Chromium, Firefox and iPad suites passed. It was not reported released.
+WebKit left the found tile at 649.3125–729.3125 px in a 667 px viewport. Its
+outline was inset correctly, but the whole tile was not visible.
+
+Local WebKit reproduced the failure. Instrumentation showed the native nearest
+reveal first placed the tile inside the viewport, then the page scroll changed
+and clipped it. An additional animation frame did not fix it and was removed.
+The regular-game finder now uses native block-center reveal as well as its
+existing inline-center alignment. Focus, selection, saved bytes and deadlines
+retain their existing contracts; no test-side corrective scrolling or loosened
+bounds was added. The previously failing phone journey passed locally. The
+correction build passed at 99,422 bytes gzip with 77 cache files. Sequential
+local verification then passed all 14 WebKit phone release journeys and four
+crowded/overview checks each in WebKit iPad, Firefox and main Chromium. The
+temporary instrumentation was removed. WebKit used the identical installed
+binary through a local library wrapper; no environment override was committed.
+The correction still requires its own complete exact-commit CI and matching
+production/live acceptance.
 
 These are constructed crowded positions and browser viewports. They do not
 establish physical iPhone/iPad usability, mobile suspension, human older-player

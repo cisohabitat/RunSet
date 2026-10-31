@@ -403,8 +403,9 @@ export function Game({
       ).find((el) => !el.closest("dialog"));
       if (!target?.isConnected || target.disabled) return;
       target.focus({ preventScroll: true });
+      // Centre located tiles so nested table/page scrolling leaves them visible.
       target.scrollIntoView({
-        block: "nearest",
+        block: "center",
         inline: "center",
         behavior: "auto",
       });

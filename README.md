@@ -8,7 +8,8 @@ phone, tablet or desktop. No account, server or database is needed.
 [Verified releases and release gates](docs/RELEASE_STATUS.md)
 
 Focused and selected tiles now keep their full outlines visible at crowded table and rack
-edges, including raised selected tiles. Tile sizes and table space are preserved.
+edges, including raised selected tiles. Table overview centers located tiles
+within the scrolling board. Tile sizes and table space are preserved.
 See the [crowded-board visual review](docs/CROWDED_FOCUS_REVIEW.md).
 
 The [fresh solo review](docs/SOLO_PACING_REVIEW.md) explains Easy’s repeated draws

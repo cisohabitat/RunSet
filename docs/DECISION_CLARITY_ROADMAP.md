@@ -163,7 +163,8 @@ iPad and desktop captures and a before-failing bilingual regression. The existin
 focus outline was clipped outside scrolling edges, including a raised selected
 rack tile. Focus, selection and rejected-move strokes now paint inside the tile;
 all dimensions, selection marks, board floors, spacing, rules and saves remain
-unchanged.
+unchanged. A reproduced WebKit phone failure also requires centered native
+reveal for found tiles; see the review for the failed initial publication.
 
 The existing crowded journey adds precise full-outline bounds and read-only
 viewport review, retaining all original actual placement, Undo, expiry and

@@ -5,7 +5,7 @@
 The [decision-clarity cycle](DECISION_CLARITY_ROADMAP.md) is the latest approved
 cycle: simpler decisions, mistake recovery, solo pacing and crowded-board polish.
 Phases 1–3 are released through `1a0515b`. Phase 4 fixes clipped focus rings on
-crowded boards while preserving tile sizes and table space; its own exact-commit
+crowded boards and found-tile visibility while preserving tile sizes and space; its own exact-commit
 release gate is required. No further feature cycle is approved here. The preceding
 [visual/ease cycle](VISUAL_EASE_ROADMAP.md) is complete through `aa83616`.
 The [release ledger](RELEASE_STATUS.md) records observed exact-commit results

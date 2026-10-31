@@ -8,7 +8,7 @@ phone, tablet or desktop. No account, server or database is needed.
 [Verified releases and release gates](docs/RELEASE_STATUS.md)
 
 The [startup review](docs/STARTUP_REVIEW.md) reduces initial HTML/CSS/JS from
-99,422 to 98,664 gzip bytes by loading setup, Settings and rules styles with their
+99,422 to 98,671 gzip bytes by loading setup, Settings and rules styles with their
 screens. All screen assets remain available after offline readiness. The
 [current cycle](docs/RELIABILITY_ACCESSIBILITY_ROADMAP.md) records the scope.
 

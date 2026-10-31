@@ -13,7 +13,9 @@ and 56 matching hosted checks in 41153741446 passed. Startup evidence lives in
 docs/STARTUP_REVIEW.md. Keep Settings/Setup/HowToPlay CSS on their lazy imports,
 retaining selector specificity, declaration order, responsive conditions and
 all offline assets. Shared settings-heading styles also serve RackOrganizer;
-keep them global. Slow CSS must retain the existing loading UI and exact saves.
+keep them global. The setup-dependent App header height must stay global before
+the mobile reflow override; loading it late clips wrapped header controls. Keep
+header-bound checks after delayed screen reveal. Slow CSS must retain the existing loading UI and exact saves.
 Cold-CSS tests block service workers only in their own cases; retain all original
 first-offline and upgrade journeys. Preserve the 100,000-byte initial gzip gate.
 Current release review is 64 cases (16/profile), supplementing all previous 56.

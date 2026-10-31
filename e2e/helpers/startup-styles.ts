@@ -44,6 +44,13 @@ export async function verifyStartupStyles(page: Page, info: TestInfo, locale: "e
       await expect(content).toBeVisible();
       expect(await page.evaluate(name => Array.from(document.styleSheets).some(sheet => new RegExp(`/assets/${name}-[^/]+\\.css`).test(sheet.href??"")), name)).toBe(true);
       expect(await bytes()).toBe(initial);
+      await expect.poll(() => page.locator(".site-header").evaluate(header => {
+        const bounds=header.getBoundingClientRect();
+        return Array.from(header.querySelectorAll<HTMLElement>(".brand,.header-right > .language-switch select,.header-right > .sound-button,.header-right > .text-button")).filter(el => el.getClientRects().length>0).every(el => {
+          const r=el.getBoundingClientRect();
+          return r.width>=44 && r.height>=44 && r.top>=bounds.top && r.bottom<=bounds.bottom && r.left>=bounds.left && r.right<=bounds.right;
+        });
+      })).toBe(true);
     } finally {release();await page.unroute(pattern);}
   };
   const settings = page.locator(".settings-dialog");

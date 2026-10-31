@@ -4067,6 +4067,9 @@ button:not(.tile) {
 }
 
 /* Short setup path and one control for the three table layouts. */
+.app:not(.comfortable-reading):has(> .setup) > .site-header {
+  height: 76px;
+}
 .game .table-tools {
   column-gap: var(--space-2);
 }

@@ -9,29 +9,29 @@
     "initialAssets": [
       {
         "path": "dist/index.html",
-        "gzipBytes": 499
+        "gzipBytes": 497
       },
       {
-        "path": "dist/assets/index-CmIcreW-.js",
-        "gzipBytes": 84497
+        "path": "dist/assets/index-DadjdLu-.js",
+        "gzipBytes": 84494
       },
       {
-        "path": "dist/assets/index-_RzG5PfC.css",
-        "gzipBytes": 13668
+        "path": "dist/assets/index-DH6mDjML.css",
+        "gzipBytes": 13680
       }
     ],
-    "initialGzipBytes": 98664,
+    "initialGzipBytes": 98671,
     "precacheFiles": 80,
     "fingerprints": {
-      "src/styles.css": "00207c515781eccdbfac45336181f173fd74fc690724b4a52be294473f877968",
+      "src/styles.css": "9ac4b1746b0ca3c7ebb2cbc31571e3ac91ff665d1dcc3b2e4c95d6555387daa8",
       "src/ui/Settings.css": "fe4f241a5dea00172da3ba8daf3f21545ab7f8a7c77d23a038f38421559f3728",
-      "src/ui/Setup.css": "a7c3ce9facebbf05302f869e942a74e2d9e6acc7c7999bee4cf6ecff5612855c",
+      "src/ui/Setup.css": "8613c5773f3d58aef5ea654ab96b8f07ce67e41f572bda6607442a05018b4709",
       "src/ui/HowToPlay.css": "c62c6d7b577843c9d8813156a475ed48680f2766c3a2f7eb41a00d904dad562f",
       "src/ui/Settings.tsx": "82fea57cd4dd96b76992ac122998b11da31d7f91a1dd19e4fe328f2e63f1d439",
       "src/ui/Setup.tsx": "830b9c889c717fae3351872dccdc310b523f6b8ce9bcd1afbaffce913b0a0f3f",
       "src/ui/HowToPlay.tsx": "030ce4fa9536850ec08f03369e66b7eca21e6a640dc68608a8031f5eec03e42c",
       "e2e/performance.spec.ts": "5e175d9f945d347cfd8e57b1db8000c01d2b717dbe76aa97954b4d8c439ae7b4",
-      "e2e/helpers/startup-styles.ts": "d749f4bbf539f11f1bd2f57f9c511f1e09787e9de461c46068c4370c87b17cc3"
+      "e2e/helpers/startup-styles.ts": "91b957366c828f2608dc6e2278bc16ee5772b0228d9468ea3962e5cf7b126b67"
     }
   },
   "responsiveness": {
@@ -51,18 +51,18 @@
         "initialUndoSnapshots": 100,
         "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
         "samplesMs": [
-          246.69999998807907,
-          234.60000002384186,
-          280.30000001192093,
-          339.7000000476837,
-          268.4000000357628,
-          295.4000000357628,
-          293.7000000476837,
-          244.89999997615814,
-          286.80000001192093,
-          251.10000002384186
+          336,
+          304.7999999523163,
+          268.5,
+          272.69999998807907,
+          282.10000002384186,
+          277.7000000476837,
+          333.69999998807907,
+          330.80000001192093,
+          318.30000001192093,
+          269.9000000357628
         ],
-        "maxMs": 339.7000000476837
+        "maxMs": 336
       },
       {
         "locale": "en",
@@ -78,18 +78,18 @@
         "initialUndoSnapshots": 100,
         "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
         "samplesMs": [
-          357,
-          271.5,
-          247.30000001192093,
-          316,
-          284.9000000357628,
-          245.80000001192093,
-          294.89999997615814,
-          273.4000000357628,
-          261.39999997615814,
-          274.69999998807907
+          287.89999997615814,
+          293.80000001192093,
+          293.10000002384186,
+          329.0999999642372,
+          306.30000001192093,
+          298.19999998807907,
+          271.39999997615814,
+          305.30000001192093,
+          286.5999999642372,
+          304.10000002384186
         ],
-        "maxMs": 357
+        "maxMs": 329.0999999642372
       },
       {
         "locale": "zh-CN",
@@ -105,18 +105,18 @@
         "initialUndoSnapshots": 100,
         "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
         "samplesMs": [
-          317,
-          292.5,
-          370.19999998807907,
-          272,
-          338.80000001192093,
-          276.60000002384186,
-          343,
-          334.39999997615814,
-          346.69999998807907,
-          272
+          382.69999998807907,
+          273.30000001192093,
+          367.80000001192093,
+          292.9000000357628,
+          269.7000000476837,
+          279.39999997615814,
+          309.10000002384186,
+          296.10000002384186,
+          319.5999999642372,
+          325.2999999523163
         ],
-        "maxMs": 370.19999998807907
+        "maxMs": 382.69999998807907
       },
       {
         "locale": "zh-CN",
@@ -132,18 +132,18 @@
         "initialUndoSnapshots": 100,
         "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
         "samplesMs": [
-          379,
-          326.69999998807907,
-          359.69999998807907,
-          320.30000001192093,
-          293.0999999642372,
-          263.5,
-          265,
-          245.4000000357628,
-          280.19999998807907,
-          309
+          317.80000001192093,
+          325.80000001192093,
+          388.80000001192093,
+          368.5999999642372,
+          355.30000001192093,
+          334.39999997615814,
+          343.7000000476837,
+          329,
+          333.80000001192093,
+          357.39999997615814
         ],
-        "maxMs": 379
+        "maxMs": 388.80000001192093
       }
     ]
   }

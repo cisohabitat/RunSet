@@ -82,9 +82,6 @@
   height: 24px;
   accent-color: var(--accent);
 }
-.app:not(.comfortable-reading):has(> .setup) > .site-header {
-  height: 76px;
-}
 .setup {
   padding-top: 20px;
 }

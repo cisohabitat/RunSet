@@ -8,18 +8,18 @@
     "initialAssets": [
       {
         "path": "dist/index.html",
-        "gzipBytes": 499
+        "gzipBytes": 502
       },
       {
         "path": "dist/assets/index-b7kOcJ0c.js",
-        "gzipBytes": 84497
+        "gzipBytes": 84837
       },
       {
         "path": "dist/assets/index-DT_jZNOv.css",
-        "gzipBytes": 13758
+        "gzipBytes": 13825
       }
     ],
-    "totalInitialGzipBytes": 98754,
+    "totalInitialGzipBytes": 99164,
     "precacheFiles": 80,
     "fingerprints": {
       "src/App.tsx": "617db3594a249705d1efcc294e6dbbce839820640dbe4ce74b7d8bc60a5a2cec",

@@ -2,14 +2,17 @@
 
 ## Current status
 
-The [decision-clarity cycle](DECISION_CLARITY_ROADMAP.md) is the latest approved
-cycle: simpler decisions, mistake recovery, solo pacing and crowded-board polish.
-Phases 1–3 are released through `1a0515b`. Phase 4 fixes clipped focus rings on
-crowded boards and found-tile visibility while preserving tile sizes and space; its own exact-commit
-release gate is required. No further feature cycle is approved here. The preceding
-[visual/ease cycle](VISUAL_EASE_ROADMAP.md) is complete through `aa83616`.
-The [release ledger](RELEASE_STATUS.md) records observed exact-commit results
-and the current publication procedure.
+The [reliability and accessibility cycle](RELIABILITY_ACCESSIBILITY_ROADMAP.md)
+is the latest approved cycle: startup headroom, enlargement/accessibility,
+mistake-to-practice guidance and release consolidation. Phase 1 moves screen-only
+styles out of initial assets; its own exact-commit release gate is required.
+Phases 2–4 remain planned. See the [startup review](STARTUP_REVIEW.md).
+
+The preceding [decision-clarity cycle](DECISION_CLARITY_ROADMAP.md) completed
+at `b63af0a`, with full CI and 56 matching hosted checks passed. The
+[visual/ease cycle](VISUAL_EASE_ROADMAP.md) completed at `aa83616`. The
+[release ledger](RELEASE_STATUS.md) records observed results and the publication
+procedure. Older implementation-time gate notes are historical.
 
 Implemented work includes bilingual guided lessons and focused exercises,
 readable phone/iPad/desktop layouts, safe delete/replace and backup recovery,
@@ -17,10 +20,10 @@ Undo/Reset, hints, offline updates, historical-save upgrades, matches and timers
 New games default to one Easy opponent, guidance on and no timer. See README
 for player-facing controls and the linked phase records for detailed findings.
 
-The four phases above are the approved scope. The remaining external
-validation is physical iPhone/iPad Safari, older Chinese-speaking beginner sessions
-and native Mandarin listening; all remain paused. Multiplayer remains deferred.
-Automated browser profiles and logical timing are not evidence of those studies.
+The four reliability/accessibility phases are the approved scope. Physical
+iPhone/iPad Safari, older Chinese-speaking beginner sessions and native Mandarin
+listening remain paused. Multiplayer remains deferred. Browser profiles and
+logical timing are not evidence of those studies.
 
 ## Historical roadmap and acceptance criteria
 

@@ -1,3 +1,4 @@
+import "./Setup.css";
 import { useI18n } from "../i18n/I18n";
 import type { GameSettings } from "../lib/gameSettings";
 import { useState } from "react";

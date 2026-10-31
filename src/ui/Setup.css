@@ -1,0 +1,147 @@
+/* Screen styles load with the corresponding lazy component. */
+.setup {
+  max-width: 660px;
+}
+.setup form {
+  margin-top: 32px;
+}
+.setup input {
+  margin-bottom: 28px;
+}
+.choices {
+  display: flex;
+  gap: var(--space-2);
+}
+.choice {
+  padding: 14px 17px;
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius-control);
+  font-size: 13px;
+  text-align: left;
+  background: var(--card);
+}
+.choice.active {
+  background: var(--soft);
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+.difficulty-choices {
+  display: grid;
+  gap: var(--space-2);
+}
+.difficulty-choices .choice {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+}
+.choice span {
+  color: var(--muted);
+  font-size: 11px;
+}
+@media (max-width: 720px) {
+  .difficulty-choices .choice {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .choices .choice {
+    padding: 13px 10px;
+    flex: 1;
+    font-size: 11px;
+  }
+}
+:where(:root[data-theme="dark"]) .choice {
+  background: #20382b;
+}
+.setup select {
+  width: 100%;
+  padding: 14px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius-control);
+  min-height: 48px;
+}
+.setup fieldset .muted {
+  margin-top: 12px;
+  line-height: 1.8;
+}
+
+.setup-coach {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 48px;
+  margin: 20px 0;
+}
+.setup-coach input {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  accent-color: var(--accent);
+}
+.app:not(.comfortable-reading):has(> .setup) > .site-header {
+  height: 76px;
+}
+.setup {
+  padding-top: 20px;
+}
+.setup > .text-button {
+  min-height: 44px;
+  margin-bottom: 8px;
+}
+.setup .eyebrow {
+  margin-top: 4px;
+}
+.setup h1 {
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.2;
+  margin: 8px 0;
+}
+.setup form {
+  margin-top: 16px;
+}
+.setup #name {
+  min-height: 48px;
+  margin-bottom: 12px;
+}
+.setup-options {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin: 12px 0;
+}
+.setup-options > summary {
+  min-height: 48px;
+  padding: 12px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.setup-options-content {
+  padding: 16px;
+}
+.setup-summary {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 12px 0;
+  color: var(--ink);
+}
+.setup form > .primary {
+  min-height: 48px;
+}
+
+.difficulty-advice,
+.difficulty-guide p { font-size: 16px; line-height: 1.6; margin-top: 12px; }
+.difficulty-guide { margin-top: 16px; }
+.difficulty-guide table { width: 100%; table-layout: fixed; border-collapse: collapse; margin-block: 12px; }
+.difficulty-guide caption { text-align: left; padding-block: 10px; }
+.difficulty-guide th,
+.difficulty-guide td { padding: 10px 3px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; font-size: 14px; }
+.difficulty-guide td { text-align: center; }
+.app.comfortable-reading .difficulty-guide :is(th,td) { font-size: 16px; }
+
+.difficulty-guide tr > :first-child { width: 32%; }
+
+.setup fieldset { min-inline-size: 0; }
+.setup .choices { flex-wrap: wrap; }

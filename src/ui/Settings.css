@@ -1,0 +1,77 @@
+/* Screen styles load with the corresponding lazy component. */
+.settings-dialog {
+  max-height: calc(100dvh - 24px);
+  overflow: hidden;
+}
+.settings-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.settings-body {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 6px;
+  margin: -6px;
+}
+.settings-body :is(button, select, input, summary) {
+  scroll-margin-block: 12px;
+}
+.settings-dialog .settings-heading {
+  flex: none;
+}
+.settings-dialog .settings-heading > button {
+  min-width: 48px;
+  min-height: 48px;
+  font-size: 16px;
+}
+.settings-dialog fieldset {
+  border: 0;
+  border-top: 1px solid var(--line);
+  padding: 14px 0;
+  margin: 20px 0 0;
+  min-width: 0;
+}
+.settings-dialog legend {
+  font-weight: 750;
+  padding-right: 10px;
+}
+.settings-dialog label {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  min-height: 48px;
+  margin: 8px 0;
+  cursor: pointer;
+}
+.settings-dialog input[type="checkbox"] {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  accent-color: var(--accent);
+}
+.settings-dialog p {
+  line-height: 1.7;
+}
+.settings-dialog label:has(select) {
+  flex-wrap: wrap;
+}
+.settings-dialog select {
+  min-height: 48px;
+  padding: 8px;
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius-control);
+  color: var(--ink);
+  background: var(--paper);
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  margin-left: auto;
+}
+.settings-preview {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  background: var(--soft);
+}

@@ -7,8 +7,19 @@ or rewrite those counts as current results. Keep the active phase roadmap,
 README and this file aligned when releasing. Record only observed exact-SHA
 success; never label a new documentation commit verified using its parent’s CI.
 
-Track the decision-clarity cycle in docs/DECISION_CLARITY_ROADMAP.md. Gate each
-phase on complete twelve-job exact-commit CI and matching production/live checks.
+Track the current cycle in docs/RELIABILITY_ACCESSIBILITY_ROADMAP.md. The
+preceding decision-clarity cycle completed at b63af0a with exact CI 41152053508
+and 56 matching hosted checks in 41153741446 passed. Startup evidence lives in
+docs/STARTUP_REVIEW.md. Keep Settings/Setup/HowToPlay CSS on their lazy imports,
+retaining selector specificity, declaration order, responsive conditions and
+all offline assets. Shared settings-heading styles also serve RackOrganizer;
+keep them global. Slow CSS must retain the existing loading UI and exact saves.
+Cold-CSS tests block service workers only in their own cases; retain all original
+first-offline and upgrade journeys. Preserve the 100,000-byte initial gzip gate.
+Current release review is 64 cases (16/profile), supplementing all previous 56.
+
+Historical decision-clarity details live in docs/DECISION_CLARITY_ROADMAP.md.
+Gate each phase on complete twelve-job exact-commit CI and matching production/live checks.
 Phase 3 evidence lives in docs/SOLO_PACING_REVIEW.md and fingerprinted SOLO_BOTS
 reports. Keep --draw-review optional, validate original proposals before fallback,
 and independently reconcile Easy traces, streaks, comparison counters and seed/
@@ -20,7 +31,7 @@ replace readiness/plans/responses. Load Settings/game on a human turn before
 pausing the test clock, then actually End turn. Retain all four 700/1400/2400/
 5000 ms boundaries, Settings cancellation, exact saves/deadlines and same accepted
 Easy plan. New live cases supplement every original case; crowded navigation
-brings the current release gate to 56 cases in four profiles.
+brought that release gate to 56 cases in four profiles.
 
 Crowded focus review lives in docs/CROWDED_FOCUS_REVIEW.md. Keep the existing
 tile focus, selection and rejected-move strokes inset at -3 px so they remain
@@ -63,7 +74,7 @@ a prior Saved label alone does not establish that the latest edit was persisted.
 More’s turn-help summaries retain 44 px targets, 16/18 px copy and native scroll
 clearance. Do not consume permanent meld space. Release review includes returning
 journeys as well as the connected beginner journey, plus locked-opening selections:
-56 live checks.
+64 live checks.
 
 Lesson selection tips derive from current selected IDs and the current objective,
 so action-only steps never produce empty tile lists or stale previous-step tips.

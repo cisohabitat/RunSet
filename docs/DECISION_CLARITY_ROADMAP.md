@@ -12,7 +12,7 @@ remains deferred.
 | 1 | Simpler decisions: review busy turns and clear next actions using existing space | Complete: 2988d56, CI 41080709747 and 32 matching live checks in 41083235984 passed |
 | 2 | Plain-language mistake recovery with concrete corrections and visible Undo/Reset | Complete: 1b41fc7, CI 41094208501 and 40 matching live checks in 41096842874 passed |
 | 3 | Review Easy-bot pacing, repetitive draws and difficulty jumps using recorded evidence | Complete: 1a0515b, CI 41101619354 and 48 matching live checks in 41105155839 passed |
-| 4 | Crowded-board selection and feedback review across phone, iPad landscape and desktop | Implemented; its own complete exact-commit CI and matching live gate required |
+| 4 | Crowded-board selection and feedback review across phone, iPad landscape and desktop | Complete: b63af0a, CI 41152053508 and 56 matching live checks in 41153741446 passed |
 
 Publish separately, update README and AGENTS, then pass full twelve-job CI and
 matching production/live checks before beginning the next phase. Preserve the
@@ -174,3 +174,12 @@ Phase 3 is complete at 1a0515b; its implementation-time gate notes above are
 historical. This Phase 4 publication still needs its own complete exact-commit
 CI and matching production/live acceptance. No additional feature cycle is
 approved by this document; human/device studies remain paused.
+
+
+Phase 4 completed at `b63af0a` after its WebKit correction: all twelve jobs in
+[41152053508](https://github.com/cisohabitat/RunSet/actions/runs/41152053508)
+and all 56 matching hosted checks in
+[41153741446](https://github.com/cisohabitat/RunSet/actions/runs/41153741446)
+passed, with READY production on that SHA. Earlier implementation-time gates
+above are historical. The next approved cycle is
+[reliability and accessibility](RELIABILITY_ACCESSIBILITY_ROADMAP.md).

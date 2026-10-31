@@ -1,0 +1,67 @@
+# Startup asset review
+
+Phase 1 of the [reliability and accessibility cycle](RELIABILITY_ACCESSIBILITY_ROADMAP.md).
+Baseline: `b63af0ab02b981c621ca8fd0568a35c347e0bdf6`, verified by complete
+[CI 41152053508](https://github.com/cisohabitat/RunSet/actions/runs/41152053508)
+and [56 hosted checks](https://github.com/cisohabitat/RunSet/actions/runs/41153741446).
+
+## Measured change
+
+| Measure | Baseline | Candidate |
+| --- | ---: | ---: |
+| Initial HTML and referenced CSS/JS, gzip | 99,422 bytes | 98,664 bytes |
+| Headroom under the unchanged 100,000-byte limit | 578 bytes | 1,336 bytes |
+| Offline precache files | 77 | 80 |
+
+Initial assets shrink by 758 gzip bytes (0.76%); budget headroom is 2.31 times
+the baseline. The additional three files are stylesheets for already lazy-loaded
+Settings, setup and rules screens. React dominates the startup JavaScript; no
+runtime dependency, package lock, React version or game-state ownership changes.
+
+The three screen styles move from the initial global stylesheet into their
+component imports. Vite loads the CSS before resolving each lazy screen. Selector
+specificity, declarations, responsive conditions and internal order are retained.
+Shared settings-heading rules remain global because RackOrganizer also uses them.
+Shared page, button, tile, theme, gameplay and results rules remain global.
+An independent CSS parse comparison preserved all 1,055 selector/declaration
+records, including their media and keyframe contexts.
+
+This reduces the initial render's required asset set. The service worker still
+precaches every screen asset for first-use offline play, so this is not a claim
+that the complete offline installation downloads fewer bytes. Startup timing
+and physical-device speed improvements are unmeasured.
+
+## Verification
+
+Two new bilingual production-browser cases hold each screen's actual stylesheet
+response in turn. Home initially has none of the three screen stylesheets
+attached. While CSS is held, the existing loading UI remains visible, the screen
+has not rendered, and exact regular-save bytes stay unchanged. Releasing CSS
+reveals the styled screen; native Done/Back/Home actions return safely. Check
+actual Settings flex/scroll styling, setup choices and rules grid/borders, focus
+return, complete >=44 px native targets, centre hits and runtime errors.
+
+These cold-load cases deliberately block service workers, isolating document
+loading from background precaching. All earlier first-use offline journeys and
+cache/upgrade checks remain required. No old assertion, timeout, offline shard
+or CI job is removed or relaxed. Expected counts are 225 units and 889 browser
+cases (347 main, 144 per compatibility profile, 70 offline and 40 upgrades).
+The new cases also join every hosted profile: 16 each, 64 total.
+
+Initial local production visual journeys passed in both languages before and
+after extraction. They cover setup, rules, lessons, exercises, gameplay and
+Settings at 320/1180/1440 in standard/comfortable reading, including first offline
+visits, native exits, exact save isolation and Axe checks. Computed-style
+captures were compared; auxiliary offline-status heights varied between runs,
+so whole-screen pixel identity is not asserted. Local final acceptance passed both cold-CSS cases in Chromium and all four
+cold-CSS/offline-visual cases per WebKit phone, WebKit iPad and Firefox. The
+existing nine slow-screen/loading cases and four 4× CPU responsiveness cases
+also passed. Across forty move/Undo render samples, the largest observation was
+379 ms against the unchanged 1000 ms smoke bound. These are local Chromium dev
+build touch-layout measurements, not startup timings, a population percentile
+or physical-device results. Raw cases, bundle asset sizes and source fingerprints
+are retained in [STARTUP_REVIEW_SAMPLES.json](STARTUP_REVIEW_SAMPLES.json).
+
+Full exact-commit twelve-job CI and matching READY production/hosted acceptance
+are required before publication is reported verified. Physical Apple checks,
+older-player sessions and Mandarin listening remain paused.

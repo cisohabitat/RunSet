@@ -7,6 +7,11 @@ phone, tablet or desktop. No account, server or database is needed.
 [Play RunSet](https://run-set.vercel.app/) · [Current roadmap](docs/ROADMAP.md) ·
 [Verified releases and release gates](docs/RELEASE_STATUS.md)
 
+The [startup review](docs/STARTUP_REVIEW.md) reduces initial HTML/CSS/JS from
+99,422 to 98,664 gzip bytes by loading setup, Settings and rules styles with their
+screens. All screen assets remain available after offline readiness. The
+[current cycle](docs/RELIABILITY_ACCESSIBILITY_ROADMAP.md) records the scope.
+
 Focused and selected tiles now keep their full outlines visible at crowded table and rack
 edges, including raised selected tiles. Table overview centers located tiles
 within the scrolling board. Tile sizes and table space are preserved.
@@ -203,7 +208,7 @@ first-time-player usability sessions remain manual checks.
 
 `npm run build` type-checks and emits a static site in `dist/`. GitHub Actions
 requires quality, six browser jobs, four historical-upgrade jobs and the aggregate
-check on pushes and PRs. The supplemental release review checks 56 connected
+check on pushes and PRs. The supplemental release review checks 64 connected
 journeys against matching production after it is READY; it does not deploy.
 See the [release procedure](docs/RELEASE_STATUS.md#release-procedure).
 

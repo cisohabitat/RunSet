@@ -7,6 +7,9 @@ phone, tablet or desktop. No account, server or database is needed.
 [Play RunSet](https://run-set.vercel.app/) · [Current roadmap](docs/ROADMAP.md) ·
 [Verified releases and release gates](docs/RELEASE_STATUS.md)
 
+Delayed lesson guidance respects a newer tile focus so Escape still clears
+selection when a lesson step changes.
+
 Practice-layout regression checks compare colour and number through accessible
 tile names, including when decorative shapes use vectors.
 

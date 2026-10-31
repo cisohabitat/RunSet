@@ -8,18 +8,18 @@
     "initialAssets": [
       {
         "path": "dist/index.html",
-        "gzipBytes": 500
+        "gzipBytes": 499
       },
       {
-        "path": "dist/assets/index-CljUchRQ.js",
-        "gzipBytes": 84833
+        "path": "dist/assets/index-b7kOcJ0c.js",
+        "gzipBytes": 84497
       },
       {
         "path": "dist/assets/index-DT_jZNOv.css",
-        "gzipBytes": 13825
+        "gzipBytes": 13758
       }
     ],
-    "totalInitialGzipBytes": 99158,
+    "totalInitialGzipBytes": 98754,
     "precacheFiles": 80,
     "fingerprints": {
       "src/App.tsx": "617db3594a249705d1efcc294e6dbbce839820640dbe4ce74b7d8bc60a5a2cec",
@@ -34,12 +34,15 @@
       "e2e/helpers/enlargement.ts": "4f9a0e26b25d7f0d306a63efc05ddb656874b49aa114c9ff737f86079114d9f5",
       "playwright.enlargement.config.ts": "237d8b4ec1dc83db667803323e661101680f0a25f078bd115d216fd51aa82505",
       "playwright.release.config.ts": "522fd79cb5b1e0b4705d1880a1884608e1da8fd1183f40fa1daf4e6ab3868d8b",
-      "package-lock.json": "500aab9da6f4016936fb8acbad5af91ebbbd6fb6c9ffa8b973e7c7ac76ce03c0"
+      "package-lock.json": "500aab9da6f4016936fb8acbad5af91ebbbd6fb6c9ffa8b973e7c7ac76ce03c0",
+      "src/ui/Tutorial.tsx": "898ed8026161eefca3c3997e936b1d291647fbccf3d1494dd11cdfbfee0181a1",
+      "e2e/helpers/release-consolidation.ts": "49fd7f7b22a4b4a23dac4f3f46659a1c31bec0dbbf88bc6c9c0cbcd147ece099",
+      "e2e/helpers/turn-layouts.ts": "60ed9d89ddf8b2b144762df9814b7550cb08ce01e9db6f621d6b7dd4e8caef01",
+      "src/ui/Game.tsx": "fbc905d8a5f3937ddece877b8f1ea6b90cbfdf919b7f74348d59ff988c2d7bdc"
     }
   },
   "nativeBrowserEvidence": [
     {
-      "scope": "local built preview; actual isolated Chromium browser APIs",
       "locale": "en",
       "mode": "zoom200",
       "evidence": {
@@ -54,10 +57,10 @@
         "height": 406,
         "dpr": 2
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction; actual isolated Chromium browser APIs"
     },
     {
-      "scope": "local built preview; actual isolated Chromium browser APIs",
       "locale": "en",
       "mode": "font24",
       "evidence": {
@@ -72,10 +75,10 @@
         "height": 813,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction; actual isolated Chromium browser APIs"
     },
     {
-      "scope": "local built preview; actual isolated Chromium browser APIs",
       "locale": "zh-CN",
       "mode": "zoom200",
       "evidence": {
@@ -90,10 +93,10 @@
         "height": 406,
         "dpr": 2
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction; actual isolated Chromium browser APIs"
     },
     {
-      "scope": "local built preview; actual isolated Chromium browser APIs",
       "locale": "zh-CN",
       "mode": "font24",
       "evidence": {
@@ -108,12 +111,12 @@
         "height": 813,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction; actual isolated Chromium browser APIs"
     }
   ],
   "productionReflowEvidence": [
     {
-      "scope": "local built preview, chromium; CSS viewport reflow only",
       "locale": "en",
       "mode": "reflow640",
       "evidence": {
@@ -121,15 +124,17 @@
         "width": 640,
         "height": 406
       },
+      "profile": "chromium",
+      "browserVersion": "156.0.8078.4",
       "viewport": {
         "width": 640,
         "height": 406,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, chromium; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, chromium; CSS viewport reflow only",
       "locale": "en",
       "mode": "reflow320",
       "evidence": {
@@ -137,15 +142,17 @@
         "width": 320,
         "height": 640
       },
+      "profile": "chromium",
+      "browserVersion": "156.0.8078.4",
       "viewport": {
         "width": 320,
         "height": 640,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, chromium; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, chromium; CSS viewport reflow only",
       "locale": "zh-CN",
       "mode": "reflow640",
       "evidence": {
@@ -153,15 +160,17 @@
         "width": 640,
         "height": 406
       },
+      "profile": "chromium",
+      "browserVersion": "156.0.8078.4",
       "viewport": {
         "width": 640,
         "height": 406,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, chromium; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, chromium; CSS viewport reflow only",
       "locale": "zh-CN",
       "mode": "reflow320",
       "evidence": {
@@ -169,15 +178,17 @@
         "width": 320,
         "height": 640
       },
+      "profile": "chromium",
+      "browserVersion": "156.0.8078.4",
       "viewport": {
         "width": 320,
         "height": 640,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, chromium; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, phone; CSS viewport reflow only",
       "locale": "en",
       "mode": "reflow640",
       "evidence": {
@@ -185,15 +196,17 @@
         "width": 640,
         "height": 406
       },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
       "viewport": {
         "width": 640,
         "height": 406,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, phone; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, phone; CSS viewport reflow only",
       "locale": "en",
       "mode": "reflow320",
       "evidence": {
@@ -201,15 +214,17 @@
         "width": 320,
         "height": 640
       },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
       "viewport": {
         "width": 320,
         "height": 640,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, phone; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, phone; CSS viewport reflow only",
       "locale": "zh-CN",
       "mode": "reflow640",
       "evidence": {
@@ -217,15 +232,17 @@
         "width": 640,
         "height": 406
       },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
       "viewport": {
         "width": 640,
         "height": 406,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, phone; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, phone; CSS viewport reflow only",
       "locale": "zh-CN",
       "mode": "reflow320",
       "evidence": {
@@ -233,15 +250,17 @@
         "width": 320,
         "height": 640
       },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
       "viewport": {
         "width": 320,
         "height": 640,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, phone; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, ipad; CSS viewport reflow only",
       "locale": "en",
       "mode": "reflow640",
       "evidence": {
@@ -249,15 +268,17 @@
         "width": 640,
         "height": 406
       },
+      "profile": "webkit-ipad",
+      "browserVersion": "27.2",
       "viewport": {
         "width": 640,
         "height": 406,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, ipad; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, ipad; CSS viewport reflow only",
       "locale": "en",
       "mode": "reflow320",
       "evidence": {
@@ -265,15 +286,17 @@
         "width": 320,
         "height": 640
       },
+      "profile": "webkit-ipad",
+      "browserVersion": "27.2",
       "viewport": {
         "width": 320,
         "height": 640,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, ipad; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, ipad; CSS viewport reflow only",
       "locale": "zh-CN",
       "mode": "reflow640",
       "evidence": {
@@ -281,15 +304,17 @@
         "width": 640,
         "height": 406
       },
+      "profile": "webkit-ipad",
+      "browserVersion": "27.2",
       "viewport": {
         "width": 640,
         "height": 406,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, ipad; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, ipad; CSS viewport reflow only",
       "locale": "zh-CN",
       "mode": "reflow320",
       "evidence": {
@@ -297,15 +322,17 @@
         "width": 320,
         "height": 640
       },
+      "profile": "webkit-ipad",
+      "browserVersion": "27.2",
       "viewport": {
         "width": 320,
         "height": 640,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, ipad; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, firefox; CSS viewport reflow only",
       "locale": "en",
       "mode": "reflow640",
       "evidence": {
@@ -313,15 +340,17 @@
         "width": 640,
         "height": 406
       },
+      "profile": "firefox-desktop",
+      "browserVersion": "157.0",
       "viewport": {
         "width": 640,
         "height": 406,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, firefox; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, firefox; CSS viewport reflow only",
       "locale": "en",
       "mode": "reflow320",
       "evidence": {
@@ -329,15 +358,17 @@
         "width": 320,
         "height": 640
       },
+      "profile": "firefox-desktop",
+      "browserVersion": "157.0",
       "viewport": {
         "width": 320,
         "height": 640,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, firefox; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, firefox; CSS viewport reflow only",
       "locale": "zh-CN",
       "mode": "reflow640",
       "evidence": {
@@ -345,15 +376,17 @@
         "width": 640,
         "height": 406
       },
+      "profile": "firefox-desktop",
+      "browserVersion": "157.0",
       "viewport": {
         "width": 640,
         "height": 406,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, firefox; CSS viewport reflow only"
     },
     {
-      "scope": "local built preview, firefox; CSS viewport reflow only",
       "locale": "zh-CN",
       "mode": "reflow320",
       "evidence": {
@@ -361,12 +394,15 @@
         "width": 320,
         "height": 640
       },
+      "profile": "firefox-desktop",
+      "browserVersion": "157.0",
       "viewport": {
         "width": 320,
         "height": 640,
         "dpr": 1
       },
-      "physicalDevice": false
+      "physicalDevice": false,
+      "scope": "Local built preview after lesson focus ownership correction, firefox; CSS viewport reflow only"
     }
   ],
   "responsiveness": {
@@ -480,6 +516,7 @@
         ],
         "maxMs": 440.2000000476837
       }
-    ]
+    ],
+    "correctionScope": "Recorded before the hosted lesson-focus correction. Game rendering and enlargement code are unchanged by that correction; Tutorial focus ownership is separate. Native/reflow evidence and build sizes above were rerun after the correction."
   }
 }

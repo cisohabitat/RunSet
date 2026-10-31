@@ -100,10 +100,33 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   // A still-selected tile must get the new action's correction when the step changes.
   await activate(page.locator('.rack [data-tile-id="12"]'));
   const beforeAcknowledgement = await page.evaluate(()=>JSON.parse(localStorage.getItem("runset.practice.v1")!));
+  // Reproduce the hosted race: the objective frame runs after newer tile focus.
+  await page.evaluate(() => {
+    const w = window as typeof window & { flushObjectiveFocus?: () => number };
+    const nativeFrame = window.requestAnimationFrame, nativeCancel = window.cancelAnimationFrame;
+    const pending = new Map<number, FrameRequestCallback>();
+    let id = 0;
+    window.requestAnimationFrame = callback => { pending.set(--id, callback); return id; };
+    window.cancelAnimationFrame = frame => {
+      if (frame < 0) pending.delete(frame); else nativeCancel.call(window, frame);
+    };
+    w.flushObjectiveFocus = () => {
+      window.requestAnimationFrame = nativeFrame;
+      window.cancelAnimationFrame = nativeCancel;
+      const count = pending.size;
+      for (const callback of pending.values()) callback(performance.now());
+      pending.clear(); delete w.flushObjectiveFocus; return count;
+    };
+  });
   await activate(b("I see: 30 + 6 = 36 →"));
   await expect(page.locator(".practice-feedback")).toHaveText(t("No tiles are needed for this step. Choose End turn →."));
   await expect.poll(()=>page.evaluate(()=>JSON.parse(localStorage.getItem("runset.practice.v1")!))).toEqual({...beforeAcknowledgement,step:3});
-  await page.locator('.rack [data-tile-id="12"]').focus();
+  const recoveryTile = page.locator('.rack [data-tile-id="12"]');
+  await recoveryTile.focus();
+  expect(await page.evaluate(() => (window as typeof window & {
+    flushObjectiveFocus: () => number;
+  }).flushObjectiveFocus())).toBeGreaterThan(0);
+  await expect(recoveryTile).toBeFocused();
   await page.keyboard.press("Escape");
   await expect(page.locator(".practice-feedback")).toHaveCount(0);
   await verifyLessonActionRecovery(page, t, activate, "End turn →");

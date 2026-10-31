@@ -250,11 +250,13 @@ function GuidedTutorial({
   useEffect(() => {
     if (previousInstruction.current === instructionKey) return;
     previousInstruction.current = instructionKey;
-    // Follow a changed objective after the board's keyboard-focus work settles.
+    // A newer focus choice owns the next key, even while this frame is pending.
+    const focusOwner = document.activeElement;
     const frame = requestAnimationFrame(() => {
       const heading = panelRef.current?.querySelector<HTMLElement>("h1");
       if (
         !heading ||
+        document.activeElement !== focusOwner ||
         document.querySelector("dialog[open]") ||
         document.activeElement?.closest("input,select")
       )

@@ -100,7 +100,7 @@ built-bundle run also passed both native cases (four zoom/font journeys), using
 cases against the development server; this supplemental config tests built
 assets without adding duplicate cases to the release counts.
 
-The final build passed type checking and measured 99,158 initial gzip bytes,
+The final build passed type checking and measured 99,164 initial gzip bytes,
 under the unchanged 100,000-byte limit, with 80 precached files. Four final
 responsiveness cases recorded 40 samples under 4× CPU throttling, with a maximum
 of 456.8 ms against the existing 1,000 ms smoke bound. These local development
@@ -120,3 +120,28 @@ selection, independent outcome and offline-resume check. Both affected offline
 language cases passed locally. This is a test correction; app assets and raw
 measurement fingerprints are unchanged. The correction requires its own full CI
 and matching production/hosted gate.
+
+The correction `2bd3667` passed all twelve jobs in
+[41168389355](https://github.com/cisohabitat/RunSet/actions/runs/41168389355)
+(225 units / 897 browser cases), but hosted
+[41169754091](https://github.com/cisohabitat/RunSet/actions/runs/41169754091)
+found a Chromium lesson focus race. Its trace shows the rack tile focused before
+Escape, then the delayed changed-objective frame moving focus to the lesson
+heading. The heading is outside Game's Escape handler, leaving the selection tip.
+This is a real focus ownership defect, not a zoom failure.
+
+The lesson objective frame now captures its focus owner when scheduled and exits
+if focus has since changed. Cancellation, dialog/input guards and normal objective
+announcement remain. The existing connected journey holds deferred frames,
+changes objective, focuses the real rack tile, releases those frames and requires
+that tile still focused before native Escape clears the tip. Both languages
+failed that assertion before the guard. No original lesson/outcome/save/header
+assertion is removed; the case counts stay unchanged. The new correction must
+pass its own full CI and matching READY production/72-case hosted review.
+
+After the focus correction, both connected main cases, all eight existing lesson
+cases, four connected/enlargement cases per built browser profile, and both
+supplemental native built-bundle cases passed locally. The final rebuilt initial
+assets measure 99,164 gzip bytes with 80 precached files. Native/reflow raw rows
+were refreshed after this correction; the unchanged Game responsiveness sample
+predates the lesson-only guard and is explicitly scoped as such in the raw file.

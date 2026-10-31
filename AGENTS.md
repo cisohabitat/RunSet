@@ -32,6 +32,9 @@ Preserve accessible names, pressed
 state, selected checks and accepted-play descriptions. Route rack reveal owns
 and cancels its frame and checks current focus, enabled state and dialog ownership.
 Tab key-up reveal must neither change focus nor intercept pointer/Space/Enter.
+A delayed lesson-objective frame must retain its scheduled focus owner: abort
+if a newer focus choice owns the next key. Keep the connected bilingual frame-
+release regression and native Escape clearing, alongside normal lesson guidance.
 Native zoom/font tests use temporary isolated profiles and a test-only extension;
 never ship it or change a user's browser. Viewport reflow is separate evidence.
 Keep full focus paint/native hit checks, independent reducer/save assertions and

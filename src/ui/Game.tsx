@@ -105,9 +105,10 @@ export function Game({
   const focusRack = () => {
     const owner = document.activeElement;
     requestAnimationFrame(() => {
-      // A lesson heading or a newer player focus owns the next key.
+      // A lesson heading, newer player focus or another dialog owns the next key.
+      const dialog = document.querySelector("dialog[open]");
       if (
-        document.querySelector("dialog[open]") ||
+        (dialog && !dialog.contains(rackRef.current)) ||
         (document.activeElement !== owner &&
           !(document.activeElement === document.body && owner && !owner.isConnected))
       ) return;

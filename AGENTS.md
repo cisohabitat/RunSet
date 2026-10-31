@@ -34,7 +34,8 @@ and cancels its frame and checks current focus, enabled state and dialog ownersh
 Tab key-up reveal must neither change focus nor intercept pointer/Space/Enter.
 Commit changed lesson-objective focus in a layout effect before new user input,
 retaining dialog/input guards and continuation destinations. Deferred rack focus
-must respect a newer focus or open dialog; allow body fallback only when its old
+must respect a newer focus or a dialog outside its own rack; a position-practice
+game may recover focus inside its own dialog. Allow body fallback only when its old
 owner was removed. Keep the connected bilingual held-frame regression, native
 Escape clearing and original keyboard-only lesson-heading assertions.
 Native zoom/font tests use temporary isolated profiles and a test-only extension;

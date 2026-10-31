@@ -100,7 +100,7 @@ built-bundle run also passed both native cases (four zoom/font journeys), using
 cases against the development server; this supplemental config tests built
 assets without adding duplicate cases to the release counts.
 
-The final build passed type checking and measured 99,158 initial gzip bytes,
+The final build passed type checking and measured 99,152 initial gzip bytes,
 under the unchanged 100,000-byte limit, with 80 precached files. Four final
 responsiveness cases recorded 40 samples under 4× CPU throttling, with a maximum
 of 540.0 ms against the existing 1,000 ms smoke bound. These local development
@@ -169,3 +169,19 @@ responsiveness cases (40 samples; maximum 540.0 ms under 4× CPU throttling).
 All raw rows, current fingerprints and the 99,158-byte build measurement were
 refreshed after this handoff; earlier intermediate measurements above remain
 historical. Case counts and all original assertions remain unchanged.
+
+CI [41172436952](https://github.com/cisohabitat/RunSet/actions/runs/41172436952)
+on `8168458` caught an overly broad dialog guard in rack recovery: it blocked
+keyboard recovery within position practice's own dialog. The guard now blocks
+only a dialog outside the game's rack; the existing position-practice rack-focus
+assertion, native Undo and Escape checks remain unchanged. All 16 affected local
+accessibility, connected-flow, position-practice and whole-turn recovery checks
+passed, including both keyboard-only lessons and both position-practice cases.
+The lesson handoff and previous enlargement fixes are unchanged.
+
+Both affected offline language cases and both position-practice cases in each of
+the three compatibility profiles passed against the rebuilt app (eight cases).
+Current initial assets are 99,152 gzip bytes / 80 precached files. Raw measurements
+explicitly retain their pre-containment-correction source fingerprints, with
+current build sizes/fingerprints separate. This correction requires its own full
+exact-commit CI and matching production/hosted acceptance.

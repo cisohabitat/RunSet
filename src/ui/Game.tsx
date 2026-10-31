@@ -102,12 +102,20 @@ export function Game({
   useEffect(() => () => breakRequest.current?.abort(), []);
   const [focused, setFocused] = useState<number | null>(null);
   const rackRef = useRef<HTMLDivElement>(null);
-  const focusRack = () =>
-    requestAnimationFrame(() =>
+  const focusRack = () => {
+    const owner = document.activeElement;
+    requestAnimationFrame(() => {
+      // A lesson heading or a newer player focus owns the next key.
+      if (
+        document.querySelector("dialog[open]") ||
+        (document.activeElement !== owner &&
+          !(document.activeElement === document.body && owner && !owner.isConnected))
+      ) return;
       rackRef.current
         ?.querySelector<HTMLButtonElement>('button[tabindex="0"]')
-        ?.focus({ preventScroll: true }),
-    );
+        ?.focus({ preventScroll: true });
+    });
+  };
   const [clock, setClock] = useState(Date.now);
   useEffect(() => {
     if (!s.turnSeconds) return;

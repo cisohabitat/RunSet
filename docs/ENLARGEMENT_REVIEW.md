@@ -100,10 +100,10 @@ built-bundle run also passed both native cases (four zoom/font journeys), using
 cases against the development server; this supplemental config tests built
 assets without adding duplicate cases to the release counts.
 
-The final build passed type checking and measured 99,164 initial gzip bytes,
+The final build passed type checking and measured 99,158 initial gzip bytes,
 under the unchanged 100,000-byte limit, with 80 precached files. Four final
 responsiveness cases recorded 40 samples under 4× CPU throttling, with a maximum
-of 456.8 ms against the existing 1,000 ms smoke bound. These local development
+of 540.0 ms against the existing 1,000 ms smoke bound. These local development
 measurements are not a controlled before/after comparison or physical-device
 latency claim. [Raw measurements and source fingerprints](ENLARGEMENT_SAMPLES.json)
 retain the native API values, reflow scopes, asset sizes and individual samples.
@@ -145,3 +145,27 @@ supplemental native built-bundle cases passed locally. The final rebuilt initial
 assets measure 99,164 gzip bytes with 80 precached files. Native/reflow raw rows
 were refreshed after this correction; the unchanged Game responsiveness sample
 predates the lesson-only guard and is explicitly scoped as such in the raw file.
+
+The first ownership guard was insufficient: `cfd9633` CI
+[41170695012](https://github.com/cisohabitat/RunSet/actions/runs/41170695012)
+caught both existing keyboard-only lesson cases because automatic rack focus
+could run before the objective frame and cause the guard to skip the heading.
+Those original heading-focus assertions remain unchanged.
+
+The final handoff focuses a changed, committed lesson objective in a layout
+effect, before new user input, retaining dialog/input guards and continuation
+button destinations. Game's deferred rack focus captures its owner and respects
+a newer focus, while allowing recovery when its old control was removed and
+focus fell back to the body. An open dialog retains ownership. The held-frame
+regression now requires the objective already focused before a new tile focus,
+then flushes deferred work and requires that tile to retain focus and Escape to
+clear the tip. All 22 local accessibility, connected-flow, lesson and whole-turn
+recovery checks passed, including both original keyboard-only completions. This
+supersedes the intermediate objective-frame guard described above.
+
+Final handoff validation passed 22 main cases, four connected/enlargement cases
+per built browser profile, two supplemental native built cases and four fresh
+responsiveness cases (40 samples; maximum 540.0 ms under 4× CPU throttling).
+All raw rows, current fingerprints and the 99,158-byte build measurement were
+refreshed after this handoff; earlier intermediate measurements above remain
+historical. Case counts and all original assertions remain unchanged.

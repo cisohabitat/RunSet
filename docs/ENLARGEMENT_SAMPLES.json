@@ -8,18 +8,18 @@
     "initialAssets": [
       {
         "path": "dist/index.html",
-        "gzipBytes": 502
+        "gzipBytes": 501
       },
       {
-        "path": "dist/assets/index-b7kOcJ0c.js",
-        "gzipBytes": 84837
+        "path": "dist/assets/index-C05dl9Xd.js",
+        "gzipBytes": 84832
       },
       {
         "path": "dist/assets/index-DT_jZNOv.css",
         "gzipBytes": 13825
       }
     ],
-    "totalInitialGzipBytes": 99164,
+    "totalInitialGzipBytes": 99158,
     "precacheFiles": 80,
     "fingerprints": {
       "src/App.tsx": "617db3594a249705d1efcc294e6dbbce839820640dbe4ce74b7d8bc60a5a2cec",
@@ -35,10 +35,10 @@
       "playwright.enlargement.config.ts": "237d8b4ec1dc83db667803323e661101680f0a25f078bd115d216fd51aa82505",
       "playwright.release.config.ts": "522fd79cb5b1e0b4705d1880a1884608e1da8fd1183f40fa1daf4e6ab3868d8b",
       "package-lock.json": "500aab9da6f4016936fb8acbad5af91ebbbd6fb6c9ffa8b973e7c7ac76ce03c0",
-      "src/ui/Tutorial.tsx": "898ed8026161eefca3c3997e936b1d291647fbccf3d1494dd11cdfbfee0181a1",
-      "e2e/helpers/release-consolidation.ts": "49fd7f7b22a4b4a23dac4f3f46659a1c31bec0dbbf88bc6c9c0cbcd147ece099",
+      "src/ui/Tutorial.tsx": "ab737332867d1280180cfa0ba5a06754ba39e83c76805761c5f2372c0b3b026d",
+      "e2e/helpers/release-consolidation.ts": "b6d1422490954e392420fc364476b55013b78ceca7668c5e433b95f907c25d02",
       "e2e/helpers/turn-layouts.ts": "60ed9d89ddf8b2b144762df9814b7550cb08ce01e9db6f621d6b7dd4e8caef01",
-      "src/ui/Game.tsx": "fbc905d8a5f3937ddece877b8f1ea6b90cbfdf919b7f74348d59ff988c2d7bdc"
+      "src/ui/Game.tsx": "93e2870a2bff1bb072a821761cff64efb7a6d9b4e7d2d84d612b431898e7be1a"
     }
   },
   "nativeBrowserEvidence": [
@@ -58,7 +58,7 @@
         "dpr": 2
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction; actual isolated Chromium browser APIs"
+      "scope": "Local built preview after final synchronous objective/rack focus handoff; actual isolated Chromium browser APIs"
     },
     {
       "locale": "en",
@@ -76,7 +76,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction; actual isolated Chromium browser APIs"
+      "scope": "Local built preview after final synchronous objective/rack focus handoff; actual isolated Chromium browser APIs"
     },
     {
       "locale": "zh-CN",
@@ -94,7 +94,7 @@
         "dpr": 2
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction; actual isolated Chromium browser APIs"
+      "scope": "Local built preview after final synchronous objective/rack focus handoff; actual isolated Chromium browser APIs"
     },
     {
       "locale": "zh-CN",
@@ -112,7 +112,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction; actual isolated Chromium browser APIs"
+      "scope": "Local built preview after final synchronous objective/rack focus handoff; actual isolated Chromium browser APIs"
     }
   ],
   "productionReflowEvidence": [
@@ -132,7 +132,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, chromium; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, chromium; CSS viewport reflow only"
     },
     {
       "locale": "en",
@@ -150,7 +150,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, chromium; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, chromium; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -168,7 +168,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, chromium; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, chromium; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -186,7 +186,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, chromium; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, chromium; CSS viewport reflow only"
     },
     {
       "locale": "en",
@@ -204,7 +204,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, phone; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, phone; CSS viewport reflow only"
     },
     {
       "locale": "en",
@@ -222,7 +222,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, phone; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, phone; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -240,7 +240,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, phone; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, phone; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -258,7 +258,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, phone; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, phone; CSS viewport reflow only"
     },
     {
       "locale": "en",
@@ -276,7 +276,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, ipad; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, ipad; CSS viewport reflow only"
     },
     {
       "locale": "en",
@@ -294,7 +294,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, ipad; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, ipad; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -312,7 +312,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, ipad; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, ipad; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -330,7 +330,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, ipad; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, ipad; CSS viewport reflow only"
     },
     {
       "locale": "en",
@@ -348,7 +348,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, firefox; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, firefox; CSS viewport reflow only"
     },
     {
       "locale": "en",
@@ -366,7 +366,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, firefox; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, firefox; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -384,7 +384,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, firefox; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, firefox; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -402,7 +402,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after lesson focus ownership correction, firefox; CSS viewport reflow only"
+      "scope": "Local built preview after final focus handoff, firefox; CSS viewport reflow only"
     }
   ],
   "responsiveness": {
@@ -422,18 +422,18 @@
         "initialUndoSnapshots": 100,
         "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
         "samplesMs": [
-          416,
-          360.5,
-          359.19999998807907,
-          456.80000001192093,
-          447.30000001192093,
-          450.80000001192093,
-          405.69999998807907,
-          371.4000000357628,
-          362.5,
-          342.69999998807907
+          361.30000001192093,
+          373.80000001192093,
+          380.2000000476837,
+          358.69999998807907,
+          387,
+          388.80000001192093,
+          371.80000001192093,
+          336.60000002384186,
+          388.0999999642372,
+          385.5
         ],
-        "maxMs": 456.80000001192093
+        "maxMs": 388.80000001192093
       },
       {
         "locale": "en",
@@ -449,18 +449,18 @@
         "initialUndoSnapshots": 100,
         "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
         "samplesMs": [
-          387.0999999642372,
-          367.30000001192093,
-          374.2000000476837,
-          393.19999998807907,
-          373.7999999523163,
-          349,
-          396.10000002384186,
-          384.60000002384186,
-          338.10000002384186,
-          238.20000004768372
+          337.5999999642372,
+          381.89999997615814,
+          372,
+          353.4000000357628,
+          361,
+          368.80000001192093,
+          389.2000000476837,
+          381.19999998807907,
+          502.69999998807907,
+          402.30000001192093
         ],
-        "maxMs": 396.10000002384186
+        "maxMs": 502.69999998807907
       },
       {
         "locale": "zh-CN",
@@ -476,18 +476,18 @@
         "initialUndoSnapshots": 100,
         "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
         "samplesMs": [
-          382.30000001192093,
-          378.10000002384186,
-          430.30000001192093,
-          440.7999999523163,
-          396.89999997615814,
-          330.2000000476837,
-          415.10000002384186,
-          386,
-          351.19999998807907,
-          357.30000001192093
+          465.30000001192093,
+          433.80000001192093,
+          432.80000001192093,
+          408.19999998807907,
+          456.0999999642372,
+          377.9000000357628,
+          540,
+          385.60000002384186,
+          359.89999997615814,
+          370.5
         ],
-        "maxMs": 440.7999999523163
+        "maxMs": 540
       },
       {
         "locale": "zh-CN",
@@ -503,20 +503,20 @@
         "initialUndoSnapshots": 100,
         "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
         "samplesMs": [
-          375,
-          377.4000000357628,
-          399,
-          387.0999999642372,
-          424.30000001192093,
-          405.39999997615814,
-          430.80000001192093,
-          401.80000001192093,
-          346.89999997615814,
-          440.2000000476837
+          381.69999998807907,
+          400.69999998807907,
+          431.80000001192093,
+          392.0999999642372,
+          397.89999997615814,
+          382.10000002384186,
+          401.7000000476837,
+          366.89999997615814,
+          398.30000001192093,
+          391.4000000357628
         ],
-        "maxMs": 440.2000000476837
+        "maxMs": 431.80000001192093
       }
     ],
-    "correctionScope": "Recorded before the hosted lesson-focus correction. Game rendering and enlargement code are unchanged by that correction; Tutorial focus ownership is separate. Native/reflow evidence and build sizes above were rerun after the correction."
+    "candidateNote": "Rerun after final synchronous objective/rack focus handoff."
   }
 }

@@ -1,5 +1,5 @@
 import { useI18n, type Locale } from "../i18n/I18n";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   basicProgress,
   lessonComplete,
@@ -247,32 +247,26 @@ function GuidedTutorial({
         : advanced;
   const instructionKey = `${lesson}-${step}-${attempt}-${instructions[1]}`;
   const previousInstruction = useRef(instructionKey);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (previousInstruction.current === instructionKey) return;
     previousInstruction.current = instructionKey;
-    // A newer focus choice owns the next key, even while this frame is pending.
-    const focusOwner = document.activeElement;
-    const frame = requestAnimationFrame(() => {
-      const heading = panelRef.current?.querySelector<HTMLElement>("h1");
-      if (
-        !heading ||
-        document.activeElement !== focusOwner ||
-        document.querySelector("dialog[open]") ||
-        document.activeElement?.closest("input,select")
-      )
-        return;
-      const continuation =
-        lesson === "basics" && (step === 2 || step === 4)
-          ? panelRef.current?.parentElement?.querySelector<HTMLElement>(
-              ".game .primary-actions button",
-            )
-          : null;
-      const target = continuation ?? heading;
-      if (target === heading) heading.tabIndex = -1;
-      target.focus({ preventScroll: true });
-      target.scrollIntoView({ block: "nearest" });
-    });
-    return () => cancelAnimationFrame(frame);
+    // Announce the committed objective before the player can choose a new focus.
+    const heading = panelRef.current?.querySelector<HTMLElement>("h1");
+    if (
+      !heading ||
+      document.querySelector("dialog[open]") ||
+      document.activeElement?.closest("input,select")
+    ) return;
+    const continuation =
+      lesson === "basics" && (step === 2 || step === 4)
+        ? panelRef.current?.parentElement?.querySelector<HTMLElement>(
+            ".game .primary-actions button",
+          )
+        : null;
+    const target = continuation ?? heading;
+    if (target === heading) heading.tabIndex = -1;
+    target.focus({ preventScroll: true });
+    target.scrollIntoView({ block: "nearest" });
   }, [instructionKey, lesson, step]);
   const dispatch = (action: Action) => {
     setFeedback("");

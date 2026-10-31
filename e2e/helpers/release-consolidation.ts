@@ -100,7 +100,7 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   // A still-selected tile must get the new action's correction when the step changes.
   await activate(page.locator('.rack [data-tile-id="12"]'));
   const beforeAcknowledgement = await page.evaluate(()=>JSON.parse(localStorage.getItem("runset.practice.v1")!));
-  // Reproduce the hosted race: the objective frame runs after newer tile focus.
+  // Hold deferred work across an objective commit and a newer tile focus.
   await page.evaluate(() => {
     const w = window as typeof window & { flushObjectiveFocus?: () => number };
     const nativeFrame = window.requestAnimationFrame, nativeCancel = window.cancelAnimationFrame;
@@ -121,11 +121,12 @@ export async function verifyReleaseConsolidation(page: Page, context: BrowserCon
   await activate(b("I see: 30 + 6 = 36 →"));
   await expect(page.locator(".practice-feedback")).toHaveText(t("No tiles are needed for this step. Choose End turn →."));
   await expect.poll(()=>page.evaluate(()=>JSON.parse(localStorage.getItem("runset.practice.v1")!))).toEqual({...beforeAcknowledgement,step:3});
+  await expect(page.locator(".practice-panel h1")).toBeFocused();
   const recoveryTile = page.locator('.rack [data-tile-id="12"]');
   await recoveryTile.focus();
-  expect(await page.evaluate(() => (window as typeof window & {
+  await page.evaluate(() => (window as typeof window & {
     flushObjectiveFocus: () => number;
-  }).flushObjectiveFocus())).toBeGreaterThan(0);
+  }).flushObjectiveFocus());
   await expect(recoveryTile).toBeFocused();
   await page.keyboard.press("Escape");
   await expect(page.locator(".practice-feedback")).toHaveCount(0);

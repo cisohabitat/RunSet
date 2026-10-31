@@ -6,11 +6,13 @@ The [reliability and accessibility cycle](RELIABILITY_ACCESSIBILITY_ROADMAP.md)
 is the latest approved cycle: startup headroom, enlargement/accessibility,
 mistake-to-practice guidance and release consolidation. Phase 1 completed at 366f6cd with
 full CI and 64 matching hosted checks passed. Phase 2 completed at dff9251 with
-all twelve CI jobs and 72 matching hosted checks passed. Phase 3 connects move
-help directly to the existing temporary practice copy; its own exact-commit gate
-is required. Phase 4 remains planned. See the [startup review](STARTUP_REVIEW.md),
+all twelve CI jobs and 72 matching hosted checks passed. Phase 3 completed at
+fa9e8ed with all twelve CI jobs and 96 matching hosted checks passed. Phase 4
+removes superseded CSS declarations and reviews guidance/coverage; its own
+exact-commit gate is required. See the [startup review](STARTUP_REVIEW.md),
 [enlargement review](ENLARGEMENT_REVIEW.md) and
-[correction-to-practice review](MISTAKE_PRACTICE_REVIEW.md).
+[correction-to-practice review](MISTAKE_PRACTICE_REVIEW.md) and
+[cascade review](CASCADE_REVIEW.md).
 
 The preceding [decision-clarity cycle](DECISION_CLARITY_ROADMAP.md) completed
 at `b63af0a`, with full CI and 56 matching hosted checks passed. The

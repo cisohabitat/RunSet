@@ -7,6 +7,10 @@ phone, tablet or desktop. No account, server or database is needed.
 [Play RunSet](https://run-set.vercel.app/) · [Current roadmap](docs/ROADMAP.md) ·
 [Verified releases and release gates](docs/RELEASE_STATUS.md)
 
+The [cascade review](docs/CASCADE_REVIEW.md) removes superseded styling while
+preserving the current phone, iPad and desktop layouts. Contextual help and timer
+warnings remain available in both languages; the full regression gate is retained.
+
 Move help with affected tiles now offers **Practise this correction**, opening the existing temporary
 copy with the same reason and next step. Try the correction, then return to the
 unchanged saved game. Other lesson/exercise drafts are kept, and real-game timers

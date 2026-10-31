@@ -1,0 +1,1674 @@
+{
+  "baseline": "fa9e8ed8a6938cc957b771401dee9c9571a7bcec",
+  "browser": "Chromium 154.0.8037.57 (Debian system executable, local headless)",
+  "baselineCssSha256": "7cd0340121cb70da63fdf6f7546f288135727e4eede99f5c4c90f532128dbb5e",
+  "candidateCssSha256": "e51002eb622dacaeb4ebadaef9a5acaa4b99325c99254fb97298e9d9a55fea6a",
+  "method": "Synchronous before/after source stylesheet substitution on identical rendered DOM; compare 25 computed layout/type/outline properties, pseudo content/margin-left and exact element rectangles. Reduced motion; no tolerance.",
+  "comparisons": 80,
+  "elementComparisons": 54831,
+  "differences": 0,
+  "measurements": [
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "home",
+      "elements": 166,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "home",
+      "elements": 166,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "home",
+      "elements": 163,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "home",
+      "elements": 166,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": false,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "home",
+      "elements": 166,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "home",
+      "elements": 166,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "home",
+      "elements": 166,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "home",
+      "elements": 154,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "en",
+      "reading": true,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "home",
+      "elements": 166,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "home",
+      "elements": 149,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "home",
+      "elements": 166,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "home",
+      "elements": 166,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": false,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "home",
+      "elements": 166,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "home",
+      "elements": 149,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "home",
+      "elements": 166,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "home",
+      "elements": 166,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "crowded-game",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "more",
+      "elements": 799,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "position-practice",
+      "elements": 1414,
+      "changes": 0
+    },
+    {
+      "locale": "zh-CN",
+      "reading": true,
+      "viewport": {
+        "width": 1180,
+        "height": 820
+      },
+      "stage": "learn",
+      "elements": 252,
+      "changes": 0
+    }
+  ],
+  "removals": [
+    {
+      "key": [
+        [],
+        ".text-button",
+        "padding",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 211,
+          "value": "10px 0"
+        },
+        {
+          "line": 1385,
+          "value": "10px 5px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [],
+        ".action-bar",
+        "display",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 775,
+          "value": "flex"
+        },
+        {
+          "line": 2087,
+          "value": "block"
+        }
+      ]
+    },
+    {
+      "key": [
+        [],
+        ".game-notice",
+        "font-size",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 799,
+          "value": "12px"
+        },
+        {
+          "line": 2138,
+          "value": "11px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [],
+        ".game-notice",
+        "margin-top",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 801,
+          "value": "18px"
+        },
+        {
+          "line": 2140,
+          "value": "6px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [],
+        ".game-notice",
+        "line-height",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 802,
+          "value": "1.7"
+        },
+        {
+          "line": 2139,
+          "value": "1.5"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".site-header",
+        "height",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1014,
+          "value": "83px"
+        },
+        {
+          "line": 1588,
+          "value": "76px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".game",
+        "padding",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1114,
+          "value": "22px 4% 30px"
+        },
+        {
+          "line": 1591,
+          "value": "12px 12px 25px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".game h1",
+        "font-size",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1117,
+          "value": "29px"
+        },
+        {
+          "line": 1594,
+          "value": "27px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".game-heading",
+        "margin-bottom",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1120,
+          "value": "18px"
+        },
+        {
+          "line": 1597,
+          "value": "12px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".opponent",
+        "min-width",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1127,
+          "value": "calc(33% - 5px)"
+        },
+        {
+          "line": 1605,
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".opponent",
+        "padding",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1130,
+          "value": "9px"
+        },
+        {
+          "line": 1604,
+          "value": "8px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".pool-count",
+        "padding-top",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1150,
+          "value": "4px"
+        },
+        {
+          "line": 1620,
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".table",
+        "min-height",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1160,
+          "value": "320px"
+        },
+        {
+          "line": 1623,
+          "value": "220px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".table",
+        "padding",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1161,
+          "value": "16px 12px 24px"
+        },
+        {
+          "line": 1625,
+          "value": "10px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".table-topline",
+        "font-size",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1164,
+          "value": "6px"
+        },
+        {
+          "line": 1629,
+          "value": "7px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".table-topline",
+        "letter-spacing",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1165,
+          "value": "1px"
+        },
+        {
+          "line": 1628,
+          "value": "0.4px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".tile",
+        "width",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1172,
+          "value": "37px"
+        },
+        {
+          "line": 1635,
+          "value": "44px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".tile",
+        "height",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1173,
+          "value": "54px"
+        },
+        {
+          "line": 1636,
+          "value": "60px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".tile",
+        "font-size",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1174,
+          "value": "23px"
+        },
+        {
+          "line": 1638,
+          "value": "25px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".meld-target",
+        "font-size",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1195,
+          "value": "7px"
+        },
+        {
+          "line": 1747,
+          "value": "8px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".new-meld",
+        "min-height",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1200,
+          "value": "88px"
+        },
+        {
+          "line": 1753,
+          "value": "104px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".new-meld small",
+        "font-size",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1204,
+          "value": "7px"
+        },
+        {
+          "line": 1750,
+          "value": "9px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".rack",
+        "padding",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1226,
+          "value": "15px 12px 20px"
+        },
+        {
+          "line": 1659,
+          "value": "10px 10px 7px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".rack-heading",
+        "margin-bottom",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1229,
+          "value": "20px"
+        },
+        {
+          "line": 1653,
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".rack-heading div > span",
+        "font-size",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1235,
+          "value": "9px"
+        },
+        {
+          "line": 1656,
+          "value": "10px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".sort button",
+        "font-size",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1244,
+          "value": "8px"
+        },
+        {
+          "line": 1663,
+          "value": "10px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".sort button",
+        "padding",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1245,
+          "value": "6px"
+        },
+        {
+          "line": 1662,
+          "value": "8px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".action-bar",
+        "gap",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1255,
+          "value": "10px"
+        },
+        {
+          "line": 1666,
+          "value": "6px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".action-bar",
+        "padding-top",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1256,
+          "value": "13px"
+        },
+        {
+          "line": 1667,
+          "value": "6px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".action-bar .primary,\n  .action-bar .secondary",
+        "width",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1268,
+          "value": "calc(50% - 5px)"
+        },
+        {
+          "line": 1680,
+          "value": "auto"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".action-bar .primary,\n  .action-bar .secondary",
+        "padding",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 1272,
+          "value": "14px 10px"
+        },
+        {
+          "line": 1681,
+          "value": "10px 8px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [],
+        ".game-dropdown > summary::after",
+        "margin-left",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 2005,
+          "value": "7px"
+        },
+        {
+          "line": 2866,
+          "value": "3px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".playing .sort button",
+        "font-size",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 2412,
+          "value": "9px"
+        },
+        {
+          "line": 2970,
+          "value": "11px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [],
+        ".practice-layout.playing > .practice-panel",
+        "overflow",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 2542,
+          "value": "auto"
+        },
+        {
+          "line": 2917,
+          "value": "hidden"
+        }
+      ]
+    },
+    {
+      "key": [
+        [],
+        ".hint-reasons",
+        "margin-top",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 2598,
+          "value": "8px"
+        },
+        {
+          "line": 2907,
+          "value": "10px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".practice-layout .practice-actions > .text-button",
+        "font-size",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 2665,
+          "value": "10px"
+        },
+        {
+          "line": 2973,
+          "value": "11px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".practice-layout .practice-actions > .text-button",
+        "padding",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 2667,
+          "value": "6px"
+        },
+        {
+          "line": 2974,
+          "value": "4px 5px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [],
+        ".save-tools",
+        "padding",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 2733,
+          "value": "20px 4%"
+        },
+        {
+          "line": 2946,
+          "value": "20px 24px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [],
+        ".game-menu-content .save-tools",
+        "padding",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 2785,
+          "value": "12px 0"
+        },
+        {
+          "line": 2966,
+          "value": "12px"
+        }
+      ]
+    },
+    {
+      "key": [
+        [
+          "@media (max-width: 720px)"
+        ],
+        ".save-tools",
+        "padding",
+        false
+      ],
+      "declarations": [
+        {
+          "line": 2824,
+          "value": "16px 6%"
+        },
+        {
+          "line": 2987,
+          "value": "16px"
+        }
+      ]
+    }
+  ]
+}

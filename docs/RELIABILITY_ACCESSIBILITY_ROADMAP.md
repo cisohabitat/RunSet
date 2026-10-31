@@ -10,8 +10,8 @@ matching READY production and all 56 hosted checks in
 | --- | --- | --- |
 | 1 | Reduce initial startup assets and check slower-browser responsiveness | Complete: 366f6cd; CI 41159506733 and 64 matching hosted checks in 41160974451 passed |
 | 2 | Review 200% enlargement, large text, keyboard navigation and bilingual accessible labels | Complete: dff9251; CI 41175960142 and 72 matching hosted checks in 41177284740 passed |
-| 3 | Connect existing mistake guidance clearly to relevant practice | Direct correction-to-copy flow implemented; its own exact-commit gate required |
-| 4 | Review accumulated CSS overrides, duplicate guidance and regression coverage | Planned |
+| 3 | Connect existing mistake guidance clearly to relevant practice | Complete: fa9e8ed; CI 41185578165 and 96 matching hosted checks in 41187009871 passed |
+| 4 | Review accumulated CSS overrides, duplicate guidance and regression coverage | Cascade cleanup implemented; its own exact-commit gate required |
 
 Publish each phase separately to main, update README and AGENTS, and complete
 all twelve exact-commit CI jobs plus matching READY production and hosted
@@ -53,3 +53,14 @@ opener. Preserve the mounted regular game, selection, save and original deadline
 real state replacement/expiry invalidates the copy. Keep strict modal-body native
 target bounds and the 12 px end padding/scroll clearance. Phase 2 completed at
 dff9251 with matching READY production; its pending-gate notes are historical.
+
+## Phase 4 boundaries
+
+See [CASCADE_REVIEW](CASCADE_REVIEW.md). Remove only earlier declarations with
+the same selector, media/supports context, property and importance as a later
+supported declaration. Keep the winning rule positions, specificity, shorthand
+order, responsive conditions and lazy stylesheet ownership. Retain conditional
+guidance and timer/copy warnings when they serve distinct contexts. Preserve all
+921 browser and 96 hosted cases and their native geometry/assertion budgets.
+Phase 3 completed at fa9e8ed with matching READY production; its pending-gate
+notes are historical. This phase requires its own full publication gate.

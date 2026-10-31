@@ -49,16 +49,18 @@ matching READY production. Phase 4's failed initial commit is documented in
 | --- | --- | --- | --- | --- |
 | 1: startup assets and header correction | `366f6cdbceecadc8b2e8b08fbcadeee12df6d383` | [41159506733](https://github.com/cisohabitat/RunSet/actions/runs/41159506733) | [41160974451](https://github.com/cisohabitat/RunSet/actions/runs/41160974451) | 225 unit, 889 browser, 64 live |
 | 2: enlargement and focus recovery | `dff9251a9760f581dce1043623312731f4ecb94f` | [41175960142](https://github.com/cisohabitat/RunSet/actions/runs/41175960142) | [41177284740](https://github.com/cisohabitat/RunSet/actions/runs/41177284740) | 225 unit, 897 browser, 72 live |
+| 3: correction-to-practice connection | `fa9e8ed8a6938cc957b771401dee9c9571a7bcec` | [41185578165](https://github.com/cisohabitat/RunSet/actions/runs/41185578165) | [41187009871](https://github.com/cisohabitat/RunSet/actions/runs/41187009871) | 225 unit, 921 browser, 96 live |
 
 This Phase 1 gate completed successfully with matching READY production. Its
 failed initial publication is documented in [STARTUP_REVIEW](STARTUP_REVIEW.md).
 Phase 2 completed its entire exact-commit gate with matching READY production;
 its correction history is in [ENLARGEMENT_REVIEW](ENLARGEMENT_REVIEW.md).
-Phase 3 retains all 72 hosted cases and adds six correction-to-practice cases per
-profile: 96 total. Expected full counts are 225 units and 921 browser cases
+Phase 3 completed its entire exact-commit gate with matching READY production;
+see [MISTAKE_PRACTICE_REVIEW](MISTAKE_PRACTICE_REVIEW.md). Phase 4 retains all
+96 hosted cases. Expected full counts remain 225 units and 921 browser cases
 (355 main; 152 per compatibility profile; 70 offline; 40 upgrades). This new
-commit requires its own complete exact-commit gate. See
-[MISTAKE_PRACTICE_REVIEW](MISTAKE_PRACTICE_REVIEW.md).
+commit requires its own complete exact-commit gate; see
+[CASCADE_REVIEW](CASCADE_REVIEW.md).
 
 ## Release procedure
 

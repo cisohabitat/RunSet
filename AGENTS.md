@@ -45,6 +45,14 @@ Keep full focus paint/native hit checks, independent reducer/save assertions and
 real forward/backward keyboard navigation. A checkbox's label is its large hit
 target; do not require its glyph to become 44 px. Preserve existing test budgets.
 
+Phase 3 completed at fa9e8ed with all twelve CI jobs in 41185578165 and 96
+matching hosted checks in 41187009871 passed, plus matching READY production.
+Phase 4 evidence lives in docs/CASCADE_REVIEW.md. CSS cleanup removes only earlier
+declarations superseded under the identical selector, media/supports context,
+property and importance. Preserve final rule positions, shorthand order, native
+targets, all lazy CSS boundaries and every existing browser/hosted case. Do not
+infer that different-context guidance is redundant; retain timer and copy warnings.
+
 Phase 3 evidence lives in docs/MISTAKE_PRACTICE_REVIEW.md. Offer targeted practice
 only when help identifies affected physical tiles: draw/pass-only advice cannot
 be acted on in a copy that excludes unseen draws. MoveHelp's practice

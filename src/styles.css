@@ -208,7 +208,6 @@ input {
 .text-button {
   font-size: 12px;
   font-weight: 550;
-  padding: 10px 0;
   display: inline-flex;
   align-items: center;
   gap: 20px;
@@ -772,7 +771,6 @@ legend {
   color: var(--muted);
 }
 .action-bar {
-  display: flex;
   align-items: center;
   gap: var(--space-3);
   padding-top: 20px;
@@ -796,10 +794,7 @@ legend {
   box-shadow: 0 3px 0 #813d31;
 }
 .game-notice {
-  font-size: 12px;
   color: var(--muted);
-  margin-top: 18px;
-  line-height: 1.7;
 }
 .game-log {
   font-size: 11px;
@@ -1011,7 +1006,6 @@ legend {
 }
 @media (max-width: 720px) {
   .site-header {
-    height: 83px;
     padding: 0 6%;
   }
   .brand {
@@ -1110,24 +1104,13 @@ legend {
   .page h1 {
     font-size: 45px;
   }
-  .game {
-    padding: 22px 4% 30px;
-  }
-  .game h1 {
-    font-size: 29px;
-  }
-  .game-heading {
-    margin-bottom: 18px;
-  }
   .opponents {
     gap: 6px;
     flex-wrap: wrap;
   }
   .opponent {
-    min-width: calc(33% - 5px);
     max-width: none;
     gap: 7px;
-    padding: 9px;
   }
   .opponent .avatar {
     width: 22px;
@@ -1147,7 +1130,6 @@ legend {
     width: 100%;
     flex-direction: row;
     gap: 6px;
-    padding-top: 4px;
     justify-content: flex-end;
   }
   .pool-count strong {
@@ -1156,22 +1138,13 @@ legend {
   .pool-count span {
     font-size: 8px;
   }
-  .table {
-    min-height: 320px;
-    padding: 16px 12px 24px;
-  }
   .table-topline {
-    font-size: 6px;
-    letter-spacing: 1px;
     margin-bottom: 18px;
   }
   .melds {
     gap: 14px;
   }
   .tile {
-    width: 37px;
-    height: 54px;
-    font-size: 23px;
     border-radius: 5px;
   }
   .tile-mark {
@@ -1192,16 +1165,11 @@ legend {
     gap: 3px;
   }
   .meld-target {
-    font-size: 7px;
     padding: 8px 0;
   }
   .new-meld {
     min-width: 112px;
-    min-height: 88px;
     font-size: 10px;
-  }
-  .new-meld small {
-    font-size: 7px;
   }
   .empty-table {
     inset: 145px 10px 25px;
@@ -1222,27 +1190,18 @@ legend {
     margin: 0;
     line-height: 1.5;
   }
-  .rack {
-    padding: 15px 12px 20px;
-  }
   .rack-heading {
-    margin-bottom: 20px;
     align-items: flex-start;
   }
   .rack-heading div > span {
     display: block;
     margin: 4px 0 0;
-    font-size: 9px;
   }
   .rack-heading strong {
     font-size: 11px;
   }
   .sort {
     gap: 5px;
-  }
-  .sort button {
-    font-size: 8px;
-    padding: 6px;
   }
   .sort > span {
     display: none !important;
@@ -1252,8 +1211,6 @@ legend {
   }
   .action-bar {
     flex-wrap: wrap;
-    gap: 10px;
-    padding-top: 13px;
   }
   .action-bar > .text-button {
     font-size: 11px;
@@ -1265,11 +1222,9 @@ legend {
   }
   .action-bar .primary,
   .action-bar .secondary {
-    width: calc(50% - 5px);
     justify-content: center;
     font-size: 11px;
     gap: 14px;
-    padding: 14px 10px;
   }
   .game-notice {
     font-size: 11px;
@@ -2002,7 +1957,6 @@ button:not(.tile) {
 }
 .game-dropdown > summary::after {
   content: "⌄";
-  margin-left: 7px;
 }
 .game-menu-content {
   font-size: 16px;
@@ -2409,7 +2363,6 @@ button:not(.tile) {
     min-width: 44px;
     min-height: 44px;
     padding: 4px;
-    font-size: 9px;
   }
   .playing .rack-tiles {
     padding: 10px 4px 7px;
@@ -2539,7 +2492,6 @@ button:not(.tile) {
 .practice-layout.playing > .practice-panel {
   flex: none;
   max-height: 30dvh;
-  overflow: auto;
   margin: 8px auto;
   padding: 12px 22px;
   width: min(1180px, calc(100% - 32px));
@@ -2595,7 +2547,6 @@ button:not(.tile) {
   box-shadow: 0 0 0 6px #cda84824;
 }
 .hint-reasons {
-  margin-top: 8px;
   font-size: 12px;
 }
 .hint-reasons summary {
@@ -2662,9 +2613,7 @@ button:not(.tile) {
     font-size: 12px;
   }
   .practice-layout .practice-actions > .text-button {
-    font-size: 10px;
     min-height: 38px;
-    padding: 6px;
   }
   .practice-layout .practice-actions > .primary {
     font-size: 11px;
@@ -2730,7 +2679,6 @@ button:not(.tile) {
 .save-tools {
   max-width: 1180px;
   margin: 15px auto;
-  padding: 20px 4%;
   border-top: 1px solid var(--line);
   font-size: 12px;
   color: var(--muted);
@@ -2782,7 +2730,6 @@ button:not(.tile) {
   outline-offset: 3px;
 }
 .game-menu-content .save-tools {
-  padding: 12px 0;
   margin: 6px 0;
 }
 .game-menu-content .save-tools h2 {
@@ -2819,9 +2766,6 @@ button:not(.tile) {
     max-width: 100px;
     white-space: normal;
     text-align: right;
-  }
-  .save-tools {
-    padding: 16px 6%;
   }
 }
 /* Optional scores, clocks and explanations share bounded space above the table.

@@ -21,7 +21,7 @@ first-offline and upgrade journeys. Preserve the 100,000-byte initial gzip gate.
 Phase 1 completed at 366f6cd with CI 41159506733 and 64 matching hosted checks
 in 41160974451 passed. Current release review is 72 cases (18/profile), retaining
 every earlier case. Enlargement evidence lives in docs/ENLARGEMENT_REVIEW.md.
-Keep 12 px page-control/tile scroll clearance, inset header focus strokes, safe
+Keep 12 px header/page-control/tile scroll clearance, inset header focus strokes, safe
 centering of overflowing desktop racks and geometric decorative colour/dot marks.
 Marker size variables retain the existing per-layout pixel values; do not let
 minimum fonts enlarge shapes over numbers. Regular-workspace View selects need

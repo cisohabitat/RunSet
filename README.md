@@ -13,6 +13,8 @@ selection when a lesson step changes.
 Practice-layout regression checks compare colour and number through accessible
 tile names, including when decorative shapes use vectors.
 
+Header controls keep scroll clearance so keyboard focus stays fully visible.
+
 The [enlargement review](docs/ENLARGEMENT_REVIEW.md) fixes focused controls and
 rack tiles disappearing at enlarged layouts. Colour symbols stay clear of tile
 numbers under browser minimum-font settings, and overflowing desktop racks keep

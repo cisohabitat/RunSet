@@ -100,7 +100,7 @@ built-bundle run also passed both native cases (four zoom/font journeys), using
 cases against the development server; this supplemental config tests built
 assets without adding duplicate cases to the release counts.
 
-The final build passed type checking and measured 99,152 initial gzip bytes,
+The final build passed type checking and measured 99,155 initial gzip bytes,
 under the unchanged 100,000-byte limit, with 80 precached files. Four final
 responsiveness cases recorded 40 samples under 4× CPU throttling, with a maximum
 of 540.0 ms against the existing 1,000 ms smoke bound. These local development
@@ -185,3 +185,22 @@ Current initial assets are 99,152 gzip bytes / 80 precached files. Raw measureme
 explicitly retain their pre-containment-correction source fingerprints, with
 current build sizes/fingerprints separate. This correction requires its own full
 exact-commit CI and matching production/hosted acceptance.
+
+The `918626c` run [41173103119](https://github.com/cisohabitat/RunSet/actions/runs/41173103119)
+passed all ten other jobs; WebKit phone initially failed one Chinese move-help
+centre-hit check. That unchanged journey passed six local repetitions and passed
+on the full phone rerun. The rerun instead reproduced a focused English Settings
+control at y=-0.5 px in the 640×406 reflow viewport, with a 44 px target and inset
+3 px outline. Header controls now also have 12 px block scroll margin, complementing
+the existing page-control margin. Geometry assertions and limits remain strict;
+this addresses the measured fractional clipping rather than allowing a tolerance.
+The initial move-help failure remains recorded as an intermittent observation,
+not a demonstrated fixed move-help defect. The next commit must pass a new full
+CI run and matching hosted acceptance.
+
+After header clearance, six repeated phone enlargement cases, two cases in each
+of the other three profiles and two supplemental native built cases passed.
+Current initial gzip is 99,155 bytes, with 80 precached files. Native/reflow rows
+and current source fingerprints are refreshed; CPU samples retain their separate
+preceding-handoff source scope. All case counts, strict focus bounds and native
+hit requirements remain unchanged.

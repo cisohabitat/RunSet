@@ -4326,6 +4326,9 @@ button:not(.tile) {
   scroll-margin-block: 12px;
 }
 /* Compact headers leave little outer space around keyboard focus. */
+.site-header :is(button, select, summary) {
+  scroll-margin-block: 12px;
+}
 .site-header :is(button, select, summary):focus-visible {
   outline-offset: -3px;
 }

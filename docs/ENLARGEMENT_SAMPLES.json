@@ -8,22 +8,22 @@
     "initialAssets": [
       {
         "path": "dist/index.html",
-        "gzipBytes": 499
+        "gzipBytes": 496
       },
       {
-        "path": "dist/assets/index-BcptbEmk.js",
-        "gzipBytes": 84828
+        "path": "dist/assets/index-DxslehRZ.js",
+        "gzipBytes": 84833
       },
       {
-        "path": "dist/assets/index-DT_jZNOv.css",
-        "gzipBytes": 13825
+        "path": "dist/assets/index-X-c7swl7.css",
+        "gzipBytes": 13826
       }
     ],
-    "totalInitialGzipBytes": 99152,
+    "totalInitialGzipBytes": 99155,
     "precacheFiles": 80,
     "fingerprints": {
       "src/App.tsx": "617db3594a249705d1efcc294e6dbbce839820640dbe4ce74b7d8bc60a5a2cec",
-      "src/styles.css": "1660032ad5997b6e475df34fe7d6fcbc8cc85e3015ffbd215c9b177d56ea878d",
+      "src/styles.css": "7cd0340121cb70da63fdf6f7546f288135727e4eede99f5c4c90f532128dbb5e",
       "src/ui/GameLayout.css": "72c27d815b6207cf6d2a24527dd5c5fc608cc935073f823514e80fc4d5572095",
       "src/ui/MeldInspector.css": "ac9fa412b5f87c0bf0f39553f65c30b6a14f4a13d88db73afd9d5b69fb3b8d3f",
       "src/ui/TileFace.tsx": "096e3cf78c36140bc313b33cdd50de291f1948c5370123f5d1d8804ac44bc455",
@@ -58,7 +58,7 @@
         "dpr": 2
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final synchronous objective/rack focus handoff; actual isolated Chromium browser APIs"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction; actual isolated Chromium browser APIs"
     },
     {
       "locale": "en",
@@ -76,7 +76,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final synchronous objective/rack focus handoff; actual isolated Chromium browser APIs"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction; actual isolated Chromium browser APIs"
     },
     {
       "locale": "zh-CN",
@@ -94,7 +94,7 @@
         "dpr": 2
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final synchronous objective/rack focus handoff; actual isolated Chromium browser APIs"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction; actual isolated Chromium browser APIs"
     },
     {
       "locale": "zh-CN",
@@ -112,7 +112,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final synchronous objective/rack focus handoff; actual isolated Chromium browser APIs"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction; actual isolated Chromium browser APIs"
     }
   ],
   "productionReflowEvidence": [
@@ -132,7 +132,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, chromium; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, chromium; CSS viewport reflow only"
     },
     {
       "locale": "en",
@@ -150,7 +150,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, chromium; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, chromium; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -168,7 +168,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, chromium; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, chromium; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -186,7 +186,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, chromium; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, chromium; CSS viewport reflow only"
     },
     {
       "locale": "en",
@@ -204,7 +204,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, phone; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, phone; CSS viewport reflow only"
     },
     {
       "locale": "en",
@@ -222,7 +222,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, phone; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, phone; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -240,7 +240,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, phone; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, phone; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -258,7 +258,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, phone; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, phone; CSS viewport reflow only"
     },
     {
       "locale": "en",
@@ -276,7 +276,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, ipad; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, ipad; CSS viewport reflow only"
     },
     {
       "locale": "en",
@@ -294,7 +294,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, ipad; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, ipad; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -312,7 +312,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, ipad; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, ipad; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -330,7 +330,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, ipad; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, ipad; CSS viewport reflow only"
     },
     {
       "locale": "en",
@@ -348,7 +348,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, firefox; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, firefox; CSS viewport reflow only"
     },
     {
       "locale": "en",
@@ -366,7 +366,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, firefox; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, firefox; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -384,7 +384,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, firefox; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, firefox; CSS viewport reflow only"
     },
     {
       "locale": "zh-CN",
@@ -402,7 +402,7 @@
         "dpr": 1
       },
       "physicalDevice": false,
-      "scope": "Local built preview after final focus handoff, firefox; CSS viewport reflow only"
+      "scope": "Local built preview after header scroll clearance and own-dialog correction, firefox; CSS viewport reflow only"
     }
   ],
   "responsiveness": {
@@ -517,11 +517,249 @@
         "maxMs": 431.80000001192093
       }
     ],
-    "candidateNote": "Rerun after final synchronous objective/rack focus handoff."
+    "candidateNote": "Rerun after final synchronous objective/rack focus handoff.",
+    "sourceFingerprints": {
+      "src/App.tsx": "617db3594a249705d1efcc294e6dbbce839820640dbe4ce74b7d8bc60a5a2cec",
+      "src/styles.css": "1660032ad5997b6e475df34fe7d6fcbc8cc85e3015ffbd215c9b177d56ea878d",
+      "src/ui/GameLayout.css": "72c27d815b6207cf6d2a24527dd5c5fc608cc935073f823514e80fc4d5572095",
+      "src/ui/MeldInspector.css": "ac9fa412b5f87c0bf0f39553f65c30b6a14f4a13d88db73afd9d5b69fb3b8d3f",
+      "src/ui/TileFace.tsx": "096e3cf78c36140bc313b33cdd50de291f1948c5370123f5d1d8804ac44bc455",
+      "src/ui/Tile.tsx": "8241fb8abf9c3c2d453eb13c83538bd9e28d9dd16a6ba7fd59f31cddc59a3f90",
+      "src/ui/useScreenFocus.ts": "b853feb3771ace41c33a2063e6d689c20849bd8ff8c0a14cb593f6bb292e5108",
+      "e2e/enlargement.spec.ts": "fa325595f5fd9f7cd0e95125795147d8bb2717b352ccde7b69e928b2b069df1b",
+      "e2e-compat/enlargement.spec.ts": "874962e3bb3579870f2edfb62b33c748ecaa53d9566a605b35f6b54321dde65a",
+      "e2e/helpers/enlargement.ts": "4f9a0e26b25d7f0d306a63efc05ddb656874b49aa114c9ff737f86079114d9f5",
+      "playwright.enlargement.config.ts": "237d8b4ec1dc83db667803323e661101680f0a25f078bd115d216fd51aa82505",
+      "playwright.release.config.ts": "522fd79cb5b1e0b4705d1880a1884608e1da8fd1183f40fa1daf4e6ab3868d8b",
+      "package-lock.json": "500aab9da6f4016936fb8acbad5af91ebbbd6fb6c9ffa8b973e7c7ac76ce03c0",
+      "src/ui/Tutorial.tsx": "ab737332867d1280180cfa0ba5a06754ba39e83c76805761c5f2372c0b3b026d",
+      "e2e/helpers/release-consolidation.ts": "b6d1422490954e392420fc364476b55013b78ceca7668c5e433b95f907c25d02",
+      "e2e/helpers/turn-layouts.ts": "60ed9d89ddf8b2b144762df9814b7550cb08ce01e9db6f621d6b7dd4e8caef01",
+      "src/ui/Game.tsx": "93e2870a2bff1bb072a821761cff64efb7a6d9b4e7d2d84d612b431898e7be1a"
+    }
   },
-  "measurementSourceFingerprints": {
+  "measurementScope": "Native/reflow rows and current build sizes/fingerprints were refreshed after header scroll clearance and own-dialog correction. CPU rows retain separate source fingerprints from the preceding lesson handoff; the narrow dialog-containment and header-margin refinements were checked separately.",
+  "phoneRepeatEvidence": [
+    {
+      "locale": "en",
+      "mode": "reflow640",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 640,
+        "height": 406
+      },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 1
+      },
+      "physicalDevice": false,
+      "scope": "Local built preview, three repeats per language after header scroll clearance; CSS viewport reflow only"
+    },
+    {
+      "locale": "en",
+      "mode": "reflow320",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 320,
+        "height": 640
+      },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "dpr": 1
+      },
+      "physicalDevice": false,
+      "scope": "Local built preview, three repeats per language after header scroll clearance; CSS viewport reflow only"
+    },
+    {
+      "locale": "zh-CN",
+      "mode": "reflow640",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 640,
+        "height": 406
+      },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 1
+      },
+      "physicalDevice": false,
+      "scope": "Local built preview, three repeats per language after header scroll clearance; CSS viewport reflow only"
+    },
+    {
+      "locale": "zh-CN",
+      "mode": "reflow320",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 320,
+        "height": 640
+      },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "dpr": 1
+      },
+      "physicalDevice": false,
+      "scope": "Local built preview, three repeats per language after header scroll clearance; CSS viewport reflow only"
+    },
+    {
+      "locale": "en",
+      "mode": "reflow640",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 640,
+        "height": 406
+      },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 1
+      },
+      "physicalDevice": false,
+      "scope": "Local built preview, three repeats per language after header scroll clearance; CSS viewport reflow only"
+    },
+    {
+      "locale": "en",
+      "mode": "reflow320",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 320,
+        "height": 640
+      },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "dpr": 1
+      },
+      "physicalDevice": false,
+      "scope": "Local built preview, three repeats per language after header scroll clearance; CSS viewport reflow only"
+    },
+    {
+      "locale": "zh-CN",
+      "mode": "reflow640",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 640,
+        "height": 406
+      },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 1
+      },
+      "physicalDevice": false,
+      "scope": "Local built preview, three repeats per language after header scroll clearance; CSS viewport reflow only"
+    },
+    {
+      "locale": "zh-CN",
+      "mode": "reflow320",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 320,
+        "height": 640
+      },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "dpr": 1
+      },
+      "physicalDevice": false,
+      "scope": "Local built preview, three repeats per language after header scroll clearance; CSS viewport reflow only"
+    },
+    {
+      "locale": "en",
+      "mode": "reflow640",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 640,
+        "height": 406
+      },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 1
+      },
+      "physicalDevice": false,
+      "scope": "Local built preview, three repeats per language after header scroll clearance; CSS viewport reflow only"
+    },
+    {
+      "locale": "en",
+      "mode": "reflow320",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 320,
+        "height": 640
+      },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "dpr": 1
+      },
+      "physicalDevice": false,
+      "scope": "Local built preview, three repeats per language after header scroll clearance; CSS viewport reflow only"
+    },
+    {
+      "locale": "zh-CN",
+      "mode": "reflow640",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 640,
+        "height": 406
+      },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 1
+      },
+      "physicalDevice": false,
+      "scope": "Local built preview, three repeats per language after header scroll clearance; CSS viewport reflow only"
+    },
+    {
+      "locale": "zh-CN",
+      "mode": "reflow320",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 320,
+        "height": 640
+      },
+      "profile": "webkit-phone",
+      "browserVersion": "27.2",
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "dpr": 1
+      },
+      "physicalDevice": false,
+      "scope": "Local built preview, three repeats per language after header scroll clearance; CSS viewport reflow only"
+    }
+  ],
+  "nativeReflowSourceFingerprints": {
     "src/App.tsx": "617db3594a249705d1efcc294e6dbbce839820640dbe4ce74b7d8bc60a5a2cec",
-    "src/styles.css": "1660032ad5997b6e475df34fe7d6fcbc8cc85e3015ffbd215c9b177d56ea878d",
+    "src/styles.css": "7cd0340121cb70da63fdf6f7546f288135727e4eede99f5c4c90f532128dbb5e",
     "src/ui/GameLayout.css": "72c27d815b6207cf6d2a24527dd5c5fc608cc935073f823514e80fc4d5572095",
     "src/ui/MeldInspector.css": "ac9fa412b5f87c0bf0f39553f65c30b6a14f4a13d88db73afd9d5b69fb3b8d3f",
     "src/ui/TileFace.tsx": "096e3cf78c36140bc313b33cdd50de291f1948c5370123f5d1d8804ac44bc455",
@@ -536,7 +774,6 @@
     "src/ui/Tutorial.tsx": "ab737332867d1280180cfa0ba5a06754ba39e83c76805761c5f2372c0b3b026d",
     "e2e/helpers/release-consolidation.ts": "b6d1422490954e392420fc364476b55013b78ceca7668c5e433b95f907c25d02",
     "e2e/helpers/turn-layouts.ts": "60ed9d89ddf8b2b144762df9814b7550cb08ce01e9db6f621d6b7dd4e8caef01",
-    "src/ui/Game.tsx": "93e2870a2bff1bb072a821761cff64efb7a6d9b4e7d2d84d612b431898e7be1a"
-  },
-  "measurementScope": "Native/reflow and CPU rows were recorded after the final objective/rack handoff, before the narrow own-dialog containment correction. That correction was separately checked by 16 main and 8 built offline/compatibility cases; build size and candidate fingerprints below are current."
+    "src/ui/Game.tsx": "6d79ba643da1746fbb965cb3996df4c89341f24ece65257669690308ea059241"
+  }
 }

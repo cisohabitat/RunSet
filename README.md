@@ -7,6 +7,11 @@ phone, tablet or desktop. No account, server or database is needed.
 [Play RunSet](https://run-set.vercel.app/) · [Current roadmap](docs/ROADMAP.md) ·
 [Verified releases and release gates](docs/RELEASE_STATUS.md)
 
+Move help now offers **Practise this correction**, opening the existing temporary
+copy with the same reason and next step. Try the correction, then return to the
+unchanged saved game. Other lesson/exercise drafts are kept, and real-game timers
+continue. See the [practice connection review](docs/MISTAKE_PRACTICE_REVIEW.md).
+
 Delayed lesson guidance respects a newer tile focus so Escape still clears
 selection when a lesson step changes.
 
@@ -221,7 +226,7 @@ first-time-player usability sessions remain manual checks.
 
 `npm run build` type-checks and emits a static site in `dist/`. GitHub Actions
 requires quality, six browser jobs, four historical-upgrade jobs and the aggregate
-check on pushes and PRs. The supplemental release review checks 72 connected
+check on pushes and PRs. The supplemental release review checks 96 connected
 journeys against matching production after it is READY; it does not deploy.
 See the [release procedure](docs/RELEASE_STATUS.md#release-procedure).
 

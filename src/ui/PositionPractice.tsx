@@ -13,10 +13,12 @@ export function PositionPractice({
   source,
   opener,
   onClose,
+  guidance,
 }: {
   source: GameState;
   opener: HTMLButtonElement | null;
   onClose: () => void;
+  guidance?: { reason: string; next: string };
 }) {
   const { t } = useI18n();
   const [initial] = useState(() => positionPractice(source));
@@ -89,7 +91,9 @@ export function PositionPractice({
       >
         <p>
           {t(
-            "Temporary copy. Practise with your rack and the public table. Your saved game and selected tiles stay unchanged.",
+            guidance
+              ? "Practice copy only. Your saved game and selected tiles stay unchanged."
+              : "Temporary copy. Practise with your rack and the public table. Your saved game and selected tiles stay unchanged.",
           )}
         </p>
         <p>
@@ -99,11 +103,18 @@ export function PositionPractice({
               : "This copy has no timer. Close or reload to discard its practice edits.",
           )}
         </p>
-        <p>
+        {!guidance && <p>
           {t(
             "Unfinished moves are included. Undo affects only new practice moves; Reset returns to the start of the original turn. Unseen tiles and opponents are not played here.",
           )}
-        </p>
+        </p>}
+        {guidance && (
+          <section aria-label={t("Correction to practise")}>
+            <h3>{t("Correction to practise")}</h3>
+            <p>{t(guidance.reason)}</p>
+            <p>{t(guidance.next)}</p>
+          </section>
+        )}
         {feedback && (
           <p
             ref={message}
@@ -169,6 +180,17 @@ export function PositionPractice({
               "A practice copy is available only during your turn in a valid saved game.",
             )}
           </p>
+        )}
+        {guidance && (
+          <details className="practice-copy-about">
+            <summary>{t("About this practice copy")}</summary>
+            <p>
+              {t("Temporary copy. Practise with your rack and the public table. Your saved game and selected tiles stay unchanged.")}
+            </p>
+            <p>
+              {t("Unfinished moves are included. Undo affects only new practice moves; Reset returns to the start of the original turn. Unseen tiles and opponents are not played here.")}
+            </p>
+          </details>
         )}
       </div>
       <footer className="dialog-actions">

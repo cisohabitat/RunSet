@@ -9,14 +9,14 @@ matching READY production and all 56 hosted checks in
 | Phase | Work | Status |
 | --- | --- | --- |
 | 1 | Reduce initial startup assets and check slower-browser responsiveness | Complete: 366f6cd; CI 41159506733 and 64 matching hosted checks in 41160974451 passed |
-| 2 | Review 200% enlargement, large text, keyboard navigation and bilingual accessible labels | Native zoom/font and reflow fixes implemented; its own exact-commit gate required |
-| 3 | Connect existing mistake guidance clearly to relevant practice | Planned |
+| 2 | Review 200% enlargement, large text, keyboard navigation and bilingual accessible labels | Complete: dff9251; CI 41175960142 and 72 matching hosted checks in 41177284740 passed |
+| 3 | Connect existing mistake guidance clearly to relevant practice | Direct correction-to-copy flow implemented; its own exact-commit gate required |
 | 4 | Review accumulated CSS overrides, duplicate guidance and regression coverage | Planned |
 
 Publish each phase separately to main, update README and AGENTS, and complete
 all twelve exact-commit CI jobs plus matching READY production and hosted
 acceptance before starting the next phase. The current release review retains
-all 64 earlier cases and adds eight enlargement/reflow journeys: 72 total.
+all 72 earlier cases and adds 24 correction-to-practice journeys: 96 total.
 
 ## Phase 1 boundaries
 
@@ -42,3 +42,14 @@ actual Chromium browser zoom/font APIs from viewport reflow evidence. Keep
 profile/extension setup test-only, all prior offline cases and the full gate.
 Phase 1 completed at 366f6cd with matching READY production; its implementation-
 time pending-gate notes are historical.
+
+## Phase 3 boundaries
+
+See [MISTAKE_PRACTICE_REVIEW](MISTAKE_PRACTICE_REVIEW.md). Reuse the existing
+public-position practice copy; never start or replace a saved short lesson,
+exercise or whole-turn draft from move help. Carry the current reason/next step
+read-only, close move help before opening practice, and return focus to its real
+opener. Preserve the mounted regular game, selection, save and original deadline;
+real state replacement/expiry invalidates the copy. Keep strict modal-body native
+target bounds and the 12 px end padding/scroll clearance. Phase 2 completed at
+dff9251 with matching READY production; its pending-gate notes are historical.

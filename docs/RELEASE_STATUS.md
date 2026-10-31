@@ -48,12 +48,17 @@ matching READY production. Phase 4's failed initial commit is documented in
 | Phase | Exact release commit | Full CI | Matching live review | Counts at that release |
 | --- | --- | --- | --- | --- |
 | 1: startup assets and header correction | `366f6cdbceecadc8b2e8b08fbcadeee12df6d383` | [41159506733](https://github.com/cisohabitat/RunSet/actions/runs/41159506733) | [41160974451](https://github.com/cisohabitat/RunSet/actions/runs/41160974451) | 225 unit, 889 browser, 64 live |
+| 2: enlargement and focus recovery | `dff9251a9760f581dce1043623312731f4ecb94f` | [41175960142](https://github.com/cisohabitat/RunSet/actions/runs/41175960142) | [41177284740](https://github.com/cisohabitat/RunSet/actions/runs/41177284740) | 225 unit, 897 browser, 72 live |
 
 This Phase 1 gate completed successfully with matching READY production. Its
 failed initial publication is documented in [STARTUP_REVIEW](STARTUP_REVIEW.md).
-Phase 2 adds eight hosted enlargement/reflow cases while retaining all 64 earlier
-cases: the current live gate is 72. Expected full counts are 225 units and 897
-browser cases. This new commit requires its own complete exact-commit gate.
+Phase 2 completed its entire exact-commit gate with matching READY production;
+its correction history is in [ENLARGEMENT_REVIEW](ENLARGEMENT_REVIEW.md).
+Phase 3 retains all 72 hosted cases and adds six correction-to-practice cases per
+profile: 96 total. Expected full counts are 225 units and 921 browser cases
+(355 main; 152 per compatibility profile; 70 offline; 40 upgrades). This new
+commit requires its own complete exact-commit gate. See
+[MISTAKE_PRACTICE_REVIEW](MISTAKE_PRACTICE_REVIEW.md).
 
 ## Release procedure
 
@@ -73,7 +78,7 @@ browser cases. This new commit requires its own complete exact-commit gate.
    `codex/live-release-review/<SHA>` from that exact commit. The workflow only
    tests the existing production site; it does not deploy or promote.
 5. Require the exact-SHA Release review to finish successfully in all four
-   profiles, with all 72 live cases. Recheck main and production still match;
+   profiles, with all 96 live cases. Recheck main and production still match;
    report the commit and both run links before beginning the next phase.
    Fix failures and repeat the complete gate on any correction commit.
 

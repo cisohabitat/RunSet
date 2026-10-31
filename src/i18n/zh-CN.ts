@@ -1346,6 +1346,12 @@ const messages: Record<string, string> = {
   "Find Undo": "找到撤销按钮",
   "Find Reset": "找到重置按钮",
   "Easy may draw repeatedly while waiting for a new group or run. After opening, Normal can also add single tiles to the table.": "简单对手在等手牌凑成新的同数组或顺子时，可能会连续多次摸牌。开局后，普通对手还能往牌桌上的同数组或顺子里添牌。",
+  "Practise this correction": "练习这一步修正",
+  "Try it in a practice copy": "先在练习副本中试试",
+  "Open a temporary copy of this position to try the next step. Practice edits are never copied back.": "打开当前牌局的临时副本，试试下一步操作。练习中的改动不会带回原牌局。",
+  "Correction to practise": "本次练习的修正目标",
+  "Practice copy only. Your saved game and selected tiles stay unchanged.": "这是练习副本，原牌局和已选的牌保持不变。",
+  "About this practice copy": "关于这个练习副本",
 };
 export const translateChinese = translator(messages);
 export default messages;

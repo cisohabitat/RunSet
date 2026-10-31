@@ -19,7 +19,8 @@ header-bound checks after delayed screen reveal. Slow CSS must retain the existi
 Cold-CSS tests block service workers only in their own cases; retain all original
 first-offline and upgrade journeys. Preserve the 100,000-byte initial gzip gate.
 Phase 1 completed at 366f6cd with CI 41159506733 and 64 matching hosted checks
-in 41160974451 passed. Current release review is 72 cases (18/profile), retaining
+in 41160974451 passed. Phase 2 completed at dff9251 with CI 41175960142 and 72 matching hosted checks
+in 41177284740 passed. Current release review is 96 cases (24/profile), retaining
 every earlier case. Enlargement evidence lives in docs/ENLARGEMENT_REVIEW.md.
 Keep 12 px header/page-control/tile scroll clearance, inset header focus strokes, safe
 centering of overflowing desktop racks and geometric decorative colour/dot marks.
@@ -43,6 +44,19 @@ never ship it or change a user's browser. Viewport reflow is separate evidence.
 Keep full focus paint/native hit checks, independent reducer/save assertions and
 real forward/backward keyboard navigation. A checkbox's label is its large hit
 target; do not require its glyph to become 44 px. Preserve existing test budgets.
+
+Phase 3 evidence lives in docs/MISTAKE_PRACTICE_REVIEW.md. MoveHelp's practice
+entry reuses PositionPractice without navigating away from the mounted Game or
+replacing any saved learning draft. Queue the request until help closes and
+require the same help-data identity before opening the copy. Capture the real
+move-help opener; keep native return/Escape focus. Pass reason/next-step strings
+read-only through the UI translator. Only explicit practice moves/checks act on
+the copy; no automatic correction, persistence or copying back. State replacement
+and real expiry close stale copies. Keep 12 px position-practice body end padding
+and control scroll margins, plus >=48 px move-help practice targets. New bilingual
+opening/repair/joker journeys preserve exact all-key storage, selected IDs and
+deadlines, compare completed public melds with an independent reducer expectation,
+and retain strict clipped-body/viewport/centre-hit checks and first-use offline.
 
 Historical decision-clarity details live in docs/DECISION_CLARITY_ROADMAP.md.
 Gate each phase on complete twelve-job exact-commit CI and matching production/live checks.
@@ -100,7 +114,7 @@ a prior Saved label alone does not establish that the latest edit was persisted.
 More’s turn-help summaries retain 44 px targets, 16/18 px copy and native scroll
 clearance. Do not consume permanent meld space. Release review includes returning
 journeys as well as the connected beginner journey, plus locked-opening selections:
-72 live checks.
+96 live checks.
 
 Lesson selection tips derive from current selected IDs and the current objective,
 so action-only steps never produce empty tile lists or stale previous-step tips.

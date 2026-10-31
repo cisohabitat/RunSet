@@ -30,7 +30,7 @@ import { useRackOrder } from "./useRackOrder";
 import { RackOrganizer } from "./RackOrganizer";
 import { useTouchClick } from "./useTouchClick";
 import { BoardFinder } from "./BoardFinder";
-import { moveHelp } from "../lib/moveHelp";
+import { moveHelp, type MoveHelpData } from "../lib/moveHelp";
 import { MoveHelp } from "./MoveHelp";
 import { OpponentGuide } from "./OpponentGuide";
 import { TableOverview } from "./TableOverview";
@@ -87,14 +87,18 @@ export function Game({
   const { t, locale } = useI18n();
   useRecentTurns(s, replayEpoch, coaching && !positionCopy);
   const feedbackRoot = useRef<HTMLElement>(null);
-  const [practiceSource, setPracticeSource] = useState<GameState | null>(null);
+  const [practiceRequest, setPracticeRequest] = useState<{
+    source: GameState;
+    opener: HTMLButtonElement | null;
+    guidance?: Pick<MoveHelpData, "reason" | "next">;
+  } | null>(null);
   const practiceOpener = useRef<HTMLButtonElement>(null);
   const [tableOrder, setTableOrder] = useState<TableOrder>(readTableOrder);
   const displayTable = useMemo(
     () => orderedTable(s.table, coaching ? tableOrder : "placed"),
     [s.table, coaching, tableOrder],
   );
-  useEffect(() => setPracticeSource(null), [s]);
+  useEffect(() => setPracticeRequest(null), [s]);
   const undoAction = useRef<HTMLButtonElement>(null);
   const resetAction = useRef<HTMLButtonElement>(null);
   const [breaking, setBreaking] = useState(false);
@@ -1109,7 +1113,7 @@ export function Game({
                         className="text-button"
                         disabled={!myTurn}
                         aria-haspopup="dialog"
-                        onClick={() => setPracticeSource(s)}
+                        onClick={() => setPracticeRequest({ source: s, opener: practiceOpener.current })}
                       >
                         {t("Practise this position")}
                       </button>
@@ -1145,6 +1149,14 @@ export function Game({
                         game={s}
                         data={helpData}
                         disabled={!myTurn}
+                        onPractice={(opener) => {
+                          if (!myTurn || !helpData) return;
+                          setPracticeRequest({
+                            source: s,
+                            opener,
+                            guidance: { reason: helpData.reason, next: helpData.next },
+                          });
+                        }}
                         onFind={(target) => {
                           if (typeof target === "number") {
                             findTile(target, 1, helpData?.ids.length ?? 1, "help");
@@ -1395,12 +1407,13 @@ export function Game({
       <span className="placement-announcement" role="status">
         {t(placementMessage)}
       </span>
-      {practiceSource && (
+      {practiceRequest && (
         <Suspense fallback={<p role="status">{t("Loading practice copy…")}</p>}>
           <PositionPractice
-            source={practiceSource}
-            opener={practiceOpener.current}
-            onClose={() => setPracticeSource(null)}
+            source={practiceRequest.source}
+            opener={practiceRequest.opener}
+            guidance={practiceRequest.guidance}
+            onClose={() => setPracticeRequest(null)}
           />
         </Suspense>
       )}

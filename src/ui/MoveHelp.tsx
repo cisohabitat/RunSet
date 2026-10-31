@@ -10,11 +10,13 @@ export function MoveHelp({
   data,
   disabled,
   onFind,
+  onPractice,
 }: {
   game: GameState;
   data: MoveHelpData | null;
   disabled: boolean;
   onFind: (target: number | "undo" | "reset") => void;
+  onPractice: (opener: HTMLButtonElement | null) => void;
 }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
@@ -22,14 +24,24 @@ export function MoveHelp({
     opener = useRef<HTMLButtonElement>(null),
     close = useRef<HTMLButtonElement>(null);
   const pendingFind = useRef<number | "undo" | "reset" | null>(null);
+  const pendingPractice = useRef<MoveHelpData | null>(null);
   useEffect(() => {
+    if (!open && pendingPractice.current) {
+      const requested = pendingPractice.current;
+      pendingPractice.current = null;
+      if (requested === data) onPractice(opener.current);
+    }
     if (!open && pendingFind.current !== null) {
       const id = pendingFind.current;
       pendingFind.current = null;
       onFind(id);
     }
-  }, [open, onFind]);
+  }, [open, data, onFind, onPractice]);
   const touch = useTouchClick(() => setOpen(true));
+  const practiceTouch = useTouchClick(() => {
+    pendingPractice.current = data;
+    setOpen(false);
+  });
   useEffect(() => setOpen(false), [data]);
   useEffect(() => {
     if (!open || !data) return;
@@ -131,6 +143,19 @@ export function MoveHelp({
                 "Preview only. Your tiles and turn are unchanged. Timed games keep running.",
               )}
             </p>
+            <section aria-label={t("Practise this correction")}>
+              <h3>{t("Try it in a practice copy")}</h3>
+              <p>
+                {t("Open a temporary copy of this position to try the next step. Practice edits are never copied back.")}
+              </p>
+              <button
+                className="secondary"
+                aria-haspopup="dialog"
+                {...practiceTouch}
+              >
+                {t("Practise this correction")}
+              </button>
+            </section>
           </div>
           <div className="dialog-actions">
             {data.ids.length > 0 && (

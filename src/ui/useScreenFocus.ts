@@ -6,6 +6,10 @@ export function useScreenFocus(screen: string) {
     if (previous.current === screen) return;
     previous.current = screen;
     window.scrollTo(0, 0);
+    let revealFrame: number | undefined;
+    const cancelReveal = () => {
+      if (revealFrame !== undefined) cancelAnimationFrame(revealFrame);
+    };
     const focus = () => {
       const heading = Array.from(
         document.querySelectorAll<HTMLElement>(
@@ -23,10 +27,23 @@ export function useScreenFocus(screen: string) {
             : heading;
         if (target === heading) heading.tabIndex = -1;
         target.focus({ preventScroll: true });
+        if (screen === "game" && target !== heading) {
+          // Let route scrolling finish before revealing the focused rack tile.
+          revealFrame = requestAnimationFrame(() => {
+            if (
+              target.isConnected &&
+              !target.matches(":disabled") &&
+              document.activeElement === target &&
+              !document.querySelector("dialog[open]")
+            ) {
+              target.scrollIntoView({ block: "nearest", inline: "nearest" });
+            }
+          });
+        }
       }
       return true;
     };
-    if (focus()) return;
+    if (focus()) return cancelReveal;
     const observer = new MutationObserver(() => {
       if (focus()) observer.disconnect();
     });
@@ -36,6 +53,9 @@ export function useScreenFocus(screen: string) {
       attributes: true,
       attributeFilter: ["style", "hidden", "aria-busy"],
     });
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      cancelReveal();
+    };
   }, [screen]);
 }

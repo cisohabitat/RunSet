@@ -48,3 +48,8 @@
     line-height: 1;
   }
 }
+
+/* Keyboard focus and route entry need room for the complete tile frame. */
+.game .tile {
+  scroll-margin-block: 12px;
+}

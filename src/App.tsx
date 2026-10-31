@@ -476,6 +476,17 @@ export default function App() {
         onKeyDownCapture={() => {
           if (!muted) primeAudio();
         }}
+        onKeyUpCapture={(event) => {
+          if (event.key !== "Tab") return;
+          const target = event.target;
+          // Firefox can finish native Tab scrolling with a control cut off.
+          if (
+            target instanceof HTMLElement &&
+            target.matches("button,input,select,summary,a[href]")
+          ) {
+            target.scrollIntoView({ block: "nearest", inline: "nearest" });
+          }
+        }}
         className={`app ${reading ? "comfortable-reading" : ""} ${screen === "game" && game?.phase === "playing" ? "playing" : ""}`}
       >
         <a className="skip-link" href="#main-content">

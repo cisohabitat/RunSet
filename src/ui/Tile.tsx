@@ -99,7 +99,9 @@ export const Tile = memo(function Tile({
       )}
       {recent && (
         <span className="tile-recent" aria-hidden="true">
-          ●
+          <svg viewBox="0 0 8 8" width="8" height="8" aria-hidden="true" focusable="false">
+            <circle cx="4" cy="4" r="4" />
+          </svg>
         </span>
       )}
       <TileFace id={id} represents={represents} />

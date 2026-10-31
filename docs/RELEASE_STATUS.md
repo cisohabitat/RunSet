@@ -43,10 +43,17 @@ The listed Phase 1–4 CI/live runs completed successfully on their exact SHAs w
 matching READY production. Phase 4's failed initial commit is documented in
 [CROWDED_FOCUS_REVIEW](CROWDED_FOCUS_REVIEW.md); the corrected release above passed.
 
-The new reliability/accessibility cycle adds two bilingual cold stylesheet cases
-per hosted profile, retaining every previous journey: the live gate is 64 cases.
-Its startup phase expects 225 units and 889 browser cases and must pass its own
-full exact-commit gate before being reported released.
+## Verified reliability/accessibility releases
+
+| Phase | Exact release commit | Full CI | Matching live review | Counts at that release |
+| --- | --- | --- | --- | --- |
+| 1: startup assets and header correction | `366f6cdbceecadc8b2e8b08fbcadeee12df6d383` | [41159506733](https://github.com/cisohabitat/RunSet/actions/runs/41159506733) | [41160974451](https://github.com/cisohabitat/RunSet/actions/runs/41160974451) | 225 unit, 889 browser, 64 live |
+
+This Phase 1 gate completed successfully with matching READY production. Its
+failed initial publication is documented in [STARTUP_REVIEW](STARTUP_REVIEW.md).
+Phase 2 adds eight hosted enlargement/reflow cases while retaining all 64 earlier
+cases: the current live gate is 72. Expected full counts are 225 units and 897
+browser cases. This new commit requires its own complete exact-commit gate.
 
 ## Release procedure
 
@@ -66,7 +73,7 @@ full exact-commit gate before being reported released.
    `codex/live-release-review/<SHA>` from that exact commit. The workflow only
    tests the existing production site; it does not deploy or promote.
 5. Require the exact-SHA Release review to finish successfully in all four
-   profiles, with all 64 live cases. Recheck main and production still match;
+   profiles, with all 72 live cases. Recheck main and production still match;
    report the commit and both run links before beginning the next phase.
    Fix failures and repeat the complete gate on any correction commit.
 

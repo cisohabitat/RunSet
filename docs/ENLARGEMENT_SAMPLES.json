@@ -1,0 +1,485 @@
+{
+  "baseline": {
+    "sha": "366f6cdbceecadc8b2e8b08fbcadeee12df6d383",
+    "ci": 41159506733,
+    "live": 41160974451
+  },
+  "candidate": {
+    "initialAssets": [
+      {
+        "path": "dist/index.html",
+        "gzipBytes": 500
+      },
+      {
+        "path": "dist/assets/index-CljUchRQ.js",
+        "gzipBytes": 84833
+      },
+      {
+        "path": "dist/assets/index-DT_jZNOv.css",
+        "gzipBytes": 13825
+      }
+    ],
+    "totalInitialGzipBytes": 99158,
+    "precacheFiles": 80,
+    "fingerprints": {
+      "src/App.tsx": "617db3594a249705d1efcc294e6dbbce839820640dbe4ce74b7d8bc60a5a2cec",
+      "src/styles.css": "1660032ad5997b6e475df34fe7d6fcbc8cc85e3015ffbd215c9b177d56ea878d",
+      "src/ui/GameLayout.css": "72c27d815b6207cf6d2a24527dd5c5fc608cc935073f823514e80fc4d5572095",
+      "src/ui/MeldInspector.css": "ac9fa412b5f87c0bf0f39553f65c30b6a14f4a13d88db73afd9d5b69fb3b8d3f",
+      "src/ui/TileFace.tsx": "096e3cf78c36140bc313b33cdd50de291f1948c5370123f5d1d8804ac44bc455",
+      "src/ui/Tile.tsx": "8241fb8abf9c3c2d453eb13c83538bd9e28d9dd16a6ba7fd59f31cddc59a3f90",
+      "src/ui/useScreenFocus.ts": "b853feb3771ace41c33a2063e6d689c20849bd8ff8c0a14cb593f6bb292e5108",
+      "e2e/enlargement.spec.ts": "fa325595f5fd9f7cd0e95125795147d8bb2717b352ccde7b69e928b2b069df1b",
+      "e2e-compat/enlargement.spec.ts": "874962e3bb3579870f2edfb62b33c748ecaa53d9566a605b35f6b54321dde65a",
+      "e2e/helpers/enlargement.ts": "4f9a0e26b25d7f0d306a63efc05ddb656874b49aa114c9ff737f86079114d9f5",
+      "playwright.enlargement.config.ts": "237d8b4ec1dc83db667803323e661101680f0a25f078bd115d216fd51aa82505",
+      "playwright.release.config.ts": "522fd79cb5b1e0b4705d1880a1884608e1da8fd1183f40fa1daf4e6ab3868d8b",
+      "package-lock.json": "500aab9da6f4016936fb8acbad5af91ebbbd6fb6c9ffa8b973e7c7ac76ce03c0"
+    }
+  },
+  "nativeBrowserEvidence": [
+    {
+      "scope": "local built preview; actual isolated Chromium browser APIs",
+      "locale": "en",
+      "mode": "zoom200",
+      "evidence": {
+        "setting": 2,
+        "beforeTextHeight": 14,
+        "afterTextHeight": 12
+      },
+      "profile": "chromium-native-production",
+      "browserVersion": "156.0.8078.4",
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 2
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview; actual isolated Chromium browser APIs",
+      "locale": "en",
+      "mode": "font24",
+      "evidence": {
+        "setting": 24,
+        "beforeTextHeight": 14,
+        "afterTextHeight": 33
+      },
+      "profile": "chromium-native-production",
+      "browserVersion": "156.0.8078.4",
+      "viewport": {
+        "width": 1280,
+        "height": 813,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview; actual isolated Chromium browser APIs",
+      "locale": "zh-CN",
+      "mode": "zoom200",
+      "evidence": {
+        "setting": 2,
+        "beforeTextHeight": 14,
+        "afterTextHeight": 12
+      },
+      "profile": "chromium-native-production",
+      "browserVersion": "156.0.8078.4",
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 2
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview; actual isolated Chromium browser APIs",
+      "locale": "zh-CN",
+      "mode": "font24",
+      "evidence": {
+        "setting": 24,
+        "beforeTextHeight": 14,
+        "afterTextHeight": 33
+      },
+      "profile": "chromium-native-production",
+      "browserVersion": "156.0.8078.4",
+      "viewport": {
+        "width": 1280,
+        "height": 813,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    }
+  ],
+  "productionReflowEvidence": [
+    {
+      "scope": "local built preview, chromium; CSS viewport reflow only",
+      "locale": "en",
+      "mode": "reflow640",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 640,
+        "height": 406
+      },
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, chromium; CSS viewport reflow only",
+      "locale": "en",
+      "mode": "reflow320",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 320,
+        "height": 640
+      },
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, chromium; CSS viewport reflow only",
+      "locale": "zh-CN",
+      "mode": "reflow640",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 640,
+        "height": 406
+      },
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, chromium; CSS viewport reflow only",
+      "locale": "zh-CN",
+      "mode": "reflow320",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 320,
+        "height": 640
+      },
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, phone; CSS viewport reflow only",
+      "locale": "en",
+      "mode": "reflow640",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 640,
+        "height": 406
+      },
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, phone; CSS viewport reflow only",
+      "locale": "en",
+      "mode": "reflow320",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 320,
+        "height": 640
+      },
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, phone; CSS viewport reflow only",
+      "locale": "zh-CN",
+      "mode": "reflow640",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 640,
+        "height": 406
+      },
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, phone; CSS viewport reflow only",
+      "locale": "zh-CN",
+      "mode": "reflow320",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 320,
+        "height": 640
+      },
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, ipad; CSS viewport reflow only",
+      "locale": "en",
+      "mode": "reflow640",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 640,
+        "height": 406
+      },
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, ipad; CSS viewport reflow only",
+      "locale": "en",
+      "mode": "reflow320",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 320,
+        "height": 640
+      },
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, ipad; CSS viewport reflow only",
+      "locale": "zh-CN",
+      "mode": "reflow640",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 640,
+        "height": 406
+      },
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, ipad; CSS viewport reflow only",
+      "locale": "zh-CN",
+      "mode": "reflow320",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 320,
+        "height": 640
+      },
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, firefox; CSS viewport reflow only",
+      "locale": "en",
+      "mode": "reflow640",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 640,
+        "height": 406
+      },
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, firefox; CSS viewport reflow only",
+      "locale": "en",
+      "mode": "reflow320",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 320,
+        "height": 640
+      },
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, firefox; CSS viewport reflow only",
+      "locale": "zh-CN",
+      "mode": "reflow640",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 640,
+        "height": 406
+      },
+      "viewport": {
+        "width": 640,
+        "height": 406,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    },
+    {
+      "scope": "local built preview, firefox; CSS viewport reflow only",
+      "locale": "zh-CN",
+      "mode": "reflow320",
+      "evidence": {
+        "kind": "CSS viewport reflow; not native browser zoom",
+        "width": 320,
+        "height": 640
+      },
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "dpr": 1
+      },
+      "physicalDevice": false
+    }
+  ],
+  "responsiveness": {
+    "scope": "Local Chromium dev build, touch layouts, 4x CPU throttle; 1000 ms smoke bound; not a controlled before/after comparison or physical-device result.",
+    "reports": [
+      {
+        "locale": "en",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "browser": "154.0.8037.57",
+        "cpuThrottle": 4,
+        "coarsePointer": true,
+        "tableTiles": 50,
+        "rackTiles": 50,
+        "initialUndoSnapshots": 100,
+        "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+        "samplesMs": [
+          416,
+          360.5,
+          359.19999998807907,
+          456.80000001192093,
+          447.30000001192093,
+          450.80000001192093,
+          405.69999998807907,
+          371.4000000357628,
+          362.5,
+          342.69999998807907
+        ],
+        "maxMs": 456.80000001192093
+      },
+      {
+        "locale": "en",
+        "viewport": {
+          "width": 1180,
+          "height": 820
+        },
+        "browser": "154.0.8037.57",
+        "cpuThrottle": 4,
+        "coarsePointer": true,
+        "tableTiles": 50,
+        "rackTiles": 50,
+        "initialUndoSnapshots": 100,
+        "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+        "samplesMs": [
+          387.0999999642372,
+          367.30000001192093,
+          374.2000000476837,
+          393.19999998807907,
+          373.7999999523163,
+          349,
+          396.10000002384186,
+          384.60000002384186,
+          338.10000002384186,
+          238.20000004768372
+        ],
+        "maxMs": 396.10000002384186
+      },
+      {
+        "locale": "zh-CN",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "browser": "154.0.8037.57",
+        "cpuThrottle": 4,
+        "coarsePointer": true,
+        "tableTiles": 50,
+        "rackTiles": 50,
+        "initialUndoSnapshots": 100,
+        "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+        "samplesMs": [
+          382.30000001192093,
+          378.10000002384186,
+          430.30000001192093,
+          440.7999999523163,
+          396.89999997615814,
+          330.2000000476837,
+          415.10000002384186,
+          386,
+          351.19999998807907,
+          357.30000001192093
+        ],
+        "maxMs": 440.7999999523163
+      },
+      {
+        "locale": "zh-CN",
+        "viewport": {
+          "width": 1180,
+          "height": 820
+        },
+        "browser": "154.0.8037.57",
+        "cpuThrottle": 4,
+        "coarsePointer": true,
+        "tableTiles": 50,
+        "rackTiles": 50,
+        "initialUndoSnapshots": 100,
+        "metric": "Click capture to second requestAnimationFrame; browser smoke measurement, not physical-device latency.",
+        "samplesMs": [
+          375,
+          377.4000000357628,
+          399,
+          387.0999999642372,
+          424.30000001192093,
+          405.39999997615814,
+          430.80000001192093,
+          401.80000001192093,
+          346.89999997615814,
+          440.2000000476837
+        ],
+        "maxMs": 440.2000000476837
+      }
+    ]
+  }
+}

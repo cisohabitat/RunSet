@@ -4,9 +4,11 @@
 
 The [reliability and accessibility cycle](RELIABILITY_ACCESSIBILITY_ROADMAP.md)
 is the latest approved cycle: startup headroom, enlargement/accessibility,
-mistake-to-practice guidance and release consolidation. Phase 1 moves screen-only
-styles out of initial assets; its own exact-commit release gate is required.
-Phases 2–4 remain planned. See the [startup review](STARTUP_REVIEW.md).
+mistake-to-practice guidance and release consolidation. Phase 1 completed at 366f6cd with
+full CI and 64 matching hosted checks passed. Phase 2 fixes reproduced enlarged
+keyboard/visibility issues; its own exact-commit release gate is required.
+Phases 3–4 remain planned. See the [startup review](STARTUP_REVIEW.md) and
+[enlargement review](ENLARGEMENT_REVIEW.md).
 
 The preceding [decision-clarity cycle](DECISION_CLARITY_ROADMAP.md) completed
 at `b63af0a`, with full CI and 56 matching hosted checks passed. The

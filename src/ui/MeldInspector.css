@@ -38,9 +38,11 @@
 }
 .app.playing > .game .meld-inspector[open] .tile-mark {
   font-size: 9px;
+  --tile-symbol-size: 9px;
 }
 .app.playing > .game .meld-inspector[open] .tile-foot {
   font-size: 10px;
+  --tile-symbol-size: 10px;
 }
 .meld-inspector .dialog-actions button,
 .rack-organizer .settings-heading button {

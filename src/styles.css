@@ -333,11 +333,13 @@ input {
   top: 6px;
   left: 7px;
   font-size: 6px;
+  --tile-symbol-size: 6px;
 }
 .tile-foot {
   position: absolute;
   bottom: 6px;
   font-size: 5px;
+  --tile-symbol-size: 5px;
   letter-spacing: 1px;
 }
 .tile.selected {
@@ -392,6 +394,7 @@ input {
 }
 .hero-art .tile-mark {
   font-size: 8px;
+  --tile-symbol-size: 8px;
 }
 .hand-note {
   font-family: Georgia, serif;
@@ -1175,10 +1178,12 @@ legend {
     top: 5px;
     left: 5px;
     font-size: 5px;
+    --tile-symbol-size: 5px;
   }
   .tile-foot {
     bottom: 5px;
     font-size: 4px;
+    --tile-symbol-size: 4px;
   }
   .meld {
     padding: 6px 6px 0;
@@ -1846,6 +1851,7 @@ input {
 }
 .tile.joker .tile-foot {
   font-size: 7px;
+  --tile-symbol-size: 7px;
   letter-spacing: 0;
 }
 .table-tools {
@@ -2475,7 +2481,7 @@ button:not(.tile) {
 }
 @media (min-width: 1181px) {
   .playing .player-dock .rack-tiles {
-    justify-content: center;
+    justify-content: safe center;
   }
   .playing .action-bar {
     display: flex;
@@ -3100,6 +3106,7 @@ button:not(.tile) {
 }
 :lang(zh-CN) .tile-foot {
   font-size: 10px;
+  --tile-symbol-size: 10px;
 }
 @media (max-width: 720px) {
   .language-switch > span {
@@ -3271,9 +3278,11 @@ button:not(.tile) {
 }
 .app.comfortable-reading .tile-foot {
   font-size: 12px;
+  --tile-symbol-size: 12px;
 }
 .app.comfortable-reading .tile-mark {
   font-size: 9px;
+  --tile-symbol-size: 9px;
 }
 .app.comfortable-reading :is(.game, .practice-layout.playing) {
   height: auto;
@@ -3969,12 +3978,14 @@ button:not(.tile) {
     top: 5px;
     left: 5px;
     font-size: 7px;
+    --tile-symbol-size: 7px;
   }
   .app.playing:not(.comfortable-reading)
     > .game:not(.touch-friendly)
     .tile-foot {
     bottom: 5px;
     font-size: 7px;
+    --tile-symbol-size: 7px;
   }
   .app.playing:not(.comfortable-reading) > .game .rack {
     padding: 6px 10px;
@@ -4029,12 +4040,14 @@ button:not(.tile) {
     top: 4px;
     left: 4px;
     font-size: 6px;
+    --tile-symbol-size: 6px;
   }
   .app.playing:not(.comfortable-reading)
     > .game:not(.touch-friendly)
     .tile-foot {
     bottom: 4px;
     font-size: 7px;
+    --tile-symbol-size: 7px;
   }
   .app.playing:not(.comfortable-reading)
     > .game:not(.touch-friendly)
@@ -4307,3 +4320,28 @@ button:not(.tile) {
 }
 .move-help .hint-preview-body { padding-bottom: 12px; }
 .move-help .hint-preview-body p { scroll-margin-block: 12px; }
+
+/* Native keyboard scrolling must reveal the complete control and focus ring. */
+:is(.home, .page) :is(button, input, select, summary) {
+  scroll-margin-block: 12px;
+}
+/* Compact headers leave little outer space around keyboard focus. */
+.site-header :is(button, select, summary):focus-visible {
+  outline-offset: -3px;
+}
+
+.tile-symbol {
+  display: block;
+  width: var(--tile-symbol-size, 6px);
+  height: var(--tile-symbol-size, 6px);
+  fill: currentColor;
+}
+
+.tile-recent svg {
+  display: block;
+  fill: currentColor;
+}
+/* Native large fonts need the full option label in the regular workspace. */
+.app.playing > .game:not(.table-expanded) .view-picker select {
+  min-width: max-content;
+}

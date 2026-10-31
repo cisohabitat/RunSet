@@ -8,15 +8,15 @@ matching READY production and all 56 hosted checks in
 
 | Phase | Work | Status |
 | --- | --- | --- |
-| 1 | Reduce initial startup assets and check slower-browser responsiveness | Scoped screen CSS implemented; its own exact-commit CI and live gate required |
-| 2 | Review 200% enlargement, large text, keyboard navigation and bilingual accessible labels | Planned |
+| 1 | Reduce initial startup assets and check slower-browser responsiveness | Complete: 366f6cd; CI 41159506733 and 64 matching hosted checks in 41160974451 passed |
+| 2 | Review 200% enlargement, large text, keyboard navigation and bilingual accessible labels | Native zoom/font and reflow fixes implemented; its own exact-commit gate required |
 | 3 | Connect existing mistake guidance clearly to relevant practice | Planned |
 | 4 | Review accumulated CSS overrides, duplicate guidance and regression coverage | Planned |
 
 Publish each phase separately to main, update README and AGENTS, and complete
 all twelve exact-commit CI jobs plus matching READY production and hosted
 acceptance before starting the next phase. The current release review retains
-all 56 earlier cases and adds eight cold stylesheet-loading checks: 64 total.
+all 64 earlier cases and adds eight enlargement/reflow journeys: 72 total.
 
 ## Phase 1 boundaries
 
@@ -33,3 +33,12 @@ must identify its scope. Physical iPhone/iPad Safari, older Chinese-speaking
 beginner sessions and native Mandarin listening remain paused. Screen-reader
 labels and browser checks do not establish human screen-reader usability.
 Multiplayer remains deferred.
+
+## Phase 2 boundaries
+
+See [ENLARGEMENT_REVIEW](ENLARGEMENT_REVIEW.md). Preserve full focus paint and
+native targets without epsilon tolerances or corrective test scrolling. Separate
+actual Chromium browser zoom/font APIs from viewport reflow evidence. Keep
+profile/extension setup test-only, all prior offline cases and the full gate.
+Phase 1 completed at 366f6cd with matching READY production; its implementation-
+time pending-gate notes are historical.

@@ -18,7 +18,23 @@ the mobile reflow override; loading it late clips wrapped header controls. Keep
 header-bound checks after delayed screen reveal. Slow CSS must retain the existing loading UI and exact saves.
 Cold-CSS tests block service workers only in their own cases; retain all original
 first-offline and upgrade journeys. Preserve the 100,000-byte initial gzip gate.
-Current release review is 64 cases (16/profile), supplementing all previous 56.
+Phase 1 completed at 366f6cd with CI 41159506733 and 64 matching hosted checks
+in 41160974451 passed. Current release review is 72 cases (18/profile), retaining
+every earlier case. Enlargement evidence lives in docs/ENLARGEMENT_REVIEW.md.
+Keep 12 px page-control/tile scroll clearance, inset header focus strokes, safe
+centering of overflowing desktop racks and geometric decorative colour/dot marks.
+Marker size variables retain the existing per-layout pixel values; do not let
+minimum fonts enlarge shapes over numbers. Regular-workspace View selects need
+their native intrinsic minimum width; preserve compact Full screen sizing.
+Preserve accessible names, pressed
+state, selected checks and accepted-play descriptions. Route rack reveal owns
+and cancels its frame and checks current focus, enabled state and dialog ownership.
+Tab key-up reveal must neither change focus nor intercept pointer/Space/Enter.
+Native zoom/font tests use temporary isolated profiles and a test-only extension;
+never ship it or change a user's browser. Viewport reflow is separate evidence.
+Keep full focus paint/native hit checks, independent reducer/save assertions and
+real forward/backward keyboard navigation. A checkbox's label is its large hit
+target; do not require its glyph to become 44 px. Preserve existing test budgets.
 
 Historical decision-clarity details live in docs/DECISION_CLARITY_ROADMAP.md.
 Gate each phase on complete twelve-job exact-commit CI and matching production/live checks.
@@ -76,7 +92,7 @@ a prior Saved label alone does not establish that the latest edit was persisted.
 More’s turn-help summaries retain 44 px targets, 16/18 px copy and native scroll
 clearance. Do not consume permanent meld space. Release review includes returning
 journeys as well as the connected beginner journey, plus locked-opening selections:
-64 live checks.
+72 live checks.
 
 Lesson selection tips derive from current selected IDs and the current objective,
 so action-only steps never produce empty tile lists or stale previous-step tips.

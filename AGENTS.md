@@ -26,6 +26,8 @@ centering of overflowing desktop racks and geometric decorative colour/dot marks
 Marker size variables retain the existing per-layout pixel values; do not let
 minimum fonts enlarge shapes over numbers. Regular-workspace View selects need
 their native intrinsic minimum width; preserve compact Full screen sizing.
+Compare practice rack order using full accessible tile names, including colour
+and number; SVG decoration has no innerText. Retain four distinct layouts.
 Preserve accessible names, pressed
 state, selected checks and accepted-play descriptions. Route rack reveal owns
 and cancels its frame and checks current focus, enabled state and dialog ownership.

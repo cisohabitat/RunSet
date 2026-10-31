@@ -86,7 +86,10 @@ export async function verifyTurnLayouts(
     await expect(page.locator(".whole-turn-prompt")).toHaveText(
       t(turnLessonLayoutCopy("joker", layout).clue),
     );
-    orders.add(await page.locator(".rack-tiles").innerText());
+    // Include colour as well as number: decorative SVG marks have no text.
+    orders.add(JSON.stringify(await page.locator(".rack-tiles .tile").evaluateAll(
+      (tiles) => tiles.map((tile) => tile.getAttribute("aria-label")),
+    )));
     const move = async (ids: number[], existing = false) => {
       for (const id of ids)
         await activate(

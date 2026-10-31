@@ -107,3 +107,16 @@ of 456.8 ms against the existing 1,000 ms smoke bound. These local development
 measurements are not a controlled before/after comparison or physical-device
 latency claim. [Raw measurements and source fingerprints](ENLARGEMENT_SAMPLES.json)
 retain the native API values, reflow scopes, asset sizes and individual samples.
+
+## Publication correction
+
+The first Phase 2 CI run, [41167912644](https://github.com/cisohabitat/RunSet/actions/runs/41167912644)
+on `fa78c4c`, caught a stale practice-layout test representation: rack `innerText`
+no longer includes decorative colour shapes after their SVG conversion. Two
+layouts with the same numeric order therefore compared equal despite different
+colours. The assertion now compares the ordered accessible tile names (colour
+and number), still requiring four distinct layouts and every existing lesson,
+selection, independent outcome and offline-resume check. Both affected offline
+language cases passed locally. This is a test correction; app assets and raw
+measurement fingerprints are unchanged. The correction requires its own full CI
+and matching production/hosted gate.

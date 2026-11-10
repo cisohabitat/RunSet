@@ -735,9 +735,9 @@ export function Game({
           </span>
           <span>
             {t("Round ")}
-            {s.match?.round ?? 1}
-            {t(" · Turn")}
-            {s.turn}
+            {s.match?.round ?? 1}{" "}
+            {/* s.turn counts every seat's turn; show each player's own turn number. */}
+            {t(`· Turn ${Math.floor((s.turn - 1) / s.players.length) + 1}`)}
           </span>
         </div>
         <div className="melds">
@@ -932,8 +932,7 @@ export function Game({
           <div className="rack-heading">
             <div>
               <strong>
-                {human.name}
-                {t("’s rack")}
+                {t("Your rack")}
               </strong>
               <span>
                 {human.rack.length}

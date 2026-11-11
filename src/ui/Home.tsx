@@ -134,7 +134,12 @@ export function SaveSummary({
     <section className="save-summary" aria-label={t("Saved game")}>
       <strong>
         {t(
-          `${game.players.find((p) => !p.bot)?.name}’s ${game.phase === "over" ? "completed" : "saved"} game`,
+          // Blank setup names fall back to "You"/"你"; avoid "You’s saved game".
+          ["You", "你"].includes(game.players.find((p) => !p.bot)?.name ?? "")
+            ? game.phase === "over"
+              ? "Your completed game"
+              : "Your saved game"
+            : `${game.players.find((p) => !p.bot)?.name}’s ${game.phase === "over" ? "completed" : "saved"} game`,
         )}
       </strong>
       <p>
@@ -142,12 +147,16 @@ export function SaveSummary({
           game.match &&
             `Match to ${game.match.target} · round ${game.match.round} · `,
         )}
-        {game.players.length - 1}
-        {t(" opponent(s) ·")} {t(game.players.find((p) => p.bot)?.bot)} ·{" "}
+        {t(
+          `${game.players.length - 1} opponent${game.players.length === 2 ? "" : "s"} ·`,
+        )}{" "}
+        {t(game.players.find((p) => p.bot)?.bot)} ·{" "}
         {t(
           game.phase === "over"
             ? "Round finished"
-            : `${game.players[game.current].name}’s turn`,
+            : !game.players[game.current].bot
+              ? "Your turn"
+              : `${game.players[game.current].name}’s turn`,
         )}
       </p>
       {game.phase === "playing" && (

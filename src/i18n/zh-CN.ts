@@ -407,6 +407,10 @@ const messages: Record<string, string> = {
   "One optional puzzle, chosen by your device date. No streak, no deadline. Starting it replaces only the exercise draft.":
     "按设备日期选一个练习，想玩就玩，不用打卡，也不赶时间。开始时只会替换当前练习。",
   "A little practice for today": "今天来个小练习",
+  "Nicely done. Play again when you feel ready, or choose Change settings for a new challenge.":
+    "打得好！准备好就再玩一局，也可以点“更改设置”换个新挑战。",
+  "No need to rush. Try a lesson or quick practice, or play again when you feel ready.":
+    "不着急。可以先上一节课或做个小练习，准备好后再玩一局。",
   "No need to rush. Choose Change settings for a gentler opponent, or play again when you feel ready.":
     "不着急。想轻松一点，可以点“更改设置”换个电脑难度；准备好后也可以再玩一局。",
   "One thing to take with you": "记住一个小窍门",
@@ -628,6 +632,8 @@ const messages: Record<string, string> = {
     "练习使用独立的牌局，不影响你保存的正式游戏。",
   "{name}’s completed game": "{name} 已完成的游戏",
   "{name}’s saved game": "{name} 保存的游戏",
+  "Your completed game": "你已完成的游戏",
+  "Your saved game": "你保存的游戏",
   "Round {n}:": "第 {n} 局：",
   "Deal round {n} →": "发牌，开始第 {n} 局 →",
   Settings: "设置",
@@ -779,6 +785,7 @@ const messages: Record<string, string> = {
   "MAKE ROOM FOR A GOOD IDEA": "想一想，怎样把牌接起来？",
   Round: "局数：",
   "· Turn": "· 回合：",
+  "· Turn {n}": "· 回合：{n}",
   "New group or run": "新建同数组或顺子",
   "Every good game": "先找一组牌，",
   "starts with a possibility.": "试着摆上牌桌。",
@@ -822,6 +829,7 @@ const messages: Record<string, string> = {
   "’s": "的",
   game: "游戏",
   "opponent(s) ·": "位电脑对手 ·",
+  "{n} opponent{s} ·": "{n} 位电脑对手 ·",
   "✓ Free to play": "✓ 免费玩",
   "✓ No sign-up": "✓ 不用注册",
   "✓ Just one more round": "✓ 随时休息，随时继续",

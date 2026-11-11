@@ -123,7 +123,11 @@ export function GameOver({
         {takeaway.ids.length > 0 && <TileDemo ids={takeaway.ids} />}
         <p>
           {t(
-            "No need to rush. Choose Change settings for a gentler opponent, or play again when you feel ready.",
+            !winner.bot
+              ? "Nicely done. Play again when you feel ready, or choose Change settings for a new challenge."
+              : game.players.every((p) => !p.bot || p.bot === "easy")
+                ? "No need to rush. Try a lesson or quick practice, or play again when you feel ready."
+                : "No need to rush. Choose Change settings for a gentler opponent, or play again when you feel ready.",
           )}
         </p>
       </section>
